@@ -1,0 +1,9774 @@
+8.6	
+(solution	page	
+797
+)
+Write	a	program	called	
+	that	prints	its	command-line
+arguments	and	environment	variables.	For	example:
+⋮
+
+8.4.6	
+Using	
+	and	
+	to
+Run	Programs
+Programs	such	as	Unix	shells	and	Web	servers	make	heavy	use	of	the
+	and	
+	functions.	A	
+shell
+	is	an	interactive	application-level
+program	that	runs	other	programs	on	behalf	of	the	user.	The	original	shell
+was	the	
+	program,	which	was	followed	by	variants	such	as	
+,	and	
+.	A	shell	performs	a	sequence	of	
+read/evaluate
+	steps	and
+then	terminates.	The	read	step	reads	a	command	line	from	the	user.	The
+evaluate	step	parses	the	command	line	and	runs	programs	on	behalf	of
+the	user.
+Figure	
+8.23	
+shows	the	main	routine	of	a	simple	shell.	The	shell	prints
+a	command-line	prompt,	waits	for	the	user	to	type	a	command	line	on
+,	and	then	evaluates	the	command	line.
+Figure	
+8.24	
+shows	the	code	that	evaluates	the	command	line.	Its	first
+task	is	to	call	the	
+	function	(
+Figure	
+8.25
+),	which	parses	the
+space-separated	command-line	arguments	and	builds	the	
+	vector
+that	will	eventually	be	passed	to	
+.	The	first	argument	is	assumed	to
+
+be	either	the	name	of	a	built-in	shell	command	that	is	interpreted
+immediately,	or	an	executable	object	file	that	will	be	loaded	and	run	in	the
+context	of	a	new	child	process.
+If	the	last	argument	is	an	‘&’	character,	then	
+	returns	1,
+indicating	that	the	program	should	be	executed	in	the	
+background
+	(the
+shell	does	not	wait	for	it	to	complete).	Otherwise,	it	returns	0,	indicating
+that	the	program	should	be	run	in	the	
+foreground
+	(the	shell	waits	for	it	to
+complete).
+Aside	
+Programs	versus	processes
+This	is	a	good	place	to	pause	and	make	sure	you	understand	the
+distinction	between	a	program	and	a	process.	A	program	is	a
+collection	of	code	and	data;	programs	can	exist	as	object	files	on
+disk	or	as	segments	in	an	address	space.	A	process	is	a	specific
+instance	of	a	program	in	execution;	a	program	always	runs	in	the
+context	of	some	process.	Understanding	this	distinction	is
+important	if	you	want	to	understand	the	
+	and	
+functions.	The	
+	function	runs	the	same	program	in	a	new	child
+process	that	is	a	duplicate	of	the	parent.	The	
+	function
+loads	and	runs	a	new	program	in	the	context	of	the	current
+process.	While	it	overwrites	the	address	space	of	the	current
+process,	it	does	
+not
+	create	a	new	process.	The	new	program	still
+has	the	same	PID,	and	it	inherits	all	of	the	file	descriptors	that
+were	open	at	the	time	of	the	call	to	the	
+	function.
+-------------------------------------------------------------------------------------------------
+-----
+code/ecf/shellex.c
+
+-------------------------------------------------------------------------------------------------
+-----
+code/ecf/shellex.c
+
+Figure	
+8.23	
+The	main	routine	for	a	simple	shell	program.
+After	parsing	the	command	line,	the	
+	function	calls	the
+	function,	which	checks	whether	the	first	command-line
+argument	is	a	built-in	shell	command.	If	so,	it	interprets	the	command
+immediately	and	returns	1.	Otherwise,	it	returns	0.	Our	simple	shell	has
+just	one	built-in	command,	the	
+	command,	which	terminates	the
+shell.	Real	shells	have	numerous	commands,	such	as	
+,	and	
+.
+If	
+	returns	0,	then	the	shell	creates	a	child	process	and
+executes	the	requested	program	inside	the	child.	If	the	user	has	asked
+for	the	program	to	run	in	the	background,	then	the	shell	returns	to	the	top
+of	the	loop	and	waits	for	the	next	command	line.	Otherwise	the	shell	uses
+the	
+	function	to	wait	for	the	job	to	terminate.	When	the	job
+terminates,	the	shell	goes	on	to	the	next	iteration.
+Notice	that	this	simple	shell	is	flawed	because	it	does	not	reap	any	of	its
+background	children.	Correcting	this	flaw	requires	the	use	of	signals,
+which	we	describe	in	the	next	section.
+-------------------------------------------------------------------------------------------------
+-----
+code/ecf/shellex.c
+
+
+
+-------------------------------------------------------------------------------------------------
+-----
+code/ecf/shellex.c
+Figure	
+8.24	
+	evaluates	the	shell	command	line.
+-------------------------------------------------------------------------------------------------
+-----
+code/ecf/shellex.c
+
+
+
+-------------------------------------------------------------------------------------------------
+-----
+code/ecf/shellex.c
+Figure	
+8.25	
+	parses	a	line	of	input	for	the	shell.
+
+8.5	
+Signals
+To	this	point	in	our	study	of	exceptional	control	flow,	we	have	seen	how
+hardware	and	software	cooperate	to	provide	the	fundamental	low-level
+exception	mechanism.	We	have	also	seen	how	the	operating	system
+uses	exceptions	to	support	a	form	of	exceptional	control	flow	known	as
+the	process	context	switch.	In	this	section,	we	will	study	a	higher-level
+software	form	of	exceptional	control	flow,	known	as	a	Linux	signal,	that
+allows	processes	and	the	kernel	to	interrupt	other	processes.
+Number
+Name
+Default	action
+Corresponding	event
+1
+SIGHUP
+Terminate
+Terminal	line	hangup
+2
+SIGINT
+Terminate
+Interrupt	from	keyboard
+3
+SIGQUIT
+Terminate
+Quit	from	keyboard
+4
+SIGILL
+Terminate
+Illegal	instruction
+5
+SIGTRAP
+Terminate	and	dump
+core
+Trace	trap
+6
+SIGABRT
+Terminate	and	dump
+core
+Abort	signal	from	abort	function
+7
+SIGBUS
+Terminate
+Bus	error
+8
+SIGFPE
+Terminate	and	dump
+core
+Floating-point	exception
+a
+a
+a
+b
+
+9
+SIGKILL
+Terminate
+Kill	program
+10
+SIGUSR1
+Terminate
+User-defined	signal	1
+11
+SIGSEGV
+Terminate	and	dump
+core
+Invalid	memory	reference	(seg	fault)
+12
+SIGUSR2
+Terminate
+User-defined	signal	2
+13
+SIGPIPE
+Terminate
+Wrote	to	a	pipe	with	no	reader
+14
+SIGALRM
+Terminate
+Timer	signal	from	alarm	function
+15
+SIGTERM
+Terminate
+Software	termination	signal
+16
+SIGSTKFLT
+Terminate
+Stack	fault	on	coprocessor
+17
+SIGCHLD
+Ignore
+A	child	process	has	stopped	or
+terminated
+18
+SIGCONT
+Ignore
+Continue	process	if	stopped
+19
+SIGSTOP
+Stop	until	next
+SIGCONT
+Stop	signal	not	from	terminal
+20
+SIGTSTP
+Stop	until	next
+SIGCONT
+Stop	signal	from	terminal
+21
+SIGTTIN
+Stop	until	next
+SIGCONT
+Background	process	read	from
+terminal
+22
+SIGTTOU
+Stop	until	next
+SIGCONT
+Background	process	wrote	to	terminal
+23
+SIGURG
+Ignore
+Urgent	condition	on	socket
+24
+SIGXCPU
+Terminate
+CPU	time	limit	exceeded
+b
+a
+b
+
+25
+SIGXFSZ
+Terminate
+File	size	limit	exceeded
+26
+SIGVTALRM
+Terminate
+Virtual	timer	expired
+27
+SIGPROF
+Terminate
+Profiling	timer	expired
+28
+SIGWINCH
+Ignore
+Window	size	changed
+29
+SIGIO
+Terminate
+I/O	now	possible	on	a	descriptor
+30
+SIGPWR
+Terminate
+Power	failure
+Figure	
+8.26	
+Linux	signals.
+Notes:	
+(a)	Years	ago,	main	memory	was	implemented	with	a	technology
+known	as	
+core	memory.
+	“Dumping	core”	is	a	historical	term	that	means
+writing	an	image	of	the	code	and	data	memory	segments	to	disk,	(b)	This
+signal	can	be	neither	caught	nor	ignored.
+(
+Source:
+	
+.	Data	from	the	Linux	Foundation.)
+A	
+signal
+	is	a	small	message	that	notifies	a	process	that	an	event	of	some
+type	has	occurred	in	the	system.	
+Figure	
+8.26	
+shows	the	30	different
+types	of	signals	that	are	supported	on	Linux	systems.
+Each	signal	type	corresponds	to	some	kind	of	system	event.	Low-level
+hardware	exceptions	are	processed	by	the	kernel's	exception	handlers
+and	would	not	normally	be	visible	to	user	processes.	Signals	provide	a
+mechanism	for	exposing	
+the	occurrence	of	such	exceptions	to	user
+processes.	For	example,	if	a	process	attempts	to	divide	by	zero,	then	the
+kernel	sends	it	a	SIGFPE	signal	(number	8).	If	a	process	executes	an
+illegal	instruction,	the	kernel	sends	it	a	SIGILL	signal	(number	4).	If	a
+process	makes	an	illegal	memory	reference,	the	kernel	sends	it	a
+
+SIGSEGV	signal	(number	11).	Other	signals	correspond	to	higher-level
+software	events	in	the	kernel	or	in	other	user	processes.	For	example,	if
+you	type	Ctrl+C	(i.e.,	press	the	Ctrl	key	and	the	‘c’	key	at	the	same	time)
+while	a	process	is	running	in	the	foreground,	then	the	kernel	sends	a
+SIGINT	(number	2)	to	each	process	in	the	foreground	process	group.	A
+process	can	forcibly	terminate	another	process	by	sending	it	a	SIGKILL
+signal	(number	9).	When	a	child	process	terminates	or	stops,	the	kernel
+sends	a	SIGCHLD	signal	(number	17)	to	the	parent.
+8.5.1	
+Signal	Terminology
+The	transfer	of	a	signal	to	a	destination	process	occurs	in	two	distinct
+steps:
+Sending	a	signal.	
+The	kernel	
+sends	(delivers)
+	a	signal	to	a
+destination	process	by	updating	some	state	in	the	context	of	the
+destination	process.	The	signal	is	delivered	for	one	of	two	reasons:
+(1)	The	kernel	has	detected	a	system	event	such	as	a	divide-by-zero
+error	or	the	termination	of	a	child	process.	(2)	A	process	has	invoked
+the	
+	function	(discussed	in	the	next	section)	to	explicitly	request
+the	kernel	to	send	a	signal	to	the	destination	process.	A	process	can
+send	a	signal	to	itself.
+Receiving	a	signal.	
+A	destination	process	
+receives
+	a	signal	when	it	is
+forced	by	the	kernel	to	react	in	some	way	to	the	delivery	of	the	signal.
+The	process	can	either	ignore	the	signal,	terminate,	or	
+catch
+	the
+signal	by	executing	a	user-level	function	called	a	
+signal	handler.
+Figure	
+8.27
+	shows	the	basic	idea	of	a	handler	catching	a	signal.
+
+A	signal	that	has	been	sent	but	not	yet	received	is	called	
+spending	signal.
+At	any	point	in	time,	there	can	be	at	most	one	pending	signal	of	a
+particular	type.	If	a	process	has	a	pending	signal	of	type	
+k
+,	then	any
+subsequent	signals	of	type	
+k
+	sent	to	that	process	are	
+not
+	queued;	they
+are	simply	discarded.	A	process	can	selectively	
+block
+	the	receipt	of
+certain	signals.	When	a	signal	is	blocked,	it	can	be
+Figure	
+8.27	
+Signal	handling.
+Receipt	of	a	signal	triggers	a	control	transfer	to	a	signal	handler.	After	it
+finishes	processing,	the	handler	returns	control	to	the	interrupted
+program.
+delivered,	but	the	resulting	pending	signal	will	not	be	received	until	the
+process	unblocks	the	signal.
+A	pending	signal	is	received	at	most	once.	For	each	process,	the	kernel
+maintains	the	set	of	pending	signals	in	the	
+	bit	vector,	and	the	set
+of	blocked	signals	in	the	
+	bit	vector.
+	The	kernel	sets	bit	
+k
+	in
+	whenever	a	signal	of	type	
+k
+	is	delivered	and	clears	bit	
+k
+	in
+	whenever	a	signal	of	type	
+k
+	is	received.
+1.	
+Also	known	as	the	
+signal	mask.
+1
+
+8.5.2	
+Sending	Signals
+Unix	systems	provide	a	number	of	mechanisms	for	sending	signals	to
+processes.	All	of	the	mechanisms	rely	on	the	notion	of	a	
+process	group.
+Process	Groups
+Every	process	belongs	to	exactly	one	
+process	group
+,	which	is	identified
+by	a	positive	
+integer	process	group	ID.
+	The	
+	function	returns	the
+process	group	ID	of	the	current	process.
+By	default,	a	child	process	belongs	to	the	same	process	group	as	its
+parent.	A	process	can	change	the	process	group	of	itself	or	another
+process	by	using	the	
+	function:
+
+The	
+	function	changes	the	process	group	of	process	
+	to	
+.
+If	
+	is	zero,	the	PID	of	the	current	process	is	used.	If	
+	is	zero,	the
+PID	of	the	process	specified	by	
+	is	used	for	the	process	group	ID.	For
+example,	if	process	15213	is	the	calling	process,	then
+creates	a	new	process	group	whose	process	group	ID	is	15213,	and
+adds	process	15213	to	this	new	group.
+Sending	Signals	with	the	
+Program
+The	
+	program	sends	an	arbitrary	signal	to	another	process.	For
+example,	the	command
+sends	signal	9	(SIGKILL)	to	process	15213.	A	negative	PID	causes	the
+signal	to	be	sent	to	every	process	in	process	group	PID.	For	example,
+the	command
+
+sends	a	SIGKILL	signal	to	every	process	in	process	group	15213.	Note
+that	we	use	the	complete	path	
+	here	because	some	Unix	shells
+have	their	own	built-in	
+	command.
+Sending	Signals	from	the	Keyboard
+Unix	shells	use	the	abstraction	of	a	
+job
+	to	represent	the	processes	that
+are	created	as	a	result	of	evaluating	a	single	command	line.	At	any	point
+in	time,	there	is	at	most	one	foreground	job	and	zero	or	more	background
+jobs.	For	example,	typing
+creates	a	foreground	job	consisting	of	two	processes	connected	by	a
+Unix	pipe:	one	running	the	
+	program,	the	other	running	the	
+program.	The	shell	creates	a	separate	process	group	for	each	job.
+Typically,	the	process	group	ID	is	taken	from	one	of	the	parent	processes
+in	the	job.	For	example,	
+Figure	
+8.28
+	shows	a	shell	with	one
+foreground	job	and	two	background	jobs.	The	parent	process	in	the
+foreground	job	has	a	PID	of	20	and	a	process	group	ID	of	20.	The	parent
+process	has	created	two	children,	each	of	which	are	also	members	of
+process	group	20.
+
+Figure	
+8.28	
+Foreground	and	background	process	groups.
+Typing	Ctrl+C	at	the	keyboard	causes	the	kernel	to	send	a	SIGINT	signal
+to	every	process	in	the	foreground	process	group.	In	the	default	case,	the
+result	is	to	terminate	the	foreground	job.	Similarly,	typing	Ctrl+Z	causes
+the	kernel	to	send	a	SIGTSTP	signal	to	every	process	in	the	foreground
+process	group.	In	the	default	case,	the	result	is	to	stop	(suspend)	the
+foreground	job.
+Sending	Signals	with	the	
+	Function
+Processes	send	signals	to	other	processes	(including	themselves)	by
+calling	the	
+	function.
+
+If	
+	is	greater	than	zero,	then	the	
+	function	sends	signal	number
+	to	process	
+.	If	
+	is	equal	to	zero,	then	
+	sends	signal	
+	to
+every	process	in	the	process	group	of	the	calling	process,	including	the
+calling	process	itself.	If	
+	is	less	than	zero,	then	
+	sends	signal	
+to	every	process	in	process	group	
+	(the	absolute	value	of	
+).
+Figure	
+8.29
+	shows	an	example	of	a	parent	that	uses	the	
+	function
+to	send	a	SIGKILL	signal	to	its	child.
+-------------------------------------------------------------------------------------------------
+-----
+code/ecf/kill.c
+
+-------------------------------------------------------------------------------------------------
+-----
+code/ecf/kill.c
+Figure	
+8.29	
+Using	the	
+	function	to	send	a	signal	to	a	child.
+Sending	Signals	with	the	
+	Function
+A	process	can	send	SIGALRM	signals	to	itself	by	calling	the	
+function.
+
+The	
+	function	arranges	for	the	kernel	to	send	a	SIGALRM	signal	to
+the	calling	process	in	
+	seconds.	If	
+	is	0,	then	no	new	alarm	is
+scheduled.	In	any	event,	the	call	to	
+	cancels	any	pending	alarms
+and	returns	the	number	of	seconds	remaining	until	any	pending	alarm
+was	due	to	be	delivered	(had	not	this	call	to	
+	canceled	it),	or	0	if
+there	were	no	pending	alarms.
+8.5.3	
+Receiving	Signals
+When	the	kernel	switches	a	process	
+p
+	from	kernel	mode	to	user	mode
+(e.g.,	returning	from	a	system	call	or	completing	a	context	switch),	it
+checks	the	set	of	unblocked	pending	signals	(
+)	for	
+p.
+	If
+this	set	is	empty	(the	usual	case),	then	the	kernel	passes	control	to	the
+next	instruction	(
+I
+)	in	the	logical	control	flow	of	
+p.
+	However,	if	the	set	is
+nonempty,	then	the	kernel	chooses	some	signal	
+k
+	in	the	set	(typically	the
+smallest	
+k
+)	and	forces	
+p
+	to	
+receive
+	signal	
+k.
+	The	receipt	of	the	signal
+triggers	some	
+action
+	by	the	process.	Once	the	process	completes	the
+action,	then	control	passes	back	to	the	next	instruction	(
+I
+)	in	the	logical
+control	flow	of	
+p.
+	Each	signal	type	has	a	predefined	
+default	action
+,	which
+is	one	of	the	following:
+The	process	terminates.
+The	process	terminates	and	dumps	core.
+The	process	stops	(suspends)	until	restarted	by	a	SIGCONT	signal.
+The	process	ignores	the	signal.
+next
+next
+
+Figure	
+8.26	
+shows	the	default	actions	associated	with	each	type	of
+signal.	For	example,	the	default	action	for	the	receipt	of	a	SIGKILL	is	to
+terminate	the	receiving	process.	On	the	other	hand,	the	default	action	for
+the	receipt	of	a	SIGCHLD	is	to	ignore	the	signal.	A	process	can	modify
+the	default	action	associated	with	a	signal	by	using	the	
+	function.
+The	only	exceptions	are	SIGSTOP	and	SIGKILL,	whose	default	actions
+cannot	be	changed.
+The	
+	function	can	change	the	action	associated	with	a	signal
+	in	one	of	three	ways:
+If	
+	is	SIG_IGN,	then	signals	of	type	
+	are	ignored.
+If	
+	is	SIG_DFL,	then	the	action	for	signals	of	type	
+reverts	to	the	default	action.
+Otherwise,	
+	is	the	address	of	a	user-defined	function,	called	a
+signal	handler
+,	that	will	be	called	whenever	the	process	receives	a
+signal	of	type	
+.	Changing	the	default	action	by	passing	the
+address	of	a	handler	to	the	
+	function	is	known	as	
+installing	the
+
+handler.
+	The	invocation	of	the	handler	is	called	
+catching	the	signal.
+The	execution	of	the	handler	is	referred	to	as	
+handling	the	signal.
+When	a	process	catches	a	signal	of	type	
+k
+,	the	handler	installed	for
+signal	
+k
+	is	invoked	with	a	single	integer	argument	set	to	
+k.
+	This	argument
+allows	the	same	handler	function	to	catch	different	types	of	signals.
+When	the	handler	executes	its	
+	statement,	control	(usually)	passes
+back	to	the	instruction	in	the	control	flow	where	the	process	was
+interrupted	by	the	receipt	of	the	signal.	We	say	“usually”	because	in	some
+systems,	interrupted	system	calls	return	immediately	with	an	error.
+Figure	
+8.30
+	shows	a	program	that	catches	the	SIGINT	signal	that	is
+sent	whenever	the	user	types	Ctrl+C	at	the	keyboard.	The	default	action
+for	SIGINT
+-------------------------------------------------------------------------------------------------
+-----
+code/ecf/sigint.c
+
+-------------------------------------------------------------------------------------------------
+-----
+code/ecf/sigint.c
+Figure	
+8.30	
+A	program	that	uses	a	signal	handler	to	catch	a	SIGINT
+signal.
+Figure	
+8.31	
+Handlers	can	be	interrupted	by	other	handlers.
+is	to	immediately	terminate	the	process.	In	this	example,	we	modify	the
+default	behavior	to	catch	the	signal,	print	a	message,	and	then	terminate
+
+the	process.
+Signal	handlers	can	be	interrupted	by	other	handlers,	as	shown	in	
+Figure
+8.31
+.	In	this	example,	the	main	program	catches	signal	
+s
+,	which
+interrupts	the	main	program	and	transfers	control	to	handler	
+S.
+	While	
+S
+	is
+running,	the	program	catches	signal	
+t
+	≠	
+s
+,	which	interrupts	
+S
+	and
+transfers	control	to	handler	
+T.
+	When	
+T
+	returns,	
+S
+	resumes	where	it	was
+interrupted.	Eventually,	
+S
+	returns,	transferring	control	back	to	the	main
+program,	which	resumes	where	it	left	off.
+Practice	Problem	
+8.7	
+(solution	page	
+798
+)
+Write	a	program	called	
+	that	takes	a	single	command-line
+argument,	calls	the	
+	function	from	
+Problem	
+8.5
+	with	this
+argument,	and	then	terminates.	Write	your	program	so	that	the
+user	can	interrupt	the	
+	function	by	typing	Ctrl+C	at	the
+keyboard.	For	example:
+8.5.4	
+Blocking	and	Unblocking
+
+Signals
+Linux	provides	implicit	and	explicit	mechanisms	for	blocking	signals:
+Implicit	blocking	mechanism.	
+By	default,	the	kernel	blocks	any
+pending	signals	of	the	type	currently	being	processed	by	a	handler.
+For	example,	in	
+Figure	
+8.31
+,	suppose	the	program	has	caught	signal
+s
+	and	is	currently	running	handler	
+S.
+	If	another	signal	
+s
+	is	sent	to	the
+process,	then	
+s
+	will	become	pending	but	will	not	be	received	until	after
+handler	
+S
+	returns.
+Explicit	blocking	mechanism.	
+Applications	can	explicitly	block	and
+unblock	selected	signals	using	the	
+	function	and	its
+helpers.
+
+The	
+	function	changes	the	set	of	currently	
+	signals
+(the	
+	bit	vector	described	in	
+Section	
+8.5.1
+).	The	specific
+behavior	depends	on	the	value	of	
+:
+SIG_BLOCK.	Add	the	signals	in	
+	to	blocked	(
+).
+SIG_UNBLOCK.	Remove	the	signals	in	
+	from	
+.
+SIG_SETMASK.	
+If	
+	is	non-NULL,	the	previous	value	of	the	
+	bit	vector	is
+stored	in	
+.
+Signal	sets	such	as	
+	are	manipulated	using	the	following	functions:
+The	
+	initializes	
+	to	the	empty	set.	The	
+	function
+adds	every	signal	to	
+.	The	
+	function	adds	
+	to	
+	deletes	
+	from	
+,	and	
+	returns	1	if	
+	is
+a	member	of	
+,	and	0	if	not.
+For	example,	
+Figure	
+8.32
+	shows	how	you	would	use	
+	to
+temporarily	block	the	receipt	of	SIGINT	signals.
+
+⋮
+Figure	
+8.32	
+Temporarily	blocking	a	signal	from	being	received.
+8.5.5	
+Writing	Signal	Handlers
+Signal	handling	is	one	of	the	thornier	aspects	of	Linux	system-level
+programming.	Handlers	have	several	attributes	that	make	them	difficult	to
+reason	about:	(1)	Handlers	run	concurrently	with	the	main	program	and
+share	the	same	global	variables,	and	thus	can	interfere	with	the	main
+program	and	with	other	handlers.	(2)	The	rules	for	how	and	when	signals
+are	received	is	often	counterintuitive.	(3)	Different	systems	can	have
+different	signal-handling	semantics.
+In	this	section,	we	address	these	issues	and	give	you	some	basic
+guidelines	for	writing	safe,	correct,	and	portable	signal	handlers.
+Safe	Signal	Handling
+
+Signal	handlers	are	tricky	because	they	can	run	concurrently	with	the
+main	program	and	with	each	other,	as	we	saw	in	
+Figure	
+8.31
+.	If	a	handler
+and	the	main	program	access	the	same	global	data	structure
+concurrently,	then	the	results	can	be	unpredictable	and	often	fatal.
+We	will	explore	concurrent	programming	in	detail	in	
+Chapter	
+12
+.	Our
+aim	here	is	to	give	you	some	conservative	guidelines	for	writing	handlers
+that	are	safe	to	run	concurrently.	If	you	ignore	these	guidelines,	you	run
+the	risk	of	introducing	subtle	concurrency	errors.	With	such	errors,	your
+program	works	correctly	most	of	the	time.	However,	when	it	fails,	it	fails	in
+unpredictable	and	unrepeatable	ways	that	are	horrendously	difficult	to
+debug.	Forewarned	is	forearmed!
+G0.	Keep	handlers	as	simple	as	possible.	
+The	best	way	to	avoid
+trouble	is	to	keep	your	handlers	as	small	and	simple	as	possible.	For
+example,	the	handler	might	simply	set	a	global	flag	and	return
+immediately;	all	processing	associated	with	the	receipt	of	the	signal	is
+performed	by	the	main	program,	which	periodically	checks	(and
+resets)	the	flag.
+G1.	Call	only	async-signal-safe	functions	in	your	handlers.	
+A
+function	that	is	
+async-signal-safe
+,	or	simply	
+safe
+,	has	the	property	that
+it	can	be	safely	called	from	a	signal	handler,	either	because	it	is
+reentrant
+	(e.g.,	accesses	only	local	variables;	see	
+Section	
+12.7.2
+),
+or	because	it	cannot	be	interrupted	by	a	signal	handler.	
+Figure	
+8.33
+lists	the	system-level	functions	that	Linux	guarantees	to	be	safe.
+Notice	that	many	popular	functions,	such	as	
+,
+and	
+,	are	
+not
+	on	this	list.
+
+The	only	safe	way	to	generate	output	from	a	signal	handler	is	to	use
+the	
+	function	(see	
+Section	
+10.1
+).	In	particular,	calling	
+or	
+	is	unsafe.	To	work	around	this	unfortunate	restriction,	we
+have	developed	some	safe	functions,	called	the	S
+IO
+	(Safe	I/O)
+package,	that	you	can	use	to	print	simple	messages	from	signal
+handlers.
+
+
+
+Figure	
+8.33	
+Async-signal-safe	functions.
+(
+Source:	
+	signal.	Data	from	the	Linux	Foundation.)
+The	
+	and	
+	functions	emit	a	long	and	a	string,
+respectively,	to	standard	output.	The	
+	function	prints	an	error
+message	and	terminates.
+Figure	
+8.34
+	shows	the	implementation	of	the	S
+IO
+	package,	which
+uses	two	private	reentrant	functions	from	
+.	The	
+function	in	line	3	returns	the	length	of	string	
+.	The	
+	function
+in	line	10,	which	is	based	on	the	
+	function	from	[
+61
+],	converts	
+to	its	base	
+	string	representation	in	
+.	The	
+	function	in	line	17
+is	an	async-signal-safe	variant	of	
+.
+Figure	
+8.35	
+shows	a	safe	version	of	the	SIGINT	handler	from
+Figure	
+8.30
+.
+
+G2.	Save	and	restore
+	
+.	
+Many	of	the	Linux	async-signal-safe
+functions	set	
+	when	they	return	with	an	error.	Calling	such
+functions	inside	a	handler	might	interfere	with	other	parts	of	the
+program	that	rely	on	
+.
+---------------------------------------------------------------------------------------------
+---------
+code/src/csapp.c
+
+---------------------------------------------------------------------------------------------
+---------
+code/src/csapp.c
+Figure	
+8.34	
+The	
+	(Safe	I/O)	package	for	signal	handlers.
+Figure	
+8.35	
+A	safe	version	of	the	SICINT	handler	from	
+Figure
+8.30
+.
+The	workaround	is	to	save	
+	to	a	local	variable	on	entry	to	the
+handler	and	restore	it	before	the	handler	returns.	Note	that	this	is	only
+necessary	if	the	handler	returns.	It	is	not	necessary	if	the	handler
+terminates	the	process	by	calling	
+.
+G3.	Protect	accesses	to	shared	global	data	structures	by
+blocking	all	signals.	
+If	a	handler	shares	a	global	data	structure	with
+the	main	program	or	with	other	handlers,	then	your	handlers	and	main
+program	should	temporarily	block	all	signals	while	accessing	(reading
+
+or	writing)	that	data	structure.	The	reason	for	this	rule	is	that
+accessing	a	data	structure	
+d
+	from	the	main	program	typically	requires
+a	sequence	of	instructions.	If	this	instruction	sequence	is	interrupted
+by	a	handler	that	accesses	
+d
+,	then	the	handler	might	find	
+d
+	in	an
+inconsistent	state,	with	unpredictable	results.	Temporarily	blocking
+signals	while	you	access	
+d
+	guarantees	that	a	handler	will	not	interrupt
+the	instruction	sequence.
+G4.	Declare	global	variables	with	
+.	
+Consider	a	handler	and
+	routine	that	share	a	global	variable	
+g.
+	The	handler	updates	
+g
+,
+and	
+	periodically	reads	
+g.
+	To	an	optimizing	compiler,	it	would
+appear	that	the	value	of	
+g
+	never	changes	in	
+,	and	thus	it	would
+be	safe	to	use	a	copy	of	
+g
+	that	is	cached	in	a	register	to	satisfy	every
+reference	to	
+g.
+	In	this	case,	the	
+	function	would	never	see	the
+updated	values	from	the	handler.
+You	can	tell	the	compiler	not	to	cache	a	variable	by	declaring	it	with
+the	
+	type	qualifier.	For	example:
+The	
+	qualifier	forces	the	compiler	to	read	the	value	of	
+	from
+memory	each	time	it	is	referenced	in	the	code.	In	general,	as	with	any
+shared	data	structure,	each	access	to	a	global	variable	should	be
+protected	by	temporarily	blocking	signals.
+G5.	Declare	flags	with	
+.	
+In	one	common	handler	design,
+the	handler	records	the	receipt	of	the	signal	by	writing	to	a	global	
+flag.
+The	main	program	periodically	reads	the	flag,	responds	to	the	signal,
+
+and	
+clears	the	flag.	For	flags	that	are	shared	in	this	way,	C	provides
+an	integer	data	type,	
+,	for	which	reads	and	writes	are
+guaranteed	to	be	
+atomic
+	(uninterruptible)	because	they	can	be
+implemented	with	a	single	instruction:
+Since	they	can't	be	interrupted,	you	can	safely	read	from	and	write	to
+	variables	without	temporarily	blocking	signals.	Note	that
+the	guarantee	of	atomicity	only	applies	to	individual	reads	and	writes.
+It	does	not	apply	to	updates	such	as	
+	or	
+,
+which	might	require	multiple	instructions.
+Keep	in	mind	that	the	guidelines	we	have	presented	are	conservative,	in
+the	sense	that	they	are	not	always	strictly	necessary.	For	example,	if	you
+know	that	a	handler	can	never	modify	
+,	then	you	don't	need	to	save
+and	restore	
+.	Or	if	you	can	prove	that	no	instance	of	
+	can
+ever	be	interrupted	by	a	handler,	then	it	is	safe	to	call	
+	from	the
+handler.	The	same	holds	for	accesses	to	shared	global	data	structures.
+However,	it	is	very	difficult	to	prove	such	assertions	in	general.	So	we
+recommend	that	you	take	the	conservative	approach	and	follow	the
+guidelines	by	keeping	your	handlers	as	simple	as	possible,	calling	safe
+functions,	saving	and	restoring	
+,	protecting	accesses	to	shared	data
+structures,	and	using	
+	and	
+.
+Correct	Signal	Handling
+
+One	of	the	nonintuitive	aspects	of	signals	is	that	pending	signals	are	not
+queued.	Because	the	
+	bit	vector	contains	exactly	one	bit	for	each
+type	of	signal,	there	can	be	at	most	one	pending	signal	of	any	particular
+type.	Thus,	if	two	signals	of	type	
+k
+	are	sent	to	a	destination	process	while
+signal	
+k
+	is	blocked	because	the	destination	process	is	currently	executing
+a	handler	for	signal	
+k
+,	then	the	second	signal	is	simply	discarded;	it	is	not
+queued.	The	key	idea	is	that	the	existence	of	a	pending	signal	merely
+indicates	that	
+at	least
+	one	signal	has	arrived.
+To	see	how	this	affects	correctness,	let's	look	at	a	simple	application	that
+is	similar	in	nature	to	real	programs	such	as	shells	and	Web	servers.	The
+basic	structure	is	that	a	parent	process	creates	some	children	that	run
+independently	for	a	while	and	then	terminate.	The	parent	must	reap	the
+children	to	avoid	leaving	zombies	in	the	system.	But	we	also	want	the
+parent	to	be	free	to	do	other	work	while	the	children	are	running.	So	we
+decide	to	reap	the	children	with	a	SIGCHLD	handler,	instead	of	explicitly
+waiting	for	the	children	to	terminate.	(Recall	that	the	kernel	sends	a
+SIGCHLD	signal	to	the	parent	whenever	one	of	its	children	terminates	or
+stops.)
+Figure	
+8.36	
+shows	our	first	attempt.	The	parent	installs	a	SIGCHLD
+handler	and	then	creates	three	children.	In	the	meantime,	the	parent
+waits	for	a	line	of	input	from	the	terminal	and	then	processes	it.	This
+processing	is	modeled	by	an	infinite	loop.	When	each	child	terminates,
+the	kernel	notifies	the	parent	by	sending	it	a	SIGCHLD	signal.	The	parent
+catches	the	SIGCHLD,	reaps	one	child,
+-------------------------------------------------------------------------------------------------
+-----
+code/ecf/signal1.	c
+
+
+
+-------------------------------------------------------------------------------------------------
+-----
+code/ecf/signal1.	c
+Figure	
+8.36	
+.	This	program	is	flawed	because	it	assumes	that
+signals	are	queued.
+does	some	additional	cleanup	work	(modeled	by	the	
+	statement),
+and	then	returns.
+The	
+	program	in	
+Figure	
+8.36	
+seems	fairly	straightforward.
+When	we	run	it	on	our	Linux	system,	however,	we	get	the	following
+output:
+
+From	the	output,	we	note	that	although	three	SIGCHLD	signals	were	sent
+to	the	parent,	only	two	of	these	signals	were	received,	and	thus	the
+parent	only	reaped	two	children.	If	we	suspend	the	parent	process,	we
+see	that,	indeed,	child	process	14075	was	never	reaped	and	remains	a
+zombie	(indicated	by	the	string	
+	in	the	output	of	the	
+command):
+⋮
+
+What	went	wrong?	The	problem	is	that	our	code	failed	to	account	for	the
+fact	that	signals	are	not	queued.	Here's	what	happened:	The	first	signal
+is	received	and	caught	by	the	parent.	While	the	handler	is	still	processing
+the	first	signal,	the	second	signal	is	delivered	and	added	to	the	set	of
+pending	signals.	However,	since	SIGCHLD	signals	are	blocked	by	the
+SIGCHLD	handler,	the	second	signal	is	not	received.	Shortly	thereafter,
+while	the	handler	is	still	processing	the	first	signal,	the	third	signal	arrives.
+Since	there	is	already	a	pending	SIGCHLD,	this	third	SIGCHLD	signal	is
+discarded.	Sometime	later,	after	the	handler	has	returned,	the	kernel
+notices	that	there	is	a	pending	SIGCHLD	signal	and	forces	the	parent	to
+receive	the	signal.	The	parent	catches	the	signal	and	executes	the
+handler	a	second	time.	After	the	handler	finishes	processing	the	second
+signal,	there	are	no	more	pending	SIGCHLD	signals,	and	there	never	will
+be,	because	all	knowledge	of	the	third	SIGCHLD	has	been	lost.	
+The
+crucial	lesson	is	that	signals	cannot	be	used	to	count	the	occurrence	of
+events	in	other	processes.
+To	fix	the	problem,	we	must	recall	that	the	existence	of	a	pending	signal
+only	implies	that	at	least	one	signal	has	been	delivered	since	the	last	time
+the	process	received	a	signal	of	that	type.	So	we	must	modify	the
+SIGCHLD	handler	to	reap
+-------------------------------------------------------------------------------------------------
+-----
+code/ecf/signal2.c
+
+-------------------------------------------------------------------------------------------------
+-----
+code/ecf/signal2.c
+Figure	
+8.37	
+signal2.	An	improved	version	of	
+Figure	
+8.36	
+that
+correctly	accounts	for	the	fact	that	signals	are	not	queued.
+as	many	zombie	children	as	possible	each	time	it	is	invoked.	
+Figure	
+8.37
+shows	the	modified	SIGCHLD	handler.
+When	we	run	
+	on	our	Linux	system,	it	now	correctly	reaps	all	of
+the	zombie	children:
+
+Practice	Problem	
+8.8	
+(solution	page	
+799
+)
+What	is	the	output	of	the	following	program?
+----------------------------------------------------------------------------------------
+--------------
+code/ecf/signalprob0.c
+
+
+
+----------------------------------------------------------------------------------------
+--------------
+code/ecf/signalprob0.c
+Portable	Signal	Handling
+Another	ugly	aspect	of	Unix	signal	handling	is	that	different	systems	have
+different	signal-handling	semantics.	For	example:
+The	semantics	of	the	
+	function	varies.	
+Some	older	Unix
+systems	restore	the	action	for	signal	
+k
+	to	its	default	after	signal	
+k
+	has
+been	caught	by	a	handler.	On	these	systems,	the	handler	must
+explicitly	reinstall	itself,	by	calling	
+,	each	time	it	runs.
+System	calls	can	be	interrupted.	
+System	calls	such	as	
+,
+and	
+	that	can	potentially	block	the	process	for	a	long	period	of
+time	are	called	
+slow	system	calls.
+	On	some	older	versions	of	Unix,
+slow	system	calls	that	are	interrupted	when	a	handler	catches	a	signal
+do	not	resume	when	the	signal	handler	returns	but	instead	return
+immediately	to	the	user	with	an	error	condition	and	
+	set	to
+EINTR.	On	these	systems,	programmers	must	include	code	that
+manually	restarts	interrupted	system	calls.
+-------------------------------------------------------------------------------------------------
+-----
+code/src/csapp.c
+
+-------------------------------------------------------------------------------------------------
+-----
+code/src/csapp.c
+Figure	
+8.38	
+	A	wrapper	for	
+	that	provides	portable
+signal	handling	on	Posix-compliant	systems.
+To	deal	with	these	issues,	the	Posix	standard	defines	the	
+function,	which	allows	users	to	clearly	specify	the	signal-handling
+semantics	they	want	when	they	install	a	handler.
+
+The	
+	function	is	unwieldy	because	it	requires	the	user	to	set	the
+entries	of	a	complicated	structure.	A	cleaner	approach,	originally
+proposed	by	W.	Richard	Stevens	[
+110
+],	is	to	define	a	wrapper	function,
+called	
+,	that	calls	
+	for	us.	
+Figure	
+8.38	
+shows	the
+definition	of	
+,	which	is	invoked	in	the	same	way	as	the	
+function.
+The	
+	wrapper	installs	a	signal	handler	with	the	following	signal-
+handling	semantics:
+Only	signals	of	the	type	currently	being	processed	by	the	handler	are
+blocked.
+As	with	all	signal	implementations,	signals	are	not	queued.
+Interrupted	system	calls	are	automatically	restarted	whenever
+possible.
+Once	the	signal	handler	is	installed,	it	remains	installed	until	
+	is
+called	with	a	
+	argument	of	either	SIG_IGN	or	SIG_DFL.
+We	will	use	the	
+	wrapper	in	all	of	our	code.
+8.5.6	
+Synchronizing	Flows	to	Avoid
+Nasty	Concurrency	Bugs
+
+The	problem	of	how	to	program	concurrent	flows	that	read	and	write	the
+same	storage	locations	has	challenged	generations	of	computer
+scientists.	In	general,	the	number	of	potential	interleavings	of	the	flows	is
+exponential	in	the	number	of	instructions.	Some	of	those	interleavings	will
+produce	correct	answers,	and	others	will	not.	The	fundamental	problem	is
+to	somehow	
+synchronize
+	the	concurrent	flows	so	as	to	allow	the	largest
+set	of	feasible	interleavings	such	that	each	of	the	feasible	interleavings
+produces	a	correct	answer.
+Concurrent	programming	is	a	deep	and	important	problem	that	we	will
+discuss	in	more	detail	in	
+Chapter	
+12
+.	However,	we	can	use	what
+you've	learned	about	exceptional	control	flow	in	this	chapter	to	give	you	a
+sense	of	the	interesting	intellectual	challenges	associated	with
+concurrency.	For	example,	consider	the	program	in	
+Figure	
+8.39
+,	which
+captures	the	structure	of	a	typical	Unix	shell.	The	parent	keeps	track	of	its
+current	children	using	entries	in	a	global	job	list,	with	one	entry	per	job.
+The	
+	and	
+	functions	add	and	remove	entries	from	the	job
+list.
+After	the	parent	creates	a	new	child	process,	it	adds	the	child	to	the	job
+list.	When	the	parent	reaps	a	terminated	(zombie)	child	in	the	SIGCHLD
+signal	handler,	it	deletes	the	child	from	the	job	list.
+At	first	glance,	this	code	appears	to	be	correct.	Unfortunately,	the
+following	sequence	of	events	is	possible:
+1
+.	
+The	parent	executes	the	
+	function	and	the	kernel	schedules
+the	newly	created	child	to	run	instead	of	the	parent.
+
+2
+.	
+Before	the	parent	is	able	to	run	again,	the	child	terminates	and
+becomes	a	zombie,	causing	the	kernel	to	deliver	a	SIGCHLD
+signal	to	the	parent.
+3
+.	
+Later,	when	the	parent	becomes	runnable	again	but	before	it	is
+executed,	the	kernel	notices	the	pending	SIGCHLD	and	causes	it
+to	be	received	by	running	the	signal	handler	in	the	parent.
+4
+.	
+The	signal	handler	reaps	the	terminated	child	and	calls	
+,
+which	does	nothing	because	the	parent	has	not	added	the	child	to
+the	list	yet.
+5
+.	
+After	the	handler	completes,	the	kernel	then	runs	the	parent,	which
+returns	from	
+	and	incorrectly	adds	the	(nonexistent)	child	to
+the	job	list	by	calling	
+Thus,	for	some	interleavings	of	the	parent's	main	routine	and	signal-
+handling	flows,	it	is	possible	for	
+	to	be	called	before	
+.
+This	results	in	an	incorrect	entry	on	the	job	list,	for	a	job	that	no	longer
+exists	and	that	will	never	be	removed.	On	the	other	hand,	there	are	also
+interleavings	where	events	occur	in	the	correct	order.	For	example,	if	the
+kernel	happens	to	schedule	the	parent	to	run	when	the	
+	call	returns
+instead	of	the	child,	then	the	parent	will	correctly	add	the	child	to	the	job
+list	before	the	child	terminates	and	the	signal	handler	removes	the	job
+from	the	list.
+This	is	an	example	of	a	classic	synchronization	error	known	as	a	
+race.
+	In
+this	case,	the	race	is	between	the	call	to	
+	in	the	main	routine	and
+the	call	to
+-------------------------------------------------------------------------------------------------
+-----
+code/ecf/procmask1.c
+
+
+
+-------------------------------------------------------------------------------------------------
+-----
+code/ecf/procmask1.c
+Figure	
+8.39	
+A	shell	program	with	a	subtle	synchronization	error.
+If	the	child	terminates	before	the	parent	is	able	to	run,	then	
+	and
+	will	be	called	in	the	wrong	order.
+	in	the	handler.	If	
+	wins	the	race,	then	the	answer	is
+correct.	If	not,	the	answer	is	incorrect.	Such	errors	are	enormously
+difficult	to	debug	because	it	is	often	impossible	to	test	every	interleaving.
+You	might	run	the	code	a	billion	times	without	a	problem,	but	then	the
+next	test	results	in	an	interleaving	that	triggers	the	race.
+
+Figure	
+8.40	
+shows	one	way	to	eliminate	the	race	in	
+Figure	
+8.39
+.	By
+blocking	SIGCHLD	signals	before	the	call	to	
+	and	then	unblocking
+them	only	after	we	have	called	
+,	we	guarantee	that	the	child	will	be
+reaped	
+after
+	it	is	added	to	the	job	list.	Notice	that	children	inherit	the
+	set	of	their	parents,	so	we	must	be	careful	to	unblock	the
+SIGCHLD	signal	in	the	child	before	calling	
+.
+8.5.7	
+Explicitly	Waiting	for	Signals
+Sometimes	a	main	program	needs	to	explicitly	wait	for	a	certain	signal
+handler	to	run.	For	example,	when	a	Linux	shell	creates	a	foreground	job,
+it	must	wait	for	the	job	to	terminate	and	be	reaped	by	the	SIGCHLD
+handler	before	accepting	the	next	user	command.
+Figure	
+8.41	
+shows	the	basic	idea.	The	parent	installs	handlers	for
+SIGINT	and	SIGCHLD	and	then	enters	an	infinite	loop.	It	blocks
+SIGCHLD	to	avoid	the	race	between	parent	and	child	that	we	discussed
+in	
+Section	
+8.5.6
+.	After	creating	the	child,	it	resets	
+	to	zero,
+unblocks	SIGCHLD,	and	then	waits	in	a	spin	loop	for	
+	to	become
+nonzero.	After	the	child	terminates,	the	handler	reaps	it	and	assigns	its
+nonzero	PID	to	the	global	
+	variable.	This	terminates	the	spin	loop,
+and	the	parent	continues	with	additional	work	before	starting	the	next
+iteration.
+While	this	code	is	correct,	the	spin	loop	is	wasteful	of	processor
+resources.	We	might	be	tempted	to	fix	this	by	inserting	a	
+	in	the
+body	of	the	spin	loop:
+
+Notice	that	we	still	need	a	loop	because	
+	might	be	interrupted	by
+the	receipt	of	one	or	more	SIGINT	signals.	However,	this	code	has	a
+serious	race	condition:	if	the	SIGCHLD	is	received	after	the	
+	test
+but	before	the	pause,	the	
+	will	sleep	forever.
+Another	option	is	to	replace	the	
+	with	
+:
+While	correct,	this	code	is	too	slow.	If	the	signal	is	received	after	the
+	and	before	the	
+,	the	program	must	wait	a	(relatively)	long
+time	before	it	can	check	the	loop	termination	condition	again.	Using	a
+higher-resolution	sleep	function	such	as	
+	isn't	acceptable,
+either,	because	there	is	no	good	rule	for	determining	the	sleep	interval.
+Make	it	too	small	and	the	loop	is	too	wasteful.	Make	it	too	high	and	the
+program	is	too	slow.
+
+-------------------------------------------------------------------------------------------------
+-----
+code/ecf/procmask2.c
+
+-------------------------------------------------------------------------------------------------
+-----
+code/ecf/procmask2.c
+
+Figure	
+8.40	
+Using	
+	to	synchronize	processes.
+In	this	example,	the	parent	ensures	that	
+	executes	before	the
+corresponding	
+.
+-------------------------------------------------------------------------------------------------
+-----
+code/ecf/waitforsignal.c
+
+-------------------------------------------------------------------------------------------------
+-----
+code/ecf/waitforsignal.c
+
+Figure	
+8.41	
+Waiting	for	a	signal	with	a	spin	loop.
+This	code	is	correct,	but	the	spin	loop	is	wasteful.
+The	proper	solution	is	to	use	sigsuspend.
+The	
+	function	temporarily	replaces	the	current	blocked	set	with
+mask	and	then	suspends	the	process	until	the	receipt	of	a	signal	whose
+action	is	either	to	run	a	handler	or	to	terminate	the	process.	If	the	action
+is	to	terminate,	then	the	process	terminates	without	returning	from
+.	If	the	action	is	to	run	a	handler,	then	
+	returns	after
+the	handler	returns,	restoring	the	blocked	set	to	its	state	when	
+was	called.
+The	
+	function	is	equivalent	to	an	
+atomic
+	(uninterruptible)
+version	of	the	following:
+
+The	atomic	property	guarantees	that	the	calls	to	
+	(line	1)	and
+	(line	2)	occur	together,	without	being	interrupted.	This	eliminates
+the	potential	race	where	a	signal	is	received	after	the	call	to	
+and	before	the	call	to	pause.
+Figure	
+8.42	
+shows	how	we	would	use	
+	to	replace	the	spin
+loop	in	
+Figure	
+8.41
+.	Before	each	call	to	
+,	SIGCHLD	is	blocked.
+The	
+	temporarily	unblocks	SIGCHLD,	and	then	sleeps	until	the
+parent	catches	a	signal.	Before	returning,	it	restores	the	original	blocked
+set,	which	blocks	SIGCHLD	again.	If	the	parent	caught	a	SIGINT,	then
+the	loop	test	succeeds	and	the	next	iteration	calls	
+	again.	If	the
+parent	caught	a	SIGCHLD,	then	the	loop	test	fails	and	we	exit	the	loop.
+At	this	point,	SIGCHLD	is	blocked,	and	so	we	can	optionally	unblock
+SIGCHLD.	This	might	be	useful	in	a	real	shell	with	background	jobs	that
+need	to	be	reaped.
+The	
+	version	is	less	wasteful	than	the	original	spin	loop,	avoids
+the	race	introduced	by	
+,	and	is	more	efficient	than	
+.
+
+8.6	
+Nonlocal	Jumps
+C	provides	a	form	of	user-level	exceptional	control	flow,	called	a	
+nonlocal
+jump
+,	that	transfers	control	directly	from	one	function	to	another	currently
+executing	function	without	having	to	go	through	the	normal	call-and-
+return	sequence.	Nonlocal	jumps	are	provided	by	the	
+	and	
+functions.
+-------------------------------------------------------------------------------------------------
+-----
+code/ecf/sigsuspend.c
+
+
+
+-------------------------------------------------------------------------------------------------
+-----
+code/ecf/sigsuspend.c
+Figure	
+8.42	
+Waiting	for	a	signal	with	
+.
+The	
+	function	saves	the	current	
+calling	environment
+	in	the	
+buffer,	for	later	use	by	
+,	and	returns	0.	The	calling	environment
+includes	the	program	counter,	stack	pointer,	and	general-purpose
+registers.	For	subtle	reasons	beyond	our	scope,	the	value	that	
+returns	should	not	be	assigned	to	a	variable:
+However,	it	can	be	safely	used	as	a	test	in	a	
+	or	conditional
+statement	[
+62
+].
+
+The	
+	function	restores	the	calling	environment	from	the	
+	buffer
+and	then	triggers	a	return	from	the	most	recent	
+	call	that	initialized
+.	The	
+	then	returns	with	the	nonzero	return	value	
+.
+The	interactions	between	
+	and	
+	can	be	confusing	at	first
+glance.	The	
+	function	is	called	once	but	returns	
+multiple	times:
+once	when	the	
+	is	first	called	and	the	calling	environment	is	stored
+in	the	
+	buffer,	and	once	for	each	corresponding	
+	call.	On	the
+other	hand,	the	
+	function	is	called	once	but	never	returns.
+An	important	application	of	nonlocal	jumps	is	to	permit	an	immediate
+return	from	a	deeply	nested	function	call,	usually	as	a	result	of	detecting
+some	error	condition.	If	an	error	condition	is	detected	deep	in	a	nested
+function	call,	we	can	use	a	nonlocal	jump	to	return	directly	to	a	common
+localized	error	handler	instead	of	laboriously	unwinding	the	call	stack.
+Figure	
+8.43	
+shows	an	example	of	how	this	might	work.	The	
+routine	first	calls	
+	to	save	the	current	calling	environment,	and	then
+calls	function	
+,	which	in	turn	calls	function	
+.	If	
+	or	
+encounter	an	error,	they	return	immediately	from	the	
+	via	a	
+
+call.	The	nonzero	return	value	of	the	
+	indicates	the	error	type,
+which	can	then	be	decoded	and	handled	in	one	place	in	the	code.
+The	feature	of	
+	that	allows	it	to	skip	up	through	all	intermediate
+calls	can	have	unintended	consequences.	For	example,	if	some	data
+structures	were	allocated	in	the	intermediate	function	calls	with	the
+intention	to	deallocate	them	at	the	end	of	the	function,	the	deallocation
+code	gets	skipped,	thus	creating	a	memory	leak.
+-------------------------------------------------------------------------------------------------
+-----
+code/ecf/setjmp.c
+
+
+
+-------------------------------------------------------------------------------------------------
+-----
+code/ecf/setjmp.c
+Figure	
+8.43	
+Nonlocal	jump	example.
+This	example	shows	the	framework	for	using	nonlocal	jumps	to	recover
+from	error	conditions	in	deeply	nested	functions	without	having	to	unwind
+the	entire	stack.
+-------------------------------------------------------------------------------------------------
+-----
+code/ecf/restart.c
+
+-------------------------------------------------------------------------------------------------
+-----
+code/ecf/restart.c
+Figure	
+8.44	
+A	program	that	uses	nonlocal	jumps	to	restart	itself
+when	the	user	types	Ctrl+C.
+Another	important	application	of	nonlocal	jumps	is	to	branch	out	of	a
+signal	handler	to	a	specific	code	location,	rather	than	returning	to	the
+instruction	that	was	interrupted	by	the	arrival	of	the	signal.	
+Figure	
+8.44
+shows	a	simple	program	that	illustrates	this	basic	technique.	The
+program	uses	signals	and	nonlocal	jumps	to	do	a	soft	restart	whenever
+the	user	types	Ctrl+C	at	the	keyboard.	The	
+	and	
+functions	are	versions	of	
+	and	
+	that	can	be	used	by	signal
+handlers.
+The	initial	call	to	the	
+	function	saves	the	calling	environment
+and	signal	context	(including	the	pending	and	blocked	signal	vectors)
+when	the	program	first	starts.	The	main	routine	then	enters	an	infinite
+processing	loop.	When	the	user	types	Ctrl+C,	the	kernel	sends	a	SIGINT
+signal	to	the	process,	which	catches	it.	Instead	of	returning	from	the
+
+signal	handler,	which	would	pass	control	back	to	the	interrupted
+processing	loop,	the	handler	performs	a	nonlocal	jump	back	to	the
+beginning	of	the	
+	program.	When	we	run	the	program	on	our	system,
+we	get	the	following	output:
+Aside	
+Software	exceptions	in	C++	and
+Java
+The	exception	mechanisms	provided	by	C++	and	Java	are	higher-
+level,	more	structured	versions	of	the	C	
+	and	
+functions.	You	can	think	of	a	
+	clause	inside	a	
+	statement
+as	being	akin	to	a	
+	function.	Similarly,	a	
+	statement	is
+similar	to	a	
+	function.
+
+There	a	couple	of	interesting	things	about	this	program.	First,	To	avoid	a
+race,	we	must	install	the	handler	
+after
+	we	call	
+.	If	not,	we	would
+run	the	risk	of	the	handler	running	before	the	initial	call	to	
+	sets
+up	the	calling	environment	for	
+.	Second,	you	might	have
+noticed	that	the	
+	and	
+	functions	are	not	on	the	list	of
+async-signal-safe	functions	in	
+Figure	
+8.33
+.	The	reason	is	that	in	general
+	can	jump	into	arbitrary	code,	so	we	must	be	careful	to	call
+only	safe	functions	in	any	code	reachable	from	a	
+.	In	our
+example,	we	call	the	safe	
+	and	
+	functions.	The	unsafe	
+function	is	unreachable.
+
+8.7	
+Tools	for	Manipulating
+Processes
+Linux	systems	provide	a	number	of	useful	tools	for	monitoring	and
+manipulating	processes:
+STRACE
+.	Prints	a	trace	of	each	system	call	invoked	by	a	running
+program	and	its	children.	It	is	a	fascinating	tool	for	the	curious
+student.	Compile	your	program	with	
+	to	get	a	cleaner	trace
+without	a	lot	of	output	related	to	shared	libraries.
+PS
+.	Lists	processes	(including	zombies)	currently	in	the	system.
+TOP
+.	Prints	information	about	the	resource	usage	of	current	processes.
+PMAP
+.	Displays	the	memory	map	of	a	process.
+.	A	virtual	filesystem	that	exports	the	contents	of	numerous
+kernel	data	structures	in	an	ASCII	text	form	that	can	be	read	by	user
+programs.	For	example,	type	
+	to	see	the	current
+load	average	on	your	Linux	system.
+
+8.8	
+Summary
+Exceptional	control	flow	(ECF)	occurs	at	all	levels	of	a	computer	system
+and	is	a	basic	mechanism	for	providing	concurrency	in	a	computer
+system.
+At	the	hardware	level,	exceptions	are	abrupt	changes	in	the	control	flow
+that	are	triggered	by	events	in	the	processor.	The	control	flow	passes	to	a
+software	handler,	which	does	some	processing	and	then	returns	control
+to	the	interrupted	control	flow.
+There	are	four	different	types	of	exceptions:	interrupts,	faults,	aborts,	and
+traps.	Interrupts	occur	asynchronously	(with	respect	to	any	instructions)
+when	an	external	I/O	device	such	as	a	timer	chip	or	a	disk	controller	sets
+the	interrupt	pin	on	the	processor	chip.	Control	returns	to	the	instruction
+following	the	faulting	instruction.	Faults	and	aborts	occur	synchronously
+as	the	result	of	the	execution	of	an	instruction.	Fault	handlers	restart	the
+faulting	instruction,	while	abort	handlers	never	return	control	to	the
+interrupted	flow.	Finally,	traps	are	like	function	calls	that	are	used	to
+implement	the	system	calls	that	provide	applications	with	controlled	entry
+points	into	the	operating	system	code.
+At	the	operating	system	level,	the	kernel	uses	ECF	to	provide	the
+fundamental	notion	of	a	process.	A	process	provides	applications	with
+two	important	abstractions:	(1)	logical	control	flows	that	give	each
+program	the	illusion	that	it	has	exclusive	use	of	the	processor,	and	(2)
+
+private	address	spaces	that	provide	the	illusion	that	each	program	has
+exclusive	use	of	the	main	memory.
+At	the	interface	between	the	operating	system	and	applications,
+applications	can	create	child	processes,	wait	for	their	child	processes	to
+stop	or	terminate,	run	new	programs,	and	catch	signals	from	other
+processes.	The	semantics	of	signal	handling	is	subtle	and	can	vary	from
+system	to	system.	However,	mechanisms	exist	on	Posix-compliant
+systems	that	allow	programs	to	clearly	specify	the	expected	signal-
+handling	semantics.
+Finally,	at	the	application	level,	C	programs	can	use	nonlocal	jumps	to
+bypass	the	normal	call/return	stack	discipline	and	branch	directly	from
+one	function	to	another.
+
+Bibliographic	Notes
+Kerrisk	is	the	essential	reference	for	all	aspects	of	programming	in	the
+Linux	environment	[
+62
+].	The	Intel	ISA	specification	contains	a	detailed
+discussion	of	exceptions	and	interrupts	on	Intel	processors	[
+50
+].
+Operating	systems	texts	[
+102
+,	
+106
+,	
+113
+]	contain	additional	information	on
+exceptions,	processes,	and	signals.	The	classic	work	by	W.	Richard
+Stevens	[
+111
+]	is	a	valuable	and	highly	readable	description	of	how	to
+work	with	processes	and	signals	from	application	programs.	Bovet	and
+Cesati	[
+11
+]	give	a	wonderfully	clear	description	of	the	Linux	kernel,
+including	details	of	the	process	and	signal	implementations.
+
+Homework	Problems
+8.9	
+♦
+Consider	four	processes	with	the	following	starting	and	ending	times:
+Process
+Start	time
+End	time
+A
+5
+7
+B
+2
+4
+C
+3
+6
+D
+1
+8
+For	each	pair	of	processes,	indicate	whether	they	run	concurrently	(Y)	or
+not	(N):
+Process	pair
+Concurrent?
+AB
+					
+AC
+					
+AD
+					
+BC
+					
+
+BD
+					
+CD
+					
+8.10	
+♦
+In	this	chapter,	we	have	introduced	some	functions	with	unusual
+call	and	return	behaviors:	
+,	and	
+.
+Match	each	function	with	one	of	the	following	behaviors:
+A
+.	
+Called	once,	returns	twice
+B
+.	
+Called	once,	never	returns
+C
+.	
+Called	once,	returns	one	or	more	times
+8.11	
+♦
+How	many	“hello”	output	lines	does	this	program	print?
+----------------------------------------------------------------------------------------
+--------------
+code/ecf/forkprob1.c
+
+----------------------------------------------------------------------------------------
+--------------
+code/ecf/forkprob1.c
+8.12	
+♦
+How	many	“hello”	output	lines	does	this	program	print?
+----------------------------------------------------------------------------------------
+--------------
+code/ecf/forkprob4.c
+
+----------------------------------------------------------------------------------------
+--------------
+code/ecf/forkprob4.c
+8.13	
+♦
+What	is	one	possible	output	of	the	following	program?
+----------------------------------------------------------------------------------------
+--------------
+code/ecf/forkprob3.c
+
+----------------------------------------------------------------------------------------
+--------------
+code/ecf/forkprob3.c
+8.14	
+♦
+How	many	“hello”	output	lines	does	this	program	print?
+----------------------------------------------------------------------------------------
+--------------
+code/ecf/forkprob5.c
+
+----------------------------------------------------------------------------------------
+--------------
+code/ecf/forkprob5.c
+8.15	
+♦
+How	many	“hello”	lines	does	this	program	print?
+----------------------------------------------------------------------------------------
+--------------
+code/ecf/forkprob6.c
+
+----------------------------------------------------------------------------------------
+--------------
+code/ecf/forkprob6.c
+8.16	
+♦
+What	is	the	output	of	the	following	program?
+----------------------------------------------------------------------------------------
+--------------
+code/ecf/forkprob7.c
+
+----------------------------------------------------------------------------------------
+--------------
+code/ecf/forkprob7.c
+8.17	
+♦
+Enumerate	all	of	the	possible	outputs	of	the	program	in	Practice
+Problem	
+8.4
+.
+8.18	
+♦♦
+Consider	the	following	program:
+----------------------------------------------------------------------------------------
+--------------
+code/ecf/forkprob2.c
+
+----------------------------------------------------------------------------------------
+--------------
+code/ecf/forkprob2.c
+Determine	which	of	the	following	outputs	are	possible.	
+Note:	
+The
+	function	takes	a	pointer	to	a	function	and	adds	it	to	a	list	of
+functions	(initially	empty)	that	will	be	called	when	the	
+	function
+is	called.
+A
+.	
+112002
+B
+.	
+211020
+C
+.	
+102120
+D
+.	
+122001
+E
+.	
+100212
+
+8.19	
+♦♦
+How	many	lines	of	output	does	the	following	function	print?	Give
+your	answer	as	a	function	of	
+n.
+	Assume	
+n
+	≥	1.
+----------------------------------------------------------------------------------------
+--------------
+code/ecf/forkprob8.c
+----------------------------------------------------------------------------------------
+--------------
+code/ecf/forkprob8.c
+8.20	
+♦♦
+Use	
+	to	write	a	program	called	
+	whose	behavior	is
+identical	to	the	
+	program.	Your	program	should	accept	the
+
+same	command-line	arguments,	interpret	the	identical
+environment	variables,	and	produce	the	identical	output.
+The	
+	program	gets	the	width	of	the	screen	from	the	COLUMNS
+environment	variable.	If	COLUMNS	is	unset,	then	
+	assumes
+that	the	screen	is	80	columns	wide.	Thus,	you	can	check	your
+handling	of	the	environment	variables	by	setting	the	COLUMNS
+environment	to	something	less	than	80:
+⋮
+⋮
+8.21	
+♦♦
+What	are	the	possible	output	sequences	from	the	following
+program?
+----------------------------------------------------------------------------------------
+--------------
+code/ecf/waitprob3.c
+
+----------------------------------------------------------------------------------------
+--------------
+code/ecf/waitprob3.c
+8.22	
+♦♦♦
+Write	your	own	version	of	the	Unix	
+	function
+The	
+	function	executes	
+	by	invoking	
+,	and	then	returns	after	
+	has	completed.	If	
+exits	normally	(by	calling	the	
+	function	or	executing	a	
+statement),	then	
+	returns	the	
+	exit	status.	For
+example,	if	
+	terminates	by	calling	
+,	then	
+
+returns	the	value	8.	Otherwise,	if	
+	terminates	abnormally,
+then	
+	returns	the	status	returned	by	the	shell.
+8.23	
+♦♦
+One	of	your	colleagues	is	thinking	of	using	signals	to	allow	a
+parent	process	to	count	events	that	occur	in	a	child	process.	The
+idea	is	to	notify	the	parent	each	time	an	event	occurs	by	sending	it
+a	signal	and	letting	the	parent's	signal	handler	increment	a	global
+	variable,	which	the	parent	can	then	inspect	after	the	child
+has	terminated.	However,	when	he	runs	the	test	program	in
+Figure	
+8.45	
+on	his	system,	he	discovers	that	when	the	parent
+calls	
+	always	has	a	value	of	2,	even	though	the
+child	has	sent	five	signals	to	the	parent.	Perplexed,	he	comes	to
+you	for	help.	Can	you	explain	the	bug?
+8.24	
+♦♦♦
+Modify	the	program	in	
+Figure	
+8.18	
+so	that	the	following	two
+conditions	are	met:
+1
+.	
+Each	child	terminates	abnormally	after	attempting	to	write
+to	a	location	in	the	read-only	text	segment.
+2
+.	
+The	parent	prints	output	that	is	identical	(except	for	the
+PIDs)	to	the	following:
+
+Hint:	
+Read	the	
+	page	for	
+	(3).
+----------------------------------------------------------------------------------------
+--------------
+code/ecf/counterprob.c
+
+----------------------------------------------------------------------------------------
+--------------
+code/ecf/counterprob.c
+Figure	
+8.45	
+Counter	program	referenced	in	
+Problem	
+8.23
+.
+8.25	
+♦♦♦
+Write	a	version	of	the	
+	function,	called	
+,	that	times	out
+after	5	seconds.	The	
+	function	accepts	the	same	inputs	as
+.	If	the	user	doesn't	type	an	input	line	within	5	seconds,
+	returns	NULL.	Otherwise,	it	returns	a	pointer	to	the	input
+line.
+
+8.26	
+♦♦♦♦
+Using	the	example	in	
+Figure	
+8.23	
+as	a	starting	point,	write	a
+shell	program	that	supports	job	control.	Your	shell	should	have	the
+following	features:
+The	command	line	typed	by	the	user	consists	of	a	
+	and
+zero	or	more	arguments,	all	separated	by	one	or	more	spaces.
+If	
+	is	a	built-in	command,	the	
+shell	handles	it	immediately
+and	waits	for	the	next	command	line.	Otherwise,	the	shell
+assumes	that	
+	is	an	executable	file,	which	it	loads	and
+runs	in	the	context	of	an	initial	child	process	(job).	The	process
+group	ID	for	the	job	is	identical	to	the	PID	of	the	child.
+Each	job	is	identified	by	either	a	process	ID	(PID)	or	a	job	ID
+(JID),	which	is	a	small	arbitrary	positive	integer	assigned	by	the
+shell.	JIDs	are	denoted	on	the	command	line	by	the	prefix	‘%’.
+For	example,	‘%5’	denotes	JID	5,	and	‘5’	denotes	PID	5.
+If	the	command	line	ends	with	an	ampersand,	then	the	shell
+runs	the	job	in	the	background.	Otherwise,	the	shell	runs	the
+job	in	the	foreground.
+Typing	Ctrl+C	(Ctrl+Z)	causes	the	kernel	to	send	a	SIGINT
+(SIGTSTP)	signal	to	your	shell,	which	then	forwards	it	to	every
+process	in	the	foreground	process	group.
+2.	
+Note	that	this	is	a	simplification	of	the	way	that	real	shells	work.	With	real	shells,
+the	kernel	responds	to	Ctrl+C	(Ctrl+Z)	by	sending	SIGINT	(SIGTSTP)	directly	to
+each	process	in	the	terminal	foreground	process	group.	The	shell	manages	the
+membership	of	this	group	using	the	
+	function,	and	manages	the
+attributes	of	the	terminal	using	the	
+	function,	both	of	which	are	outside
+the	scope	of	this	book.	See	[
+62
+]	for	details.
+2
+
+The	
+	built-in	command	lists	all	background	jobs.
+The	
+	
+job
+	built-in	command	restarts	
+job
+	by	sending	it	a
+SIGCONT	signal	and	then	runs	it	in	the	background.	The	
+job
+argument	can	be	either	a	PID	or	a	JID.
+The	
+	
+job
+	built-in	command	restarts	
+job
+	by	sending	it	a
+SIGCONT	signal	and	then	runs	it	in	the	foreground.
+The	shell	reaps	all	of	its	zombie	children.	If	any	job	terminates
+because	it	receives	a	signal	that	was	not	caught,	then	the	shell
+prints	a	message	to	the	terminal	with	the	job's	PID	and	a
+description	of	the	offending	signal.
+Figure	
+8.46	
+shows	an	example	shell	session.
+
+Solutions	to	Practice	Problems
+Solution	to	Problem	
+8.1	
+(page
+734
+)
+Processes	A	and	B	are	concurrent	with	respect	to	each	other,	as	are	B
+and	C,	because	their	respective	executions	overlap—that	is,	one	process
+starts	before	the	other	finishes.	Processes	A	and	C	are	not	concurrent
+because	their	executions	do	not	overlap;	A	finishes	before	C	begins.
+Solution	to	Problem	
+8.2	
+(page
+743
+)
+In	our	example	program	in	
+Figure	
+8.15
+,	the	parent	and	child	execute
+disjoint	sets	of	instructions.	However,	in	this	program,	the	parent	and
+child	execute	nondisjoint	sets	of	instructions,	which	is	possible	because
+the	parent	and	child	have	identical	code	segments.	This	can	be	a	difficult
+conceptual	hurdle,	so	be	sure	you	understand	the	solution	to	this
+problem.	
+Figure	
+8.47
+	shows	the	process	graph.
+
+
+
+Figure	
+8.46	
+Sample	shell	session	for	
+Problem	
+8.26
+.
+Figure	
+8.47	
+Process	graph	for	Practice	
+Problem	
+8.2
+.
+A
+.	
+The	key	idea	here	is	that	the	child	executes	both	
+statements.	After	the	
+	returns,	it	executes	the	
+	in	line	6.
+Then	it	falls	out	of	the	
+	statement	and	executes	the	
+	in
+line	7.	Here	is	the	output	produced	by	the	child:
+B
+.	
+The	parent	executes	only	the	
+	in	line	7:
+
+
+Figure	
+8.48	
+Process	graph	for	Practice	
+Problem	
+8.3
+.
+Figure	
+8.49	
+Process	graph	for	Practice	
+Problem	
+8.4
+.
+Solution	to	Problem	
+8.3	
+(page
+745
+)
+We	know	that	the	sequences	
+acbc,	abcc
+,	and	
+bacc
+	are	possible	because
+they	correspond	to	topological	sorts	of	the	process	graph	(
+Figure	
+8.48
+).
+However,	sequences	such	as	
+bcac
+	and	
+cbca
+	do	not	correspond	to	any
+topological	sort	and	thus	are	not	feasible.
+Solution	to	Problem	
+8.4	
+(page
+748
+)
+A
+.	
+We	can	determine	the	number	of	lines	of	output	by	simply
+counting	the	number	of	
+	vertices	in	the	process	graph
+(
+Figure	
+8.49
+).	In	this	case,	there	are	six	such	vertices,	and	thus
+the	program	will	print	six	lines	of	output.
+
+B
+.	
+Any	output	sequence	corresponding	to	a	topological	sort	of	the
+graph	is	possible.	For	example:	
+	is
+possible.
+Solution	to	Problem	
+8.5	
+(page
+750
+)
+-------------------------------------------------------------------------------------------------
+-----
+code/ecf/snooze.c
+-------------------------------------------------------------------------------------------------
+-----
+code/ecf/snooze.c
+Solution	to	Problem	
+8.6	
+(page
+
+752
+)
+-------------------------------------------------------------------------------------------------
+-----
+code/ecf/myecho.c
+-------------------------------------------------------------------------------------------------
+-----
+code/ecf/myecho.c
+
+Solution	to	Problem	
+8.7	
+(page
+764
+)
+The	
+	function	returns	prematurely	whenever	the	sleeping	process
+receives	a	signal	that	is	not	ignored.	But	since	the	default	action	upon
+receipt	of	a	SIGINT	is	to	terminate	the	process	(
+Figure	
+8.26
+),	we	must
+install	a	SIGINT	handler	to	allow	the	
+	function	to	return.	The	handler
+simply	catches	the	SIGNAL	and	returns	control	to	the	
+	function,
+which	returns	immediately.
+-------------------------------------------------------------------------------------------------
+-----
+code/ecf/snooze.c
+
+-------------------------------------------------------------------------------------------------
+-----
+code/ecf/snooze.c
+Solution	to	Problem	
+8.8	
+(page
+773
+)
+
+This	program	prints	the	string	213,	which	is	the	shorthand	name	of	the
+CS:APP	course	at	Carnegie	Mellon.	The	parent	starts	by	printing	‘2’,	then
+s	the	child,	which	spins	in	an	infinite	loop.	The	parent	then	sends	a
+signal	to	the	child	and	waits	for	it	to	terminate.	The	child	catches	the
+signal	(interrupting	the	infinite	loop),	decrements	the	counter	(from	an
+initial	value	of	2),	prints	‘1’,	and	then	terminates.	After	the	parent	reaps
+the	child,	it	increments	the	counter	(from	an	initial	value	of	2),	prints	‘3’,
+and	terminates.
+
+Chapter	
+9	
+Virtual	Memory
+9.1	
+Physical	and	Virtual	Addressing	
+803
+9.2	
+Address	Spaces	
+804
+9.3	
+VM	as	a	Tool	for	Caching	
+805
+9.4	
+VM	as	a	Tool	for	Memory	Management	
+811
+9.5	
+VM	as	a	Tool	for	Memory	Protection	
+812
+9.6	
+Address	Translation	
+813
+9.7	
+Case	Study:	The	Intel	Core	i7/Linux	Memory	System	
+825
+9.8	
+Memory	Mapping	
+833
+9.9	
+Dynamic	Memory	Allocation	
+839
+9.10	
+Garbage	Collection	
+865
+9.11	
+Common	Memory-Related	Bugs	in	C	Programs	
+870
+9.12	
+Summary
+	
+875
+Bibliographic	Notes
+	
+876
+Homework	Problems	
+876
+
+Solutions	to	Practice	Problems	
+880
+Processes	in	a	system	share	the	CPU	and	main
+memory	with	other	processes.	However,	sharing	the
+main	memory	poses	some	special	challenges.	As
+demand	on	the	CPU	increases,	processes	slow
+down	in	some	reasonably	smooth	way.	But	if	too
+many	processes	need	too	much	memory,	then	some
+of	them	will	simply	not	be	able	to	run.	When	a
+program	is	out	of	space,	it	is	out	of	luck.	Memory	is
+also	vulnerable	to	corruption.	If	some	process
+inadvertently	writes	to	the	memory	used	by	another
+process,	that	process	might	fail	in	some	bewildering
+fashion	totally	unrelated	to	the	program	logic.
+In	order	to	manage	memory	more	efficiently	and
+with	fewer	errors,	modern	systems	provide	an
+abstraction	of	main	memory	known	as	
+virtual
+memory	(VM).
+	Virtual	memory	is	an	elegant
+interaction	of	hardware	exceptions,	hardware
+address	translation,	main	memory,	disk	files,	and
+kernel	software	that	provides	each	process	with	a
+large,	uniform,	and	private	address	space.	With	one
+clean	mechanism,	virtual	memory	provides	three
+important	capabilities:	(1)	It	uses	main	memory
+efficiently	by	treating	it	as	a	cache	for	an	address
+space	stored	on	disk,	keeping	only	the	active	areas
+in	main	memory	and	transferring	data	back	and
+forth	between	disk	and	memory	as	needed.	(2)	It
+
+simplifies	memory	management	by	providing	each
+process	with	a	uniform	address	space.	(3)	It
+protects	the	address	space	of	each	process	from
+corruption	by	other	processes.
+Virtual	memory	is	one	of	the	great	ideas	in	computer
+systems.	A	major	reason	for	its	success	is	that	it
+works	silently	and	automatically,	without	any
+intervention	from	the	application	programmer.	Since
+virtual	memory	works	so	well	behind	the	scenes,
+why	would	a	programmer	need	to	understand	it?
+There	are	several	reasons.
+Virtual	memory	is	central.	
+Virtual	memory
+pervades	all	levels	of	computer	systems,	playing
+key	roles	in	the	design	of	hardware	exceptions,
+assemblers,	linkers,	loaders,	shared	objects,
+files,	and	processes.	Understanding	virtual
+memory	will	help	you	better	understand	how
+systems	work	in	general.
+Virtual	memory	is	powerful.	
+Virtual	memory
+gives	applications	powerful	capabilities	to	create
+and	destroy	chunks	of	memory,	map	chunks	of
+memory	to	portions	of	disk	files,	and	share
+memory	with	other	processes.	For	example,	did
+you	know	that	you	can	read	or	modify	the
+contents	of	a	disk	file	by	reading	and	writing
+memory	locations?	Or	that	you	can	load	the
+contents	of	a	file	into	memory	without	doing	any
+
+explicit	copying?	Understanding	virtual	memory
+will	help	you	harness	its	powerful	capabilities	in
+your	applications.
+Virtual	memory	is	dangerous.	
+Applications
+interact	with	virtual	memory	every	time	they
+reference	a	variable,	dereference	a	pointer,	or
+make	a	call	to	a	dynamic	allocation	package
+such	as	
+.	If	virtual	memory	is	used
+improperly,	applications	can	suffer	from
+perplexing	and	insidious	memory-related	bugs.
+For	example,	a	program	with	a	bad	pointer	can
+crash	immediately	with	a	"segmentation	fault"	or
+a	"protection	fault,"	run	silently	for	hours	before
+crashing,	or	scariest	of	all,	run	to	completion	with
+incorrect	results.	Understanding	virtual	memory,
+and	the	allocation	packages	such	as	
+	that
+manage	it,	can	help	you	avoid	these	errors.
+This	chapter	looks	at	virtual	memory	from	two
+angles.	The	first	half	of	the	chapter	describes	how
+virtual	memory	works.	The	second	half	describes
+how	virtual	memory	is	used	and	managed	by
+applications.	There	is	no	avoiding	the	fact	that	VM	is
+complicated,	and	the	discussion	reflects	this	in
+places.	The	good	news	is	that	if	you	work	through
+the	details,	you	will	be	able	to	simulate	the	virtual
+memory	mechanism	of	a	small	system	by	hand,	and
+the	virtual	memory	idea	will	be	forever	demystified.
+
+The	second	half	builds	on	this	understanding,
+showing	you	how	to	use	and	manage	virtual
+memory	in	your	programs.	You	will	learn	how	to
+manage	virtual	memory	via	explicit	memory
+mapping	and	calls	to	dynamic	storage	allocators
+such	as	the	
+	package.	You	will	also	learn
+about	a	host	of	common	memory-related	errors	in	C
+programs	and	how	to	avoid	them.
+
+9.1	
+Physical	and	Virtual	Addressing
+The	main	memory	of	a	computer	system	is	organized	as	an	array	of	
+M
+contiguous	byte-size	cells.	Each	byte	has	a	unique	
+physical	address
+(PA).
+	The	first	byte	has	an	address	of	0,	the	next	byte	an	address	of	1,
+the	next	byte	an	address	of	2,	and	so	on.	Given	this	simple	organization,
+the	most	natural	way	for	a	CPU	to	access	memory	would	be	to	use
+physical	addresses.	We	call	this	approach	
+physical	addressing.
+	
+Figure
+9.1
+	shows	an	example	of	physical	addressing	in	the	context	of	a	load
+instruction	that	reads	the	4-byte	word	starting	at	physical	address	4.
+When	the	CPU	executes	the	load	instruction,	it	generates	an	effective
+physical	address	and	passes	it	to	main	memory	over	the	memory	bus.
+The	main	memory	fetches	the	4-byte	word	starting	at	physical	address	4
+and	returns	it	to	the	CPU,	which	stores	it	in	a	register.
+Early	PCs	used	physical	addressing,	and	systems	such	as	digital	signal
+processors,	embedded	microcontrollers,	and	Cray	supercomputers
+continue	to	do	so.	However,	modern	processors	use	a	form	of	addressing
+known	as	
+virtual	addressing
+,	as	shown	in	
+Figure	
+9.2
+.
+
+Figure	
+9.1	
+A	system	that	uses	physical	addressing.
+Figure	
+9.2	
+A	system	that	uses	virtual	addressing.
+With	virtual	addressing,	the	CPU	accesses	main	memory	by	generating	a
+virtual	address	(VA)
+,	which	is	converted	to	the	appropriate	physical
+address	before	being	sent	to	main	memory.	The	task	of	converting	a
+virtual	address	to	a	physical	one	is	known	as	
+address	translation.
+	Like
+exception	handling,	address	translation	requires	close	cooperation
+
+between	the	CPU	hardware	and	the	operating	system.	Dedicated
+hardware	on	the	CPU	chip	called	the	
+memory	management	unit	(MMU)
+translates	virtual	addresses	on	the	fly,	using	a	lookup	table	stored	in	main
+memory	whose	contents	are	managed	by	the	operating	system.
+
+9.2	
+Address	Spaces
+An	
+address	space
+	is	an	ordered	set	of	nonnegative	integer	addresses
+If	the	integers	in	the	address	space	are	consecutive,	then	we	say	that	it	is
+a	
+linear	address	space.
+	To	simplify	our	discussion,	we	will	always
+assume	linear	address	spaces.	In	a	system	with	virtual	memory,	the	CPU
+generates	virtual	addresses	from	an	address	space	of	
+N
+	=	2
+	addresses
+called	the	
+virtual	address	space:
+The	size	of	an	address	space	is	characterized	by	the	number	of	bits	that
+are	needed	to	represent	the	largest	address.	For	example,	a	virtual
+address	space	with	
+N
+	=	2
+	addresses	is	called	an	
+n
+-bit	address	space.
+Modern	systems	typically	support	either	32-bit	or	64-bit	virtual	address
+spaces.
+A	system	also	has	
+a	physical	address	space
+	that	corresponds	to	the	
+M
+bytes	of	physical	memory	in	the	system:
+M
+	is	not	required	to	be	a	power	of	2,	but	to	simplify	the	discussion,	we	will
+assume	that	
+M
+	=	2
+.
+{
+	
+0
+,
+ 
+1
+,
+ 
+2
+,
+ 
+…
+	
+}
+n
+{
+	
+0
+,
+ 
+1
+,
+ 
+2
+,
+ 
+…
+,
+ 
+N
+−
+1
+	
+}
+n
+{
+	
+0
+,
+ 
+1
+,
+ 
+2
+,
+ 
+…
+,
+ 
+M
+−
+1
+	
+}
+m
+
+The	concept	of	an	address	space	is	important	because	it	makes	a	clean
+distinction	between	data	objects	(bytes)	and	their	attributes	(addresses).
+Once	we	recognize	this	distinction,	then	we	can	generalize	and	allow
+each	data	object	to	have	multiple	independent	addresses,	each	chosen
+from	a	different	address	space.	This	is	the	basic	idea	of	virtual	memory.
+Each	byte	of	main	memory	has	a	virtual	address	chosen	from	the	virtual
+address	space,	and	a	physical	address	chosen	from	the	physical	address
+space.
+Practice	Problem	
+9.1	
+(solution	page
+880
+)
+Complete	the	following	table,	filling	in	the	missing	entries	and
+replacing	each	question	mark	with	the	appropriate	integer.	Use	the
+following	units:	K	=	2
+	(kilo),	M	=	2
+	(mega),	G	=	2
+	(giga),	T	=
+2
+	(tera),	P	=	2
+	(peta),	or	E	=	2
+	(exa).
+Number	of	virtual
+address	bits	
+(n)
+Number	of	virtual
+addresses	
+(N)
+Largest	possible	virtual
+address
+8
+_____
+_____
+_____
+2
+	=	64	K
+_____
+_____
+_____
+2
+	--	1	=?	G	--	1
+_____
+2
+	=	256	T
+_____
+64
+_____
+_____
+10
+20
+30
+40
+50
+60
+?
+32
+?
+
+9.3	
+VM	as	a	Tool	for	Caching
+Conceptually,	a	virtual	memory	is	organized	as	an	array	of	
+N
+	contiguous
+byte-size	cells	stored	on	disk.	Each	byte	has	a	unique	virtual	address	that
+serves	as	an	index	into	the	array.	The	contents	of	the	array	on	disk	are
+cached	in	main	memory.	As	with	any	other	cache	in	the	memory
+hierarchy,	the	data	on	disk	(the	lower	level)	is	partitioned	into	blocks	that
+serve	as	the	transfer	units	between	the	disk	and	the	main	memory	(the
+upper	level).	VM	systems	handle	this	by	partitioning	the	virtual	memory
+into	fixed-size	blocks	called	
+virtual	pages	(VPs).
+	Each	virtual	page	is	
+P
+	=
+2
+	bytes	in	size.	Similarly,	physical	memory	is	partitioned	into	
+physical
+pages	(PPs)
+,	also	
+P
+	bytes	in	size.	(Physical	pages	are	also	referred	to	as
+page	frames.)
+At	any	point	in	time,	the	set	of	virtual	pages	is	partitioned	into	three
+disjoint	subsets:
+Unallocated.	
+Pages	that	have	not	yet	been	allocated	(or	created)	by
+the	VM	system.	Unallocated	blocks	do	not	have	any	data	associated
+with	them,	and	thus	do	not	occupy	any	space	on	disk.
+Cached.	
+Allocated	pages	that	are	currently	cached	in	physical
+memory.
+Uncached.	
+Allocated	pages	that	are	not	cached	in	physical	memory.
+The	example	in	
+Figure	
+9.3
+	shows	a	small	virtual	memory	with	eight
+virtual	pages.	Virtual	pages	0	and	3	have	not	been	allocated	yet,	and
+P
+
+thus	do	not	yet	exist
+Figure	
+9.3	
+How	a	VM	system	uses	main	memory	as	a	cache.
+on	disk.	Virtual	pages	1,4,	and	6	are	cached	in	physical	memory.	Pages
+2,5,	and	7	are	allocated	but	are	not	currently	cached	in	physical	memory.
+9.3.1	
+DRAM	Cache	Organization
+To	help	us	keep	the	different	caches	in	the	memory	hierarchy	straight,	we
+will	use	the	term	
+SRAM	cache
+	to	denote	the	L1,	L2,	and	L3	cache
+memories	between	the	CPU	and	main	memory,	and	the	term	
+DRAM
+cache
+	to	denote	the	VM	system's	cache	that	caches	virtual	pages	in	main
+memory.
+The	position	of	the	DRAM	cache	in	the	memory	hierarchy	has	a	big
+impact	on	the	way	that	it	is	organized.	Recall	that	a	DRAM	is	at	least	10
+times	slower	than	an	SRAM	and	that	disk	is	about	100,000	times	slower
+than	a	DRAM.	Thus,	misses	in	DRAM	caches	are	very	expensive
+compared	to	misses	in	SRAM	caches	because	DRAM	cache	misses	are
+
+served	from	disk,	while	SRAM	cache	misses	are	usually	served	from
+DRAM-based	main	memory.	Further,	the	cost	of	reading	the	first	byte
+from	a	disk	sector	is	about	100,000	times	slower	than	reading	successive
+bytes	in	the	sector.	The	bottom	line	is	that	the	organization	of	the	DRAM
+cache	is	driven	entirely	by	the	enormous	cost	of	misses.
+Because	of	the	large	miss	penalty	and	the	expense	of	accessing	the	first
+byte,	virtual	pages	tend	to	be	large—typically	4	KB	to	2	MB.	Due	to	the
+large	miss	penalty,	DRAM	caches	are	fully	associative;	that	is,	any	virtual
+page	can	be	placed	in	any	physical	page.	The	replacement	policy	on
+misses	also	assumes	greater	importance,	because	the	penalty
+associated	with	replacing	the	wrong	virtual	page	is	so	high.	Thus,
+operating	systems	use	much	more	sophisticated	replacement	algorithms
+for	DRAM	caches	than	the	hardware	does	for	SRAM	caches.	(These
+replacement	algorithms	are	beyond	our	scope	here.)	Finally,	because	of
+the	large	access	time	of	disk,	DRAM	caches	always	use	write-back
+instead	of	write-through.
+9.3.2	
+Page	Tables
+As	with	any	cache,	the	VM	system	must	have	some	way	to	determine	if	a
+virtual	page	is	cached	somewhere	in	DRAM.	If	so,	the	system	must
+determine	which	physical	page	it	is	cached	in.	If	there	is	a	miss,	the
+system	must	determine
+
+Figure	
+9.4	
+Page	table.
+where	the	virtual	page	is	stored	on	disk,	select	a	victim	page	in	physical
+memory,	and	copy	the	virtual	page	from	disk	to	DRAM,	replacing	the
+victim	page.
+These	capabilities	are	provided	by	a	combination	of	operating	system
+software,	address	translation	hardware	in	the	MMU	(memory
+management	unit),	and	a	data	structure	stored	in	physical	memory
+known	as	a	
+page	table
+	that	maps	virtual	pages	to	physical	pages.	The
+address	translation	hardware	reads	the	page	table	each	time	it	converts
+a	virtual	address	to	a	physical	address.	The	operating	system	is
+responsible	for	maintaining	the	contents	of	the	page	table	and
+transferring	pages	back	and	forth	between	disk	and	DRAM.
+Figure	
+9.4
+	shows	the	basic	organization	of	a	page	table.	A	page	table
+is	an	array	of	
+page	table	entries	(PTEs).
+	Each	page	in	the	virtual	address
+
+space	has	a	PTE	at	a	fixed	offset	in	the	page	table.	For	our	purposes,	we
+will	assume	that	each	PTE	consists	of	a	
+valid	bit
+	and	an	
+n
+-bit	address
+field.	The	valid	bit	indicates	whether	the	virtual	page	is	currently	cached
+in	DRAM.	If	the	valid	bit	is	set,	the	address	field	indicates	the	start	of	the
+corresponding	physical	page	in	DRAM	where	the	virtual	page	is	cached.
+If	the	valid	bit	is	not	set,	then	a	null	address	indicates	that	the	virtual	page
+has	not	yet	been	allocated.	Otherwise,	the	address	points	to	the	start	of
+the	virtual	page	on	disk.
+The	example	in	
+Figure	
+9.4
+	shows	a	page	table	for	a	system	with	eight
+virtual	pages	and	four	physical	pages.	Four	virtual	pages	(VP	1,	VP	2,	VP
+4,	and	VP	7)	are	currently	cached	in	DRAM.	Two	pages	(VP	0	and	VP	5)
+have	not	yet	been	allocated,	and	the	rest	(VP	3	and	VP	6)	have	been
+allocated	but	are	not	currently	cached.	An	important	point	to	notice	about
+Figure	
+9.4
+	is	that	because	the	DRAM	cache	is	fully	associative,	any
+physical	page	can	contain	any	virtual	page.
+Practice	Problem	
+9.2	
+(solution	page	
+881
+)
+Determine	the	number	of	page	table	entries	(PTEs)	that	are
+needed	for	the	following	combinations	of	virtual	address	size	(
+n
+)
+and	page	size	(
+P
+):
+n
+P
+	=	2
+Number	of	PTEs
+16
+4K
+_____
+16
+8K
+_____
+32
+4K
+_____
+32
+8K
+_____
+p
+
+9.3.3	
+Page	Hits
+Consider	what	happens	when	the	CPU	reads	a	word	of	virtual	memory
+contained	in	VP	2,	which	is	cached	in	DRAM	(
+Figure	
+9.5
+).	Using	a
+technique	we	will	describe	in	detail	in	
+Section	
+9.6
+,	the	address
+translation	hardware	uses	the	virtual	address	as	an	index	to	locate	PTE	2
+and	read	it	from	memory.	Since	the	valid	bit	is	set,	the	address	translation
+hardware	knows	that	VP	2	is	cached	in	memory.	So	it	uses	the	physical
+memory	address	in	the	PTE	(which	points	to	the	start	of	the	cached	page
+in	PP	1)	to	construct	the	physical	address	of	the	word.
+9.3.4	
+Page	Faults
+In	virtual	memory	parlance,	a	DRAM	cache	miss	is	known	as	a	
+page
+fault.
+	
+Figure	
+9.6
+	shows	the	state	of	our	example	page	table	before	the
+fault.	The	CPU	has	referenced	a	word	in	VP	3,	which	is	not	cached	in
+DRAM.	The	address	translation	hardware	reads	PTE	3	from	memory,
+infers	from	the	valid	bit	that	VP	3	is	not	cached,	and	triggers	a	page	fault
+exception.	The	page	fault	exception	invokes	a	page	fault	exception
+handler	in	the	kernel,	which	selects	a	victim	page—in	this	case,	VP	4
+stored	in	PP	3.	If	VP	4	has	been	modified,	then	the	kernel	copies	it	back
+to	disk.	In	either	case,	the	kernel	modifies	the	page	table	entry	for	VP	4	to
+reflect	the	fact	that	VP	4	is	no	longer	cached	in	main	memory.
+
+Figure	
+9.5	
+VM	page	hit.
+The	reference	to	a	word	in	VP	2	is	a	hit.
+Figure	
+9.6	
+VM	page	fault	(before).
+The	reference	to	a	word	in	VP	3	is	a	miss	and	triggers	a	page	fault.
+
+Figure	
+9.7	
+VM	page	fault	(after).
+The	page	fault	handler	selects	VP	4	as	the	victim	and	replaces	it	with	a
+copy	of	VP	3	from	disk.	After	the	page	fault	handler	restarts	the	faulting
+instruction,	it	will	read	the	word	from	memory	normally,	without
+generating	an	exception.
+Next,	the	kernel	copies	VP	3	from	disk	to	PP	3	in	memory,	updates	PTE
+3,	and	then	returns.	When	the	handler	returns,	it	restarts	the	faulting
+instruction,	which	resends	the	faulting	virtual	address	to	the	address
+translation	hardware.	But	now,	VP	3	is	cached	in	main	memory,	and	the
+page	hit	is	handled	normally	by	the	address	translation	hardware.	
+Figure
+9.7
+	shows	the	state	of	our	example	page	table	after	the	page	fault.
+Virtual	memory	was	invented	in	the	early	1960s,	long	before	the	widening
+CPU-memory	gap	spawned	SRAM	caches.	As	a	result,	virtual	memory
+systems	use	a	different	terminology	from	SRAM	caches,	even	though
+many	of	the	ideas	are	similar.	In	virtual	memory	parlance,	blocks	are
+
+known	as	pages.	The	activity	of	transferring	a	page	between	disk	and
+memory	is	known	as	
+swapping
+	or	
+paging.
+	Pages	are	
+swapped	in	(paged
+in)
+	from	disk	to	DRAM,	and	
+swapped	out	(paged	out)
+	from	DRAM	to	disk.
+The	strategy	of	waiting	until	the	last	moment	to	swap
+Figure	
+9.8	
+Allocating	a	new	virtual	page.
+The	kernel	allocates	VP	5	on	disk	and	points	PTE	5	to	this	new	location.
+in	a	page,	when	a	miss	occurs,	is	known	as	
+demand	paging.
+	Other
+approaches,	such	as	trying	to	predict	misses	and	swap	pages	in	before
+they	are	actually	referenced,	are	possible.	However,	all	modern	systems
+use	demand	paging.
+9.3.5	
+Allocating	Pages
+
+Figure	
+9.8
+	shows	the	effect	on	our	example	page	table	when	the
+operating	system	allocates	a	new	page	of	virtual	memory—for	example,
+as	a	result	of	calling	
+.	In	the	example,	VP	5	is	allocated	by	creating
+room	on	disk	and	updating	PTE	5	to	point	to	the	newly	created	page	on
+disk.
+9.3.6	
+Locality	to	the	Rescue	Again
+When	many	of	us	learn	about	the	idea	of	virtual	memory,	our	first
+impression	is	often	that	it	must	be	terribly	inefficient.	Given	the	large	miss
+penalties,	we	worry	that	paging	will	destroy	program	performance.	In
+practice,	virtual	memory	works	well,	mainly	because	of	our	old	friend
+locality.
+Although	the	total	number	of	distinct	pages	that	programs	reference
+during	an	entire	run	might	exceed	the	total	size	of	physical	memory,	the
+principle	of	locality	promises	that	at	any	point	in	time	they	will	tend	to
+work	on	a	smaller	set	of	
+active	pages
+	known	as	the	
+working	set
+	or
+resident	set.
+	After	an	initial	overhead	where	the	working	set	is	paged	into
+memory,	subsequent	references	to	the	working	set	result	in	hits,	with	no
+additional	disk	traffic.
+As	long	as	our	programs	have	good	temporal	locality,	virtual	memory
+systems	work	quite	well.	But	of	course,	not	all	programs	exhibit	good
+temporal	locality.	If	the	working	set	size	exceeds	the	size	of	physical
+memory,	then	the	program	can	produce	an	unfortunate	situation	known
+as	
+thrashing
+,	where	pages	are	swapped	in	and	out	continuously.
+Although	virtual	memory	is	usually	efficient,	if	a	program's	performance
+
+slows	to	a	crawl,	the	wise	programmer	will	consider	the	possibility	that	it
+is	thrashing.
+Aside	
+Counting	page	faults
+You	can	monitor	the	number	of	page	faults	(and	lots	of	other
+information)	with	the	Linux	
+	function.
+Figure	
+9.9	
+How	VM	provides	processes	with	separate	address
+spaces.
+The	operating	system	maintains	a	separate	page	table	for	each	process
+in	the	system.
+
+9.4	
+VM	as	a	Tool	for	Memory
+Management
+In	the	last	section,	we	saw	how	virtual	memory	provides	a	mechanism	for
+using	the	DRAM	to	cache	pages	from	a	typically	larger	virtual	address
+space.	Interestingly,	some	early	systems	such	as	the	DEC	PDP-11/70
+supported	a	virtual	address	space	that	was	
+smaller
+	than	the	available
+physical	memory.	Yet	virtual	memory	was	still	a	useful	mechanism
+because	it	greatly	simplified	memory	management	and	provided	a	natural
+way	to	protect	memory.
+Thus	far,	we	have	assumed	a	single	page	table	that	maps	a	single	virtual
+address	space	to	the	physical	address	space.	In	fact,	operating	systems
+provide	a	separate	page	table,	and	thus	a	separate	virtual	address
+space,	for	each	process.	
+Figure	
+9.9
+	shows	the	basic	idea.	In	the
+example,	the	page	table	for	process	
+i
+	maps	VP	1	to	PP	2	and	VP	2	to	PP
+7.	Similarly,	the	page	table	for	process	
+j
+	maps	VP	1	to	PP	7	and	VP	2	to
+PP	10.	Notice	that	multiple	virtual	pages	can	be	mapped	to	the	same
+shared	physical	page.
+The	combination	of	demand	paging	and	separate	virtual	address	spaces
+has	a	profound	impact	on	the	way	that	memory	is	used	and	managed	in
+a	system.	In	particular,	VM	simplifies	linking	and	loading,	the	sharing	of
+code	and	data,	and	allocating	memory	to	applications.
+
+Simplifying	linking.	
+A	separate	address	space	allows	each	process
+to	use	the	same	basic	format	for	its	memory	image,	regardless	of
+where	the	code	and	data	actually	reside	in	physical	memory.	For
+example,	as	we	saw	in	
+Figure	
+8.13
+,	every	process	on	a	given
+Linux	system	has	a	similar	memory	format.	For	64-bit	address
+spaces,	the	code	segment	
+always
+	starts	at	virtual	address	
+.
+The	data	segment	follows	the	code	segment	after	a	suitable
+alignment	gap.	The	stack	occupies	the	highest	portion	of	the	user
+process	address	space	and	
+grows	downward.	Such	uniformity	greatly
+simplifies	the	design	and	implementation	of	linkers,	allowing	them	to
+produce	fully	linked	executables	that	are	independent	of	the	ultimate
+location	of	the	code	and	data	in	physical	memory.
+Simplifying	loading.	
+Virtual	memory	also	makes	it	easy	to	load
+executable	and	shared	object	files	into	memory.	To	load	the	
+and	
+	sections	of	an	object	file	into	a	newly	created	process,	the
+Linux	loader	allocates	virtual	pages	for	the	code	and	data	segments,
+marks	them	as	invalid	(i.e.,	not	cached),	and	points	their	page	table
+entries	to	the	appropriate	locations	in	the	object	file.	The	interesting
+point	is	that	the	loader	never	actually	copies	any	data	from	disk	into
+memory.	The	data	are	paged	in	automatically	and	on	demand	by	the
+virtual	memory	system	the	first	time	each	page	is	referenced,	either
+by	the	CPU	when	it	fetches	an	instruction	or	by	an	executing
+instruction	when	it	references	a	memory	location.
+This	notion	of	mapping	a	set	of	contiguous	virtual	pages	to	an
+arbitrary	location	in	an	arbitrary	file	is	known	as	
+memory	mapping.
+Linux	provides	a	system	call	called	
+	that	allows	application
+programs	to	do	their	own	memory	mapping.	We	will	describe
+application-level	memory	mapping	in	more	detail	in	
+Section	
+9.8
+.
+
+Simplifying	sharing.	
+Separate	address	spaces	provide	the	operating
+system	with	a	consistent	mechanism	for	managing	sharing	between
+user	processes	and	the	operating	system	itself.	In	general,	each
+process	has	its	own	private	code,	data,	heap,	and	stack	areas	that
+are	not	shared	with	any	other	process.	In	this	case,	the	operating
+system	creates	page	tables	that	map	the	corresponding	virtual	pages
+to	disjoint	physical	pages.
+However,	in	some	instances	it	is	desirable	for	processes	to	share
+code	and	data.	For	example,	every	process	must	call	the	same
+operating	system	kernel	code,	and	every	C	program	makes	calls	to
+routines	in	the	standard	C	library	such	as	
+.	Rather	than
+including	separate	copies	of	the	kernel	and	standard	C	library	in	each
+process,	the	operating	system	can	arrange	for	multiple	processes	to
+share	a	single	copy	of	this	code	by	mapping	the	appropriate	virtual
+pages	in	different	processes	to	the	same	physical	pages,	as	we	saw
+in	
+Figure	
+9.9
+.
+Simplifying	memory	allocation.	
+Virtual	memory	provides	a	simple
+mechanism	for	allocating	additional	memory	to	user	processes.	When
+a	program	running	in	a	user	process	requests	additional	heap	space
+(e.g.,	as	a	result	of	calling	
+),	the	operating	system	allocates	an
+appropriate	number,	say,	
+k
+,	of	contiguous	virtual	memory	pages,	and
+maps	them	to	
+k
+	arbitrary	physical	pages	located	anywhere	in	physical
+memory.	Because	of	the	way	page	tables	work,	there	is	no	need	for
+the	operating	system	to	locate	
+k
+	contiguous	pages	of	physical
+memory.	The	pages	can	be	scattered	randomly	in	physical	memory.
+
+9.5	
+VM	as	a	Tool	for	Memory
+Protection
+Any	modern	computer	system	must	provide	the	means	for	the	operating
+system	to	control	access	to	the	memory	system.	A	user	process	should
+not	be	allowed
+Figure	
+9.10	
+Using	VM	to	provide	page-level	memory	protection.
+to	modify	its	read-only	code	section.	Nor	should	it	be	allowed	to	read	or
+modify	any	of	the	code	and	data	structures	in	the	kernel.	It	should	not	be
+allowed	to	read	or	write	the	private	memory	of	other	processes,	and	it
+should	not	be	allowed	to	modify	any	virtual	pages	that	are	shared	with
+other	processes,	unless	all	parties	explicitly	allow	it	(via	calls	to	explicit
+interprocess	communication	system	calls).
+
+As	we	have	seen,	providing	separate	virtual	address	spaces	makes	it
+easy	to	isolate	the	private	memories	of	different	processes.	But	the
+address	translation	mechanism	can	be	extended	in	a	natural	way	to
+provide	even	finer	access	control.	Since	the	address	translation	hardware
+reads	a	PTE	each	time	the	CPU	generates	an	address,	it	is
+straightforward	to	control	access	to	the	contents	of	a	virtual	page	by
+adding	some	additional	permission	bits	to	the	PTE.	
+Figure	
+9.10
+	shows
+the	general	idea.
+In	this	example,	we	have	added	three	permission	bits	to	each	PTE.	The
+SUP	bit	indicates	whether	processes	must	be	running	in	kernel
+(supervisor)	mode	to	access	the	page.	Processes	running	in	kernel	mode
+can	access	any	page,	but	processes	running	in	user	mode	are	only
+allowed	to	access	pages	for	which	SUP	is	0.	The	READ	and	WRITE	bits
+control	read	and	write	access	to	the	page.	For	example,	if	process	
+i
+	is
+running	in	user	mode,	then	it	has	permission	to	read	VP	0	and	to	read	or
+write	VP	1.	However,	it	is	not	allowed	to	access	VP	2.
+If	an	instruction	violates	these	permissions,	then	the	CPU	triggers	a
+general	protection	fault	that	transfers	control	to	an	exception	handler	in
+the	kernel,	which	sends	a	SIGSEGV	signal	to	the	offending	process.
+Linux	shells	typically	report	this	exception	as	a	"segmentation	fault."
+
+9.6	
+Address	Translation
+This	section	covers	the	basics	of	address	translation.	Our	aim	is	to	give
+you	an	appreciation	of	the	hardware's	role	in	supporting	virtual	memory,
+with	enough	detail	so	that	you	can	work	through	some	concrete
+examples	by	hand.	However,	keep	in	mind	that	we	are	omitting	a	number
+of	details,	especially	related	to	timing,
+Symbol
+Description
+Basic	parameters
+N
+	=	2
+Number	of	addresses	in	virtual	address	space
+M
+	=	2
+Number	of	addresses	in	physical	address	space
+P
+	=	2
+Page	size	(bytes)
+Components	of	a	virtual	address	(VA)
+VPO
+Virtual	page	offset	(bytes)
+VPN
+Virtual	page	number
+TLBI
+TLB	index
+TLBT
+TLB	tag
+Components	of	a	physical	address	(PA)
+PPO
+Physical	page	offset	(bytes)
+n
+m
+p
+
+PPN
+Physical	page	number
+CO
+Byte	offset	within	cache	block
+CI
+Cache	index
+CT
+Cache	tag
+Figure	
+9.11	
+Summary	of	address	translation	symbols.
+that	are	important	to	hardware	designers	but	are	beyond	our	scope.	For
+your	reference,	
+Figure	
+9.11
+	summarizes	the	symbols	that	we	will	be
+using	throughout	this	section.
+Formally,	address	translation	is	a	mapping	between	the	elements	of	an
+N
+-element	virtual	address	space	(VAS)	and	an	M-element	physical
+address	space	(PAS),
+where
+Figure	
+9.12
+	shows	how	the	MMU	uses	the	page	table	to	perform	this
+mapping.	A	control	register	in	the	CPU,	the	
+page	table	base	register
+(PTBR)
+	points	to	the	current	page	table.	The	
+n
+-bit	virtual	address	has	two
+components:	a	
+p
+-bit	
+virtual	page	offset	(VPO)
+	and	an	
+(n	--	p)
+-bit	
+virtual
+page	number	(VPN).
+	The	MMU	uses	the	VPN	to	select	the	appropriate
+PTE.	For	example,	VPN	0	selects	PTE	0,	VPN	1	selects	PTE	1,	and	so
+MAP
+:
+ 
+V
+A
+S
+→
+P
+A
+S
+∪
+ϕ
+MAP
+(
+A
+)
+=
+{
+A
+'
+if	data	at	virtual	addr
+.	
+A
+	are	present	at	physical	addr
+.	
+A
+'
+	in	PAS
+ϕ
+if	data	at	virtual	addr
+
+on.	The	corresponding	physical	address	is	the	concatenation	of	the
+physical	page	number	(PPN)
+	from	the	page	table	entry	and	the	VPO	from
+the	virtual	address.	Notice	that	since	the	physical	and	virtual	pages	are
+both	
+P
+	bytes,	the	
+physical	page	offset	(PPO)
+	is	identical	to	the	VPO.
+Figure	
+9.12	
+Address	translation	with	a	page	table.
+Figure	
+9.13(a)
+	shows	the	steps	that	the	CPU	hardware	performs	when
+there	is	a	page	hit.
+Step	
+1.	
+The	processor	generates	a	virtual	address	and	sends	it	to
+the	MMU.
+Step	
+2.	
+The	MMU	generates	the	PTE	address	and	requests	it	from
+the	cache/main	memory.
+Step	
+3.	
+The	cache/main	memory	returns	the	PTE	to	the	MMU.
+
+Step	
+4.	
+The	MMU	constructs	the	physical	address	and	sends	it	to
+the	cache/main	memory.
+Step	
+5.	
+The	cache/main	memory	returns	the	requested	data	word
+to	the	processor.
+Unlike	a	page	hit,	which	is	handled	entirely	by	hardware,	handling	a	page
+fault	requires	cooperation	between	hardware	and	the	operating	system
+kernel	(
+Figure	
+9.13(b)
+).
+Steps	
+1	to	3.	
+The	same	as	steps	1	to	3	in	
+Figure	
+9.13(a)
+.
+Step	
+4.	
+The	valid	bit	in	the	PTE	is	zero,	so	the	MMU	triggers	an
+exception,	which	transfers	control	in	the	CPU	to	a	page	fault
+exception	handler	in	the	operating	system	kernel.
+Step	
+5.	
+The	fault	handler	identifies	a	victim	page	in	physical
+memory,	and	if	that	page	has	been	modified,	pages	it	out	to	disk.
+Step	
+6.	
+The	fault	handler	pages	in	the	new	page	and	updates	the
+PTE	in	memory.
+
+Figure	
+9.13	
+Operational	view	of	page	hits	and	page	faults.
+VA:	virtual	address.	PTEA:	page	table	entry	address.	PTE:	page
+table	entry.	PA:	physical	address.
+Step	
+7.	
+The	fault	handler	returns	to	the	original	process,	causing
+the	faulting	instruction	to	be	restarted.	The	CPU	resends	the
+offending	virtual	address	to	the	MMU.	Because	the	virtual	page	is
+now	cached	in	physical	memory,	there	is	a	hit,	and	after	the	MMU
+
+performs	the	steps	in	
+Figure	
+9.13(a)
+,	the	main	memory	returns
+the	requested	word	to	the	processor.
+Practice	Problem	
+9.3	
+(solution	page
+881
+)
+Given	a	32-bit	virtual	address	space	and	a	24-bit	physical	address,
+determine	the	number	of	bits	in	the	VPN,	VPO,	PPN,	and	PPO	for
+the	following	page	sizes	
+P:
+P
+Number	of
+VPN	bits
+VPO	bits
+PPN	bits
+PPO	bits
+1	KB
+_____
+_____
+_____
+_____
+2	KB
+_____
+_____
+_____
+_____
+4	KB
+_____
+_____
+_____
+_____
+8	KB
+_____
+_____
+_____
+_____
+
+Figure	
+9.14	
+Integrating	VM	with	a	physically	addressed	cache.
+VA:	virtual	address.	PTEA:	page	table	entry	address.	PTE:	page	table
+entry.	PA:	physical	address.
+9.6.1	
+Integrating	Caches	and	VM
+In	any	system	that	uses	both	virtual	memory	and	SRAM	caches,	there	is
+the	issue	of	whether	to	use	virtual	or	physical	addresses	to	access	the
+SRAM	cache.	Although	a	detailed	discussion	of	the	trade-offs	is	beyond
+our	scope	here,	most	systems	opt	for	physical	addressing.	With	physical
+addressing,	it	is	straightforward	for	multiple	processes	to	have	blocks	in
+the	cache	at	the	same	time	and	to	share	blocks	from	the	same	virtual
+pages.	Further,	the	cache	does	not	have	to	deal	with	protection	issues,
+because	access	rights	are	checked	as	part	of	the	address	translation
+process.
+Figure	
+9.14
+	shows	how	a	physically	addressed	cache	might	be
+integrated	with	virtual	memory.	The	main	idea	is	that	the	address
+
+translation	occurs	before	the	cache	lookup.	Notice	that	page	table	entries
+can	be	cached,	just	like	any	other	data	words.
+9.6.2	
+Speeding	Up	Address
+Translation	with	a	TLB
+As	we	have	seen,	every	time	the	CPU	generates	a	virtual	address,	the
+MMU	must	refer	to	a	PTE	in	order	to	translate	the	virtual	address	into	a
+physical	address.	In	the	worst	case,	this	requires	an	additional	fetch	from
+memory,	at	a	cost	of	tens	to	hundreds	of	cycles.	If	the	PTE	happens	to	be
+cached	in	L1,	then	the	cost	goes	down	to	a	handful	of	cycles.	However,
+many	systems	try	to	eliminate	even	this	cost	by	including	a	small	cache
+of	PTEs	in	the	MMU	called	a	
+translation	lookaside	buffer	(TLB).
+A	TLB	is	a	small,	virtually	addressed	cache	where	each	line	holds	a	block
+consisting	of	a	single	PTE.	A	TLB	usually	has	a	high	degree	of
+associativity.	As	shown	in	
+Figure	
+9.15
+,	the	index	and	tag	fields	that	are
+used	for	set	selection	and	line	matching	are	extracted	from	the	virtual
+page	number	in	the	virtual	address.	If	the	TLB	has	
+T
+	=	2
+	sets,	then	the
+TLB	index	(TLBI)
+	consists	of	the	
+t
+	least	significant	bits	of	the	VPN,	and
+the	
+TLB	tag	(TLBT)
+	consists	of	the	remaining	bits	in	the	VPN.
+Figure	
+9.15	
+Components	of	a	virtual	address	that	are	used	to	access
+the	TLB.
+t
+
+Figure	
+9.16	
+Operational	view	of	a	TLB	hit	and	miss.
+
+Figure	
+9.16(a)
+	shows	the	steps	involved	when	there	is	a	TLB	hit	(the
+usual	case).	The	key	point	here	is	that	all	of	the	address	translation	steps
+are	performed	inside	the	on-chip	MMU	and	thus	are	fast.
+Step	1.	
+The	CPU	generates	a	virtual	address.
+Steps	2	and	3.	
+The	MMU	fetches	the	appropriate	PTE	from	the
+TLB.
+Step	4.	
+The	MMU	translates	the	virtual	address	to	a	physical
+address	and	sends	it	to	the	cache/main	memory.
+Step	5.	
+The	cache/main	memory	returns	the	requested	data	word
+to	the	CPU.
+When	there	is	a	TLB	miss,	then	the	MMU	must	fetch	the	PTE	from	the	L1
+cache,	as	shown	in	
+Figure	
+9.16(b)
+.	The	newly	fetched	PTE	is	stored	in
+the	TLB,	possibly	overwriting	an	existing	entry.
+9.6.3	
+Multi-Level	Page	Tables
+Thus	far,	we	have	assumed	that	the	system	uses	a	single	page	table	to
+do	address	translation.	But	if	we	had	a	32-bit	address	space,	4	KB
+pages,	and	a	4-byte	PTE,	then	we	would	need	a	4	MB	page	table
+resident	in	memory	at	all	times,	even	if	the	application	referenced	only	a
+small	chunk	of	the	virtual	address	space.	The	problem	is	compounded	for
+systems	with	64-bit	address	spaces.
+The	common	approach	for	compacting	the	page	table	is	to	use	a
+hierarchy	of	page	tables	instead.	The	idea	is	easiest	to	understand	with	a
+concrete	example.	Consider	a	32-bit	virtual	address	space	partitioned
+
+into	4	KB	pages,	with	page	table	entries	that	are	4	bytes	each.	Suppose
+also	that	at	this	point	in	time	the	virtual	address	space	has	the	following
+form:	The	first	2	K	pages	of	memory	are	allocated	for	code	and	data,	the
+next	6	K	pages	are	unallocated,	the	next	1,023	pages	are	also
+unallocated,	and	the	next	page	is	allocated	for	the	user	stack.	
+Figure
+9.17
+	shows	how	we	might	construct	a	two-level	page	table	hierarchy
+for	this	virtual	address	space.
+Each	PTE	in	the	level	1	table	is	responsible	for	mapping	a	4	MB	chunk	of
+the	virtual	address	space,	where	each	chunk	consists	of	1,024
+contiguous	pages.	For	example,	PTE	0	maps	the	first	chunk,	PTE	1	the
+next	chunk,	and	so	on.	Given	that	the	address	space	is	4	GB,	1,024
+PTEs	are	sufficient	to	cover	the	entire	space.
+If	every	page	in	chunk	
+i
+	is	unallocated,	then	level	1	PTE	
+i
+	is	null.	For
+example,	in	
+Figure	
+9.17
+,	chunks	2--7	are	unallocated.	However,	if	at
+least	one	page	in	chunk	
+i
+	is	allocated,	then	level	1	PTE	
+i
+	points	to	the
+base	of	a	level	2	page	table.	For	example,	in	
+Figure	
+9.17
+,	all	or
+portions	of	chunks	0,1,	and	8	are	allocated,	so	their	level	1	PTEs	point	to
+level	2	page	tables.
+Each	PTE	in	a	level	2	page	table	is	responsible	for	mapping	a	4-KB	page
+of	virtual	memory,	just	as	before	when	we	looked	at	single-level	page
+tables.	Notice	that	with	4-byte	PTEs,	each	level	1	and	level	2	page	table
+is	4	kilobytes,	which	conveniently	is	the	same	size	as	a	page.
+This	scheme	reduces	memory	requirements	in	two	ways.	First,	if	a	PTE
+in	the	level	1	table	is	null,	then	the	corresponding	level	2	page	table	does
+not	even	have	to	exist.	This	represents	a	significant	potential	savings,
+since	most	of	the	4	GB	virtual	address	space	for	a	typical	program	is
+
+unallocated.	Second,	only	the	level	1	table	needs	to	be	in	main	memory
+at	all	times.	The	level	2	page	tables	can	be	created	and	paged	in	and	out
+by	the	VM	system	as	they	are	needed,	which	reduces	pressure	on	main
+memory.	Only	the	most	heavily	used	level	2	page	tables	need	to	be
+cached	in	main	memory.
+Figure	
+9.17	
+A	two-level	page	table	hierarchy.
+Notice	that	addresses	increase	from	top	to	bottom.
+
+Figure	
+9.18	
+Address	translation	with	a	
+k
+-level	page	table.
+Figure	
+9.18
+	summarizes	address	translation	with	a	
+k
+-level	page	table
+hierarchy.	The	virtual	address	is	partitioned	into	
+k
+	VPNs	and	a	VPO.
+Each	VPN	
+i
+,	1	≤	
+i
+	≤	
+k
+,	is	an	index	into	a	page	table	at	level	
+i.
+	Each	PTE	in
+a	level	
+j
+	table,	1	≤	
+j
+	≤	
+k
+	−	1,	points	to	the	base	of	some	page	table	at	level
+j
+	+	1.	Each	PTE	in	a	level	
+k
+	table	contains	either	the	PPN	of	some
+physical	page	or	the	address	of	a	disk	block.	To	construct	the	physical
+address,	the	MMU	must	access	
+k
+	PTEs	before	it	can	
+determine	the	PPN.
+As	with	a	single-level	hierarchy,	the	PPO	is	identical	to	the	VPO.
+Accessing	
+k
+	PTEs	may	seem	expensive	and	impractical	at	first	glance.
+However,	the	TLB	comes	to	the	rescue	here	by	caching	PTEs	from	the
+page	tables	at	the	different	levels.	In	practice,	address	translation	with
+multi-level	page	tables	is	not	significantly	slower	than	with	single-level
+page	tables.
+
+9.6.4	
+Putting	It	Together:	End-to-End
+Address	Translation
+In	this	section,	we	put	it	all	together	with	a	concrete	example	of	end-to-
+end	address	translation	on	a	small	system	with	a	TLB	and	L1	d-cache.	To
+keep	things	manageable,	we	make	the	following	assumptions:
+The	memory	is	byte	addressable.
+Memory	accesses	are	to	
+1-byte	words
+	(not	4-byte	words).
+Virtual	addresses	are	14	bits	wide	(
+n
+	=	14).
+Physical	addresses	are	12	bits	wide	(
+m
+	=	12).
+The	page	size	is	64	bytes	(
+P
+	=	64).
+The	TLB	is	4-way	set	associative	with	16	total	entries.
+The	L1	d-cache	is	physically	addressed	and	direct	mapped,	with	a	4-
+byte	line	size	and	16	total	sets.
+Figure	
+9.19
+	shows	the	formats	of	the	virtual	and	physical	addresses.
+Since	each	page	is	2
+	=	64	bytes,	the	low-order	6	bits	of	the	virtual	and
+physical	addresses	serve	as	the	VPO	and	PPO,	respectively.	The	high-
+order	8	bits	of	the	virtual	address	serve	as	the	VPN.	The	high-order	6	bits
+of	the	physical	address	serve	as	the	PPN.
+Figure	
+9.20
+	shows	a	snapshot	of	our	little	memory	system,	including
+the	TLB	(
+Figure	
+9.20
+(a)
+),	a	portion	of	the	page	table	(
+Figure
+9.20(b)
+),	and	the	L1	cache	(
+Figure	
+9.20(c)
+).	Above	the	figures	of
+the	TLB	and	cache,	we	have	also	shown	how	the	bits	of	the	virtual	and
+6
+
+physical	addresses	are	partitioned	by	the	hardware	as	it	accesses	these
+devices.
+Figure	
+9.19	
+Addressing	for	small	memory	system.
+Assume	14-bit	virtual	addresses	(
+n
+	=	14),	12-bit	physical	addresses	(
+m
+	=
+12),	and	64-byte	pages	(
+P
+	=	64).
+
+
+
+Figure	
+9.20	
+TLB,	page	table,	and	cache	for	small	memory	system.
+All	values	in	the	TLB,	page	table,	and	cache	are	in	hexadecimal	notation.
+TLB.	
+The	TLB	is	virtually	addressed	using	the	bits	of	the	VPN.	Since
+the	TLB	has	four	sets,	the	2	low-order	bits	of	the	VPN	serve	as	the	set
+index	(TLBI).	The	remaining	6	high-order	bits	serve	as	the	tag	(TLBT)
+that	distinguishes	the	different	VPNs	that	might	map	to	the	same	TLB
+set.
+Page	table.	
+The	page	table	is	a	single-level	design	with	a	total	of	2
+	=
+256	page	table	entries	(PTEs).	However,	we	are	only	interested	in	the
+first	16	of	these.	For	convenience,	we	have	labeled	each	PTE	with	the
+VPN	that	indexes	it;	but	keep	in	mind	that	these	VPNs	are	not	part	of
+the	page	table	and	not	stored	in	memory.	Also,	notice	that	the	PPN	of
+each	invalid	PTE	is	denoted	with	a	dash	to	reinforce	the	idea	that
+whatever	bit	values	might	happen	to	be	stored	there	are	not
+meaningful.
+Cache.	
+The	direct-mapped	cache	is	addressed	by	the	fields	in	the
+physical	address.	Since	each	block	is	4	bytes,	the	low-order	2	bits	of
+the	physical	address	serve	as	the	block	offset	(CO).	Since	there	are
+16	sets,	the	next	4	bits	serve	as	the	set	index	(CI).	The	remaining	6
+bits	serve	as	the	tag	(CT).
+Given	this	initial	setup,	let's	see	what	happens	when	the	CPU	executes	a
+load	instruction	that	reads	the	byte	at	address	
+.	(Recall	that	our
+hypothetical	CPU	reads	1-byte	words	rather	than	4-byte	words.)	To	begin
+this	kind	of	manual	simulation,	we	find	it	helpful	to	write	down	the	bits	in
+the	virtual	address,	identify	the	various	fields	we	will	need,	and	determine
+8
+
+their	hex	values.	The	hardware	performs	a	similar	task	when	it	decodes
+the	address.
+To	begin,	the	MMU	extracts	the	VPN	(
+)	from	the	virtual	address	and
+checks	with	the	TLB	to	see	if	it	has	cached	a	copy	of	PTE	
+	from
+some	previous	memory	reference.	The	TLB	extracts	the	TLB	index
+(
+)	and	the	TLB	tag	(
+)	from	the	VPN,	hits	on	a	valid	match	in	the
+second	entry	of	set	
+,	and	returns	the	cached	PPN	(
+)	to	the	MMU.
+If	the	TLB	had	missed,	then	the	MMU	would	need	to	fetch	the	PTE	from
+main	memory.	However,	in	this	case,	we	got	lucky	and	had	a	TLB	hit.	The
+MMU	now	has	everything	it	needs	to	form	the	physical	address.	It	does
+this	by	concatenating	the	PPN	(
+)	from	the	PTE	with	the	VPO	(
+)
+from	the	virtual	address,	which	forms	the	physical	address	(
+).
+Next,	the	MMU	sends	the	physical	address	to	the	cache,	which	extracts
+the	cache	offset	CO	(
+),	the	cache	set	index	CI	(
+),	and	the	cache
+tag	CT	(
+)	from	the	physical	address.
+
+Since	the	tag	in	set	
+	matches	CT,	the	cache	detects	a	hit,	reads	out
+the	data	byte	(
+)	at	offset	CO,	and	returns	it	to	the	MMU,	which	then
+passes	it	back	to	the	CPU.
+Other	paths	through	the	translation	process	are	also	possible.	For
+example,	if	the	TLB	misses,	then	the	MMU	must	fetch	the	PPN	from	a
+PTE	in	the	page	table.	If	the	resulting	PTE	is	invalid,	then	there	is	a	page
+fault	and	the	kernel	must	page	in	the	appropriate	page	and	rerun	the	load
+instruction.	Another	possibility	is	that	the	PTE	is	valid,	but	the	necessary
+memory	block	misses	in	the	cache.
+Practice	Problem	
+9.4	
+(solution	page	
+881
+)
+Show	how	the	example	memory	system	in	
+Section	
+9.6.4
+translates	a	virtual	address	into	a	physical	address	and	accesses
+the	cache.	For	the	given	virtual	address,	indicate	the	TLB	entry
+accessed,	physical	address,	and	cache	byte	value	returned.
+Indicate	whether	the	TLB	misses,	whether	a	page	fault	occurs,
+and	whether	a	cache	miss	occurs.	If	there	is	a	cache	miss,	enter
+"—"	for	"Cache	byte	returned."	If	there	is	a	page	fault,	enter	"—"
+for	"PPN"	and	leave	parts	C	and	D	blank.
+Virtual	address:	
+
+A
+.	
+Virtual	address	format
+B
+.	
+Address	translation
+Parameter
+Value
+VPN
+_____
+TLB	index
+_____
+TLB	tag
+_____
+TLB	hit?	(Y/N)
+_____
+Page	fault?	(Y/N)
+_____
+PPN
+_____
+	
+C
+.	
+Physical	address	format
+D
+.	
+Physical	memory	reference
+Parameter
+Value
+Byte	offset
+_____
+Cache	index
+_____
+Cache	tag
+_____
+Cache	hit?	(Y/N)
+_____
+
+Cache	byte	returned
+_____
+
+9.7	
+Case	Study:	The	Intel	Core
+i7/Linux	Memory	System
+We	conclude	our	discussion	of	virtual	memory	mechanisms	with	a	case
+study	of	a	real	system:	an	Intel	Core	i7	running	Linux.	Although	the
+underlying	Haswell	microarchitecture	allows	for	full	64-bit	virtual	and
+physical	address	spaces,	the	current	Core	i7	implementations	(and	those
+for	the	foreseeable	future)	support	a	48-bit	(256	TB)	virtual	address
+space	and	a	52-bit	(4	PB)	physical	address	space,	along	with	a
+compatibility	mode	that	supports	32-bit	(4	GB)	virtual	and	physical
+address	spaces.
+Figure	
+9.21
+	gives	the	highlights	of	the	Core	i7	memory	system.	The
+processor	package
+	(chip)	includes	four	cores,	a	large	L3	cache	shared	by
+all	of	the	cores,	and
+
+Figure	
+9.21	
+The	Core	i7	memory	system.
+
+Figure	
+9.22	
+Summary	of	Core	i7	address	translation.
+For	simplicity,	the	i-caches,	i-TLB,	and	L2	unified	TLB	are	not	shown.
+a	DDR3	memory	controller.	Each	core	contains	a	hierarchy	of	TLBs,	a
+hierarchy	of	data	and	instruction	caches,	and	a	set	of	fast	point-to-point
+links,	based	on	the	QuickPath	technology,	for	communicating	directly	with
+the	other	cores	and	the	external	I/O	bridge.	The	TLBs	are	virtually
+addressed,	and	4-way	set	associative.	The	L1,	L2,	and	L3	caches	are
+physically	addressed,	with	a	block	size	of	64	bytes.	L1	and	L2	are	8-way
+set	associative,	and	L3	is	16-way	set	associative.	The	page	size	can	be
+
+configured	at	start-up	time	as	either	4	KB	or	4	MB.	Linux	uses	4	KB
+pages.
+9.7.1	
+Core	i7	Address	Translation
+Figure	
+9.22
+	summarizes	the	entire	Core	i7	address	translation
+process,	from	the	time	the	CPU	generates	a	virtual	address	until	a	data
+word	arrives	from	memory.	The	Core	i7	uses	a	four-level	page	table
+hierarchy.	Each	process	has	its	own	private	page	table	hierarchy.	When	a
+Linux	process	is	running,	the	page	tables	associated	with	allocated
+pages	are	all	memory-resident,	although	the	Core	i7	architecture	allows
+these	page	tables	to	be	swapped	in	and	out.	The	
+CR3
+	control	register
+contains	the	physical	address	of	the	beginning	of	the	level	1	(L1)	page
+table.	The	value	of	CR3	is	part	of	each	process	context,	and	is	restored
+during	each	context	switch.
+Field
+Description
+P
+Child	page	table	present	in	physical	memory	(1)	or	not	(0).
+R/W
+Read-only	or	read-write	access	permission	for	all	reachable	pages.
+U/S
+User	or	supervisor	(kernel)	mode	access	permission	for	all	reachable	pages.
+WT
+Write-through	or	write-back	cache	policy	for	the	child	page	table.
+
+CD
+Caching	disabled	or	enabled	for	the	child	page	table.
+A
+Reference	bit	(set	by	MMU	on	reads	and	writes,	cleared	by	software).
+PS
+Page	size	either	4	KB	or	4	MB	(defined	for	level	1	PTEs	only).
+Base	addr
+40	most	significant	bits	of	physical	base	address	of	child	page	table.
+XD
+Disable	or	enable	instruction	fetches	from	all	pages	reachable	from	this	PTE.
+Figure	
+9.23	
+Format	of	level	1,	level	2,	and	level	3	page	table	entries.
+Each	entry	references	a	4	KB	child	page	table.
+Figure	
+9.23
+	shows	the	format	of	an	entry	in	a	level	1,	level	2,	or	level	3
+page	table.	When	
+P
+	=	1	(which	is	always	the	case	with	Linux),	the
+address	field	contains	a	40-bit	physical	page	number	(PPN)	that	points	to
+the	beginning	of	the	appropriate	page	table.	Notice	that	this	imposes	a	4
+KB	alignment	requirement	on	page	tables.
+Figure	
+9.24
+	shows	the	format	of	an	entry	in	a	level	4	page	table.	When
+P
+	=	1,	the	address	field	contains	a	40-bit	PPN	that	points	to	the	base	of
+some	page	in	physical	memory.	Again,	this	imposes	a	4	KB	alignment
+requirement	on	physical	pages.
+The	PTE	has	three	permission	bits	that	control	access	to	the	page.	The
+R/W
+	bit	determines	whether	the	contents	of	a	page	are	read/write	or
+read-only.	The	
+U/S
+	bit,	which	determines	whether	the	page	can	be
+accessed	in	user	mode,	protects	code	and	data	in	the	operating	system
+kernel	from	user	programs.	The	
+XD
+	(execute	disable)	bit,	which	was
+introduced	in	64-bit	systems,	can	be	used	to	disable	instruction	fetches
+from	individual	memory	pages.	This	is	an	important	new	feature	that
+
+allows	the	operating	system	kernel	to	reduce	the	risk	of	buffer	overflow
+attacks	by	restricting	execution	to	the	read-only	code	segment.
+As	the	MMU	translates	each	virtual	address,	it	also	updates	two	other
+bits	that	can	be	used	by	the	kernel's	page	fault	handler.	The	MMU	sets
+the	
+A
+	bit,	which	is	known	as	a	
+reference	bit
+,	each	time	a	page	is
+accessed.	The	kernel	can	use	the	reference	bit	to	implement	its	page
+replacement	algorithm.	The	MMU	sets	the	
+D
+	bit,	or	
+dirty	bit
+,	each	time	the
+page	is	written	to.	A	page	that	has	been	modified	is	sometimes	called	a
+dirty	page.
+	The	dirty	bit	tells	the	kernel	whether	or	not	it	must
+Field
+Description
+P
+Child	page	present	in	physical	memory	(1)	or	not	(0).
+R/W
+Read-only	or	read/write	access	permission	for	child	page.
+U/S
+User	or	supervisor	mode	(kernel	mode)	access	permission	for	child	page.
+WT
+Write-through	or	write-back	cache	policy	for	the	child	page.
+CD
+Cache	disabled	or	enabled.
+A
+Reference	bit	(set	by	MMU	on	reads	and	writes,	cleared	by	software).
+D
+Dirty	bit	(set	by	MMU	on	writes,	cleared	by	software).
+G
+Global	page	(don't	evict	from	TLB	on	task	switch).
+
+Base	addr
+40	most	significant	bits	of	physical	base	address	of	child	page.
+XD
+Disable	or	enable	instruction	fetches	from	the	child	page.
+Figure	
+9.24	
+Format	of	level	4	page	table	entries.
+Each	entry	references	a	4	KB	child	page.
+write	back	a	victim	page	before	it	copies	in	a	replacement	page.	The
+kernel	can	call	a	special	kernel-mode	instruction	to	clear	the	reference	or
+dirty	bits.
+Figure	
+9.25
+	shows	how	the	Core	i7	MMU	uses	the	four	levels	of	page
+tables	to	translate	a	virtual	address	to	a	physical	address.	The	36-bit
+VPN	is	partitioned	into	four	9-bit	chunks,	each	of	which	is	used	as	an
+offset	into	a	page	table.	The	CR3	register	contains	the	physical	address
+of	the	L1	page	table.	VPN	1	provides	an	offset	to	an	L1	PTE,	which
+contains	the	base	address	of	the	L2	page	table.	VPN	2	provides	an	offset
+to	an	L2	PTE,	and	so	on.
+9.7.2	
+Linux	Virtual	Memory	System
+A	virtual	memory	system	requires	close	cooperation	between	the
+hardware	and	the	kernel.	Details	vary	from	version	to	version,	and	a
+complete	description	is	beyond	our	scope.	Nonetheless,	our	aim	in	this
+section	is	to	describe	enough	of	the	Linux	virtual	memory	system	to	give
+you	a	sense	of	how	a	real	operating	system	organizes	virtual	memory
+and	how	it	handles	page	faults.
+
+Linux	maintains	a	separate	virtual	address	space	for	each	process	of	the
+form	shown	in	
+Figure	
+9.26
+.	We	have	seen	this	picture	a	number	of
+times	already,	with	its	familiar	code,	data,	heap,	shared	library,	and	stack
+segments.	Now	that	we	understand	address	translation,	we	can	fill	in
+some	more	details	about	the	kernel	virtual	memory	that	lies	above	the
+user	stack.
+The	kernel	virtual	memory	contains	the	code	and	data	structures	in	the
+kernel.	Some	regions	of	the	kernel	virtual	memory	are	mapped	to
+physical	pages	that
+Figure	
+9.25	
+Core	i7	page	table	translation.
+
+PT:	page	table;	PTE:	page	table	entry;	VPN:	virtual	page	number;	VPO:
+virtual	page	offset;	PPN:	physical	page	number;	PPO:	physical	page
+offset.	The	Linux	names	for	the	four	levels	of	page	tables	are	also	shown.
+Figure	
+9.26	
+The	virtual	memory	of	a	Linux	process.
+Aside	
+Optimizing	address	translation
+In	our	discussion	of	address	translation,	we	have	described	a
+sequential	two-step	process	where	the	MMU	(1)	translates	the
+virtual	address	to	a	physical	address	and	then	(2)	passes	the
+physical	address	to	the	L1	cache.	However,	real	hardware
+
+implementations	use	a	neat	trick	that	allows	these	steps	to	be
+partially	overlapped,	thus	speeding	up	accesses	to	the	L1	cache.
+For	example,	a	virtual	address	on	a	Core	i7	with	4	KB	pages	has
+12	bits	of	VPO,	and	these	bits	are	identical	to	the	12	bits	of	PPO
+in	the	corresponding	physical	address.	Since	the	8-way	set
+associative	physically	addressed	L1	caches	have	64	sets	and	64-
+byte	cache	blocks,	each	physical	address	has	6	(log
+	64)	cache
+offset	bits	and	6	(log
+	64)	index	bits.	These	12	bits	fit	exactly	in	the
+12-bit	VPO	of	a	virtual	address,	which	is	no	accident!	When	the
+CPU	needs	a	virtual	address	translated,	it	sends	the	VPN	to	the
+MMU	and	the	VPO	to	the	L1	cache.	While	the	MMU	is	requesting
+a	page	table	entry	from	the	TLB,	the	L1	cache	is	busy	using	the
+VPO	bits	to	find	the	appropriate	set	and	read	out	the	eight	tags
+and	corresponding	data	words	in	that	set.	When	the	MMU	gets	the
+PPN	back	from	the	TLB,	the	cache	is	ready	to	try	to	match	the
+PPN	to	one	of	these	eight	tags.
+are	shared	by	all	processes.	For	example,	each	process	shares	the
+kernel's	code	and	global	data	structures.	Interestingly,	Linux	also	maps	a
+set	of	contiguous	virtual	pages	(equal	in	size	to	the	total	amount	of
+DRAM	in	the	system)	to	the	corresponding	set	of	contiguous	physical
+pages.	This	provides	the	kernel	with	a	convenient	way	to	access	any
+specific	location	in	physical	memory—for	example,	when	it	needs	to
+access	page	tables	or	to	perform	memory-mapped	I/O	operations	on
+devices	that	are	mapped	to	particular	physical	memory	locations.
+Other	regions	of	kernel	virtual	memory	contain	data	that	differ	for	each
+process.	Examples	include	page	tables,	the	stack	that	the	kernel	uses
+when	it	is	executing	code	in	the	context	of	the	process,	and	various	data
+2
+2
+
+structures	that	keep	track	of	the	current	organization	of	the	virtual
+address	space.
+Linux	Virtual	Memory	Areas
+Linux	organizes	the	virtual	memory	as	a	collection	of	
+areas
+	(also	called
+segments).
+	An	area	is	a	contiguous	chunk	of	existing	(allocated)	virtual
+memory	whose	pages	are	related	in	some	way.	For	example,	the	code
+segment,	data	segment,	heap,	shared	library	segment,	and	user	stack
+are	all	distinct	areas.	Each	existing	virtual	page	is	contained	in	some
+area,	and	any	virtual	page	that	is	not	part	of	some	area	does	not	exist
+and	cannot	be	referenced	by	the	process.	The	notion	of	an	area	is
+important	because	it	allows	the	virtual	address	space	to	have	gaps.	The
+kernel	does	not	keep	track	of	virtual	pages	that	do	not	exist,	and	such
+pages	do	not	consume	any	additional	resources	in	memory,	on	disk,	or	in
+the	kernel	itself.
+Figure	
+9.27
+	highlights	the	kernel	data	structures	that	keep	track	of	the
+virtual	memory	areas	in	a	process.	The	kernel	maintains	a	distinct	task
+structure	(
+	in	the	source	code)	for	each	process	in	the
+system.	The	elements	of	the	task	structure	either	contain	or	point	to	all	of
+the	information	that	the	kernel	needs	to
+
+Figure	
+9.27	
+How	Linux	organizes	virtual	memory.
+run	the	process	(e.g.,	the	PID,	pointer	to	the	user	stack,	name	of	the
+executable	object	file,	and	program	counter).
+One	of	the	entries	in	the	task	structure	points	to	an	
+	that
+characterizes	the	current	state	of	the	virtual	memory.	The	two	fields	of
+interest	to	us	are	
+,	which	points	to	the	base	of	the	level	1	table	(the
+page	global	directory),	and	
+,	which	points	to	a	list	of	
+(area	structs),	each	of	which	characterizes	an	area	of	the	current	virtual
+address	space.	When	the	kernel	runs	this	process,	it	stores	
+	in	the
+CR3	control	register.
+
+For	our	purposes,	the	area	struct	for	a	particular	area	contains	the
+following	fields:
+.	
+Points	to	the	beginning	of	the	area.
+.	
+Points	to	the	end	of	the	area.
+.	
+Describes	the	read/write	permissions	for	all	of	the	pages
+contained	in	the	area.
+.	
+Describes	(among	other	things)	whether	the	pages	in	the
+area	are	shared	with	other	processes	or	private	to	this	process.
+.	
+Points	to	the	next	area	struct	in	the	list.
+Figure	
+9.28	
+Linux	page	fault	handling.
+
+Linux	Page	Fault	Exception	Handling
+Suppose	the	MMU	triggers	a	page	fault	while	trying	to	translate	some
+virtual	address	
+A.
+	The	exception	results	in	a	transfer	of	control	to	the
+kernel's	page	fault	handler,	which	then	performs	the	following	steps:
+1
+.	
+Is	virtual	address	
+A
+	legal?	In	other	words,	does	
+A
+	lie	within	an	area
+defined	by	some	area	struct?	To	answer	this	question,	the	fault
+handler	searches	the	list	of	area	structs,	comparing	
+A
+	with	the
+	and	
+	in	each	area	struct.	If	the	instruction	is	not
+legal,	then	the	fault	handler	triggers	a	segmentation	fault,	which
+terminates	the	process.	This	situation	is	labeled	"1"	in	
+Figure
+9.28
+.
+Because	a	process	can	create	an	arbitrary	number	of	new	virtual
+memory	areas	(using	the	
+	function	described	in	the	next
+section),	a	sequential	search	of	the	list	of	area	structs	might	be
+very	costly.	So	in	practice,	Linux	superimposes	a	tree	on	the	list,
+using	some	fields	that	we	have	not	shown,	and	performs	the
+search	on	this	tree.
+2
+.	
+Is	the	attempted	memory	access	legal?	In	other	words,	does	the
+process	have	permission	to	read,	write,	or	execute	the	pages	in
+this	area?	For	example,	was	the	page	fault	the	result	of	a	store
+instruction	trying	to	write	to	a	read-only	page	in	the	code	segment?
+Is	the	page	fault	the	result	of	a	process	running	in	user	mode	that
+is	attempting	to	read	a	word	from	kernel	virtual	memory?	If	the
+attempted	access	is	not	legal,	then	the	fault	handler	triggers	a
+protection	exception,	which	terminates	the	process.	This	situation
+is	labeled	"2"	in	
+Figure	
+9.28
+.
+
+3
+.	
+At	this	point,	the	kernel	knows	that	the	page	fault	resulted	from	a
+legal	operation	on	a	legal	virtual	address.	It	handles	the	fault	by
+selecting	a	victim	page,	swapping	out	the	victim	page	if	it	is	dirty,
+swapping	in	the	new	page,	
+and	updating	the	page	table.	When	the
+page	fault	handler	returns,	the	CPU	restarts	the	faulting
+instruction,	which	sends	
+A
+	to	the	MMU	again.	This	time,	the	MMU
+translates	
+A
+	normally,	without	generating	a	page	fault.
+
+9.8	
+Memory	Mapping
+Linux	initializes	the	contents	of	a	virtual	memory	area	by	associating	it
+with	an	
+object
+	on	disk,	a	process	known	as	
+memory	mapping.
+	Areas	can
+be	mapped	to	one	of	two	types	of	objects:
+1
+.	
+Regular	file	in	the	Linux	file	system:	
+An	area	can	be	mapped	to
+a	contiguous	section	of	a	regular	disk	file,	such	as	an	executable
+object	file.	The	file	section	is	divided	into	page-size	pieces,	with
+each	piece	containing	the	initial	contents	of	a	virtual	page.
+Because	of	demand	paging,	none	of	these	virtual	pages	is	actually
+swapped	into	physical	memory	until	the	CPU	first	
+touches
+	the
+page	(i.e.,	issues	a	virtual	address	that	falls	within	that	page's
+region	of	the	address	space).	If	the	area	is	larger	than	the	file
+section,	then	the	area	is	padded	with	zeros.
+2
+.	
+Anonymous	file:	
+An	area	can	also	be	mapped	to	an	anonymous
+file,	created	by	the	kernel,	that	contains	all	binary	zeros.	The	first
+time	the	CPU	touches	a	virtual	page	in	such	an	area,	the	kernel
+finds	an	appropriate	victim	page	in	physical	memory,	swaps	out
+the	victim	page	if	it	is	dirty,	overwrites	the	victim	page	with	binary
+zeros,	and	updates	the	page	table	to	mark	the	page	as	resident.
+Notice	that	no	data	are	actually	transferred	between	disk	and
+memory.	For	this	reason,	pages	in	areas	that	are	mapped	to
+anonymous	files	are	sometimes	called	
+demand-zero	pages.
+In	either	case,	once	a	virtual	page	is	initialized,	it	is	swapped	back	and
+forth	between	a	special	
+swap	file
+	maintained	by	the	kernel.	The	swap	file
+
+is	also	known	as	the	
+swap	space
+	or	the	
+swap	area.
+	An	important	point	to
+realize	is	that	at	any	point	in	time,	the	swap	space	bounds	the	total
+amount	of	virtual	pages	that	can	be	allocated	by	the	currently	running
+processes.
+9.8.1	
+Shared	Objects	Revisited
+The	idea	of	memory	mapping	resulted	from	a	clever	insight	that	if	the
+virtual	memory	system	could	be	integrated	into	the	conventional	file
+system,	then	it	could	provide	a	simple	and	efficient	way	to	load	programs
+and	data	into	memory.
+As	we	have	seen,	the	process	abstraction	promises	to	provide	each
+process	with	its	own	private	virtual	address	space	that	is	protected	from
+errant	writes	or	reads	by	other	processes.	However,	many	processes
+have	identical	read-only	code	areas.	For	example,	each	process	that
+runs	the	Linux	shell	program	bash	has	the	same	code	area.	Further,
+many	programs	need	to	access	identical	copies	of	read-only	run-time
+library	code.	For	example,	every	C	program	requires	functions	from	the
+standard	C	library	such	as	
+.	It	would	be	extremely	wasteful	for
+each	process	to	keep	duplicate	copies	of	these	commonly	used	codes	in
+physical	
+memory.	Fortunately,	memory	mapping	provides	us	with	a	clean
+mechanism	for	controlling	how	objects	are	shared	by	multiple	processes.
+An	object	can	be	mapped	into	an	area	of	virtual	memory	as	either	a
+shared	object
+	or	
+a	private	object.
+	If	a	process	maps	a	shared	object	into
+an	area	of	its	virtual	address	space,	then	any	writes	that	the	process
+makes	to	that	area	are	visible	to	any	other	processes	that	have	also
+
+mapped	the	shared	object	into	their	virtual	memory.	Further,	the	changes
+are	also	reflected	in	the	original	object	on	disk.
+Changes	made	to	an	area	mapped	to	a	private	object,	on	the	other	hand,
+are	not	visible	to	other	processes,	and	any	writes	that	the	process	makes
+to	the	area	are	
+not
+	reflected	back	to	the	object	on	disk.	A	virtual	memory
+area	into	which	a	shared	object	is	mapped	is	often	called	a	
+shared	area.
+Similarly	for	
+a	private	area.
+Suppose	that	process	1	maps	a	shared	object	into	an	area	of	its	virtual
+memory,	as	shown	in	
+Figure	
+9.29(a)
+.	Now	suppose	that	process	2
+maps	the	same	shared	object
+
+Figure	
+9.29	
+A	shared	object.
+(a)	After	process	1	maps	the	shared	object,	(b)	After	process	2	maps	the
+same	shared	object.	(Note	that	the	physical	pages	are	not	necessarily
+contiguous.)
+
+Figure	
+9.30	
+A	private	copy-on-write	object.
+(a)	After	both	processes	have	mapped	the	private	copy-on-write	object,
+(b)	After	process	2	writes	to	a	page	in	the	private	area.
+
+into	its	address	space	(not	necessarily	at	the	same	virtual	address	as
+process	1),	as	shown	in	
+Figure	
+9.29(b)
+.
+Since	each	object	has	a	unique	filename,	the	kernel	can	quickly
+determine	that	process	1	has	already	mapped	this	object	and	can	point
+the	page	table	entries	in	process	2	to	the	appropriate	physical	pages.
+The	key	point	is	that	only	a	single	copy	of	the	shared	object	needs	to	be
+stored	in	physical	memory,	even	though	the	object	is	mapped	into
+multiple	shared	areas.	For	convenience,	we	have	shown	the	physical
+pages	as	being	contiguous,	but	of	course	this	is	not	true	in	general.
+Private	objects	are	mapped	into	virtual	memory	using	a	clever	technique
+known	as	
+copy-on-write.
+	A	private	object	begins	life	in	exactly	the	same
+way	as	a	shared	object,	with	only	one	copy	of	the	private	object	stored	in
+physical	memory.	For	example,	
+Figure	
+9.30(a)
+	shows	a	case	where
+two	processes	have	mapped	a	private	object	into	different	areas	of	their
+virtual	memories	but	share	the	same	
+physical	copy	of	the	object.	For
+each	process	that	maps	the	private	object,	the	page	table	entries	for	the
+corresponding	private	area	are	flagged	as	read-only,	and	the	area	struct
+is	flagged	
+as	private	copy-on-write.
+	So	long	as	neither	process	attempts
+to	write	to	its	respective	private	area,	they	continue	to	share	a	single	copy
+of	the	object	in	physical	memory.	However,	as	soon	as	a	process
+attempts	to	write	to	some	page	in	the	private	area,	the	write	triggers	a
+protection	fault.
+When	the	fault	handler	notices	that	the	protection	exception	was	caused
+by	the	process	trying	to	write	to	a	page	in	a	private	copy-on-write	area,	it
+creates	a	new	copy	of	the	page	in	physical	memory,	updates	the	page
+table	entry	to	point	to	the	new	copy,	and	then	restores	write	permissions
+to	the	page,	as	shown	in	
+Figure	
+9.30(b)
+.	When	the	fault	handler
+
+returns,	the	CPU	re-executes	the	write,	which	now	proceeds	normally	on
+the	newly	created	page.
+By	deferring	the	copying	of	the	pages	in	private	objects	until	the	last
+possible	moment,	copy-on-write	makes	the	most	efficient	use	of	scarce
+physical	memory.
+9.8.2	
+The	
+	Function	Revisited
+Now	that	we	understand	virtual	memory	and	memory	mapping,	we	can
+get	a	clear	idea	of	how	the	
+	function	creates	a	new	process	with	its
+own	independent	virtual	address	space.
+When	the	
+	function	is	called	by	the	
+current	process
+,	the	kernel
+creates	various	data	structures	for	the	
+new	process
+	and	assigns	it	a
+unique	PID.	To	create	the	virtual	memory	for	the	new	process,	it	creates
+exact	copies	of	the	current	process's	
+,	area	structs,	and	page
+tables.	It	flags	each	page	in	both	processes	as	read-only,	and	flags	each
+area	struct	in	both	processes	as	private	copy-on-write.
+When	the	
+	returns	in	the	new	process,	the	new	process	now	has	an
+exact	copy	of	the	virtual	memory	as	it	existed	when	the	fork	was	called.
+When	either	of	the	processes	performs	any	subsequent	writes,	the	copy-
+on-write	mechanism	creates	new	pages,	thus	preserving	the	abstraction
+of	a	private	address	space	for	each	process.
+
+9.8.3	
+The	execve	Function	Revisited
+Virtual	memory	and	memory	mapping	also	play	key	roles	in	the	process
+of	loading	programs	into	memory.	Now	that	we	understand	these
+concepts,	we	can	understand	how	the	
+	function	really	loads	and
+executes	programs.	Suppose	that	the	program	running	in	the	current
+process	makes	the	following	call:
+As	you	learned	in	
+Chapter	
+8
+,	the	
+	function	loads	and	runs	the
+program	contained	in	the	executable	object	file	
+	within	the	current
+process,	effectively	replacing	the	current	program	with	the	
+program.	Loading	and	running	
+	requires	the	following	steps:
+
+Figure	
+9.31	
+How	the	loader	maps	the	areas	of	the	user	address
+space.
+1
+.	
+Delete	existing	user	areas.	
+Delete	the	existing	area	structs	in	the
+user	portion	of	the	current	process's	virtual	address.
+2
+.	
+Map	private	areas.	
+Create	new	area	structs	for	the	code,	data,
+bss,	and	stack	areas	of	the	new	program.	All	of	these	new	areas
+are	private	copy-on-write.	The	code	and	data	areas	are	mapped	to
+the	
+	and	
+	sections	of	the	
+	file.	The	bss	area	is
+demand-zero,	mapped	to	an	anonymous	file	whose	size	is
+contained	in	
+.	The	stack	and	heap	area	are	also	demand-
+zero,	initially	of	zero	length.	
+Figure	
+9.31
+	summarizes	the
+different	mappings	of	the	private	areas.
+
+3
+.	
+Map	shared	areas.	
+If	the	
+	program	was	linked	with	shared
+objects,	such	as	the	standard	C	library	
+,	then	these	objects
+are	dynamically	linked	into	the	program,	and	then	mapped	into	the
+shared	region	of	the	user's	virtual	address	space.
+4
+.	
+Set	the	program	counter	(PC).	
+The	last	thing	that	
+	does	is
+to	set	the	program	counter	in	the	current	process's	context	to	point
+to	the	entry	point	in	the	code	area.
+The	next	time	this	process	is	scheduled,	it	will	begin	execution	from	the
+entry	point.	Linux	will	swap	in	code	and	data	pages	as	needed.
+9.8.4	
+User-Level	Memory	Mapping
+with	the	
+	Function
+Linux	processes	can	use	the	
+	function	to	create	new	areas	of	virtual
+memory	and	to	map	objects	into	these	areas.
+
+Figure	
+9.32	
+Visual	interpretation	of	
+	arguments.
+The	
+	function	asks	the	kernel	to	create	a	new	virtual	memory	area,
+preferably	one	that	starts	at	address	
+,	and	to	map	a	contiguous
+chunk	of	the	object	specified	by	file	descriptor	
+	to	the	new	area.	The
+contiguous	object	chunk	has	a	size	of	length	bytes	and	starts	at	an
+	of	offset	bytes	from	the	beginning	of	the	file.	The	
+	address	is
+merely	a	hint,	and	is	usually	specified	as	NULL.	For	our	purposes,	we	will
+
+always	assume	a	NULL	start	address.	
+Figure	
+9.32
+	depicts	the
+meaning	of	these	arguments.
+The	
+	argument	contains	bits	that	describe	the	access	permissions	of
+the	newly	mapped	virtual	memory	area	(i.e.,	the	
+	bits	in	the
+corresponding	area	struct).
+PROT_EXEC.	
+Pages	in	the	area	consist	of	instructions	that	may	be
+executed	by	the	CPU.
+PROT_READ.	
+Pages	in	the	area	may	be	read.
+PROT_WRITE.	
+Pages	in	the	area	may	be	written.
+PROT_NONE.	
+Pages	in	the	area	cannot	be	accessed.
+The	
+	argument	consists	of	bits	that	describe	the	type	of	the	mapped
+object.	If	the	MAP_ANON	flag	bit	is	set,	then	the	backing	store	is	an
+anonymous	object	and	the	corresponding	virtual	pages	are	demand-zero.
+MAP_PRIVATE	indicates	a	private	copy-on-write	object,	and
+MAP_SHARED	indicates	a	shared	object.	For	example,
+asks	the	kernel	to	create	a	new	read-only,	private,	demand-zero	area	of
+virtual	memory	containing	size	bytes.	If	the	call	is	successful,	then	
+contains	the	address	of	the	new	area.
+
+The	
+	function	deletes	regions	of	virtual	memory:
+The	
+	function	deletes	the	area	starting	at	virtual	address	
+	and
+consisting	of	the	next	
+	bytes.	Subsequent	references	to	the
+deleted	region	result	in	segmentation	faults.
+Practice	Problem	
+9.5	
+(solution	page	
+882
+)
+Write	a	C	program	
+	that	uses	
+	to	copy	an	arbitrary-
+size	disk	file	to	
+.	The	name	of	the	input	file	should	be
+passed	as	a	command-line	argument.
+
+9.9	
+Dynamic	Memory	Allocation
+While	it	is	certainly	possible	to	use	the	low-level	
+	and	
+functions	to	create	and	delete	areas	of	virtual	memory,	C	programmers
+typically	find	it	more	convenient	and	more	portable	to	use	a	
+dynamic
+memory	allocator
+	when	they	need	to	acquire	additional	virtual	memory	at
+run	time.
+A	dynamic	memory	allocator	maintains	an	area	of	a	process's	virtual
+memory	known	as	the	
+heap
+	(
+Figure	
+9.33
+).	Details	vary	from	system	to
+system,	but	without	loss	of	generality,	we	will	assume	that	the	heap	is	an
+area	of	demand-zero	memory	that	begins	immediately	after	the
+uninitialized	data	area	and	grows	upward	(toward	higher	addresses).	For
+each	process,	the	kernel	maintains	a	variable	
+	(pronounced	"break")
+that	points	to	the	top	of	the	heap.
+An	allocator	maintains	the	heap	as	a	collection	of	various-size	
+blocks.
+Each	block	is	a	contiguous	chunk	of	virtual	memory	that	is	either
+allocated
+	or	
+free.
+	An	allocated	block	has	been	explicitly	reserved	for	use
+by	the	application.	A	free	block	is	available	to	be	allocated.	A	free	block
+remains	free	until	it	is	explicitly	allocated	by	the	application.	An	allocated
+block	remains	allocated	until	it	is	freed,	either	explicitly	by	the	application
+or	implicitly	by	the	memory	allocator	itself.
+Allocators	come	in	two	basic	styles.	Both	styles	require	the	application	to
+explicitly	allocate	blocks.	They	differ	about	which	entity	is	responsible	for
+freeing	allocated	blocks.
+
+Explicit	allocators	
+require	the	application	to	explicitly	free	any
+allocated	blocks.	For	example,	the	C	standard	library	provides	an
+explicit	allocator	called	the	
+	package.	C	programs	allocate	a
+block	by	calling	the	
+Figure	
+9.33	
+The	heap.
+function,	and	free	a	block	by	calling	the	free	function.	The	
+	and
+	calls	in	
+	are	comparable.
+Implicit	allocators,	
+on	the	other	hand,	require	the	allocator	to	detect
+when	an	allocated	block	is	no	longer	being	used	by	the	program	and
+then	free	the	block.	Implicit	allocators	are	also	known	as	
+garbage
+collectors
+,	and	the	process	of	automatically	freeing	unused	allocated
+blocks	is	known	as	
+garbage	collection.
+	For	example,	higher-level
+
+languages	such	as	Lisp,	ML,	and	Java	rely	on	garbage	collection	to
+free	allocated	blocks.
+The	remainder	of	this	section	discusses	the	design	and	implementation
+of	explicit	allocators.	We	will	discuss	implicit	allocators	in	
+Section	
+9.10
+.
+For	concrete	-ness,	our	discussion	focuses	on	allocators	that	manage
+heap	memory.	However,	you	should	be	aware	that	memory	allocation	is	a
+general	idea	that	arises	in	a	variety	of	contexts.	For	example,
+applications	that	do	intensive	manipulation	of	graphs	will	often	use	the
+standard	allocator	to	acquire	a	large	block	of	virtual	memory	and	then
+use	an	application-specific	allocator	to	manage	the	memory	within	that
+block	as	the	nodes	of	the	graph	are	created	and	destroyed.
+9.9.1	
+The	
+	and	
+Functions
+The	C	standard	library	provides	an	explicit	allocator	known	as	the	
+package.	Programs	allocate	blocks	from	the	heap	by	calling	the	
+function.
+
+Aside	
+How	big	is	a	word?
+Recall	from	our	discussion	of	machine	code	in	
+Chapter	
+3
+	that
+Intel	refers	to	4-byte	objects	as	
+double	words.
+	However,
+throughout	this	section,	we	will	assume	that	
+words
+	are	4-byte
+objects	and	that	
+double	words
+	are	8-byte	objects,	which	is
+consistent	with	conventional	terminology.
+The	
+	function	returns	a	pointer	to	a	block	of	memory	of	at	least
+size	bytes	that	is	suitably	aligned	for	any	kind	of	data	object	that	might	be
+contained	in	the	block.	In	practice,	the	alignment	depends	on	whether	the
+code	is	compiled	to	run	in	32-bit	mode	(
+)	or	64-bit	mode	(the
+default).	In	32-bit	mode,	
+	returns	a	block	whose	address	is	always
+a	multiple	of	8.	In	64-bit	mode,	the	address	is	always	a	multiple	of	16.
+If	
+	encounters	a	problem	(e.g.,	the	program	requests	a	block	of
+memory	that	is	larger	than	the	available	virtual	memory),	then	it	returns
+NULL	and	sets	
+.	
+	does	not	initialize	the	memory	it	returns.
+Applications	that	want	initialized	dynamic	memory	can	use	
+,	a	thin
+wrapper	around	the	
+	function	that	initializes	the	allocated	memory
+to	
+.	Applications	that	want	to	change	the	size	of	a	previously
+allocated	block	can	use	the	
+	function.
+Dynamic	memory	allocators	such	as	
+	can	allocate	or	deallocate
+heap	memory	explicitly	by	using	the	
+	and	
+	functions,	or	they
+can	use	the	
+	function:
+
+The	
+	function	grows	or	shrinks	the	heap	by	adding	
+	to	the
+kernel's	
+	pointer.	If	successful,	it	returns	the	old	value	of	
+,
+otherwise	it	returns	–1	and	sets	
+	to	ENOMEM.	If	
+	is	zero,	then
+	returns	the	current	value	of	
+.	Calling	
+	with	a	negative	
+is	legal	but	tricky	because	the	return	value	(the	old	value	of	
+)	points	to
+	bytes	past	the	new	top	of	the	heap.
+Programs	free	allocated	heap	blocks	by	calling	the	free	function.
+The	
+	argument	must	point	to	the	beginning	of	an	allocated	block	that
+was	obtained	from	
+,	or	
+.	If	not,	then	the	behavior	of
+	is	undefined.	Even	worse,	since	it	returns	nothing,	
+	gives	no
+
+indication	to	the	application	that	something	is	wrong.	As	we	shall	see	in
+Section	
+9.11
+,	this	can	produce	some	baffling	run-time	errors.
+Figure	
+9.34	
+Allocating	and	freeing	blocks	with	
+	
+and
+	
+.
+Each	square	corresponds	to	a	word.	Each	heavy	rectangle	corresponds
+to	a	block.	Allocated	blocks	are	shaded.	Padded	regions	of	allocated
+blocks	are	shaded	with	a	darker	blue.	Free	blocks	are	unshaded.	Heap
+addresses	increase	from	left	to	right.
+Figure	
+9.34
+	shows	how	an	implementation	of	
+	and	
+	might
+manage	a	(very)	small	heap	of	16	words	for	a	C	program.	Each	box
+represents	a	4-byte	word.	The	heavy-lined	rectangles	correspond	to
+
+allocated	blocks	(shaded)	and	free	blocks	(unshaded).	Initially,	the	heap
+consists	of	a	single	16-word	double-word-aligned	free	block.
+1.	
+Throughout	this	section,	we	will	assume	that	the	allocator	returns	blocks	aligned	to	8-byte
+double-word	boundaries.
+Figure	
+9.34(a)
+.	
+The	program	asks	for	a	four-word	block.	
+responds	by	carving	out	a	four-word	block	from	the	front	of	the	free
+block	and	returning	a	pointer	to	the	first	word	of	the	block.
+Figure	
+9.34(b)
+.	
+The	program	requests	a	five-word	block.	
+responds	by	allocating	a	six-word	block	from	the	front	of	the	free
+block.	In	this	example,	
+	pads	the	block	with	an	extra	word	in
+order	to	keep	the	free	block	aligned	on	a	double-word	boundary.
+Figure	
+9.34(c)
+.	
+The	program	requests	a	six-word	block	and	
+responds	by	carving	out	a	six-word	block	from	the	free	block.
+Figure	
+9.34(d)
+.	
+The	program	frees	the	six-word	block	that	was
+allocated	in	
+Figure	
+9.34(b)
+.	Notice	that	after	the	call	to	
+returns,	the	pointer	
+	
+still	points	to	the	freed	block.	It	is	the
+responsibility	of	the	application	not	to	use	
+	again	until	it	is
+reinitialized	by	a	new	call	to	
+.
+Figure	
+9.34(e)
+.	
+The	program	requests	a	two-word	block.	In	this
+case,	
+	allocates	a	portion	of	the	block	that	was	freed	in	the
+previous	step	and	returns	a	pointer	to	this	new	block.
+9.9.2	
+Why	Dynamic	Memory
+1
+
+Allocation?
+The	most	important	reason	that	programs	use	dynamic	memory
+allocation	is	that	often	they	do	not	know	the	sizes	of	certain	data
+structures	until	the	program	actually	runs.	For	example,	suppose	we	are
+asked	to	write	a	C	program	that	reads	a	list	of	
+n
+	ASCII	integers,	one
+integer	per	line,	from	
+	into	a	C	array.	The	input	consists	of	the
+integer	
+n
+,	followed	by	the	
+n
+	integers	to	be	read	and	stored	into	the	array.
+The	simplest	approach	is	to	define	the	array	statically	with	some	hard-
+coded	maximum	array	size:
+
+Allocating	arrays	with	hard-coded	sizes	like	this	is	often	a	bad	idea.	The
+value	of	MAXN	is	arbitrary	and	has	no	relation	to	the	actual	amount	of
+available	virtual	memory	on	the	machine.	Further,	if	the	user	of	this
+program	wanted	to	read	a	file	that	was	larger	than	MAXN,	the	only
+recourse	would	be	to	recompile	the	program	with	a	larger	value	of	MAXN.
+While	not	a	problem	for	this	simple	example,	the	presence	of	hard-coded
+array	bounds	can	become	a	maintenance	nightmare	for	large	software
+products	with	millions	of	lines	of	code	and	numerous	users.
+A	better	approach	is	to	allocate	the	array	dynamically,	at	run	time,	after
+the	value	of	
+n
+	becomes	known.	With	this	approach,	the	maximum	size	of
+the	array	is	limited	only	by	the	amount	of	available	virtual	memory.
+
+Dynamic	memory	allocation	is	a	useful	and	important	programming
+technique.	However,	in	order	to	use	allocators	correctly	and	efficiently,
+programmers	need	to	have	an	understanding	of	how	they	work.	We	will
+discuss	some	of	the	gruesome	errors	that	can	result	from	the	improper
+use	of	allocators	in	
+Section	
+9.11
+.
+9.9.3	
+Allocator	Requirements	and
+Goals
+Explicit	allocators	must	operate	within	some	rather	stringent	constraints:
+Handling	arbitrary	request	sequences.	
+An	application	can	make	an
+arbitrary	sequence	of	allocate	and	free	requests,	subject	to	the
+constraint	that	each	free	request	must	correspond	to	a	currently
+allocated	block	obtained	from	a	previous	allocate	request.	Thus,	the
+allocator	cannot	make	any	assumptions	about	the	ordering	of	allocate
+and	free	requests.	For	example,	the	allocator	cannot	assume	that	all
+allocate	requests	are	accompanied	by	a	matching	free	request,	or	that
+matching	allocate	and	free	requests	are	nested.
+Making	immediate	responses	to	requests.	
+The	allocator	must
+respond	immediately	to	allocate	requests.	Thus,	the	allocator	is	not
+allowed	to	reorder	or	buffer	requests	in	order	to	improve	performance.
+Using	only	the	heap.	
+In	order	for	the	allocator	to	be	scalable,	any
+nonscalar	data	structures	used	by	the	allocator	must	be	stored	in	the
+heap	itself.
+
+Aligning	blocks	(alignment	requirement).	
+The	allocator	must	align
+blocks	in	such	a	way	that	they	can	hold	any	type	of	data	object.
+Not	modifying	allocated	blocks.	
+Allocators	can	only	manipulate	or
+change	free	blocks.	In	particular,	they	are	not	allowed	to	modify	or
+move	blocks	once	they	are	allocated.	Thus,	techniques	such	as
+compaction	of	allocated	blocks	are	not	permitted.
+Working	within	these	constraints,	the	author	of	an	allocator	attempts	to
+meet	the	often	conflicting	performance	goals	of	maximizing	throughput
+and	memory	utilization.
+Goal	1:	Maximizing	throughput.
+	Given	some	sequence	of	
+n
+	allocate
+and	free	requests
+we	would	like	to	maximize	an	allocator's	
+throughput
+,	which	is	defined	as
+the	number	of	requests	that	it	completes	per	unit	time.	For	example,	if	an
+allocator	completes	500	allocate	requests	and	500	free	requests	in	1
+second,	then	its	throughput	is	1,000	operations	per	second.	In	general,
+we	can	maximize	throughput	by	minimizing	the	average	time	to	satisfy
+allocate	and	free	requests.	As	we'll	see,	it	is	not	too	difficult	to	develop
+allocators	with	reasonably	good	performance	where	the	worst-case
+running	time	of	an	allocate	request	is	linear	in	the	number	of	free	blocks
+and	the	running	time	of	a	free	request	is	constant.
+Goal	2:	Maximizing	memory	utilization.
+	Naive	programmers	often
+incorrectly	assume	that	virtual	memory	is	an	unlimited	resource.	In	fact,
+the	total	amount	of	virtual	memory	allocated	by	all	of	the	processes	in	a
+R
+0
+,
+ 
+R
+1
+,
+…
+,
+ 
+R
+k
+,
+…
+,
+ 
+R
+n
+−
+1
+
+system	is	limited	by	the	amount	of	swap	space	on	disk.	Good
+programmers	know	that	virtual	memory	is	a	finite	resource	that	must	be
+used	efficiently.	This	is	especially	true	for	a	dynamic	memory	allocator
+that	might	be	asked	to	allocate	and	free	large	blocks	of	memory.
+There	are	a	number	of	ways	to	characterize	how	efficiently	an	allocator
+uses	the	heap.	In	our	experience,	the	most	useful	metric	is	
+peak
+utilization.
+	As	before,	we	are	given	some	sequence	of	
+n
+	allocate	and	free
+requests
+If	an	application	requests	a	block	of	
+p
+	bytes,	then	the	resulting	allocated
+block	has	a	
+payload
+	of	
+p
+	bytes.	After	request	
+R
+	has	completed,	let	the
+aggregate	payload
+,	denoted	
+P
+,	be	the	sum	of	the	pay	loads	of	the
+currently	allocated	blocks,	and	let	
+H
+	denote	the	current	(monotonically
+nondecreasing)	size	of	the	heap.
+Then	the	peak	utilization	over	the	first	
+k
+	+	1	requests,	denoted	by	
+U
+,	is
+given	by
+The	objective	of	the	allocator,	then,	is	to	maximize	the	peak	utilization	
+U
+	over	the	entire	sequence.	As	we	will	see,	there	is	a	tension	between
+maximizing	throughput	and	utilization.	In	particular,	it	is	easy	to	write	an
+allocator	that	maximizes	throughput	at	the	expense	of	heap	utilization.
+One	of	the	interesting	challenges	in	any	allocator	design	is	finding	an
+appropriate	balance	between	the	two	goals.
+R
+0
+,
+ 
+R
+1
+,
+…
+,
+ 
+R
+k
+,
+…
+,
+ 
+R
+n
+−
+1
+k
+k
+k
+k
+U
+k
+=
+max
+i
+≤
+k
+ 
+P
+i
+H
+k
+n
+–
+1
+
+Aside	
+Relaxing	the	monotonicity
+assumption
+We	could	relax	the	monotonically	nondecreasing	assumption	in
+our	definition	of	
+U
+	and	allow	the	heap	to	grow	up	and	down	by
+letting	
+H
+	be	the	high-water	mark	over	the	first	
+k
+	+	1	requests.
+9.9.4	
+Fragmentation
+The	primary	cause	of	poor	heap	utilization	is	a	phenomenon	known	as
+fragmentation
+,	which	occurs	when	otherwise	unused	memory	is	not
+available	to	satisfy	allocate	requests.	There	are	two	forms	of
+fragmentation:	
+internal	fragmentation
+	and	
+external	fragmentation.
+Internal	fragmentation
+	occurs	when	an	allocated	block	is	larger	than	the
+pay-load.	This	might	happen	for	a	number	of	reasons.	For	example,	the
+implementation	of	an	allocator	might	impose	a	minimum	size	on	allocated
+blocks	that	is	greater	than	some	requested	payload.	Or,	as	we	saw	in
+Figure	
+9.34(b)
+,	the	allocator	might	increase	the	block	size	in	order	to
+satisfy	alignment	constraints.
+Internal	fragmentation	is	straightforward	to	quantify.	It	is	simply	the	sum
+of	the	differences	between	the	sizes	of	the	allocated	blocks	and	their
+payloads.	Thus,	at	any	point	in	time,	the	amount	of	internal	fragmentation
+depends	only	on	the	pattern	of	previous	requests	and	the	allocator
+implementation.
+k
+k
+
+External	fragmentation
+	occurs	when	there	
+is
+	enough	aggregate	free
+memory	to	satisfy	an	allocate	request,	but	no	single	free	block	is	large
+enough	to	handle	the	request.	For	example,	if	the	request	in	
+Figure
+9.34(e)
+	were	for	eight	words	rather	than	two	words,	then	the	request
+could	not	be	satisfied	without	requesting	additional	virtual	memory	from
+the	kernel,	even	though	there	are	eight	free	words	remaining	in	the	heap.
+The	problem	arises	because	these	eight	words	are	spread	over	two	free
+blocks.
+External	fragmentation	is	much	more	difficult	to	quantify	than	internal
+fragmentation	because	it	depends	not	only	on	the	pattern	of	previous
+requests	and	the	allocator	implementation	but	also	on	the	pattern	of
+future
+	requests.	For	example,	suppose	that	after	
+k
+	requests	all	of	the	free
+blocks	are	exactly	four	words	in	size.	Does	this	heap	suffer	from	external
+fragmentation?	The	answer	depends	on	the	pattern	of	future	requests.	If
+all	of	the	future	allocate	requests	are	for	blocks	that	are	smaller	than	or
+equal	to	four	words,	then	there	is	no	external	fragmentation.	On	the	other
+hand,	if	one	or	more	requests	ask	for	blocks	larger	than	four	words,	then
+the	heap	does	suffer	from	external	fragmentation.
+Since	external	fragmentation	is	difficult	to	quantify	and	impossible	to
+predict,	allocators	typically	employ	heuristics	that	attempt	to	maintain
+small	numbers	of	larger	free	blocks	rather	than	large	numbers	of	smaller
+free	blocks.
+9.9.5	
+Implementation	Issues
+
+The	simplest	imaginable	allocator	would	organize	the	heap	as	a	large
+array	of	bytes	and	a	pointer	
+	that	initially	points	to	the	first	byte	of	the
+array.	To	allocate	
+	bytes,	
+	would	save	the	current	value	of	
+on	the	stack,	increment	
+	by	
+,	and	return	the	old	value	of	
+	to	the
+caller.	
+	would	simply	return	to	the	caller	without	doing	anything.
+This	naive	allocator	is	an	extreme	point	in	the	design	space.	Since	each
+	and	
+	execute	only	a	handful	of	instructions,	throughput	would
+be	extremely	good.	However,	since	the	allocator	never	reuses	any
+blocks,	memory	utilization	would	be	extremely	bad.	A	practical	allocator
+that	strikes	a	better	balance	between	throughput	and	utilization	must
+consider	the	following	issues:
+Free	block	organization.	
+How	do	we	keep	track	of	free	blocks?
+Placement.	
+How	do	we	choose	an	appropriate	free	block	in	which	to
+place	a	newly	allocated	block?
+Splitting.	
+After	we	place	a	newly	allocated	block	in	some	free	block,
+what	do	we	do	with	the	remainder	of	the	free	block?
+Coalescing.	
+What	do	we	do	with	a	block	that	has	just	been	freed?
+The	rest	of	this	section	looks	at	these	issues	in	more	detail.	Since	the
+basic	techniques	of	placement,	splitting,	and	coalescing	cut	across	many
+different	free	block	organizations,	we	will	introduce	them	in	the	context	of
+a	simple	free	block	organization	known	as	an	implicit	free	list.
+9.9.6	
+Implicit	Free	Lists
+
+Any	practical	allocator	needs	some	data	structure	that	allows	it	to
+distinguish	block	boundaries	and	to	distinguish	between	allocated	and
+free	blocks.	Most	allocators	embed	this	information	in	the	blocks
+themselves.	One	simple	approach	is	shown	in	
+Figure	
+9.35
+.
+In	this	case,	a	block	consists	of	a	one-word	
+header
+,	the	payload,	and
+possibly	some	additional	
+padding.
+	The	header	encodes	the	block	size
+(including	the	header	and	any	padding)	as	well	as	whether	the	block	is
+allocated	or	free.	If	we	impose	a	double-word	alignment	constraint,	then
+the	block	size	is	always	a	multiple	of	8	and	the	3	low-order	bits	of	the
+block	size	are	always	zero.	Thus,	we	need	to	store	only	the	29	high-order
+bits	of	the	block	size,	freeing	the	remaining	3	bits	to	encode	other
+information.	In	this	case,	we	are	using	the	least	significant	of	these	bits
+Figure	
+9.35	
+Format	of	a	simple	heap	block.
+Figure	
+9.36	
+Organizing	the	heap	with	an	implicit	free	list.
+
+Allocated	blocks	are	shaded.	Free	blocks	are	unshaded.	Headers	are
+labeled	with	(size	(bytes)/allocated	bit).
+(the	
+allocated	bit)
+	to	indicate	whether	the	block	is	allocated	or	free.	For
+example,	suppose	we	have	an	allocated	block	with	a	block	size	of	24
+(
+)	bytes.	Then	its	header	would	be
+Similarly,	a	free	block	with	a	block	size	of	40	(
+)	bytes	would	have	a
+header	of
+The	header	is	followed	by	the	payload	that	the	application	requested
+when	it	called	
+.	The	payload	is	followed	by	a	chunk	of	unused
+padding	that	can	be	any	size.	There	are	a	number	of	reasons	for	the
+padding.	For	example,	the	padding	might	be	part	of	an	allocator's
+strategy	for	combating	external	fragmentation.	Or	it	might	be	needed	to
+satisfy	the	alignment	requirement.
+Given	the	block	format	in	
+Figure	
+9.35
+,	we	can	organize	the	heap	as	a
+sequence	of	contiguous	allocated	and	free	blocks,	as	shown	in	
+Figure
+9.36
+.
+
+We	call	this	organization	an	
+implicit	free	list
+	because	the	free	blocks	are
+linked	implicitly	by	the	size	fields	in	the	headers.	The	allocator	can
+indirectly	traverse	the	entire	set	of	free	blocks	by	traversing	
+all
+	of	the
+blocks	in	the	heap.	Notice	that	we	need	some	kind	of	specially	marked
+end	block—in	this	example,	a	terminating	header	with	the	allocated	bit
+set	and	a	size	of	zero.	(As	we	will	see	in	
+Section	
+9.9.12
+,	setting	the
+allocated	bit	simplifies	the	coalescing	of	free	blocks.)
+The	advantage	of	an	implicit	free	list	is	simplicity.	A	significant
+disadvantage	is	that	the	cost	of	any	operation	that	requires	a	search	of
+the	free	list,	such	as	placing	allocated	blocks,	will	be	linear	in	the	
+total
+number	of	allocated	and	free	blocks	in	the	heap.
+It	is	important	to	realize	that	the	system's	alignment	requirement	and	the
+allocator's	choice	of	block	format	impose	a	
+minimum	block	size
+	on	the
+allocator.	No	allocated	or	free	block	may	be	smaller	than	this	minimum.
+For	example,	if	we	assume	a	double-word	alignment	requirement,	then
+the	size	of	each	block	must	be	a	multiple	of	two	words	(8	bytes).	Thus,
+the	block	format	in	
+Figure	
+9.35
+	induces	a	minimum	block	size	of	two
+words:	one	word	for	the	header	and	another	to	maintain	the	alignment
+requirement.	Even	if	the	application	were	to	request	a	single	byte,	the
+allocator	would	still	create	a	two-word	block.
+Practice	Problem	
+9.6	
+(solution	page	
+883
+)
+Determine	the	block	sizes	and	header	values	that	would	result
+from	the	following	sequence	of	
+	requests.	Assumptions:	(1)
+The	allocator	maintains	double-word	alignment	and	uses	an
+
+implicit	free	list	with	the	block	format	from	
+Figure	
+9.35
+.	(2)	Block
+sizes	are	rounded	up	to	the	nearest	multiple	of	8	bytes.
+Request
+Block	size	(decimal	bytes)
+Block	header	(hex)
+_____
+_____
+_____
+_____
+_____
+_____
+_____
+_____
+9.9.7	
+Placing	Allocated	Blocks
+When	an	application	requests	a	block	of	
+k
+	bytes,	the	allocator	searches
+the	free	list	for	a	free	block	that	is	large	enough	to	hold	the	requested
+block.	The	manner	in	which	the	allocator	performs	this	search	is
+determined	by	the	
+placement	policy.
+	Some	common	policies	are	first	fit,
+next	fit,	and	best	fit.
+First	fit
+	searches	the	free	list	from	the	beginning	and	chooses	the	first
+free	block	that	fits.	
+Next	fit
+	is	similar	to	first	fit,	but	instead	of	starting	each
+search	at	the	beginning	of	the	list,	it	starts	each	search	where	the
+previous	search	left	off.	
+Best	fit
+	examines	every	free	block	and	chooses
+the	free	block	with	the	smallest	size	that	fits.
+An	advantage	of	first	fit	is	that	it	tends	to	retain	large	free	blocks	at	the
+end	of	the	list.	A	disadvantage	is	that	it	tends	to	leave	"splinters"	of	small
+free	blocks	toward	the	beginning	of	the	list,	which	will	increase	the	search
+
+time	for	larger	blocks.	Next	fit	was	first	proposed	by	Donald	Knuth	as	an
+alternative	to	first	fit,	motivated	by	the	idea	that	if	we	found	a	fit	in	some
+free	block	the	last	time,	there	is	a	good	chance	that	we	will	find	a	fit	the
+next	time	in	the	remainder	of	the	block.	Next	fit	can	run	significantly	faster
+than	first	fit,	especially	if	the	front	of	the	list	becomes	littered	with	many
+small	splinters.	However,	some	studies	suggest	that	next	fit	suffers	from
+worse	memory	utilization	than	first	fit.	Studies	have	found	that	best	fit
+generally	enjoys	better	memory	utilization	than	either	first	fit	or	next	fit.
+However,	the	disadvantage	of	using	best	fit	with	simple	free	list
+organizations	such	as	the	implicit	free	list	is	that	it	requires	an	exhaustive
+search	of	the	heap.	Later,	we	will	look	at	more	sophisticated	segregated
+free	list	organizations	that	approximate	a	best-fit	policy	without	an
+exhaustive	search	of	the	heap.
+9.9.8	
+Splitting	Free	Blocks
+Once	the	allocator	has	located	a	free	block	that	fits,	it	must	make	another
+policy	decision	about	how	much	of	the	free	block	to	allocate.	One	option
+is	to	use	the	entire	free	block.	Although	simple	and	fast,	the	main
+disadvantage	is	that	it
+Figure	
+9.37	
+Splitting	a	free	block	to	satisfy	a	three-word	allocation
+request.
+
+Allocated	blocks	are	shaded.	Free	blocks	are	unshaded.	Headers	are
+labeled	with	(size	(bytes)/allocated	bit).
+introduces	internal	fragmentation.	If	the	placement	policy	tends	to
+produce	good	fits,	then	some	additional	internal	fragmentation	might	be
+acceptable.
+However,	if	the	fit	is	not	good,	then	the	allocator	will	usually	opt	to	
+split
+the	free	block	into	two	parts.	The	first	part	becomes	the	allocated	block,
+and	the	remainder	becomes	a	new	free	block.	
+Figure	
+9.37
+	shows	how
+the	allocator	might	split	the	eight-word	free	block	in	
+Figure	
+9.36
+	to
+satisfy	an	application's	request	for	three	words	of	heap	memory.
+9.9.9	
+Getting	Additional	Heap
+Memory
+What	happens	if	the	allocator	is	unable	to	find	a	fit	for	the	requested
+block?	One	option	is	to	try	to	create	some	larger	free	blocks	by	merging
+(coalescing)	free	blocks	that	are	physically	adjacent	in	memory	(next
+section).	However,	if	this	does	not	yield	a	sufficiently	large	block,	or	if	the
+free	blocks	are	already	maximally	coalesced,	then	the	allocator	asks	the
+kernel	for	additional	heap	memory	by	calling	the	
+	function.	The
+allocator	transforms	the	additional	memory	into	one	large	free	block,
+inserts	the	block	into	the	free	list,	and	then	places	the	requested	block	in
+this	new	free	block.
+
+9.9.10	
+Coalescing	Free	Blocks
+When	the	allocator	frees	an	allocated	block,	there	might	be	other	free
+blocks	that	are	adjacent	to	the	newly	freed	block.	Such	adjacent	free
+blocks	can	cause	a	phenomenon	known	as,	
+false	fragmentation
+,	where
+there	is	a	lot	of	available	free	memory	chopped	up	into	small,	unusable
+free	blocks.	For	example,	
+Figure	
+9.38
+	shows	the	result	of	freeing	the
+block	that	was	allocated	in	
+Figure	
+9.37
+.	The	result	is	two	adjacent	free
+blocks	with	payloads	of	three	words	each.	As	a	result,	a	subsequent
+request	for	a	payload	of	four	words	would	fail,	even	though	the	aggregate
+size	of	the	two	free	blocks	is	large	enough	to	satisfy	the	request.
+To	combat	false	fragmentation,	any	practical	allocator	must	merge
+adjacent	free	blocks	in	a	process	known	as	
+coalescing.
+	This	raises	an
+important	policy	decision	about	when	to	perform	coalescing.	The
+allocator	can	opt	for	
+immediate	coalescing
+	by	merging	any	adjacent
+blocks	each	time	a	block	is	freed.	Or	it	can	opt	for	
+deferred	coalescing
+	by
+waiting	to	coalesce	free	blocks	at	some	later	time.	For	example,	the
+allocator	might	defer	coalescing	until	some	allocation	request	fails,	and
+then	scan	the	entire	heap,	coalescing	all	free	blocks.
+Figure	
+9.38	
+An	example	of	false	fragmentation.
+Allocated	blocks	are	shaded.	Free	blocks	are	unshaded.	Headers	are
+labeled	with	(size	(bytes)/allocated	bit).
+
+Immediate	coalescing	is	straightforward	and	can	be	performed	in
+constant	time,	but	with	some	request	patterns	it	can	introduce	a	form	of
+thrashing	where	a	block	is	repeatedly	coalesced	and	then	split	soon
+thereafter.	For	example,	in	
+Figure	
+9.38
+,	a	repeated	pattern	of
+allocating	and	freeing	a	three-word	block	would	introduce	a	lot	of
+unnecessary	splitting	and	coalescing.	In	our	discussion	of	allocators,	we
+will	assume	immediate	coalescing,	but	you	should	be	aware	that	fast
+allocators	often	opt	for	some	form	of	deferred	coalescing.
+9.9.11	
+Coalescing	with	Boundary
+Tags
+How	does	an	allocator	implement	coalescing?	Let	us	refer	to	the	block
+we	want	to	free	as	the	
+current	block.
+	Then	coalescing	the	next	free	block
+(in	memory)	is	straightforward	and	efficient.	The	header	of	the	current
+block	points	to	the	header	of	the	next	block,	which	can	be	checked	to
+determine	if	the	next	block	is	free.	If	so,	its	size	is	simply	added	to	the
+size	of	the	current	header	and	the	blocks	are	coalesced	in	constant	time.
+But	how	would	we	coalesce	the	previous	block?	Given	an	implicit	free	list
+of	blocks	with	headers,	the	only	option	would	be	to	search	the	entire	list,
+remembering	the	location	of	the	previous	block,	until	we	reached	the
+current	block.	With	an	implicit	free	list,	this	means	that	each	call	to	free
+would	require	time	linear	in	the	size	of	the	heap.	Even	with	more
+sophisticated	free	list	organizations,	the	search	time	would	not	be
+constant.
+
+Knuth	developed	a	clever	and	general	technique,	known	as	
+boundary
+tags
+,	that	allows	for	constant-time	coalescing	of	the	previous	block.	The
+idea,	which	is	shown	in	
+Figure	
+9.39
+,	is	to	add	
+&	footer
+	(the	boundary
+tag)	at	the	end	of	each	block,	where	the	footer	is	a	replica	of	the	header.
+If	each	block	includes	such	a	footer,	then	the	allocator	can	determine	the
+starting	location	and	status	of	the	previous	block	by	inspecting	its	footer,
+which	is	always	one	word	away	from	the	start	of	the	current	block.
+Consider	all	the	cases	that	can	exist	when	the	allocator	frees	the	current
+block:
+1
+.	
+The	previous	and	next	blocks	are	both	allocated.
+2
+.	
+The	previous	block	is	allocated	and	the	next	block	is	free.
+3
+.	
+The	previous	block	is	free	and	the	next	block	is	allocated.
+4
+.	
+The	previous	and	next	blocks	are	both	free.
+Figure	
+9.39	
+Format	of	heap	block	that	uses	a	boundary	tag.
+Figure	
+9.40
+	shows	how	we	would	coalesce	each	of	the	four	cases.
+
+In	case	1,	both	adjacent	blocks	are	allocated	and	thus	no	coalescing	is
+possible.	So	the	status	of	the	current	block	is	simply	changed	from
+allocated	to	free.	In	case	2,	the	current	block	is	merged	with	the	next
+block.	The	header	of	the	current	block	and	the	footer	of	the	next	block	are
+updated	with	the	combined	sizes	of	the	current	and	next	blocks.	In	case
+3,	the	previous	block	is	merged	with	the	current	block.	The	header	of	the
+previous	block	and	the	footer	of	the	current	block	are	updated	with	the
+combined	sizes	of	the	two	blocks.	In	case	4,	all	three	blocks	are	merged
+to	form	a	single	free	block,	with	the	header	of	the	previous	block	and	the
+footer	of	the	next	block	updated	with	the	combined	sizes	of	the	three
+blocks.	In	each	case,	the	coalescing	is	performed	in	constant	time.
+The	idea	of	boundary	tags	is	a	simple	and	elegant	one	that	generalizes	to
+many	different	types	of	allocators	and	free	list	organizations.	However,
+there	is	a	potential	disadvantage.	Requiring	each	block	to	contain	both	a
+header	and	a	footer	can	introduce	significant	memory	overhead	if	an
+application	manipulates	many	small	blocks.	For	example,	if	a	graph
+application	dynamically	creates	and	destroys	graph	nodes	by	making
+repeated	calls	to	
+	and	
+,	and	each	graph	node	requires	only	a
+couple	of	words	of	memory,	then	the	header	and	the	footer	will	consume
+half	of	each	allocated	block.
+Fortunately,	there	is	a	clever	optimization	of	boundary	tags	that
+eliminates	the	need	for	a	footer	in	allocated	blocks.	Recall	that	when	we
+attempt	to	coalesce	the	current	block	with	the	previous	and	next	blocks	in
+memory,	the	size	field	in	the	footer	of	the	previous	block	is	only	needed	if
+the	previous	block	is	
+free.
+	If	we	were	to	store	the	allocated/free	bit	of	the
+previous	block	in	one	of	the	excess	low-order	bits	of	the	current	block,
+then	allocated	blocks	would	not	need	footers,	and	we	could	use	that	extra
+
+space	for	payload.	Note,	however,	that	free	blocks	would	still	need
+footers.
+Practice	Problem	
+9.7	
+(solution	page	
+883
+)
+Determine	the	minimum	block	size	for	each	of	the	following
+combinations	of	alignment	requirements	and	block	formats.
+Assumptions:	Implicit	free	list,	zero-size	payloads	are	not	allowed,
+and	headers	and	footers	are	stored	in	4-byte	words.
+
+
+
+Figure	
+9.40	
+Coalescing	with	boundary	tags.
+Case	1	:	prev	and	next	allocated.	Case	2:	prev	allocated,	next
+free.	Case	3:	prev	free,	next	allocated.	Case	4:	next	and	prev	free.
+Alignment
+Allocated	block
+Free	block
+Minimum	block	size
+(bytes)
+Single
+word
+Header	and	footer
+Header	and
+footer
+_____
+Single
+word
+Header,	but	no
+footer
+Header	and
+footer
+_____
+Double
+word
+Header	and	footer
+Header	and
+footer
+_____
+Double
+word
+Header,	but	no
+footer
+Header	and
+footer
+_____
+9.9.12	
+Putting	It	Together:
+Implementing	a	Simple	Allocator
+Building	an	allocator	is	a	challenging	task.	The	design	space	is	large,
+with	numerous	alternatives	for	block	format	and	free	list	format,	as	well
+as	placement,	splitting,	and	coalescing	policies.	Another	challenge	is	that
+you	are	often	forced	to	program	outside	the	safe,	familiar	confines	of	the
+type	system,	relying	on	the	error-prone	pointer	casting	and	pointer
+arithmetic	that	is	typical	of	low-level	systems	programming.
+
+While	allocators	do	not	require	enormous	amounts	of	code,	they	are
+subtle	and	unforgiving.	Students	familiar	with	higher-level	languages
+such	as	C++	or	Java	often	hit	a	conceptual	wall	when	they	first	encounter
+this	style	of	programming.	To	help	you	clear	this	hurdle,	we	will	work
+through	the	implementation	of	a	simple	allocator	based	on	an	implicit	free
+list	with	immediate	boundary-tag	coalescing.	The	maximum	block	size	is
+2
+	=	4	GB.	The	code	is	64-bit	clean,	running	without	modification	in	32-
+bit	(
+)	or	64-bit	(
+)	processes.
+General	Allocator	Design
+Our	allocator	uses	a	model	of	the	memory	system	provided	by	the
+	package	shown	in	
+Figure	
+9.41
+.	The	purpose	of	the	model	is
+to	allow	us	to	run	our	allocator	without	interfering	with	the	existing
+system-level	
+	package.
+The	
+	function	models	the	virtual	memory	available	to	the	heap
+as	a	large	double-word	aligned	array	of	bytes.	The	bytes	between
+	and	
+	represent	allocated	virtual	memory.	The	bytes
+following	
+	represent	unallocated	virtual	memory.	The	allocator
+requests	additional	heap	memory	by	calling	the	
+	function,	which
+has	the	same	interface	as	the	system's	
+	function,	as	well	as	the
+same	semantics,	except	that	it	rejects	requests	to	shrink	the	heap.
+The	allocator	itself	is	contained	in	a	source	file	(
+)	that	users	can
+compile	and	link	into	their	applications.	The	allocator	exports	three
+functions	to	application	programs:
+32
+
+The	
+	function	initializes	the	allocator,	returning	0	if	successful	and
+–1	otherwise.	The	
+	and	
+	functions	have	the	same
+interfaces	and	semantics	as	their	system	counterparts.	The	allocator
+uses	the	block	format
+_______________________________________________________________
+
+___________________________________________________________
+
+Figure	
+9.41	
+:	Memory	system	model.
+shown	in	
+Figure	
+9.39
+.	The	minimum	block	size	is	16	bytes.	The	free
+list	is	organized	as	an	implicit	free	list,	with	the	invariant	form	shown	in
+Figure	
+9.42
+.
+The	first	word	is	an	unused	padding	word	aligned	to	a	double-word
+boundary.	The	padding	is	followed	by	a	special	
+prologue	block
+,	which	is
+an	8-byte	allocated	block	consisting	of	only	a	header	and	a	footer.	The
+prologue	block	is	created	during	initialization	and	is	never	freed.
+Following	the	prologue	block	are	zero	or	more	regular	blocks	that	are
+created	by	calls	to	
+	or	
+.	The	heap	always	ends	with	a	special
+epilogue	block
+,	which	is	a	zero-size	allocated	block
+Figure	
+9.42	
+Invariant	form	of	the	implicit	free	list.
+that	consists	of	only	a	header.	The	prologue	and	epilogue	blocks	are
+tricks	that	eliminate	the	edge	conditions	during	coalescing.	The	allocator
+uses	a	single	private	(
+)	global	variable	(
+)	that	always
+points	to	the	prologue	block.	(As	a	minor	optimization,	we	could	make	it
+point	to	the	next	block	instead	of	the	prologue	block.)
+
+Basic	Constants	and	Macros	for
+Manipulating	the	Free	List
+Figure	
+9.43
+	shows	some	basic	constants	and	macros	that	we	will	use
+throughout	the	allocator	code.	Lines	2–4	define	some	basic	size
+constants:	the	sizes	of	words	(WSIZE)	and	double	words	(DSIZE),	and
+the	size	of	the	initial	free	block	and	the	default	size	for	expanding	the
+heap	(CHUNKSIZE).
+Manipulating	the	headers	and	footers	in	the	free	list	can	be	troublesome
+because	it	demands	extensive	use	of	casting	and	pointer	arithmetic.
+Thus,	we	find	it	helpful	to	define	a	small	set	of	macros	for	accessing	and
+traversing	the	free	list	(lines	9–25).	The	PACK	macro	(line	9)	combines	a
+size	and	an	allocate	bit	and	returns	a	value	that	can	be	stored	in	a
+header	or	footer.
+The	GET	macro	(line	12)	reads	and	returns	the	word	referenced	by
+argument	
+.	The	casting	here	is	crucial.	The	argument	
+	is	typically	a
+(
+)	pointer,	which	cannot	be	dereferenced	directly.	Similarly,	the
+PUT	macro	(line	13)	stores	
+	in	the	word	pointed	at	by	argument	
+.
+The	GET_SIZE	and	GET_ALLOC	macros	(lines	16–17)	return	the	size
+and	allocated	bit,	respectively,	from	a	header	or	footer	at	address	
+.	The
+remaining	macros	operate	on	
+block	pointers
+	(denoted	
+)	that	point	to
+the	first	payload	byte.	Given	a	block	pointer	
+,	the	HDRP	and	FTRP
+macros	(lines	20–21)	return	pointers	to	the	block	header	and	footer,
+respectively.	The	NEXT_BLKP	and	PREV_BLKP	macros	(lines	24–25)
+return	the	block	pointers	of	the	next	and	previous	blocks,	respectively.
+
+The	macros	can	be	composed	in	various	ways	to	manipulate	the	free	list.
+For	example,	given	a	pointer	
+	to	the	current	block,	we	could	use	the
+following	line	of	code	to	determine	the	size	of	the	next	block	in	memory:
+_________________________________________________________________
+
+________________________________________________________________
+Figure	
+9.43	
+Basic	constants	and	macros	for	manipulating	the	free
+list.
+Creating	the	Initial	Free	List
+Before	calling	
+	or	
+,	the	application	must	initialize	the
+heap	by	calling	the	
+	function	(
+Figure	
+9.44
+).
+
+The	
+	function	gets	four	words	from	the	memory	system	and
+initializes	them	to	create	the	empty	free	list	(lines	4–10).	It	then	calls	the
+	function	(
+Figure	
+9.45
+),	which	extends	the	heap	by
+CHUNKSIZE	bytes	and	creates	the	initial	free	block.	At	this	point,	the
+allocator	is	initialized	and	ready	to	accept	allocate	and	free	requests	from
+the	application.
+The	
+	function	is	invoked	in	two	different	circumstances:	(1)
+when	the	heap	is	initialized	and	(2)	when	
+	is	unable	to	find	a
+suitable	fit.	To	maintain	alignment,	
+	rounds	up	the	requested
+size	to	the	nearest
+_________________________________________________________
+code/vm/malloc/mm.c
+
+_______________________________________________________________
+Figure	
+9.44	
+	creates	a	heap	with	an	initial	free	block.
+____________________________________________________________
+
+_______________________________________________________________
+Figure	
+9.45	
+	extends	the	heap	with	a	new	free	block.
+multiple	of	2	words	(8	bytes)	and	then	requests	the	additional	heap	space
+from	the	memory	system	(lines	7–9).
+The	remainder	of	the	
+	function	(lines	12–17)	is	somewhat
+subtle.	The	heap	begins	on	a	double-word	aligned	boundary,	and	every
+call	to	
+	returns	a	block	whose	size	is	an	integral	number	of
+double	words.	Thus,	every	call	to	
+	returns	a	double-word	aligned
+chunk	of	memory	immediately	following	the	header	of	the	epilogue	block.
+This	header	becomes	the	header	of	the	new	free	block	(line	12),	and	the
+last	word	of	the	chunk	becomes	the	new	epilogue	block	header	(line	14).
+Finally,	in	the	likely	case	that	the	previous	heap	was	terminated	by	a	free
+
+block,	we	call	the	coalesce	function	to	merge	the	two	free	blocks	and
+return	the	block	pointer	of	the	merged	blocks	(line	17).
+Freeing	and	Coalescing	Blocks
+An	application	frees	a	previously	allocated	block	by	calling	the	
+function	(
+Figure	
+9.46
+),	which	frees	the	requested	block	(
+)	and	then
+merges	adjacent	free	blocks	using	the	boundary-tags	coalescing
+technique	described	in	
+Section	
+9.9.11
+.
+The	code	in	the	coalesce	helper	function	is	a	straightforward
+implementation	of	the	four	cases	outlined	in	
+Figure	
+9.40
+.	There	is	one
+somewhat	subtle	aspect.	The	free	list	format	we	have	chosen—with	its
+prologue	and	epilogue	blocks	that	are	always	marked	as	allocated—
+allows	us	to	ignore	the	potentially	troublesome	edge	conditions	where	the
+requested	block	
+	is	at	the	beginning	or	end	of	the	heap.	Without	these
+special	blocks,	the	code	would	be	messier,	more	error	prone,	and	slower
+because	we	would	have	to	check	for	these	rare	edge	conditions	on	each
+and	every	free	request.
+Allocating	Blocks
+An	application	requests	a	block	of	size	bytes	of	memory	by	calling	the
+	function	(
+Figure	
+9.47
+).	After	checking	for	spurious	requests,
+the	allocator	must	adjust	the	requested	block	size	to	allow	room	for	the
+header	and	the	footer,	and	to	satisfy	the	double-word	alignment
+requirement.	Lines	12–13	enforce	the	minimum	block	size	of	16	bytes:	8
+bytes	to	satisfy	the	alignment	requirement	and	8	more	bytes	for	the
+overhead	of	the	header	and	footer.	For	requests	over	8	bytes	(line	15),
+
+the	general	rule	is	to	add	in	the	overhead	bytes	and	then	round	up	to	the
+nearest	multiple	of	8.
+Once	the	allocator	has	adjusted	the	requested	size,	it	searches	the	free
+list	for	a	suitable	free	block	(line	18).	If	there	is	a	fit,	then	the	allocator
+places	the	requested	block	and	optionally	splits	the	excess	(line	19)	and
+then	returns	the	address	of	the	newly	allocated	block.
+If	the	allocator	cannot	find	a	fit,	it	extends	the	heap	with	a	new	free	block
+(lines	24–26),	places	the	requested	block	in	the	new	free	block,	optionally
+splitting	the	block	(line	27),	and	then	returns	a	pointer	to	the	newly
+allocated	block.
+______________________________________________
+code/vm/malloc/mm.c
+
+
+
+__________________________________________________________________
+Figure	
+9.46	
+	frees	a	block	and	uses	boundary-tag	coalescing
+to	merge	it	with	any	adjacent	free	blocks	in	constant	time.
+____________________________________________________________________
+
+____________________________________________________________________
+Figure	
+9.47	
+	allocates	a	block	from	the	free	list.
+Practice	Problem	
+9.8	
+(solution	page	
+884
+)
+Implement	a	
+	function	for	the	simple	allocator	described	in
+Section	
+9.9.12
+.
+
+Your	solution	should	perform	a	first-fit	search	of	the	implicit	free
+list.
+Practice	Problem	
+9.9	
+(solution	page	
+884
+)
+Implement	a	place	function	for	the	example	allocator.
+Your	solution	should	place	the	requested	block	at	the	beginning	of
+the	free	block,	splitting	only	if	the	size	of	the	remainder	would
+equal	or	exceed	the	minimum	block	size.
+9.9.13	
+Explicit	Free	Lists
+The	implicit	free	list	provides	us	with	a	simple	way	to	introduce	some
+basic	allocator	concepts.	However,	because	block	allocation	time	is	linear
+in	the	total	number	of	heap	blocks,	the	implicit	free	list	is	not	appropriate
+for	a	general-purpose	allocator	(although	it	might	be	fine	for	a	special-
+purpose	allocator	where	the	number	of	heap	blocks	is	known	beforehand
+to	be	small).
+A	better	approach	is	to	organize	the	free	blocks	into	some	form	of	explicit
+data	structure.	Since	by	definition	the	body	of	a	free	block	is	not	needed
+by	the	program,	the	pointers	that	implement	the	data	structure	can	be
+stored	within	the	bodies	of	the	free	blocks.	For	example,	the	heap	can	be
+
+organized	as	a	doubly	linked	free	list	by	including	a	
+	(predecessor)
+and	
+	(successor)	pointer	in	each	free	block,	as	shown	in	
+Figure
+9.48
+.
+Using	a	doubly	linked	list	instead	of	an	implicit	free	list	reduces	the	first-fit
+allocation	time	from	linear	in	the	total	number	of	blocks	to	linear	in	the
+number	of	
+free
+	blocks.	However,	the	time	to	free	a	block	can	be	either
+linear	or	constant,	depending	on	the	policy	we	choose	for	ordering	the
+blocks	in	the	free	list.
+Figure	
+9.48	
+Format	of	heap	blocks	that	use	doubly	linked	free	lists.
+One	approach	is	to	maintain	the	list	in	
+last-in	first-out
+	(LIFO)	order	by
+inserting	newly	freed	blocks	at	the	beginning	of	the	list.	With	a	LIFO
+ordering	and	a	first-fit	placement	policy,	the	allocator	inspects	the	most
+recently	used	blocks	first.	In	this	case,	freeing	a	block	can	be	performed
+
+in	constant	time.	If	boundary	tags	are	used,	then	coalescing	can	also	be
+performed	in	constant	time.
+Another	approach	is	to	maintain	the	list	in	
+address	order
+,	where	the
+address	of	each	block	in	the	list	is	less	than	the	address	of	its	successor.
+In	this	case,	freeing	a	block	requires	a	linear-time	search	to	locate	the
+appropriate	predecessor.	The	trade-off	is	that	address-ordered	first	fit
+enjoys	better	memory	utilization	than	LIFO-ordered	first	fit,	approaching
+the	utilization	of	best	fit.
+A	disadvantage	of	explicit	lists	in	general	is	that	free	blocks	must	be	large
+enough	to	contain	all	of	the	necessary	pointers,	as	well	as	the	header
+and	possibly	a	footer.	This	results	in	a	larger	minimum	block	size	and
+increases	the	potential	for	internal	fragmentation.
+9.9.14	
+Segregated	Free	Lists
+As	we	have	seen,	an	allocator	that	uses	a	single	linked	list	of	free	blocks
+requires	time	linear	in	the	number	of	free	blocks	to	allocate	a	block.	A
+popular	approach	for	reducing	the	allocation	time,	known	generally	as
+segregated	storage
+,	is	to	maintain	multiple	free	lists,	where	each	list
+holds	blocks	that	are	roughly	the	same	size.	The	general	idea	is	to
+partition	the	set	of	all	possible	block	sizes	into	equivalence	classes	called
+size	classes.
+	There	are	many	ways	to	define	the	size	classes.	For
+example,	we	might	partition	the	block	sizes	by	powers	of	2:
+{
+	
+1
+	
+}
+,
+ 
+{
+	
+2
+	
+}
+,
+ 
+{
+	
+3
+,
+4
+	
+}
+,
+ 
+{
+	
+5
+−
+8
+	
+}
+,
+⋯
+,
+ 
+{
+	
+1
+,
+025
+−
+2
+,
+048
+	
+}
+,
+ 
+{
+	
+2
+,
+049
+−
+4
+,
+096
+	
+}
+,
+ 
+{
+	
+4
+,
+097
+−
+∞
+	
+}
+
+Or	we	might	assign	small	blocks	to	their	own	size	classes	and	partition
+large	blocks	by	powers	of	2:
+The	allocator	maintains	an	array	of	free	lists,	with	one	free	list	per	size
+class,	ordered	by	increasing	size.	When	the	allocator	needs	a	block	of
+size	
+n
+,	it	searches	the	appropriate	free	list.	If	it	cannot	find	a	block	that
+fits,	it	searches	the	next	list,	and	so	on.
+The	dynamic	storage	allocation	literature	describes	dozens	of	variants	of
+segregated	storage	that	differ	in	how	they	define	size	classes,	when	they
+perform	coalescing,	when	they	request	additional	heap	memory	from	the
+operating	system,	whether	they	allow	splitting,	and	so	forth.	To	give	you	a
+sense	of	what	is	possible,	we	will	describe	two	of	the	basic	approaches:
+simple	segregated	storage
+	and	
+segregated	fits.
+Simple	Segregated	Storage
+With	simple	segregated	storage,	the	free	list	for	each	size	class	contains
+same-size	blocks,	each	the	size	of	the	largest	element	of	the	size	class.
+For	example,	if	some	size	class	is	defined	as	{17–32},	then	the	free	list
+for	that	class	consists	entirely	of	blocks	of	size	32.
+To	allocate	a	block	of	some	given	size,	we	check	the	appropriate	free	list.
+If	the	list	is	not	empty,	we	simply	allocate	the	first	block	in	its	entirety.
+Free	blocks	are	never	split	to	satisfy	allocation	requests.	If	the	list	is
+empty,	the	allocator	requests	a	fixed-size	chunk	of	additional	memory
+{
+	
+1
+	
+}
+,
+ 
+{
+	
+2
+	
+}
+,
+ 
+{
+	
+3
+	
+}
+,
+⋯
+,
+ 
+{
+	
+1
+,
+023
+	
+}
+,
+ 
+{
+	
+1
+,
+024
+	
+}
+ 
+{
+	
+1
+,
+025
+−
+2
+,
+048
+	
+}
+,
+ 
+{
+	
+2
+,
+049
+−
+4
+,
+096
+	
+}
+,
+ 
+ 
+{
+4
+,
+097
+−
+∞
+	
+}
+
+from	the	operating	system	(typically	a	multiple	of	the	page	size),	divides
+the	chunk	into	equal-size	blocks,	and	links	the	blocks	together	to	form	the
+new	free	list.	To	free	a	block,	the	allocator	simply	inserts	the	block	at	the
+front	of	the	appropriate	free	list.
+There	are	a	number	of	advantages	to	this	simple	scheme.	Allocating	and
+freeing	blocks	are	both	fast	constant-time	operations.	Further,	the
+combination	of	the	same-size	blocks	in	each	chunk,	no	splitting,	and	no
+coalescing	means	that	there	is	very	little	per-block	memory	overhead.
+Since	each	chunk	has	only	same-size	blocks,	the	size	of	an	allocated
+block	can	be	inferred	from	its	address.	Since	there	is	no	coalescing,
+allocated	blocks	do	not	need	an	allocated/free	flag	in	the	header.	Thus,
+allocated	blocks	require	no	headers,	and	since	there	is	no	coalescing,
+they	do	not	require	any	footers	either.	Since	allocate	and	free	operations
+insert	and	delete	blocks	at	the	beginning	of	the	free	list,	the	list	need	only
+be	singly	linked	instead	of	doubly	linked.	The	bottom	line	is	that	the	only
+required	field	in	any	block	is	a	one-word	
+	pointer	in	each	free	block,
+and	thus	the	minimum	block	size	is	only	one	word.
+A	significant	disadvantage	is	that	simple	segregated	storage	is
+susceptible	to	internal	and	external	fragmentation.	Internal	fragmentation
+is	possible	because	free	blocks	are	never	split.	Worse,	certain	reference
+patterns	can	cause	extreme	external	fragmentation	because	free	blocks
+are	never	coalesced	(
+Practice	Problem	
+9.10
+).
+Practice	Problem	
+9.10	
+(solution	page	
+885
+)
+Describe	a	reference	pattern	that	results	in	severe	external
+fragmentation	in	an	allocator	based	on	simple	segregated	storage.
+
+Segregated	Fits
+With	this	approach,	the	allocator	maintains	an	array	of	free	lists.	Each
+free	list	is	associated	with	a	size	class	and	is	organized	as	some	kind	of
+explicit	or	implicit	list.	Each	list	contains	potentially	different-size	blocks
+whose	sizes	are	members	of	the	size	class.	There	are	many	variants	of
+segregated	fits	allocators.	Here	we	describe	a	simple	version.
+To	allocate	a	block,	we	determine	the	size	class	of	the	request	and	do	a
+first-fit	search	of	the	appropriate	free	list	for	a	block	that	fits.	If	we	find
+one,	then	we	(optionally)	split	it	and	insert	the	fragment	in	the	appropriate
+free	list.	If	we	cannot	find	a	block	that	fits,	then	we	search	the	free	list	for
+the	next	larger	size	class.	We	
+repeat	until	we	find	a	block	that	fits.	If	none
+of	the	free	lists	yields	a	block	that	fits,	then	we	request	additional	heap
+memory	from	the	operating	system,	allocate	the	block	out	of	this	new
+heap	memory,	and	place	the	remainder	in	the	appropriate	size	class.	To
+free	a	block,	we	coalesce	and	place	the	result	on	the	appropriate	free	list.
+The	segregated	fits	approach	is	a	popular	choice	with	production-quality
+allocators	such	as	the	GNU	
+	package	provided	in	the	C	standard
+library	because	it	is	both	fast	and	memory	efficient.	Search	times	are
+reduced	because	searches	are	limited	to	particular	parts	of	the	heap
+instead	of	the	entire	heap.	Memory	utilization	can	improve	because	of	the
+interesting	fact	that	a	simple	first-fit	search	of	a	segregated	free	list
+approximates	a	best-fit	search	of	the	entire	heap.
+Buddy	Systems
+
+A	
+buddy	system
+	is	a	special	case	of	segregated	fits	where	each	size
+class	is	a	power	of	2.	The	basic	idea	is	that,	given	a	heap	of	2
+	words,
+we	maintain	a	separate	free	list	for	each	block	size	
+2
+,	where	0	≤	
+k
+	≤	
+m
+.
+Requested	block	sizes	are	rounded	up	to	the	nearest	power	of	2.
+Originally,	there	is	one	free	block	of	size	2
+	words.
+To	allocate	a	block	of	size	2
+,	we	find	the	first	available	block	of	size	2
+,
+such	that	
+k
+	≤	
+j
+	≤	
+m
+.	If	
+j
+	=	
+k
+,	then	we	are	done.	Otherwise,	we	recursively
+split	the	block	in	half	until	
+j
+	=	
+k.
+	As	we	perform	this	splitting,	each
+remaining	half	(known	as	a	
+buddy
+)	is	placed	on	the	appropriate	free	list.
+To	free	a	block	of	size	2
+,	we	continue	coalescing	with	the	free	buddies.
+When	we	encounter	an	allocated	buddy,	we	stop	the	coalescing.
+A	key	fact	about	buddy	systems	is	that,	given	the	address	and	size	of	a
+block,	it	is	easy	to	compute	the	address	of	its	buddy.	For	example,	a
+block	of	size	32	bytes	with	address
+has	its	buddy	at	address
+In	other	words,	the	addresses	of	a	block	and	its	buddy	differ	in	exactly
+one	bit	position.
+The	major	advantage	of	a	buddy	system	allocator	is	its	fast	searching
+and	coalescing.	The	major	disadvantage	is	that	the	power-of-2
+requirement	on	the	block	size	can	cause	significant	internal
+m
+k
+m
+k
+j
+k
+x
+x
+x
+ 
+…
+x
+00000
+x
+x
+x
+ 
+…
+x
+10000
+
+fragmentation.	For	this	reason,	buddy	system	allocators	are	not
+appropriate	for	general-purpose	workloads.	However,	for	certain
+application-specific	workloads,	where	the	block	sizes	are	known	in
+advance	to	be	powers	of	2,	buddy	system	allocators	have	a	certain
+appeal.
+
+9.10	
+Garbage	Collection
+With	an	explicit	allocator	such	as	the	C	
+	package,	an	application
+allocates	and	frees	heap	blocks	by	making	calls	to	
+	and	
+.	It	is
+the	application's	responsibility	to	free	any	allocated	blocks	that	it	no
+longer	needs.
+Failing	to	free	allocated	blocks	is	a	common	programming	error.	For
+example,	consider	the	following	C	function	that	allocates	a	block	of
+temporary	storage	as	part	of	its	processing:
+Since	
+	is	no	longer	needed	by	the	program,	it	should	have	been	freed
+before	garbage	returned.	Unfortunately,	the	programmer	has	forgotten	to
+free	the	block.	It	remains	allocated	for	the	lifetime	of	the	program,
+needlessly	occupying	heap	space	that	could	be	used	to	satisfy
+subsequent	allocation	requests.
+
+A	
+garbage	collector
+	is	a	dynamic	storage	allocator	that	automatically
+frees	allocated	blocks	that	are	no	longer	needed	by	the	program.	Such
+blocks	are	known	as	
+garbage
+	(hence	the	term	"garbage	collector").	The
+process	of	automatically	reclaiming	heap	storage	is	known	as	
+garbage
+collection.
+	In	a	system	that	supports	garbage	collection,	applications
+explicitly	allocate	heap	blocks	but	never	explicitly	free	them.	In	the
+context	of	a	C	program,	the	application	calls	
+	but	never	calls	
+.
+Instead,	the	garbage	collector	periodically	identifies	the	garbage	blocks
+and	makes	the	appropriate	calls	to	
+	to	place	those	blocks	back	on
+the	free	list.
+Garbage	collection	dates	back	to	Lisp	systems	developed	by	John
+McCarthy	at	MIT	in	the	early	1960s.	It	is	an	important	part	of	modern
+language	systems	such	as	Java,	ML,	Perl,	and	Mathematica,	and	it
+remains	an	active	and	important	area	of	research.	The	literature
+describes	an	amazing	number	of	approaches	for	garbage	collection.	We
+will	limit	our	discussion	to	McCarthy's	original	
+Mark&Sweep
+	algorithm,
+which	is	interesting	because	it	can	be	built	on	top	of	an	existing	
+package	to	provide	garbage	collection	for	C	and	C++	programs.
+9.10.1	
+Garbage	Collector	Basics
+A	garbage	collector	views	memory	as	a	directed	
+reachability	graph
+	of	the
+form	shown	in	
+Figure	
+9.49
+.	The	nodes	of	the	graph	are	partitioned	into
+a	set	of	
+root	nodes
+	and	a	set	of	
+heap	nodes.
+	Each	heap	node
+corresponds	to	an	allocated	block	in	the	heap.	A	directed	edge	
+p
+→	
+q
+means	that	some	location	in	block	
+p
+	points	to	some	location	in	block	
+q.
+Root	nodes	correspond	to	locations	not	in	the	heap	that	contain	pointers
+
+into	the	heap.	These	locations	can	be	registers,	variables	on	the	stack,	or
+global	variables	in	the	read/write	data	area	of	virtual	memory.
+We	say	that	a	node	
+p
+	is	
+reachable
+	if	there	exists	a	directed	path	from	any
+root	node	to	
+p.
+	At	any	point	in	time,	the	unreachable	nodes	correspond	to
+garbage	that	can	never	be	used	again	by	the	application.	The	role	of	a
+garbage	collector	is	to	maintain	some	representation	of	the	reachability
+graph	and	periodically	reclaim	the	unreachable	nodes	by	freeing	them
+and	returning	them	to	the	free	list.
+Figure	
+9.49	
+A	garbage	collector's	view	of	memory	as	a	directed
+graph.
+Figure	
+9.50	
+Integrating	a	conservative	garbage	collector	and	a	C
+	package.
+Garbage	collectors	for	languages	like	ML	and	Java,	which	exert	tight
+control	over	how	applications	create	and	use	pointers,	can	maintain	an
+
+exact	representation	of	the	reachability	graph	and	thus	can	reclaim	all
+garbage.	However,	collectors	for	languages	like	C	and	C++	cannot	in
+general	maintain	exact	representations	of	the	reachability	graph.	Such
+collectors	are	known	as	
+conservative	garbage	collectors.
+	They	are
+conservative	in	the	sense	that	each	reachable	block	is	correctly	identified
+as	reachable,	while	some	unreachable	nodes	might	be	incorrectly
+identified	as	reachable.
+Collectors	can	provide	their	service	on	demand,	or	they	can	run	as
+separate	threads	in	parallel	with	the	application,	continuously	updating
+the	reachability	graph	and	reclaiming	garbage.	For	example,	consider
+how	we	might	incorporate	a	conservative	collector	for	C	programs	into	an
+existing	
+	package,	as	shown	in	
+Figure	
+9.50
+.
+The	application	calls	
+	in	the	usual	manner	whenever	it	needs	heap
+space.	If	
+	is	unable	to	find	a	free	block	that	fits,	then	it	calls	the
+garbage	collector	in	hopes	of	reclaiming	some	garbage	to	the	free	list.
+The	collector	identifies	the	garbage	blocks	and	returns	them	to	the	heap
+by	calling	the	
+	function.	The	key	idea	is	that	the	collector	calls	free
+instead	of	the	application.	When	the	call	to	the	collector	returns,	
+tries	again	to	find	a	free	block	that	fits.	If	that	fails,	then	it	can	ask	the
+operating	system	for	additional	memory.	Eventually,	
+	returns	a
+pointer	to	the	requested	block	(if	successful)	or	the	NULL	pointer	(if
+unsuccessful).
+9.10.2	
+Mark&Sweep	Garbage
+
+Collectors
+A	Mark&Sweep	garbage	collector	consists	of	a	
+mark	phase
+,	which	marks
+all	reachable	and	allocated	descendants	of	the	root	nodes,	followed	by	a
+sweep	phase
+,	which	frees	each	unmarked	allocated	block.	Typically,	one
+of	the	spare	low-order	bits	in	the	block	header	is	used	to	indicate	whether
+a	block	is	marked	or	not.
+(a)	
+	function
+(b)	
+	function
+
+Figure	
+9.51	
+Pseudocode	for	the	
+	and	
+	functions.
+Our	description	of	Mark&Sweep	will	assume	the	following	functions,
+where	
+	is	defined	as	
+:
+	
+If	
+	points	to	some	word	in	an	allocated	block,	it
+returns	a	pointer	
+	to	the	beginning	of	that	block.	Returns	NULL
+otherwise.
+.	
+Returns	true	if	block	
+	is	already	marked.
+.	
+Returns	true	if	block	
+	is	allocated.
+.	
+Marks	block	
+.
+.	
+Returns	the	length	in	words	(excluding	the
+header)	of	block	
+.
+.	
+Changes	the	status	of	block	
+	from	marked
+to	unmarked.
+
+.	
+Returns	the	successor	of	block	
+b
+	in	the	heap.
+The	mark	phase	calls	the	mark	function	shown	in	
+Figure	
+9.51(a)
+	once
+for	each	root	node.	The	
+	function	returns	immediately	if	
+	does	not
+point	to	an	allocated	and	unmarked	heap	block.	Otherwise,	it	marks	the
+block	and	calls	itself	recursively	on	each	word	in	block.	Each	call	to	the
+	function	marks	any	unmarked	and	reachable	descendants	of	some
+root	node.	At	the	end	of	the	mark	phase,	any	allocated	block	that	is	not
+marked	is	guaranteed	to	be	unreachable	and,	hence,	garbage	that	can
+be	reclaimed	in	the	sweep	phase.
+The	sweep	phase	is	a	single	call	to	the	sweep	function	shown	in	
+Figure
+9.51(b)
+.	The	
+	function	iterates	over	each	block	in	the	heap,
+freeing	any	unmarked	allocated	blocks	(i.e.,	garbage)	that	it	encounters.
+Figure	
+9.52
+	shows	a	graphical	interpretation	of	Mark&Sweep	for	a
+small	heap.	Block	boundaries	are	indicated	by	heavy	lines.	Each	square
+corresponds	to	a	word	of	memory.	Each	block	has	a	one-word	header,
+which	is	either	marked	or	unmarked.
+
+Figure	
+9.52	
+Mark&Sweep	example.
+Note	that	the	arrows	in	this	example	denote	memory	references,	not	free
+list	pointers.
+Figure	
+9.53	
+Left	and	right	pointers	in	a	balanced	tree	of	allocated
+blocks.
+Initially,	the	heap	in	
+Figure	
+9.52
+	consists	of	six	allocated	blocks,	each
+of	which	is	unmarked.	Block	3	contains	a	pointer	to	block	1.	Block	4
+contains	pointers	to	blocks	3	and	6.	The	root	points	to	block	4.	After	the
+mark	phase,	blocks	1,3,4,	and	6	are	marked	because	they	are	reachable
+from	the	root.	Blocks	2	and	5	are	unmarked	because	they	are
+unreachable.	After	the	sweep	phase,	the	two	unreachable	blocks	are
+reclaimed	to	the	free	list.
+
+9.10.3	
+Conservative	Mark&Sweep
+for	C	Programs
+Mark&Sweep	is	an	appropriate	approach	for	garbage	collecting	C
+programs	because	it	works	in	place	without	moving	any	blocks.	However,
+the	C	language	poses	some	interesting	challenges	for	the
+implementation	of	the	
+	function.
+First,	C	does	not	tag	memory	locations	with	any	type	information.	Thus,
+there	is	no	obvious	way	for	
+	to	determine	if	its	input	parameter	
+	is
+a	pointer	or	not.	Second,	even	if	we	were	to	know	that	
+	was	a	pointer,
+there	would	be	no	obvious	way	for	
+	to	determine	whether	
+	points
+to	some	location	in	the	payload	of	an	allocated	block.
+One	solution	to	the	latter	problem	is	to	maintain	the	set	of	allocated
+blocks	as	a	balanced	binary	tree	that	maintains	the	invariant	that	all
+blocks	in	the	left	subtree	are	located	at	smaller	addresses	and	all	blocks
+in	the	right	subtree	are	located	in	larger	addresses.	As	shown	in	
+Figure
+9.53
+,	this	requires	two	additional	fields	(
+	and	
+)	in	the	header
+of	each	allocated	block.	Each	field	points	to	the	header	of	some	allocated
+block.	The	
+	function	uses	the	tree	to	perform	a	binary
+search	of	the	allocated	blocks.	At	each	step,	it	relies	on	the	size	field	in
+the	block	header	to	determine	if	
+	falls	within	the	extent	of	the	block.
+The	balanced	tree	approach	is	correct	in	the	sense	that	it	is	guaranteed
+to	mark	all	of	the	nodes	that	are	reachable	from	the	roots.	This	is	a
+necessary	guarantee,	as	application	users	would	certainly	not	appreciate
+
+having	their	allocated	blocks	prematurely	returned	to	the	free	list.
+However,	it	is	conservative	in	the	sense	that	it	may	incorrectly	mark
+blocks	that	are	actually	unreachable,	and	thus	it	may	fail	to	free	some
+garbage.	While	this	does	not	affect	the	correctness	of	application
+programs,	it	can	result	in	unnecessary	external	fragmentation.
+The	fundamental	reason	that	Mark&Sweep	collectors	for	C	programs
+must	be	conservative	is	that	the	C	language	does	not	tag	memory
+locations	with	type	information.	Thus,	scalars	like	
+	or	
+	can
+masquerade	as	pointers.	For	example,	suppose	that	some	reachable
+allocated	block	contains	an	
+	in	its	payload	whose	value	happens	to
+correspond	to	an	address	in	the	payload	of	some	other	allocated	block	
+b.
+There	is	no	way	for	the	collector	to	infer	that	the	data	is	really	an	
+	and
+not	a	pointer.	Therefore,	the	allocator	must	conservatively	mark	block	
+b
+as	reachable,	when	in	fact	it	might	not	be.
+
+9.11	
+Common	Memory-Related
+Bugs	in	C	Programs
+Managing	and	using	virtual	memory	can	be	a	difficult	and	error-prone
+task	for	C	programmers.	Memory-related	bugs	are	among	the	most
+frightening	because	they	often	manifest	themselves	at	a	distance,	in	both
+time	and	space,	from	the	source	of	the	bug.	Write	the	wrong	data	to	the
+wrong	location,	and	your	program	can	run	for	hours	before	it	finally	fails
+in	some	distant	part	of	the	program.	We	conclude	our	discussion	of
+virtual	memory	with	a	look	at	of	some	of	the	common	memory-related
+bugs.
+9.11.1	
+Dereferencing	Bad	Pointers
+As	we	learned	in	
+Section	
+9.7.2
+,	there	are	large	holes	in	the	virtual
+address	space	of	a	process	that	are	not	mapped	to	any	meaningful	data.
+If	we	attempt	to	dereference	a	pointer	into	one	of	these	holes,	the
+operating	system	will	terminate	our	program	with	a	segmentation
+exception.	Also,	some	areas	of	virtual	memory	are	read-only.	Attempting
+to	write	to	one	of	these	areas	terminates	the	program	with	a	protection
+exception.
+A	common	example	of	dereferencing	a	bad	pointer	is	the	classic	
+bug.	Suppose	we	want	to	use	
+	to	read	an	integer	from	
+	into	a
+
+variable.	The	correct	way	to	do	this	is	to	pass	
+	a	format	string	and
+the	
+address
+	of	the	variable:
+However,	it	is	easy	for	new	C	programmers	(and	experienced	ones	too!)
+to	pass	the	
+contents
+	of	
+	instead	of	its	address:
+In	this	case,	
+	will	interpret	the	contents	of	
+	as	an	address	and
+attempt	to	write	a	word	to	that	location.	In	the	best	case,	the	program
+terminates	immediately	with	an	exception.	In	the	worst	case,	the	contents
+of	
+	correspond	to	some	valid	read/write	area	of	virtual	memory,	and
+we	overwrite	memory,	usually	with	disastrous	and	baffling	consequences
+much	later.
+9.11.2	
+Reading	Uninitialized
+Memory
+While	bss	memory	locations	(such	as	uninitialized	global	C	variables)	are
+always	initialized	to	zeros	by	the	loader,	this	is	not	true	for	heap	memory.
+
+A	common	error	is	to	assume	that	heap	memory	is	initialized	to	zero:
+In	this	example,	the	programmer	has	incorrectly	assumed	that	vector	
+has	been	initialized	to	zero.	A	correct	implementation	would	explicitly
+zero	
+	or	use	
+.
+9.11.3	
+Allowing	Stack	Buffer
+Overflows
+As	we	saw	in	
+Section	
+3.10.3
+,	a	program	has	a	
+buffer	overflow	bug
+	if	it
+writes	to	a	target	buffer	on	the	stack	without	examining	the	size	of	the
+
+input	string.	For	example,	the	following	function	has	a	buffer	overflow	bug
+because	the	
+	function	copies	an	arbitrary-length	string	to	the	buffer.
+To	fix	this,	we	would	need	to	use	the	
+	function,	which	limits	the	size
+of	the	input	string.
+9.11.4	
+Assuming	That	Pointers	and
+the	Objects	They	Point	to	Are	the
+Same	Size
+One	common	mistake	is	to	assume	that	pointers	to	objects	are	the	same
+size	as	the	objects	they	point	to:
+
+The	intent	here	is	to	create	an	array	of	
+n
+	pointers,	each	of	which	points	to
+an	array	of	
+m
+	
+.	However,	because	the	programmer	has	written
+	instead	of	
+	in	line	5,	the	code	actually
+creates	an	array	of	
+.
+This	code	will	run	fine	on	machines	where	
+	and	pointers	to	
+	are
+the	same	size.	But	if	we	run	this	code	on	a	machine	like	the	Core	i7,
+where	a	pointer	is	larger	than	an	
+,	then	the	loop	in	lines	7–8	will	write
+past	the	end	of	the	A	array.	Since	one	of	these	words	will	likely	be	the
+boundary-tag	footer	of	the	allocated	block,	we	may	not	discover	the	error
+until	we	free	the	block	much	later	in	the	program,	at	which	point	the
+coalescing	code	in	the	allocator	will	fail	dramatically	and	for	no	apparent
+reason.	This	is	an	insidious	example	of	the	kind	of	"action	at	a	distance"
+that	is	so	typical	of	memory-related	programming	bugs.
+9.11.5	
+Making	Off-by-One	Errors
+
+Off-by-one	errors	are	another	common	source	of	overwriting	bugs:
+This	is	another	version	of	the	program	in	the	previous	section.	Here	we
+have	created	an	
+n
+-element	array	of	pointers	in	line	5	but	then	tried	to
+initialize	
+n
+	+	1	of	its	elements	in	lines	7	and	8,	in	the	process	overwriting
+some	memory	that	follows	the	A	array.
+9.11.6	
+Referencing	a	Pointer	Instead
+of	the	Object	It	Points	To
+If	we	are	not	careful	about	the	precedence	and	associativity	of	C
+operators,	then	we	incorrectly	manipulate	a	pointer	instead	of	the	object	it
+points	to.	For	example,	consider	the	following	function,	whose	purpose	is
+
+to	remove	the	first	item	in	a	binary	heap	of	
+	items	and	then
+reheapify	the	remaining	
+	-	1	items:
+In	line	6,	the	intent	is	to	decrement	the	integer	value	pointed	to	by	the
+size	pointer.	However,	because	the	unary	--	and	*	operators	have	the
+same	precedence	and	associate	from	right	to	left,	the	code	in	line	6
+actually	decrements	the	pointer	itself	instead	of	the	integer	value	that	it
+points	to.	If	we	are	lucky,	the	program	will	crash	immediately.	But	more
+likely	we	will	be	left	scratching	our	heads	when	the	program	produces	an
+incorrect	answer	much	later	in	its	execution.	The	moral	here	is	to	use
+parentheses	whenever	in	doubt	about	precedence	and	associativity.	For
+example,	in	line	6,	we	should	have	clearly	stated	our	intent	by	using	the
+expression	(
+)--.
+9.11.7	
+Misunderstanding	Pointer
+
+Arithmetic
+Another	common	mistake	is	to	forget	that	arithmetic	operations	on
+pointers	are	performed	in	units	that	are	the	size	of	the	objects	they	point
+to,	which	are	not	necessarily	bytes.	For	example,	the	intent	of	the
+following	function	is	to	scan	an	array	of	
+	and	return	a	pointer	to	the
+first	occurrence	of	
+:
+However,	because	line	4	increments	the	pointer	by	4	(the	number	of
+bytes	in	an	integer)	each	time	through	the	loop,	the	function	incorrectly
+scans	every	fourth	integer	in	the	array.
+9.11.8	
+Referencing	Nonexistent
+Variables
+
+Naive	C	programmers	who	do	not	understand	the	stack	discipline	will
+sometimes	reference	local	variables	that	are	no	longer	valid,	as	in	the
+following	example:
+This	function	returns	a	pointer	(say,	p)	to	a	local	variable	on	the	stack	and
+then	pops	its	stack	frame.	Although	
+	still	points	to	a	valid	memory
+address,	it	no	longer	points	to	a	valid	variable.	When	other	functions	are
+called	later	in	the	program,	the	memory	will	be	reused	for	their	stack
+frames.	Later,	if	the	program	assigns	some	value	to	
+,	then	it	might
+actually	be	modifying	an	entry	in	another	function's	stack	frame,	with
+potentially	disastrous	and	baffling	consequences.
+9.11.9	
+Referencing	Data	in	Free
+Heap	Blocks
+A	similar	error	is	to	reference	data	in	heap	blocks	that	have	already	been
+freed.	Consider	the	following	example,	which	allocates	an	integer	array	
+
+in	line	6,	prematurely	frees	block	
+	in	line	10,	and	then	later	references	it
+in	line	14:
+⋮
+Depending	on	the	pattern	of	
+	and	
+e	calls	that	occur	between
+lines	6	and	10,	when	the	program	references	
+	in	line	14,	the	array	
+might	be	part	of	some	other	allocated	heap	block	and	may	have	been
+overwritten.	As	with	many	
+memory-related	bugs,	the	error	will	only
+become	evident	later	in	the	program	when	we	notice	that	the	values	in	
+are	corrupted.
+
+9.11.10	
+Introducing	Memory	Leaks
+Memory	leaks	are	slow,	silent	killers	that	occur	when	programmers
+inadvertently	create	garbage	in	the	heap	by	forgetting	to	free	allocated
+blocks.	For	example,	the	following	function	allocates	a	heap	block	
+	and
+then	returns	without	freeing	it:
+If	
+	is	called	frequently,	then	the	heap	will	gradually	fill	up	with
+garbage,	in	the	worst	case	consuming	the	entire	virtual	address	space.
+Memory	leaks	are	particularly	serious	for	programs	such	as	daemons
+and	servers,	which	by	definition	never	terminate.
+
+9.12	
+Summary
+Virtual	memory	is	an	abstraction	of	main	memory.	Processors	that
+support	virtual	memory	reference	main	memory	using	a	form	of
+indirection	known	as	virtual	addressing.	The	processor	generates	a
+virtual	address,	which	is	translated	into	a	physical	address	before	being
+sent	to	the	main	memory.	The	translation	of	addresses	from	a	virtual
+address	space	to	a	physical	address	space	requires	close	cooperation
+between	hardware	and	software.	Dedicated	hardware	translates	virtual
+addresses	using	page	tables	whose	contents	are	supplied	by	the
+operating	system.
+Virtual	memory	provides	three	important	capabilities.	First,	it
+automatically	caches	recently	used	contents	of	the	virtual	address	space
+stored	on	disk	in	main	memory.	The	block	in	a	virtual	memory	cache	is
+known	as	a	page.	A	reference	to	a	page	on	disk	triggers	a	page	fault	that
+transfers	control	to	a	fault	handler	in	the	operating	system.	The	fault
+handler	copies	the	page	from	disk	to	the	main	memory	cache,	writing
+back	the	evicted	page	if	necessary.	Second,	virtual	memory	simplifies
+memory	management,	which	in	turn	simplifies	linking,	sharing	data
+between	processes,	the	allocation	of	memory	for	processes,	and
+program	loading.	Finally,	virtual	memory	simplifies	memory	protection	by
+incorporating	protection	bits	into	every	page	table	entry.
+The	process	of	address	translation	must	be	integrated	with	the	operation
+of	any	hardware	caches	in	the	system.	Most	page	table	entries	are
+located	in	the	L1	cache,	but	the	cost	of	accessing	page	table	entries	from
+
+L1	is	usually	eliminated	by	an	on-chip	cache	of	page	table	entries	called
+a	TLB.
+Modern	systems	initialize	chunks	of	virtual	memory	by	associating	them
+with	chunks	of	files	on	disk,	a	process	known	as	memory	mapping.
+Memory	mapping	provides	an	efficient	mechanism	for	sharing	data,
+creating	new	processes,	and	loading	programs.	Applications	can
+manually	create	and	delete	areas	of	the	virtual	address	space	using	the
+	function.	However,	most	programs	rely	on	a	dynamic	memory
+allocator	such	as	
+,	which	manages	memory	in	an	area	of	the
+virtual	address	space	called	the	heap.	Dynamic	memory	allocators	are
+application-level	programs	with	a	system-level	feel,	directly	manipulating
+memory	without	much	help	from	the	type	system.	Allocators	come	in	two
+flavors.	Explicit	allocators	require	applications	to	explicitly	free	their
+memory	blocks.	Implicit	allocators	(garbage	collectors)	free	any	unused
+and	unreachable	blocks	automatically.
+Managing	and	using	memory	is	a	difficult	and	error-prone	task	for	C
+programmers.	Examples	of	common	errors	include	dereferencing	bad
+pointers,	reading	uninitialized	memory,	allowing	stack	buffer	overflows,
+assuming	that	pointers	and	the	objects	they	point	to	are	the	same	size,
+referencing	a	pointer	instead	of	the	object	it	points	to,	misunderstanding
+pointer	arithmetic,	referencing	nonexistent	variables,	and	introducing
+memory	leaks.
+
+Bibliographic	Notes
+Kilburn	and	his	colleagues	published	the	first	description	of	virtual
+memory	[
+63
+].	Architecture	texts	contain	additional	details	about	the
+hardware's	role	in	virtual	memory	[
+46
+].	Operating	systems	texts	contain
+additional	information	about	the	operating	system's	role	[
+102
+,
+106
+,
+113
+].
+Bovet	and	Cesati	[
+11
+]	give	a	detailed	description	of	the	Linux	virtual
+memory	system.	Intel	Corporation	provides	detailed	documentation	on
+32-bit	and	64-bit	address	translation	on	IA	processors	[
+52
+].
+Knuth	wrote	the	classic	work	on	storage	allocation	in	1968	[
+64
+].	Since
+that	time,	there	has	been	a	tremendous	amount	of	work	in	the	area.
+Wilson,	Johnstone,	Neely,	and	Boles	have	written	a	beautiful	survey	and
+performance	evaluation	of	explicit	allocators	[
+118
+].	The	general
+comments	in	this	book	about	the	throughput	and	utilization	of	different
+allocator	strategies	are	paraphrased	from	their	survey.	Jones	and	Lins
+provide	a	comprehensive	survey	of	garbage	collection	[
+56
+].	Kernighan
+and	Ritchie	[
+61
+]	show	the	complete	code	for	a	simple	allocator	based	on
+an	explicit	free	list	with	a	block	size	and	successor	pointer	in	each	free
+block.	The	code	is	interesting	in	that	it	uses	unions	to	eliminate	a	lot	of
+the	complicated	pointer	arithmetic,	but	at	the	expense	of	a	linear-time
+(rather	than	constant-time)	free	operation.	Doug	Lea	developed	a	widely
+used	open-source	malloc	package	called	
+	[
+67
+].
+
+Homework	Problems
+9.11
+In	the	following	series	of	problems,	you	are	to	show	how	the
+example	memory	system	in	
+Section	
+9.6.4
+	translates	a	virtual
+address	into	a	physical	address	and	accesses	the	cache.	For	the
+given	virtual	address,	indicate	the	TLB	entry	accessed,	
+the
+physical	address,	and	the	cache	byte	value	returned.	Indicate
+whether	the	TLB	misses,	whether	a	page	fault	occurs,	and
+whether	a	cache	miss	occurs.	If	there	is	a	cache	miss,	enter	"—"
+for	"Cache	byte	returned."	If	there	is	a	page	fault,	enter	"—"	for
+"PPN"	and	leave	parts	C	and	D	blank.
+Virtual	address:	
+A
+.	
+Virtual	address	format
+B
+.	
+Address	translation
+Parameter
+Value
+VPN
+_____
+TLB	index
+_____
+TLB	tag
+_____
+
+TLB	hit?	(Y/N)
+_____
+Page	fault?	(Y/N)
+_____
+PPN
+_____
+	
+C
+.	
+Physical	address	format
+D
+.	
+Physical	memory	reference
+Parameter
+Value
+Byte	offset
+_____
+Cache	index
+_____
+Cache	tag
+_____
+Cache	hit?	(Y/N)
+_____
+Cache	byte	returned
+_____
+9.12
+Repeat	
+Problem	
+9.11
+	for	the	following	address.
+Virtual	address:	
+A
+.	
+Virtual	address	format
+
+
+B
+.	
+Address	translation
+Parameter
+Value
+VPN
+_____
+TLB	index
+_____
+TLB	tag
+_____
+TLB	hit?	(Y/N)
+_____
+Page	fault?	(Y/N)
+_____
+PPN
+_____
+	
+C
+.	
+Physical	address	format
+D
+.	
+Physical	memory	reference
+Parameter
+Value
+Byte	offset
+_____
+Cache	index
+_____
+Cache	tag
+_____
+Cache	hit?	(Y/N)
+_____
+Cache	byte	returned
+_____
+
+9.13
+Repeat	
+Problem	
+9.11
+	for	the	following	address.
+Virtual	address:	
+A
+.	
+Address	translation
+Parameter
+Value
+VPN
+_____
+TLB	index
+_____
+TLB	tag
+_____
+TLB	hit?	(Y/N)
+_____
+Page	fault?	(Y/N)
+_____
+PPN
+_____
+	
+B
+.	
+Physical	address	format
+C
+.	
+Physical	memory	reference
+Parameter
+Value
+Byte	offset
+_____
+
+Cache	index
+_____
+Cache	tag
+_____
+Cache	hit?	(Y/N)
+_____
+Cache	byte	returned
+_____
+9.14
+Given	an	input	file	
+	that	consists	of	the	string	
+,	write	a	C	program	that	uses	
+	to	change	the	contents
+of	
+.
+9.15
+Determine	the	block	sizes	and	header	values	that	would	result
+from	the	following	sequence	of	
+	requests.	Assumptions:	(1)
+The	allocator	maintains	double-word	alignment	and	uses	an
+implicit	free	list	with	the	block	format	from	
+Figure	
+9.35
+.	(2)	Block
+sizes	are	rounded	up	to	the	nearest	multiple	of	8	bytes.
+Request
+Block	size	(decimal	bytes)
+Block	header	(hex)
+_____
+_____
+_____
+_____
+_____
+_____
+
+_____
+_____
+9.16
+Determine	the	minimum	block	size	for	each	of	the	following
+combinations	of	alignment	requirements	and	block	formats.
+Assumptions:	Explicit	free	list,	4-byte	
+	and	
+	pointers	in
+each	free	block,	zero-size	payloads	are	not	allowed,	and	headers
+and	footers	are	stored	in	4-byte	words.
+Alignment
+Allocated	block
+Free	block
+Minimum	block	size
+(bytes)
+Single
+word
+Header	and	footer
+Header	and
+footer
+_____
+Single
+word
+Header,	but	no
+footer
+Header	and
+footer
+_____
+Double
+word
+Header	and	footer
+Header	and
+footer
+_____
+Double
+word
+Header,	but	no
+footer
+Header	and
+footer
+_____
+9.17
+
+Develop	a	version	of	the	allocator	in	
+Section	
+9.9.12
+	that
+performs	a	next-fit	search	instead	of	a	first-fit	search.
+9.18
+The	allocator	in	
+Section	
+9.9.12
+	requires	both	a	header	and	a
+footer	for	each	block	in	order	to	perform	constant-time	coalescing.
+Modify	the	allocator	so	that	free	blocks	require	a	header	and	a
+footer,	but	allocated	blocks	require	only	a	header.
+9.19
+You	are	given	three	groups	of	statements	relating	to	memory
+management	and	garbage	collection	below.	In	each	group,	only
+one	statement	is	true.	Your	task	is	to	indicate	which	statement	is
+true.
+1
+.	
+a
+.	
+In	a	buddy	system,	up	to	50%	of	the	space	can	be
+wasted	due	to	internal	fragmentation.
+b
+.	
+The	first-fit	memory	allocation	algorithm	is	slower
+than	the	best-fit	algorithm	(on	average).
+c
+.	
+Deallocation	using	boundary	tags	is	fast	only	when
+the	list	of	free	blocks	is	ordered	according	to
+increasing	memory	addresses.
+d
+.	
+The	buddy	system	suffers	from	internal
+fragmentation,	but	not	from	external	fragmentation.
+
+2
+.	
+a
+.	
+Using	the	first-fit	algorithm	on	a	free	list	that	is
+ordered	according	to	decreasing	block	sizes	results
+in	low	performance	for	allocations,	but	avoids
+external	fragmentation.
+b
+.	
+For	the	best-fit	method,	the	list	of	free	blocks	should
+be	ordered	according	to	increasing	memory
+addresses.
+c
+.	
+The	best-fit	method	chooses	the	largest	free	block
+into	which	the	requested	segment	fits.
+d
+.	
+Using	the	first-fit	algorithm	on	a	free	list	that	is
+ordered	according	to	increasing	block	sizes	is
+equivalent	to	using	the	best-fit	algorithm.
+3
+.	
+Mark&Sweep	garbage	collectors	are	called	conservative	if
+a
+.	
+They	coalesce	freed	memory	only	when	a	memory
+request	cannot	be	satisfied.
+b
+.	
+They	treat	everything	that	looks	like	a	pointer	as	a
+pointer.
+c
+.	
+They	perform	garbage	collection	only	when	they	run
+out	of	memory.
+d
+.	
+They	do	not	free	memory	blocks	forming	a	cyclic	list.
+9.20
+Write	your	own	version	of	
+	and	
+,	and	compare	its
+running	time	and	space	utilization	to	the	version	of	
+provided	in	the	standard	C	library.
+
+Solutions	to	Practice	Problems
+Solution	to	Problem	
+9.1	
+(page
+805
+)
+This	problem	gives	you	some	appreciation	for	the	sizes	of	different
+address	spaces.	At	one	point	in	time,	a	32-bit	address	space	seemed
+impossibly	large.	But	now	there	are	database	and	scientific
+applications	that	need	more,	and	you	can	expect	this	trend	to
+continue.	At	some	point	in	your	lifetime,	expect	to	find	yourself
+complaining	about	the	cramped	64-bit	address	space	on	your
+personal	computer!
+Number	of	address
+bits	
+(n)
+Number	of	virtual
+addresses	
+(N)
+Largest	possible	virtual
+address
+8
+2
+	=	256
+2
+	-	1	=	255
+16
+2
+	=	64	K
+2
+	–	1	=	64	K	–	1
+32
+2
+	=	4	G
+2
+	–	1	=	4	G	–	1
+48
+2
+	=	256	T
+2
+	–	1	=	256	T	–	1
+64
+2
+	=	16,384	P
+2
+	–	1	=	16,384P	–	1
+s
+8
+16
+16
+32
+32
+48
+48
+64
+64
+
+Solution	to	Problem	
+9.2	
+(page
+807
+)
+Since	each	virtual	page	is	
+P
+	=	2
+	bytes,	there	are	a	total	of	2
+/2
+	=	2
+possible	pages	in	the	system,	each	of	which	needs	a	page	table
+entry	(PTE).
+n
+P
+	=	2
+Number	of	PTEs
+16
+4	K
+16
+16
+8	K
+8
+32
+4	K
+1	M
+32
+8	K
+512	K
+Solution	to	Problem	
+9.3	
+(page
+816
+)
+You	need	to	understand	this	kind	of	problem	well	in	order	to	fully
+grasp	address	translation.	Here	is	how	to	solve	the	first	subproblem:
+We	are	given	
+n
+	=	32	virtual	address	bits	and	
+m
+	=	24	physical	address
+bits.	A	page	size	of	
+P
+	=	1	KB	means	we	need	log
+	(1	K)	=	10	bits	for
+both	the	VPO	and	PPO.	(Recall	that	the	VPO	and	PPO	are	identical.)
+The	remaining	address	bits	are	the	VPN	and	PPN,	respectively.
+P
+n
+p
+n–
+p
+p
+2
+
+Number	of
+p
+VPN	bits
+VPO	bits
+PPN	bits
+PPO	bits
+1	KB
+22
+10
+14
+10
+2	KB
+21
+11
+13
+11
+4	KB
+20
+12
+12
+12
+8	KB
+19
+13
+11
+13
+Solution	to	Problem	
+9.4	
+(page
+824
+)
+Doing	a	few	of	these	manual	simulations	is	a	great	way	to	firm	up
+your	understanding	of	address	translation.	You	might	find	it	helpful	to
+write	out	all	the	bits	in	the	addresses	and	then	draw	boxes	around	the
+different	bit	fields,	such	as	VPN,	TLBI,	and	so	on.	In	this	particular
+problem,	there	are	no	misses	of	any	kind:	the	TLB	has	a	copy	of	the
+PTE	and	the	cache	has	a	copy	of	the	requested	data	words.	See
+Problems	
+9.11
+,	
+9.12
+,	and	
+9.13
+	for	some	different
+combinations	of	hits	and	misses.
+A
+.	
+B
+.	
+Parameter
+Value
+
+VPN
+TLB	index
+TLB	tag
+TLB	hit?	(Y/N)
+Y
+Page	fault?	(Y/N)
+N
+PPN
+C
+.	
+D
+.	
+Parameter
+Value
+Byte	offset
+Cache	index
+Cache	tag
+Cache	hit?	(Y/N)
+Y
+Cache	byte	returned
+Solution	to	Problem	
+9.5	
+(page
+839
+)
+
+Solving	this	problem	will	give	you	a	good	feel	for	the	idea	of	memory
+mapping.	Try	it	yourself.	We	haven't	discussed	the	
+,	or
+	functions,	so	you'll	need	to	read	their	man	pages	to	see	how
+they	work.
+____________________________________________________________
+
+__________________________________________________________
+Solution	to	Problem	
+9.6	
+(page
+849
+)
+This	problem	touches	on	some	core	ideas	such	as	alignment
+requirements,	minimum	block	sizes,	and	header	encodings.	The
+general	approach	for	determining	the	block	size	is	to	round	the	sum	of
+the	requested	payload	and	the	header	size	to	the	nearest	multiple	of
+the	alignment	requirement	(in	this	case,	8	bytes).	For	example,	the
+block	size	for	the	
+	request	is	4	+	1	=	5	rounded	up	to	8.	The
+
+block	size	for	the	
+	request	is	13	+	4	=	17	rounded	up	to
+24.
+Request
+Block	size	(decimal	bytes)
+Block	header	(hex)
+8
+16
+16
+24
+Solution	to	Problem	
+9.7	
+(page
+852
+)
+The	minimum	block	size	can	have	a	significant	effect	on	internal
+fragmentation.	Thus,	it	is	good	to	understand	the	minimum	block	sizes
+associated	with	different	allocator	designs	and	alignment
+requirements.	The	tricky	part	is	to	realize	that	the	same	block	can	be
+allocated	or	free	at	different	points	in	time.	Thus,	the	minimum	block
+size	is	the	maximum	of	the	minimum	allocated	block	size	and	the
+minimum	free	block	size.	For	example,	in	the	last	subproblem,	the
+minimum	allocated	block	size	is	a	4-byte	header	and	a	1-byte	payload
+rounded	up	to	8	bytes.	The	minimum	free	block	size	is	a	4-byte
+header	and	4-byte	footer,	which	is	already	a	multiple	of	8	and	doesn't
+need	to	be	rounded.	So	the	minimum	block	size	for	this	allocator	is	8
+bytes.
+
+Alignment
+Allocated	block
+Free	block
+Minimum	block	size
+(bytes)
+Single	word
+Header	and	footer
+Header	and
+footer
+12
+Single	word
+Header,	but	no
+footer
+Header	and
+footer
+8
+Double
+word
+Header	and	footer
+Header	and
+footer
+16
+Double
+word
+Header,	but	no
+footer
+Header	and
+footer
+8
+Solution	to	Problem	
+9.8	
+(page
+861
+)
+There	is	nothing	very	tricky	here.	But	the	solution	requires	you	to
+understand	how	the	rest	of	our	simple	implicit-list	allocator	works	and
+how	to	manipulate	and	traverse	blocks.
+_______________________________________________________________
+
+______________________________________________________________
+Solution	to	Problem	
+9.9	
+(page
+861
+)
+This	is	another	warm-up	exercise	to	help	you	become	familiar	with
+allocators.	Notice	that	for	this	allocator	the	minimum	block	size	is	16
+bytes.	If	the	remainder	of	the	block	after	splitting	would	be	greater
+than	or	equal	to	the	minimum	block	size,	then	we	go	ahead	and	split
+the	block	(lines	6–10).	The	only	tricky	part	here	is	to	realize	that	you
+need	to	place	the	new	allocated	block	(lines	6	and	7)	before	moving	to
+the	next	block	(line	8).
+___________________________________________________________________
+
+_____________________________________________________________________________
+Solution	to	Problem	
+9.10	
+(page
+864
+)
+Here	is	one	pattern	that	will	cause	external	fragmentation:	The
+application	makes	numerous	allocation	and	free	requests	to	the	first
+size	class,	followed	by	numerous	allocation	and	free	requests	to	the
+
+second	size	class,	followed	by	numerous	allocation	and	free	requests
+to	the	third	size	class,	and	so	on.	For	each	size	class,	the	allocator
+creates	a	lot	of	memory	that	is	never	reclaimed	because	the	allocator
+doesn't	coalesce,	and	because	the	application	never	requests	blocks
+from	that	size	class	again.
+
+Part	
+III	
+Interaction	and
+Communication	between	Programs
+To	this	point	in	our	study	of	computer	systems,	we	have	assumed	that
+programs	run	in	isolation,	with	minimal	input	and	output.	However,	in	the
+real	world,	application	programs	use	services	provided	by	the	operating
+system	to	communicate	with	I/O	devices	and	with	other	programs.
+This	part	of	the	book	will	give	you	an	understanding	of	the	basic	I/O
+services	provided	by	Unix	operating	systems	and	how	to	use	these
+services	to	build	applications	such	as	Web	clients	and	servers	that
+communicate	with	each	other	over	the	Internet.	You	will	learn	techniques
+for	writing	concurrent	programs,	such	as	Web	servers	that	can	service
+multiple	clients	at	the	same	time.	Writing	concurrent	application	programs
+can	also	allow	them	to	execute	faster	on	modern	multi-core	processors.
+When	you	finish	this	part,	you	will	be	well	on	your	way	to	becoming	a
+power	programmer	with	a	mature	understanding	of	computer	systems
+and	their	impact]	on	your	programs.
+
+Chapter	
+10	
+System-Level	I/O
+10.1	
+Unix	I/O	
+890
+10.2	
+Files	
+891
+10.3	
+Opening	and	Closing	Files	
+893
+10.4	
+Reading	and	Writing	Files	
+895
+10.5	
+Robust	Reading	and	Writing	with	the	Rio	Package	
+897
+10.6	
+Reading	File	Metadata	
+903
+10.7	
+Reading	Directory	Contents	
+905
+10.8	
+Sharing	Files	
+906
+10.9	
+I/O	Redirection	
+909
+10.10	
+Standard	I/O
+	
+911
+10.11	
+Putting	It	Together:	Which	I/O	Functions	Should	I	Use?	
+911
+10.12	
+Summary
+	
+913
+Bibliographic	Notes	
+914
+Homework	Problems	
+914
+
+Solutions	to	Practice	Problems	
+915
+I
+nput/output	(I/O)
+	is	the	process	of	copying	data
+between	main	memory	and	external	devices	such
+as	disk	drives,	terminals,	and	networks.	An	input
+operation	copies	data	from	an	I/O	device	to	main
+memory,	and	an	output	operation	copies	data	from
+memory	to	a	device.
+All	language	run-time	systems	provide	higher-level
+facilities	for	performing	I/O.	For	example,	ANSIC
+provides	the	
+standard	I/O
+	library,	with	functions	such
+as	
+	and	
+	that	perform	buffered	I/O.	The
+C++	language	provides	similar	functionality	with	its
+overloaded	<<	("put	to")	and	>>	("get	from")
+operators.	On	Linux	systems,	these	higher-level	I/O
+functions	are	implemented	using	system-level	
+Unix
+I/O
+	functions	provided	by	the	kernel.	Most	of	the
+time,	the	higher-level	I/O	functions	work	quite	well
+and	there	is	no	need	to	use	Unix	I/O	directly.	So	why
+bother	learning	about	Unix	I/O?
+Understanding	Unix	I/O	will	help	you
+understand	other	systems	concepts.	
+I/O	is
+integral	to	the	operation	of	a	system,	and
+because	of	this,	we	often	encounter	circular
+dependencies	between	I/O	and	other	systems
+ideas.	For	example,	I/O	plays	a	key	role	in
+
+process	creation	and	execution.	Conversely,
+process	creation	plays	a	key	role	in	how	files	are
+shared	by	different	processes.	Thus,	to	really
+understand	I/O,	you	need	to	understand
+processes,	and	vice	versa.	We	have	already
+touched	on	aspects	of	I/O	in	our	discussions	of
+the	memory	hierarchy,	linking	and	loading,
+processes,	and	virtual	memory.	Now	that	you
+have	a	better	understanding	of	these	ideas,	we
+can	close	the	circle	and	delve	into	I/O	in	more
+detail.
+Sometimes	you	have	no	choice	but	to	use
+Unix	I/O.	
+There	are	some	important	cases
+where	using	higher-level	I/O	functions	is	either
+impossible	or	inappropriate.	For	example,	the
+standard	I/O	library	provides	no	way	to	access
+file	metadata	such	as	file	size	or	file	creation
+time.	Further,	there	are	problems	with	the
+standard	I/O	library	that	make	it	risky	to	use	for
+network	programming.
+This	chapter	introduces	you	to	the	general	concepts
+of	Unix	I/O	and	standard	I/O	and	shows	you	how	to
+use	them	reliably	from	your	C	programs.	Besides
+serving	as	a	general	introduction,	this	chapter	lays	a
+firm	foundation	for	our	subsequent	study	of	network
+programming	and	concurrency.
+
+10.1	
+Unix	I/O
+A	Linux	
+file
+	is	a	sequence	of	
+m
+	bytes:
+All	I/O	devices,	such	as	networks,	disks,	and	terminals,	are	modeled	as
+files,	and	all	input	and	output	is	performed	by	reading	and	writing	the
+appropriate	files.	This	elegant	mapping	of	devices	to	files	allows	the
+Linux	kernel	to	export	a	simple,	low-level	application	interface,	known	as
+Unix	I/O
+,	that	enables	all	input	and	output	to	be	performed	in	a	uniform
+and	consistent	way:
+Opening	files.	
+An	application	announces	its	intention	to	access	an
+I/O	device	by	asking	the	kernel	to	
+open
+	the	corresponding	file.	The
+kernel	returns	a	small	nonnegative	integer,	called	a	
+descriptor
+,	that
+identifies	the	file	in	all	subsequent	operations	on	the	file.	The	kernel
+keeps	track	of	all	information	about	the	open	file.	The	application	only
+keeps	track	of	the	descriptor.
+Each	process	created	by	a	Linux	shell	begins	life	with	three	open
+files:	
+standard	input
+	(descriptor	0),	
+standard	output
+	(descriptor	1),	and
+standard	error
+	(descriptor	2).	The	header	file	
+	defines
+constants	
+,	and	
+,	which	can
+be	used	instead	of	the	explicit	descriptor	values.
+Changing	the	current	file	position.	
+The	kernel	maintains	a	
+file
+position	k
+,	initially	0,	for	each	open	file.	The	file	position	is	a	byte
+B
+0
+,
+ 
+B
+1
+,
+ 
+…
+,
+ 
+B
+k
+,
+ 
+…
+,
+ 
+B
+m
+-
+1
+
+offset	from	the	beginning	of	a	file.	An	application	can	set	the	current
+file	position	
+k
+	explicitly	by	performing	a	
+seek
+	operation.
+Reading	and	writing	files.	
+A	
+read
+	operation	copies	
+n
+	>	0	bytes	from
+a	file	to	memory,	starting	at	the	current	file	position	
+k
+	and	then
+incrementing	
+k
+	by	
+n
+.	Given	a	file	with	a	size	of	
+m
+	bytes,	performing	a
+read	operation	when	
+k
+	≥	
+m
+	triggers	a	condition	known	as	
+end-of-file
+(EOF)
+,	which	can	be	detected	by	the	application.	There	is	no	explicit
+"EOF	character"	at	the	end	of	a	file.
+Similarly,	a	
+write
+	operation	copies	
+n
+	>	0	bytes	from	memory	to	a	file,
+starting	at	the	current	file	position	
+k
+	and	then	updating	
+k
+.
+Closing	files.	
+When	an	application	has	finished	accessing	a	file,	it
+informs	the	kernel	by	asking	it	to	
+close
+	the	file.	The	kernel	responds
+by	freeing	the	data	structures	it	created	when	the	file	was	opened	and
+restoring	the	descriptor	to	a	pool	of	available	descriptors.	When	a
+process	terminates	for	any	reason,	the	kernel	closes	all	open	files	and
+frees	their	memory	resources.
+
+10.2	
+Files
+Each	Linux	file	has	a	
+type
+	that	indicates	its	role	in	the	system:
+A	
+regular	file
+	contains	arbitrary	data.	Application	programs	often
+distinguish	between	
+text	files
+,	which	are	regular	files	that	contain	only
+ASCII	or	Unicode	characters,	and	
+binary	files
+,	which	are	everything
+else.	To	the	kernel	there	is	no	difference	between	text	and	binary	files.
+A	Linux	text	file	consists	of	a	sequence	of	
+text	lines
+,	where	each	line
+is	a	sequence	of	characters	terminated	by	a	
+newline
+	character	(`\n').
+The	newline	character	is	the	same	as	the	ASCII	line	feed	character
+(LF)	and	has	a	numeric	value	of	
+.
+A	
+directory
+	is	a	file	consisting	of	an	array	of	
+links
+,	where	each	link
+maps	a	
+filename
+	to	a	file,	which	may	be	another	directory.	Each
+directory	contains	at
+Aside	
+End	of	line	(EOL)	indicators
+One	of	the	clumsy	aspects	of	working	with	text	files	is	that
+different	systems	use	different	characters	to	mark	the	end	of	a
+line.	Linux	and	Mac	OS	X	use	`\n'	(
+),	which	is	the	ASCII	line
+feed	(LF)	character.	However,	MS	Windows	and	Internet
+protocols	such	as	HTTP	use	the	sequence	`\r\n'	(
+),
+which	is	the	ASCII	carriage	return	(CR)	character	followed	by	a
+line	feed	(LF).	If	you	create	a	file	
+	in	Windows	and	then
+view	it	in	a	Linux	text	editor,	you'll	see	an	annoying	
+⁁
+	at	the
+end	of	each	line,	which	is	how	Linux	tools	display	the	CR
+
+character.	You	can	remove	these	unwanted	CR	characters
+from	
+	in	place	by	running	the	following	command:
+least	two	entries:	.	(dot)	is	a	link	to	the	directory	itself,	and	
+	(dot-dot)
+is	a	link	to	the	
+parent	directory
+	in	the	directory	hierarchy	(see	below).
+You	can	create	a	directory	with	the	
+	command,	view	its	contents
+with	
+,	and	delete	it	with	
+.
+A	
+socket
+	is	a	file	that	is	used	to	communicate	with	another	process
+across	a	network	(
+Section	
+11.4
+).
+Other	file	types	include	
+named	pipes
+,	
+symbolic	links
+,	and	
+character
+	and
+block	devices
+,	which	are	beyond	our	scope.
+The	Linux	kernel	organizes	all	files	in	a	single	
+directory	hierarchy
+anchored	by	the	
+root	directory
+	named	/	(slash).	Each	file	in	the	system	is
+a	direct	or	indirect	descendant	of	the	root	directory.	
+Figure	
+10.1
+	shows
+a	portion	of	the	directory	hierarchy	on	our	Linux	system.
+As	part	of	its	context,	each	process	has	a	
+current	working	directory
+	that
+identifies	its	current	location	in	the	directory	hierarchy.	You	can	change
+the	shell's	current	working	directory	with	the	
+	command.
+
+Figure	
+10.1	
+Portion	of	the	Linux	directory	hierarchy.
+A	trailing	slash	denotes	a	directory.
+Locations	in	the	directory	hierarchy	are	specified	by	
+pathnames
+.	A
+pathname	is	a	string	consisting	of	an	optional	slash	followed	by	a
+sequence	of	filenames	separated	by	slashes.	Pathnames	have	two
+forms:
+An	
+absolute	pathname
+	starts	with	a	slash	and	denotes	a	path	from	the
+root	node.	For	example,	in	
+Figure	
+10.1
+,	the	absolute	pathname	for
+	is	
+.
+A	
+relative	pathname
+	starts	with	a	filename	and	denotes	a	path	from
+the	current	working	directory.	For	example,	in	
+Figure	
+10.1
+,	if
+	is	the	current	working	directory,	then	the	relative
+pathname	for	
+	is	
+	On	the	other	hand,	if
+	is	the	current	working	directory,	then	the	relative
+pathname	is	
+
+10.3	
+Opening	and	Closing	Files
+A	process	opens	an	existing	file	or	creates	a	new	file	by	calling	the	open
+function.
+The	
+	function	converts	a	
+	to	a	file	descriptor	and	returns	the
+descriptor	number.	The	descriptor	returned	is	always	the	smallest
+descriptor	that	is	not	currently	open	in	the	process.	The	
+	argument
+indicates	how	the	process	intends	to	access	the	file:
+O_RDONLY.	Reading	only
+O_WRONLY.	Writing	only
+O_RDWR.	Reading	and	writing
+For	example,	here	is	how	to	open	an	existing	file	for	reading:
+
+The	
+	argument	can	also	be	
+OR
+ed	with	one	or	more	bit	masks	that
+provide	additional	instructions	for	writing:
+O_CREAT.	If	the	file	doesn't	exist,	then	create	a	
+truncated
+	(empty)
+version	of	it.
+O_TRUNC.	If	the	file	already	exists,	then	truncate	it.
+O_APPEND.	Before	each	write	operation,	set	the	file	position	to	the
+end	of	the	file.
+Mask
+Description
+S_IRUSR
+User	(owner)	can	read	this	file
+S_IWUSR
+User	(owner)	can	write	this	file
+S_IXUSR
+User	(owner)	can	execute	this	file
+S_IRGRP
+Members	of	the	owner's	group	can	read	this	file
+S_IWGRP
+Members	of	the	owner's	group	can	write	this	file
+S_IXGRP
+Members	of	the	owner's	group	can	execute	this	file
+S_IROTH
+Others	(anyone)	can	read	this	file
+S_IWOTH
+Others	(anyone)	can	write	this	file
+S_IXOTH
+Others	(anyone)	can	execute	this	file
+
+Figure	
+10.2	
+Access	permission	bits.
+Defined	in	
+For	example,	here	is	how	you	might	open	an	existing	file	with	the	intent	of
+appending	some	data:
+The	
+	argument	specifies	the	access	permission	bits	of	new	files.	The
+symbolic	names	for	these	bits	are	shown	in	
+Figure	
+10.2
+.
+As	part	of	its	context,	each	process	has	a	
+	that	is	set	by	calling	the
+	function.	When	a	process	creates	a	new	file	by	calling	the	
+function	with	some	
+	argument,	then	the	access	permission	bits	of	the
+file	are	set	to	
+.	For	example,	suppose	we	are	given	the
+following	default	values	for	
+	and	
+:
+Then	the	following	code	fragment	creates	a	new	file	in	which	the	owner	of
+the	file	has	read	and	write	permissions,	and	all	other	users	have	read
+permissions:
+
+Finally,	a	process	closes	an	open	file	by	calling	the	
+	function.
+Closing	a	descriptor	that	is	already	closed	is	an	error.
+Practice	Problem	
+10.1	
+(solution
+page	
+915
+)
+What	is	the	output	of	the	following	program?
+
+
+
+10.4	
+Reading	and	Writing	Files
+Applications	perform	input	and	output	by	calling	the	
+	and	
+functions,	respectively.
+The	
+	function	copies	at	most	
+	bytes	from	the	current	file	position	of
+descriptor	
+	to	memory	location	
+.	A	return	value	of	−1	indicates	an
+error,	and	a	return	value	of	0	indicates	EOF.	Otherwise,	the	return	value
+indicates	the	number	of	bytes	that	were	actually	transferred.
+The	
+	function	copies	at	most	
+	bytes	from	memory	location	
+	to
+the	current	file	position	of	descriptor	
+.	
+Figure	
+10.3
+	shows	a	program
+that	uses	
+	and	
+	calls	to	copy	the	standard	input	to	the	standard
+output,	1	byte	at	a	time.
+
+Applications	can	explicitly	modify	the	current	file	position	by	calling	the
+	function,	which	is	beyond	our	scope.
+In	some	situations,	
+	and	
+	transfer	fewer	bytes	than	the
+application	requests.	Such	
+short	counts
+	do	
+not
+	indicate	an	error.	They
+occur	for	a	number	of	reasons:
+Aside	
+What's	the	difference	between
+	and	
+You	might	have	noticed	that	the	
+	function	has	a	
+	input
+argument	and	an	
+	return	value.	So	what's	the	difference
+between	these	two	types?	On	x86-64	systems,	a	
+	is	defined
+as	an	
+,	and	an	
+	(
+signed	size
+)	is	defined	as	a
+.	The	read	function	returns	a	signed	size	rather	than	an
+unsigned	size	because	it	must	return	a	−1	on	error.	Interestingly,
+the	possibility	of	returning	a	single	−1	reduces	the	maximum	size
+of	a	
+	by	a	factor	of	2.
+
+Figure	
+10.3	
+Using	read	and	write	to	copy	standard	input	to	standard
+output	1	byte	at	a	time.
+Encountering	EOF	on	reads.	
+Suppose	that	we	are	ready	to	read
+from	a	file	that	contains	only	20	more	bytes	from	the	current	file
+position	and	that	we	are	reading	the	file	in	50-byte	chunks.	Then	the
+next	read	will	return	a	short	count	of	20,	and	the	
+	after	that	will
+signal	EOF	by	returning	a	short	count	of	0.
+Reading	text	lines	from	a	terminal.	
+If	the	open	file	is	associated	with
+a	terminal	(i.e.,	a	keyboard	and	display),	then	each	
+	function	will
+transfer	one	text	line	at	a	time,	returning	a	short	count	equal	to	the
+size	of	the	text	line.
+Reading	and	writing	network	sockets.	
+If	the	open	file	corresponds
+to	a	network	socket	(
+Section	
+11.4
+),	then	internal	buffering
+constraints	and	long	network	delays	can	cause	
+	and	
+	to
+return	short	counts.	Short	counts	can	also	occur	when	you	call	
+and	
+	on	a	Linux	
+pipe
+,	an	interprocess	communication
+mechanism	that	is	beyond	our	scope.
+In	practice,	you	will	never	encounter	short	counts	when	you	read	from
+disk	files	except	on	EOF,	and	you	will	never	encounter	short	counts	when
+you	write	to	disk	files.	However,	if	you	want	to	build	robust	(reliable)
+network	applications	
+such	as	Web	servers,	then	you	must	deal	with	short
+
+counts	by	repeatedly	calling	
+	and	
+	until	all	requested	bytes
+have	been	transferred.
+
+10.5	
+Robust	Reading	and	Writing
+with	the	R
+IO
+	Package
+In	this	section,	we	will	develop	an	I/O	package,	called	the	R
+IO
+	
+(Robust
+I/O)	package,	that	handles	these	short	counts	for	you	automatically.	The
+R
+IO
+	
+package	provides	convenient,	robust,	and	efficient	I/O	in	applications
+such	as	network	programs	that	are	subject	to	short	counts.	R
+IO
+	
+provides
+two	different	kinds	of	functions:
+Unbuffered	input	and	output	functions.	
+These	functions	transfer
+data	directly	between	memory	and	a	file,	with	no	application-level
+buffering.	They	are	especially	useful	for	reading	and	writing	binary
+data	to	and	from	networks.
+Buffered	input	functions.	
+These	functions	allow	you	to	efficiently
+read	text	lines	and	binary	data	from	a	file	whose	contents	are	cached
+in	an	application-level	buffer,	similar	to	the	one	provided	for	standard
+I/O	functions	such	as	
+.	Unlike	the	buffered	I/O	routines
+presented	in	[110],	the	buffered	R
+IO
+	
+input	functions	are	thread-safe
+(
+Section	
+12.7.1
+)	and	can	be	interleaved	arbitrarily	on	the	same
+descriptor.	For	example,	you	can	read	some	text	lines	from	a
+descriptor,	then	some	binary	data,	and	then	some	more	text	lines.
+We	are	presenting	the	R
+IO
+	
+routines	for	two	reasons.	First,	we	will	be
+using	them	in	the	network	applications	we	develop	in	the	next	two
+chapters.	Second,	by	studying	the	code	for	these	routines,	you	will	gain	a
+deeper	understanding	of	Unix	I/O	in	general.
+
+10.5.1	
+	Unbuffered	Input	and
+Output	Functions
+Applications	can	transfer	data	directly	between	memory	and	a	file	by
+calling	the	
+	and	
+	functions.
+The	
+	function	transfers	up	to	
+	bytes	from	the	current	file
+position	of	descriptor	
+	to	memory	location	
+.	Similarly,	the
+	function	transfers	
+	bytes	from	location	
+	to	descriptor
+.	The	
+	function	can	only	return	a	short	count	if	it	encounters
+EOF.	The	
+	function	never	returns	a	short	count.	Calls	to
+	and	
+	can	be	interleaved	arbitrarily	on	the	same
+descriptor.
+Figure	
+10.4
+	shows	the	code	for	
+	and	
+.	Notice	that
+each	function	manually	restarts	the	
+	or	
+	function	if	it	is
+interrupted	by	the	return	from	an	application	signal	handler.	To	be	as
+
+portable	as	possible,	we	allow	for	interrupted	system	calls	and	restart
+them	when	necessary.
+10.5.2	
+	Buffered	Input	Functions
+Suppose	we	wanted	to	write	a	program	that	counts	the	number	of	lines	in
+a	text	file.	How	might	we	do	this?	One	approach	is	to	use	the	
+function	to	transfer	1	byte	at	a	time	from	the	file	to	the	user's	memory,
+checking	each	byte	for	the	newline	character.	The	disadvantage	of	this
+approach	is	that	it	is	inefficient,	requiring	a	trap	to	the	kernel	to	read	each
+byte	in	the	file.
+A	better	approach	is	to	call	a	wrapper	function	(
+)	that	copies
+the	text	line	from	an	internal	
+read	buffer
+,	automatically	making	a	read	call
+to	refill	the	buffer	whenever	it	becomes	empty.	For	files	that	contain	both
+text	lines	and	binary	data	(such	as	the	HTTP	responses	described	in
+Section	
+11.5.3
+),	we	also	provide	a	buffered	version	of	
+,
+called	
+b,	that	transfers	raw	bytes	from	the	same	read	buffer	as
+.
+
+The	
+	function	is	called	once	per	open	descriptor.	It
+associates	the	descriptor	
+	with	a	read	buffer	of	type	
+	at	address
+.
+The	
+	function	reads	the	next	text	line	from	file	
+	(including
+the	terminating	newline	character),	copies	it	to	memory	location	
+,
+and	terminates	the	text	line	with	the	NULL	(zero)	character.	The
+	function	reads	at	most	
+	bytes,	leaving	room	for
+the	terminating	NULL	character.	Text	lines	that	exceed	
+	bytes
+are	truncated	and	terminated	with	a	NULL	character.
+The	
+b	function	reads	up	to	
+	bytes	from	file	
+	to	memory
+location	
+.	Calls	to	
+	and	
+	can	be
+interleaved	arbitrarily	on	the	same	descriptor.	However,	calls	to	these
+buffered	functions	should	not	be	interleaved	with	calls	to	the	unbuffered
+	function.
+You	will	encounter	numerous	examples	of	the	R
+IO
+	
+functions	in	the
+remainder	of	this	text.	
+Figure	
+10.5
+	shows	how	to	use	the	R
+IO
+	
+functions
+to	copy	a	text	file	from	standard	input	to	standard	output,	one	line	at	a
+time.
+Figure	
+10.6
+	shows	the	format	of	a	read	buffer,	along	with	the	code	for
+the	
+	function	that	initializes	it.	The	
+	function
+
+sets	up	an	empty	read	buffer	and	associates	an	open	file	descriptor	with
+that	buffer.
+
+Figure	
+10.4	
+The	
+	and	
+	functions.
+
+Figure	
+10.5	
+Copying	a	text	file	from	standard	input	to	standard
+output.
+
+Figure	
+10.6	
+A	read	buffer	of	type	
+	and	the	
+function	that	initializes	it.
+The	heart	of	the	R
+IO
+	
+read	routines	is	the	
+	function	shown	in
+Figure	
+10.7
+.	The	
+	function	is	a	buffered	version	of	the	Linux
+	function.	When	
+	is	called	with	a	request	to	read	
+	bytes,
+there	are	
+	unread	bytes	in	the	read	buffer.	If	the	buffer	is
+empty,	then	it	is	replenished	with	a	call	to	
+.	Receiving	a	short	count
+from	this	invocation	of	
+	is	not	an	error;	it	simply	has	the	effect	of
+partially	filling	the	read	buffer.	Once	the	buffer	is
+
+Figure	
+10.7	
+The	internal	
+	function.
+nonempty,	
+	copies	the	minimum	of	
+	and	
+	bytes
+from	the	read	buffer	to	the	user	buffer	and	returns	the	number	of	bytes
+
+copied.
+To	an	application	program,	the	
+	function	has	the	same	semantics
+as	the	Linux	read	function.	On	error,	it	returns	−1	and	sets	
+appropriately.	On	EOF,	it	returns	0.	It	returns	a	short	count	if	the	number
+of	requested	bytes	exceeds	the	number	of	unread	bytes	in	the	read
+buffer.	The	similarity	of	the	two	functions	makes	it	easy	to	build	different
+kinds	of	buffered	read	functions	by	substituting	
+	for	
+.	For
+example,	the	
+	function	in	
+Figure	
+10.8
+	has	the	same
+structure	as	
+,	with	
+	substituted	for	read.	Similarly,	the
+	routine	in	
+Figure	
+10.8
+	calls	
+	at	most	
+times.	Each	call	returns	1	byte	from	the	read	buffer,	which	is	then
+checked	for	being	the	terminating	newline.
+
+
+
+Figure	
+10.8	
+The	
+	and	
+	functions.
+Aside	
+Origins	of	the	Rio	package
+The	R
+IO
+	
+functions	are	inspired	by	the	
+,	and	
+functions	described	by	W.	Richard	Stevens	in	his	classic	network
+programming	text	[110].	The	
+	and	
+	functions
+are	identical	to	the	Stevens	
+	and	
+	functions.	However,
+the	Stevens	
+	function	has	some	limitations	that	are
+corrected	in	R
+IO
+.	First,	because	
+	is	buffered	and	
+	is
+not,	these	two	functions	cannot	be	used	together	on	the	same
+descriptor.	Second,	because	it	uses	a	
+	buffer,	the	Stevens
+	function	is	not	thread-safe,	which	required	Stevens	to
+introduce	a	different	thread-safe	version	called	
+.	We
+have	corrected	both	of	these	flaws	with	the	
+	and
+	functions,	which	are	mutually	compatible	and	thread-
+safe.
+
+10.6	
+Reading	File	Metadata
+An	application	can	retrieve	information	about	a	file	(sometimes	called	the
+file's	
+metadata
+)	by	calling	the	
+	and	
+	functions.
+The	
+	function	takes	as	input	a	filename	and	fills	in	the	members	of	a
+	structure	shown	in	
+Figure	
+10.9
+.	The	
+	function	is	similar,	but
+it	takes	a	file	descriptor	instead	of	a	filename.	We	will	need	the	
+and	
+	members	of	the	
+	structure	when	we	discuss	Web
+servers	in	
+Section	
+11.5
+.	The	other	members	are	beyond	our	scope.
+The	
+	member	contains	the	file	size	in	bytes.	The	
+	member
+encodes	both	the	file	permission	bits	(
+Figure	
+10.2
+)	and	the	file	type
+(
+Section	
+10.2
+).	Linux	defines	macro	predicates	in	
+	for
+determining	the	file	type	from	the	
+	member:
+S_ISREG(m).	Is	this	a	regular	file?
+
+S_ISDIR(m).	Is	this	a	directory	file?
+S_ISSOCK(m).	Is	this	a	network	socket?
+Figure	
+10.10
+	shows	how	we	might	use	these	macros	and	the	
+function	to	read	and	interpret	a	file's	
+	bits.
+
+Figure	
+10.9	
+The	
+	structure.
+
+Figure	
+10.10	
+Querying	and	manipulating	a	file's	
+	bits.
+
+10.7	
+Reading	Directory	Contents
+Applications	can	read	the	contents	of	a	directory	with	the	
+	family
+of	functions.
+The	
+	function	takes	a	pathname	and	returns	a	pointer	to	a
+directory	stream
+.	A	stream	is	an	abstraction	for	an	ordered	list	of	items,	in
+this	case	a	list	of	directory	entries.
+Each	call	to	
+	returns	a	pointer	to	the	next	directory	entry	in	the
+stream	
+,	or	NULL	if	there	are	no	more	entries.	Each	directory	entry	is
+
+a	structure	of	the	form
+Although	some	versions	of	Linux	include	other	structure	members,	these
+are	the	only	two	that	are	standard	across	all	systems.	The	
+member	is	the	filename,	and	
+	is	the	file	location.
+On	error,	
+	returns	NULL	and	sets	
+.	Unfortunately,	the	only
+way	to	distinguish	an	error	from	the	end-of-stream	condition	is	to	check	if
+	has	been	modified	since	the	call	to	
+.
+The	
+	function	closes	the	stream	and	frees	up	any	of	its
+resources.	
+Figure	
+10.11
+	shows	how	we	might	use	
+	to	read	the
+contents	of	a	directory.
+
+Figure	
+10.11	
+Reading	the	contents	of	a	directory.
+
+10.8	
+Sharing	Files
+Linux	files	can	be	shared	in	a	number	of	different	ways.	Unless	you	have
+a	clear	picture	of	how	the	kernel	represents	open	files,	the	idea	of	file
+sharing	can	be	quite	confusing.	The	kernel	represents	open	files	using
+three	related	data	structures:
+Descriptor	table.	
+Each	process	has	its	own	separate	
+descriptor	table
+whose	entries	are	indexed	by	the	process's	open	file	descriptors.
+Each	open	descriptor	entry	points	to	an	entry	in	the	
+file	table.
+File	table.	
+The	set	of	open	files	is	represented	by	a	file	table	that	is
+shared	by	all	processes.	Each	file	table	entry	consists	of	(for	our
+purposes)	the	current	file	position,	a	
+reference	count
+	of	the	number	of
+descriptor	entries	that	currently	point	to	it,	and	a	pointer	to	an	entry	in
+the	
+v-node	table
+.	Closing	a	descriptor	decrements	the	reference	count
+in	the	associated	file	table	entry.	The	kernel	will	not	delete	the	file
+table	entry	until	its	reference	count	is	zero.
+v-node	table.	
+Like	the	file	table,	the	v-node	table	is	shared	by	all
+processes.	Each	entry	contains	most	of	the	information	in	the	
+structure,	including	the	
+	and	
+	members.
+
+Figure	
+10.12	
+Typical	kernel	data	structures	for	open	files.
+In	this	example,	two	descriptors	reference	distinct	files.	There	is	no
+sharing.
+Figure	
+10.13	
+File	sharing.
+This	example	shows	two	descriptors	sharing	the	same	disk	file	through
+two	open	file	table	entries.
+
+Figure	
+10.12
+	shows	an	example	where	descriptors	1	and	4	reference
+two	different	files	through	distinct	open	file	table	entries.	This	is	the
+typical	situation,	where	files	are	not	shared	and	where	each	descriptor
+corresponds	to	a	distinct	file.
+Multiple	descriptors	can	also	reference	the	same	file	through	different	file
+table	entries,	as	shown	in	
+Figure	
+10.13
+.	This	might	happen,	for
+example,	if	you	were	to	call	the	
+	function	twice	with	the	same
+filename.	The	key	idea	is	that	each	descriptor	has	its	own	distinct	file
+position,	so	different	reads	on	different	descriptors	can	fetch	data	from
+different	locations	in	the	file.
+We	can	also	understand	how	parent	and	child	processes	share	files.
+Suppose	that	before	a	call	to	
+,	the	parent	process	has	the	open	files
+shown	in	
+Figure	
+10.12
+.	Then	
+Figure	
+10.14
+	shows	the	situation	after
+the	call	to	
+.
+The	child	gets	its	own	duplicate	copy	of	the	parent's	descriptor	table.
+Parent	and	child	share	the	same	set	of	open	file	tables	and	thus	share
+the	same	file	position.	An	important	consequence	is	that	the	parent	and
+child	must	both	close	their	descriptors	before	the	kernel	will	delete	the
+corresponding	file	table	entry.
+
+Figure	
+10.14	
+How	a	child	process	inherits	the	parent's	open	files.
+The	initial	situation	is	in	
+Figure	
+10.12
+.
+Practice	Problem	
+10.2	
+(solution
+page	
+915
+)
+Suppose	the	disk	file	
+	consists	of	the	six	ASCII
+characters	
+.	Then	what	is	the	output	of	the	following
+program?
+
+Practice	Problem	
+10.3	
+(solution
+page	
+915
+)
+As	before,	suppose	the	disk	file	
+	consists	of	the	six	ASCII
+characters	
+.	Then	what	is	the	output	of	the	following	program?
+
+
+
+10.9	
+I/O	Redirection
+Linux	shells	provide	
+I/O	redirection
+	operators	that	allow	users	to
+associate	standard	input	and	output	with	disk	files.	For	example,	typing
+causes	the	shell	to	load	and	execute	the	
+	program,	with	standard
+output	redirected	to	disk	file	
+.	As	we	will	see	in	
+Section	
+11.5
+,	a
+Web	server	performs	a	similar	kind	of	redirection	when	it	runs	a	CGI
+program	on	behalf	of	the	client.	So	how	does	I/O	redirection	work?	One
+way	is	to	use	the	
+	function.
+The	
+	function	copies	descriptor	table	entry	
+	to	descriptor	table
+entry	
+,	overwriting	the	previous	contents	of	descriptor	table	entry
+.	If	
+	was	already	open,	then	
+	closes	
+	before	it
+copies	
+.
+
+Suppose	that	before	calling	
+,	we	have	the	situation	in	
+Figure
+10.12
+,	where	descriptor	1	(standard	output)	corresponds	to	file	A	(say,
+a	terminal)	and	descriptor	4	corresponds	to	file	B	(say,	a	disk	file).	The
+reference	counts	for	A	and	B	are	both	equal	to	1.	
+Figure	
+10.15
+	shows
+the	situation	after	calling	
+.	Both	descriptors	now	point	to	file	B;
+file	A	has	been	closed	and	its	file	table	and	v-node	table	entries	deleted;
+and	the	reference	count	for	file	B	has	been	incremented.	From	this	point
+on,	any	data	written	to	standard	output	are	redirected	to	file	B.
+Practice	Problem	
+10.4	
+(solution
+page	
+915
+)
+How	would	you	use	
+	to	redirect	standard	input	to	descriptor
+5?
+Aside	
+Right	and	left	hoinkies
+To	avoid	confusion	with	other	bracket-type	operators	such	as	`]'
+and	`[',	we	have	always	referred	to	the	shell's	`>'	operator	as	a
+"right	hoinky"	and	the	`<'	operator	as	a	"left	hoinky."
+
+Figure	
+10.15	
+Kernel	data	structures	after	redirecting	standard	output
+by	calling	
+.
+The	initial	situation	is	shown	in	
+Figure	
+10.12
+.
+Practice	Problem	
+10.5	
+(solution
+page	
+916
+)
+Assuming	that	the	disk	file	
+	consists	of	the	six	ASCII
+characters	
+,	what	is	the	output	of	the	following	program?
+
+
+
+10.10	
+Standard	I/O
+The	C	language	defines	a	set	of	higher-level	input	and	output	functions,
+called	the	
+standard	I/O	library
+,	that	provides	programmers	with	a	higher-
+level	alternative	to	Unix	I/O.	The	library	(
+)	provides	functions	for
+opening	and	closing	files	(
+	and	
+),	reading	and	writing	bytes
+(
+	and	
+),	reading	and	writing	strings	(
+	and	
+),	and
+sophisticated	formatted	I/O	(
+	and	
+).
+The	standard	I/O	library	models	an	open	file	as	a	
+stream
+.	To	the
+programmer,	a	stream	is	a	pointer	to	a	structure	of	type	
+.	Every	ANSI
+C	program	begins	with	three	open	streams,	
+,	and	
+,
+which	correspond	to	standard	input,	standard	output,	and	standard	error,
+respectively:
+A	stream	of	type	FILE	is	an	abstraction	for	a	file	descriptor	and	a	
+stream
+buffer
+.	The	purpose	of	the	stream	buffer	is	the	same	as	the	R
+IO
+	
+read
+buffer:	to	minimize	the	number	of	expensive	Linux	I/O	system	calls.	For
+example,	suppose	we	have	a	program	that	makes	repeated	calls	to	the
+
+standard	I/O	
+	function,	where	each	invocation	returns	the	next
+character	from	a	file.	When	
+	is	called	the	first	time,	the	library	fills	the
+stream	buffer	with	a	single	call	to	the	
+	function	and	then	returns	the
+first	byte	in	the	buffer	to	the	application.	As	long	as	there	are	unread
+bytes	in	the	buffer,	subsequent	calls	to	
+	can	be	served	directly	from
+the	stream	buffer.
+
+10.11	
+Putting	It	Together:	Which	I/O
+Functions	Should	I	Use?
+Figure	
+10.16
+	summarizes	the	various	I/O	packages	that	we	have
+discussed	in	this	chapter.
+Figure	
+10.16	
+Relationship	between	Unix	I/O,	standard	I/O,	and	R
+IO
+.
+The	Unix	I/O	model	is	implemented	in	the	operating	system	kernel.	It	is
+available	to	applications	through	functions	such	as	
+,	and	
+.	The	higher-level	R
+IO
+	
+and	standard	I/O	functions
+are	implemented	"on	top	of"	(using)	the	Unix	I/O	functions.	The	R
+IO
+functions	are	robust	wrappers	for	
+	and	
+	that	were	developed
+specifically	for	this	textbook.	They	automatically	deal	with	short	counts
+and	provide	an	efficient	buffered	approach	for	reading	text	lines.	The
+standard	I/O	functions	provide	a	more	complete	buffered	alternative	to
+the	Unix	I/O	functions,	including	formatted	I/O	routines	such	as	
+and	
+.
+
+So	which	of	these	functions	should	you	use	in	your	programs?	Here	are
+some	basic	guidelines:
+G1:	
+Use	the	standard	I/O	functions	whenever	possible.
+	The
+standard	I/O	functions	are	the	method	of	choice	for	I/O	on	disk	and
+terminal	devices.	Most	C	programmers	use	standard	I/O	exclusively
+throughout	their	careers,	never	bothering	with	the	lower-level	Unix	I/O
+functions	(except	possibly	
+,	which	has	no	counterpart	in	the
+standard	I/O	library).	Whenever	possible,	we	recommend	that	you	do
+likewise.
+G2:	
+Don't	use	
+	or	
+	to	read	binary	files.
+Functions	like	
+	and	
+	are	designed	specifically	for
+reading	text	files.	A	common	error	that	students	make	is	to	use	these
+functions	to	read	binary	data,	causing	their	programs	to	fail	in	strange
+and	unpredictable	ways.	For	example,	binary	files	might	be	littered
+with	many	
+	bytes	that	have	nothing	to	do	with	terminating	text
+lines.
+G3:	
+Use	the	R
+IO
+	
+functions	for	I/O	on	network	sockets.
+Unfortunately,	standard	I/O	poses	some	nasty	problems	when	we
+attempt	to	use	it	for	input	and	output	on	networks.	As	we	will	see	in
+Section	
+11.4
+,	the	Linux	abstraction	for	a	network	is	a	type	of	file
+called	a	
+socket
+.	Like	any	Linux	file,	sockets	are	referenced	by	file
+descriptors,	known	in	this	case	as	
+socket	descriptors
+.	Application
+processes	communicate	with	processes	running	on	other	computers
+by	reading	and	writing	socket	descriptors.
+Standard	I/O	streams	are	
+full	duplex
+	in	the	sense	that	programs	can
+perform	input	and	output	on	the	same	stream.	However,	there	are	poorly
+
+documented	restrictions	on	streams	that	interact	badly	with	restrictions
+on	sockets:
+Restriction	1:	
+Input	functions	following	output	functions.
+	An	input
+function	cannot	follow	an	output	function	without	an	intervening	call	to
+,	or	rewind.	The	
+	function	empties	the
+buffer	associated	with	a	stream.	The	latter	three	functions	use	the
+Unix	I/O	
+	function	to	reset	the	current	file	position.
+Restriction	2:	Output	functions	following	input	functions.
+	An
+output	function	cannot	follow	an	input	function	without	an	intervening
+call	to	
+,	or	
+,	unless	the	input	function	encounters
+an	end-of-file.
+These	restrictions	pose	a	problem	for	network	applications	because	it	is
+illegal	to	use	the	
+	function	on	a	socket.	The	first	restriction	on
+stream	I/O	can	be	worked	around	by	adopting	a	discipline	of	flushing	the
+buffer	before	every	input	operation.	However,	the	only	way	to	work
+around	the	second	restriction	is	to	open	two	streams	on	the	same	open
+socket	descriptor,	one	for	reading	and	one	for	writing:
+But	this	approach	has	problems	as	well,	because	it	requires	the
+application	to	call	
+	on	both	streams	in	order	to	free	the	memory
+
+resources	associated	with	each	stream	and	avoid	a	memory	leak:
+Each	of	these	operations	attempts	to	close	the	same	underlying	socket
+descriptor,	so	the	second	
+	operation	will	fail.	This	is	not	a	problem
+for	sequential	programs,	but	closing	an	already	closed	descriptor	in	a
+threaded	program	is	a	recipe	for	disaster	(see	
+Section	
+12.7.4
+).
+Thus,	we	recommend	that	you	not	use	the	standard	I/O	functions	for
+input	and	output	on	network	sockets.	Use	the	robust	R
+IO
+	
+functions
+instead.	If	you	need	formatted	output,	use	the	
+	function	to	format
+a	string	in	memory,	and	then	send	it	to	the	socket	using	
+.	If
+you	need	formatted	input,	use	
+	to	read	an	entire	text	line,
+and	then	use	
+	to	extract	different	fields	from	the	text	line.
+
+10.12	
+Summary
+Linux	provides	a	small	number	of	system-level	functions,	based	on	the
+Unix	I/O	model,	that	allow	applications	to	open,	close,	read,	and	write
+files,	to	fetch	file	metadata,	and	to	perform	I/O	redirection.	Linux	read	and
+write	operations	are	subject	to	short	counts	that	applications	must
+anticipate	and	handle	correctly.	Instead	of	calling	the	Unix	I/O	functions
+directly,	applications	should	use	the	R
+IO
+	
+package,	which	deals	with	short
+counts	automatically	by	repeatedly	performing	read	and	write	operations
+until	all	of	the	requested	data	have	been	transferred.
+The	Linux	kernel	uses	three	related	data	structures	to	represent	open
+files.	Entries	in	a	descriptor	table	point	to	entries	in	the	open	file	table,
+which	point	to	entries	in	the	v-node	table.	Each	process	has	its	own
+distinct	descriptor	table,	while	all	processes	share	the	same	open	file	and
+v-node	tables.	Understanding	the	general	organization	of	these
+structures	clarifies	our	understanding	of	both	file	sharing	and	I/O
+redirection.
+The	standard	I/O	library	is	implemented	on	top	of	Unix	I/O	and	provides	a
+powerful	set	of	higher-level	I/O	routines.	For	most	applications,	standard
+I/O	is	the	
+simpler,	preferred	alternative	to	Unix	I/O.	However,	because	of
+some	mutually	incompatible	restrictions	on	standard	I/O	and	network
+files,	Unix	I/O,	rather	than	standard	I/O,	should	be	used	for	network
+applications.
+
+Bibliographic	Notes
+Kerrisk	gives	a	comprehensive	treatment	of	Unix	I/O	and	the	Linux	file
+system	
+[62]
+.	Stevens	wrote	the	original	standard	reference	text	for	Unix
+I/O	[111].	Kernighan	and	Ritchie	give	a	clear	and	complete	discussion	of
+the	standard	I/O	functions	
+[61]
+.
+
+Homework	Problems
+10.6
+What	is	the	output	of	the	following	program?
+10.7
+
+Modify	the	
+	program	in	
+Figure	
+10.5
+	so	that	it	uses	the	R
+IO
+functions	to	copy	standard	input	to	standard	output,	MAXBUF	bytes	at	a
+time.
+10.8
+Write	a	version	of	the	
+	program	in	
+Figure	
+10.10
+,	called
+,	that	takes	a	descriptor	number	on	the	command	line	rather
+than	a	filename.
+10.9
+Consider	the	following	invocation	of	the	
+	program	from
+Problem	
+10.8
+:
+You	might	expect	that	this	invocation	of	
+	would	fetch	and
+display	metadata	for	file	
+.	However,	when	we	run	it	on	our
+system,	it	fails	with	a	"bad	file	descriptor."	Given	this	behavior,	fill	in	the
+pseudocode	that	the	shell	must	be	executing	between	the	
+	and
+	calls:
+
+10.10
+Modify	the	
+	program	in	
+Figure	
+10.5
+	so	that	it	takes	an	optional
+command-line	argument	
+.	If	
+	is	given,	then	copy	
+	to
+standard	output;	otherwise,	copy	standard	input	to	standard	output	as
+before.	The	twist	is	that	your	solution	must	use	the	original	copy	loop
+(lines	9−11)	for	both	cases.	You	are	only	allowed	to	insert	code,	and	you
+are	not	allowed	to	change	any	of	the	existing	code.
+
+Solutions	to	Practice	Problems
+Solution	to	Problem	
+10.1	
+(page
+895
+)
+Unix	processes	begin	life	with	open	descriptors	assigned	to	
+(descriptor	0),	
+	(descriptor	1),	and	
+	(descriptor	2).	The	open
+function	always	returns	the	lowest	unopened	descriptor,	so	the	first	call	to
+open	returns	descriptor	3.	The	call	to	the	close	function	frees	up
+descriptor	3.	The	final	call	to	open	returns	descriptor	3,	and	thus	the
+output	of	the	program	is	
+.
+Solution	to	Problem	
+10.2	
+(page
+908
+)
+The	descriptors	
+	and	
+	each	have	their	own	open	file	table	entry,	so
+each	descriptor	has	its	own	file	position	for	
+.	Thus,	the	read
+from	
+	reads	the	first	byte	of	
+,	and	the	output	is
+
+and	not
+as	you	might	have	thought	initially.
+Solution	to	Problem	
+10.3	
+(page
+908
+)
+Recall	that	the	child	inherits	the	parent's	descriptor	table	and	that	all
+processes	shared	the	same	open	file	table.	Thus,	the	descriptor	
+	in
+both	the	parent	and	child	points	to	the	same	open	file	table	entry.	When
+the	child	reads	the	first	byte	of	the	file,	the	file	position	increases	by	1.
+Thus,	the	parent	reads	the	second	byte,	and	the	output	is
+Solution	to	Problem	
+10.4	
+(page
+
+909
+)
+To	redirect	standard	input	(descriptor	0)	to	descriptor	5,	we	would	call
+,	or	equivalently,	
+.
+Solution	to	Problem	
+10.5	
+(page
+910
+)
+At	first	glance,	you	might	think	the	output	would	be
+but	because	we	are	redirecting	
+	to	
+,	the	output	is	really
+
+Chapter	
+11	
+Network	Programming
+11.1	
+The	Client-Server	Programming	Model	
+918
+11.2	
+Networks	
+919
+11.3	
+The	Global	IP	Internet	
+924
+11.4	
+The	Sockets	Interface	
+932
+11.5	
+Web	Servers	
+948
+11.6	
+Putting	It	Together:	The	Tiny	Web	Server	
+956
+11.7	
+Summary
+	
+964
+Bibliographic	Notes	
+965
+Homework	Problems	
+965
+Solutions	to	Practice	Problems	
+966
+Network	applications	are	everywhere.	Any	time	you
+browse	the	Web,	send	an	email	message,	or	play
+an	online	game,	you	are	using	a	network
+application.	Interestingly,	all	network	applications
+are	based	on	the	same	basic	programming	model,
+
+have	similar	overall	logical	structures,	and	rely	on
+the	same	programming	interface.
+Network	applications	rely	on	many	of	the	concepts
+that	you	have	already	learned	in	our	study	of
+systems.	For	example,	processes,	signals,	byte
+ordering,	memory	mapping,	and	dynamic	storage
+allocation	all	play	important	roles.	There	are	new
+concepts	to	master	as	well.	You	will	need	to
+understand	the	basic	client-server	programming
+model	and	how	to	write	client-server	programs	that
+use	the	services	provided	by	the	Internet.	At	the
+end,	we	will	tie	all	of	these	ideas	together	by
+developing	a	tiny	but	functional	Web	server	that	can
+serve	both	static	and	dynamic	content	with	text	and
+graphics	to	real	Web	browsers.
+
+11.1	
+The	Client-Server
+Programming	Model
+Every	network	application	is	based	on	the	
+client-server	model
+.	With	this
+model,	an	application	consists	of	a	
+server
+	process	and	one	or	more	
+client
+processes.	A	server	manages	some	
+resource
+,	and	it	provides	some
+service
+	for	its	clients	by	manipulating	that	resource.	For	example,	a	Web
+server	manages	a	set	of	disk	files	that	it	retrieves	and	executes	on	behalf
+of	clients.	An	FTP	server	manages	a	set	of	disk	files	that	it	stores	and
+retrieves	for	clients.	Similarly,	an	email	server	manages	a	spool	file	that	it
+reads	and	updates	for	clients.
+The	fundamental	operation	in	the	client-server	model	is	the	
+transaction
+(
+Figure	
+11.1
+).	A	client-server	transaction	consists	of	four	steps:
+1
+.	
+When	a	client	needs	service,	it	initiates	a	transaction	by	sending	a
+request
+	to	the	server.	For	example,	when	a	Web	browser	needs	a
+file,	it	sends	a	request	to	a	Web	server.
+2
+.	
+The	server	receives	the	request,	interprets	it,	and	manipulates	its
+resources	in	the	appropriate	way.	For	example,	when	a	Web
+server	receives	a	request	from	a	browser,	it	reads	a	disk	file.
+3
+.	
+The	server	sends	a	
+response
+	to	the	client	and	then	waits	for	the
+next	request.	For	example,	a	Web	server	sends	the	file	back	to	a
+client.
+
+Figure	
+11.1	
+A	client-server	transaction.
+Aside	
+Client-server	transactions
+versus	database	transactions
+Client-server	transactions	are	
+not
+	database	transactions
+and	do	not	share	any	of	their	properties,	such	as	atomicity.
+In	our	context,	a	transaction	is	simply	a	sequence	of	steps
+carried	out	by	a	client	and	a	server.
+4
+.	
+The	client	receives	the	response	and	manipulates	it.	For	example,
+after	a	Web	browser	receives	a	page	from	the	server,	it	displays	it
+on	the	screen.
+It	is	important	to	realize	that	clients	and	servers	are	processes	and	not
+machines,	or	
+hosts
+	as	they	are	often	called	in	this	context.	A	single	host
+can	run	many	different	clients	and	servers	concurrently,	and	a	client	and
+server	transaction	can	be	on	the	same	or	different	hosts.	The	client-
+server	model	is	the	same,	regardless	of	the	mapping	of	clients	and
+servers	to	hosts.
+
+11.2	
+Networks
+Clients	and	servers	often	run	on	separate	hosts	and	communicate	using
+the	hardware	and	software	resources	of	a	
+computer	network
+.	Networks
+are	sophisticated	systems,	and	we	can	only	hope	to	scratch	the	surface
+here.	Our	aim	is	to	give	you	a	workable	mental	model	from	a
+programmer's	perspective.
+To	a	host,	a	network	is	just	another	I/O	device	that	serves	as	a	source
+and	sink	for	data,	as	shown	in	
+Figure	
+11.2
+.
+Figure	
+11.2	
+Hardware	organization	of	a	network	host.
+
+Figure	
+11.3	
+Ethernet	segment.
+An	adapter	plugged	into	an	expansion	slot	on	the	I/O	bus	provides	the
+physical	interface	to	the	network.	Data	received	from	the	network	are
+copied	from	the	adapter	across	the	I/O	and	memory	buses	into	memory,
+typically	by	a	DMA	transfer.	Similarly,	data	can	also	be	copied	from
+memory	to	the	network.
+Physically,	a	network	is	a	hierarchical	system	that	is	organized	by
+geographical	proximity.	At	the	lowest	level	is	a	LAN	(local	area	network)
+that	spans	a	building	or	a	campus.	The	most	popular	LAN	technology	by
+far	is	
+Ethernet
+,	which	was	developed	in	the	mid-1970s	at	Xerox	PARC.
+Ethernet	has	proven	to	be	remarkably	resilient,	evolving	from	3	Mb/s	to
+10	Gb/s.
+An	
+Ethernet	segment
+	consists	of	some	wires	(usually	twisted	pairs	of
+wires)	and	a	small	box	called	a	
+hub
+,	as	shown	in	
+Figure	
+11.3
+.	Ethernet
+segments	typically	span	small	areas,	such	as	a	room	or	a	floor	in	a
+building.	Each	wire	has	the	same	maximum	bit	bandwidth,	typically	100
+Mb/s	or	1	Gb/s.	One	end	is	attached	to	an	adapter	on	a	host,	and	the
+other	end	is	attached	to	a	
+port
+	on	the	hub.	A	hub	slavishly	copies	every
+bit	that	it	receives	on	each	port	to	every	other	port.	Thus,	every	host	sees
+every	bit.
+
+Each	Ethernet	adapter	has	a	globally	unique	48-bit	address	that	is	stored
+in	a	nonvolatile	memory	on	the	adapter.	A	host	can	send	a	chunk	of	bits
+called	a	
+frame
+	to	any	other	host	on	the	segment.	Each	frame	includes
+some	fixed	number	of	
+header
+	bits	that	identify	the	source	and	destination
+of	the	frame	and	the	frame	length,	followed	by	a	
+payload
+	of	data	bits.
+Every	host	adapter	sees	the	frame,	but	only	the	destination	host	actually
+reads	it.
+Multiple	Ethernet	segments	can	be	connected	into	larger	LANs,	called
+bridged	Ethernets
+,	using	a	set	of	wires	and	small	boxes	called	
+bridges
+,
+as	shown	in	
+Figure	
+11.4
+.	Bridged	Ethernets	can	span	entire	buildings
+or	campuses.	In	a	bridged	Ethernet,	some	wires	connect	bridges	to
+bridges,	and	others	connect	bridges	to	hubs.	The	bandwidths	of	the	wires
+can	be	different.	In	our	example,	the	bridge-bridge	wire	has	a	1	Gb/s
+bandwidth,	while	the	four	hub-bridge	wires	have	bandwidths	of	100	Mb/s.
+Bridges	make	better	use	of	the	available	wire	bandwidth	than	hubs.
+Using	a	clever	distributed	algorithm,	they	automatically	learn	over	time
+which	hosts	are	reachable	from	which	ports	and	then	selectively	copy
+frames	from	one	port	to	another	only	when	it	is	necessary.	For	example,
+if	host	A	sends	a	frame	to	host	B,	which	is	on	the	segment,	then	bridge	X
+will	throw	away	the	frame	when	it	arrives	at	its	input	port,	thus	saving
+bandwidth	on	the	other	segments.	However,	if	host	A	sends	a	frame	to
+host	C	on	a	different	segment,	then	bridge	X	will	copy	the	frame	only	to
+the	port	connected	to	bridge	Y,	which	will	copy	the	frame	only	to	the	port
+connected	to	host	C's	segment.
+Aside	
+Internet	versus	internet
+
+We	will	always	use	lowercase	
+internet
+	to	denote	the	general
+concept,	and	uppercase	
+Internet
+	to	denote	a	specific
+implementation—namely,	the	global	IP	Internet.
+Figure	
+11.4	
+Bridged	Ethernet	segments.
+Figure	
+11.5	
+Conceptual	view	of	a	LAN.
+To	simplify	our	pictures	of	LANs,	we	will	draw	the	hubs	and	bridges	and
+the	wires	that	connect	them	as	a	single	horizontal	line,	as	shown	in
+Figure	
+11.5
+.
+
+At	a	higher	level	in	the	hierarchy,	multiple	incompatible	LANs	can	be
+connected	by	specialized	computers	called	
+routers
+	to	form	an	
+internet
+(interconnected	network).	Each	router	has	an	adapter	(port)	for	each
+network	that	it	is	connected	to.	Routers	can	also	connect	high-speed
+point-to-point	phone	connections,	which	are	examples	of	networks	known
+as	WANs	(wide	area	networks),	so	called	because	they	span	larger
+geographical	areas	than	LANs.	In	general,	routers	can	be	used	to	build
+internets	from	arbitrary	collections	of	LANs	and	WANs.	For	example,
+Figure	
+11.6
+	shows	an	example	internet	with	a	pair	of	LANs	and	WANs
+connected	by	three	routers.
+Figure	
+11.6	
+A	small	internet.
+Two	LANs	and	two	WANs	are	connected	by	three	routers.
+The	crucial	property	of	an	internet	is	that	it	can	consist	of	different	LANs
+and	WANs	with	radically	different	and	incompatible	technologies.	Each
+host	is	physically	connected	to	every	other	host,	but	how	is	it	possible	for
+some	
+source	host
+	to	send	data	bits	to	another	
+destination	host
+	across	all
+of	these	incompatible	networks?
+The	solution	is	a	layer	of	
+protocol	software
+	running	on	each	host	and
+router	that	smoothes	out	the	differences	between	the	different	networks.
+This	software	implements	a	
+protocol
+	that	governs	how	hosts	and	routers
+
+cooperate	in	order	to	transfer	data.	The	protocol	must	provide	two	basic
+capabilities:
+Naming	scheme.	
+Different	LAN	technologies	have	different	and
+incompatible	ways	of	assigning	addresses	to	hosts.	The	internet
+protocol	smoothes	these	differences	by	defining	a	uniform	format	for
+host	addresses.	Each	host	is	then	assigned	at	least	one	of	these
+internet	addresses
+	that	uniquely	identifies	it.
+Delivery	mechanism.	
+Different	networking	technologies	have
+different	and	incompatible	ways	of	encoding	bits	on	wires	and	of
+packaging	these	bits	into	frames.	The	internet	protocol	smoothes
+these	differences	by	defining	a	uniform	way	to	bundle	up	data	bits	into
+discrete	chunks	called	
+packets
+.	A	packet	consists	of	a	
+header
+,	which
+contains	the	packet	size	and	addresses	of	the	source	and	destination
+hosts,	and	a	
+payload
+,	which	contains	data	bits	sent	from	the	source
+host.
+Figure	
+11.7
+	shows	an	example	of	how	hosts	and	routers	use	the
+internet	protocol	to	transfer	data	across	incompatible	LANs.	The	example
+internet	consists	of	two	LANs	connected	by	a	router.	A	client	running	on
+host	A,	which	is	attached	to	LAN1,	sends	a	sequence	of	data	bytes	to	a
+server	running	on	host	B,	which	is	attached	to	LAN2.	There	are	eight
+basic	steps:
+1
+.	
+The	client	on	host	A	invokes	a	system	call	that	copies	the	data
+from	the	client's	virtual	address	space	into	a	kernel	buffer.
+2
+.	
+The	protocol	software	on	host	A	creates	a	LAN1	frame	by
+appending	an	internet	header	and	a	LAN1	frame	header	to	the
+data.	The	internet	header	is	addressed	to	internet	host	B.	The
+
+LAN1	frame	header	is	addressed	to	the	router.	It	then	passes	the
+frame	to	the	adapter.	Notice	that	the	payload	of	the	LAN1	frame	is
+an	internet	packet,	whose	payload	is	the	actual	user	data.	This
+kind	of	
+encapsulation
+	is	one	of	the	fundamental	insights	of
+internetworking.
+Figure	
+11.7	
+How	data	travel	from	one	host	to	another	on	an
+internet.
+PH:	internet	packet	header;	FH1:	frame	header	for	LAN1;	FH2:
+frame	header	for	LAN2.
+3
+.	
+The	LAN1	adapter	copies	the	frame	to	the	network.
+4
+.	
+When	the	frame	reaches	the	router,	the	router's	LAN1	adapter
+reads	it	from	the	wire	and	passes	it	to	the	protocol	software.
+5
+.	
+The	router	fetches	the	destination	internet	address	from	the
+internet	packet	header	and	uses	this	as	an	index	into	a	routing
+
+table	to	determine	where	to	forward	the	packet,	which	in	this	case
+is	LAN2.	The	router	then	strips	off	the	old	LAN1	frame	header,
+prepends	a	new	LAN2	frame	header	addressed	to	host	B,	and
+passes	the	resulting	frame	to	the	adapter.
+6
+.	
+The	router's	LAN2	adapter	copies	the	frame	to	the	network.
+7
+.	
+When	the	frame	reaches	host	B,	its	adapter	reads	the	frame	from
+the	wire	and	passes	it	to	the	protocol	software.
+8
+.	
+Finally,	the	protocol	software	on	host	B	strips	off	the	packet	header
+and	frame	header.	The	protocol	software	will	eventually	copy	the
+resulting	data	into	the	server's	virtual	address	space	when	the
+server	invokes	a	system	call	that	reads	the	data.
+Of	course,	we	are	glossing	over	many	difficult	issues	here.	What	if
+different	networks	have	different	maximum	frame	sizes?	How	do	routers
+know	where	to	forward	frames?	How	are	routers	informed	when	the
+network	topology	changes?	What	if	a	packet	gets	lost?	Nonetheless,	our
+example	captures	the	essence	of	the	internet	idea,	and	encapsulation	is
+the	key.
+
+
+Figure	
+11.8	
+Hardware	and	software	organization	of	an	Internet
+application.
+
+11.3	
+The	Global	IP	Internet
+The	global	IP	Internet	is	the	most	famous	and	successful	implementation
+of	an	internet.	It	has	existed	in	one	form	or	another	since	1969.	While	the
+internal	architecture	of	the	Internet	is	complex	and	constantly	changing,
+the	organization	of	client-server	applications	has	remained	remarkably
+stable	since	the	early	1980s.	
+Figure	
+11.8
+	shows	the	basic	hardware
+and	software	organization	of	an	Internet	client-server	application.
+Each	Internet	host	runs	software	that	implements	the	
+TCP/IP
+	protocol
+(
+Transmission	Control	Protocol/Internet	Protocol
+),	which	is	supported	by
+almost	every	modern	computer	system.	Internet	clients	and	servers
+communicate	using	a	mix	of	
+sockets	interface
+	functions	and	Unix	I/O
+functions.	(We	will	describe	the	sockets	interface	in	
+Section	
+11.4
+)	The
+sockets	functions	are	typically	implemented	as	system	calls	that	trap	into
+the	kernel	and	call	various	kernel-mode	functions	in	TCP/IP.
+TCP/IP	is	actually	a	family	of	protocols,	each	of	which	contributes
+different	capabilities.	For	example,	IP	provides	the	basic	naming	scheme
+and	a	delivery	mechanism	that	can	send	packets,	known	as	
+datagrams
+,
+from	one	Internet	host	to	any	other	host.	The	IP	mechanism	is	unreliable
+in	the	sense	that	it	makes	no	effort	to	recover	if	datagrams	are	lost	or
+duplicated	in	the	network.	UDP	(Unreliable	Datagram	Protocol)	extends
+IP	slightly,	so	that	datagrams	can	be	transferred	from	process	to	process,
+rather	than	host	to	host.	TCP	is	a	complex	protocol	that	builds	on	IP	to
+provide	reliable	full	duplex	(bidirectional)	
+connections
+	between
+processes.	To	simplify	our	discussion,	we	will	treat	TCP/IP	as	a	single
+
+monolithic	protocol.	We	will	not	discuss	its	inner	workings,	and	we	will
+only	discuss	some	of	the	basic	capabilities	that	TCP	and	IP	provide	to
+application	programs.	We	will	not	discuss	UDP.
+From	a	programmer's	perspective,	we	can	think	of	the	Internet	as	a
+worldwide	collection	of	hosts	with	the	following	properties:
+The	set	of	hosts	is	mapped	to	a	set	of	32-bit	
+IP	addresses.
+Aside	
+IPv4	and	IPv6
+The	original	Internet	protocol,	with	its	32-bit	addresses,	is
+known	as	Internet	Protocol	Version	4	(IPv4).	In	1996,	the
+Internet	Engineering	Task	Force	(IETF)	proposed	a	new
+version	of	IP,	called	Internet	Protocol	Version	6	(IPv6),	that
+uses	128-bit	addresses	and	that	was	intended	as	the
+successor	to	IPv4.	However,	as	of	2015,	almost	20	years	later,
+the	vast	majority	of	Internet	traffic	is	still	carried	by	IPv4
+networks.	For	example,	only	4	percent	of	users	access	Google
+services	using	IPv6	
+[42]
+.
+Because	of	its	low	adoption	rate,	we	will	not	discuss	IPv6	in
+any	detail	in	this	book	and	will	focus	exclusively	on	the
+concepts	behind	IPv4.	When	we	talk	about	the	Internet,	what
+we	mean	is	the	Internet	based	on	IPv4.	Nonetheless,	the
+techniques	for	writing	clients	and	servers	that	we	will	teach	you
+later	in	this	chapter	are	based	on	modern	interfaces	that	are
+independent	of	any	particular	protocol.
+The	set	of	IP	addresses	is	mapped	to	a	set	of	identifiers	called
+Internet	domain	names.
+
+A	process	on	one	Internet	host	can	communicate	with	a	process	on
+any	other	Internet	host	over	a	
+connection
+.
+The	following	sections	discuss	these	fundamental	Internet	ideas	in	more
+detail.
+11.3.1	
+IP	Addresses
+An	IP	address	is	an	unsigned	32-bit	integer.	Network	programs	store	IP
+addresses	in	the	
+IP	address	structure
+	shown	in	
+Figure	
+11.9
+.
+Storing	a	scalar	address	in	a	structure	is	an	unfortunate	artifact	from	the
+early	implementations	of	the	sockets	interface.	It	would	make	more	sense
+to	define	a	scalar	type	for	IP	addresses,	but	it	is	too	late	to	change	now
+because	of	the	enormous	installed	base	of	applications.
+Because	Internet	hosts	can	have	different	host	byte	orders,	TCP/IP
+defines	a	uniform	
+network	byte	order
+	(big-endian	byte	order)	for	any
+integer	data	item,	such	as	an	IP	address,	that	is	carried	across	the
+network	in	a	packet	header.	Addresses	in	IP	address	structures	are
+always	stored	in	(big-endian)	network	byte	order,	even	if	the	host	byte
+order	is	little-endian.	Unix	provides	the	following	functions	for	converting
+between	network	and	host	byte	order.
+
+Figure	
+11.9	
+IP	address	structure.
+The	
+	function	converts	an	unsigned	32-bit	integer	from	host	byte
+order	to	network	byte	order.	The	
+	function	converts	an	unsigned	32-
+bit	integer	from	network	byte	order	to	host	byte	order.	The	
+	and
+	functions	perform	corresponding	conversions	for	unsigned	16-bit
+integers.	Note	that	there	are	no	equivalent	functions	for	manipulating	64-
+bit	values.
+IP	addresses	are	typically	presented	to	humans	in	a	form	known	as
+dotted-decimal	notation
+,	where	each	byte	is	represented	by	its	decimal
+value	and	separated	from	the	other	bytes	by	a	period.	For	example,
+
+	is	the	dotted-decimal	representation	of	the	address
+.	On	Linux	systems,	you	can	use	the	
+HOSTNAME
+	
+command	to
+determine	the	dotted-decimal	address	of	your	own	host:
+Application	programs	can	convert	back	and	forth	between	IP	addresses
+and	dotted-decimal	strings	using	the	functions	
+	and	
+In	these	function	names,	the	
+	stands	for	
+network
+	and	the	
+	stands
+for	
+presentation
+.	They	can	manipulate	either	32-bit	IPv4	addresses
+(
+),	as	shown	here,	or	128-bit	IPv6	addresses	(
+),	which
+we	do	not	cover.
+
+The	
+	function	converts	a	dotted-decimal	string	(
+)	to	a	binary
+IP	address	in	network	byte	order	(
+).If	
+	does	not	point	to	a	valid
+dotted-decimal	string,	then	it	returns	0.	Any	other	error	returns	−1	and
+sets	
+.	Similarly,	the	
+	function	converts	a	binary	IP	address
+in	network	byte	order	(
+)	to	the	corresponding	dotted-decimal
+representation	and	copies	at	most	
+	bytes	of	the	resulting	null-
+terminated	string	to	
+.
+Practice	Problem	
+11.1	
+(solution	page	
+966
+)
+Complete	the	following	table:
+Hex	address
+Dotted-decimal	address
+_____
+_____
+_____
+_____
+_____
+_____
+Practice	Problem	
+11.2	
+(solution	page	
+967
+)
+Write	a	program	
+	that	converts	its	hex	argument	to	a
+dotted-decimal	string	and	prints	the	result.	For	example,
+
+Practice	Problem	
+11.3	
+(solution	page	
+967
+)
+Write	a	program	
+	that	converts	its	dotted-decimal
+argument	to	a	hex	number	and	prints	the	result.	For	example,
+11.3.2	
+Internet	Domain	Names
+Internet	clients	and	servers	use	IP	addresses	when	they	communicate
+with	each	other.	However,	large	integers	are	difficult	for	people	to
+remember,	so	the	Internet	also	defines	a	separate	set	of	more	human-
+friendly	
+domain	names
+,	as	well	as	a	mechanism	that	maps	the	set	of
+domain	names	to	the	set	of	IP	addresses.	A	domain	name	is	a	sequence
+of	words	(letters,	numbers,	and	dashes)	separated	by	periods,	such	as
+.
+The	set	of	domain	names	forms	a	hierarchy,	and	each	domain	name
+encodes	its	position	in	the	hierarchy.	An	example	is	the	easiest	way	to
+
+understand	this.	
+Figure	
+11.10
+	shows	a	portion	of	the	domain	name
+hierarchy.
+The	hierarchy	is	represented	as	a	tree.	The	nodes	of	the	tree	represent
+domain	names	that	are	formed	by	the	path	back	to	the	root.	Subtrees	are
+referred	to	as	
+sub-domains
+.	The	first	level	in	the	hierarchy	is	an	unnamed
+root	node.	The	next	level	is	a	collection	of	
+first-level	domain	names
+	that
+are	defined	by	a	nonprofit	organization	called	ICANN	(Internet
+Corporation	for	Assigned	Names	and	Numbers).	Common	first-level
+domains	include	
+,	and	
+.
+Figure	
+11.10	
+Subset	of	the	Internet	domain	name	hierarchy.
+At	the	next	level	are	
+second-level
+	domain	names	such	as	
+,	which
+are	assigned	on	a	first-come	first-serve	basis	by	various	authorized
+agents	of	ICANN.	Once	an	organization	has	received	a	second-level
+
+domain	name,	then	it	is	free	to	create	any	other	new	domain	name	within
+its	subdomain,	such	as	
+The	Internet	defines	a	mapping	between	the	set	of	domain	names	and
+the	set	of	IP	addresses.	Until	1988,	this	mapping	was	maintained
+manually	in	a	single	text	file	called	
+	Since	then,	the	mapping
+has	been	maintained	in	a	distributed	worldwide	database	known	as	
+DNS
+(Domain	Name	System)
+.	Conceptually,	the	DNS	database	consists	of
+millions	of	
+host	entries
+,	each	of	which	defines	the	mapping	between	a	set
+of	domain	names	and	a	set	of	IP	addresses.	In	a	mathematical	sense,
+think	of	each	host	entry	as	an	equivalence	class	of	domain	names	and	IP
+addresses.	We	can	explore	some	of	the	properties	of	the	DNS	mappings
+with	the	Linux	
+NSLOOKUP
+	
+program,	which	displays	the	IP	addresses
+associated	with	a	domain	name.
+1.	
+We've	reformatted	the	output	of	
+NSLOOKUP
+	
+to	improve	readability.
+Each	Internet	host	has	the	locally	defined	domain	name	
+,	which
+always	maps	to	the	
+loopback	address
+	
+:
+The	
+	name	provides	a	convenient	and	portable	way	to
+reference	clients	and	servers	that	are	running	on	the	same	machine,
+which	can	be	especially	useful	
+for	debugging.	We	can	use	
+HOSTNAME
+	
+to
+determine	the	real	domain	name	of	our	local	host:
+1
+
+In	the	simplest	case,	there	is	a	one-to-one	mapping	between	a	domain
+name	and	an	IP	address:
+However,	in	some	cases,	multiple	domain	names	are	mapped	to	the
+same	IP	address:
+In	the	most	general	case,	multiple	domain	names	are	mapped	to	the
+same	set	of	multiple	IP	addresses:
+
+Finally,	we	notice	that	some	valid	domain	names	are	not	mapped	to	any
+IP	address:
+11.3.3	
+Internet	Connections
+Internet	clients	and	servers	communicate	by	sending	and	receiving
+streams	of	bytes	over	
+connections
+.	A	connection	is	
+point-to-point
+	in	the
+
+sense	that	it	connects	a	pair	of	processes.	It	is	
+full	duplex
+	in	the	sense
+that	data	can	flow	in	both	directions
+Aside	
+How	many	Internet	hosts	are
+there?
+Twice	a	year	since	1987,	the	Internet	Systems	Consortium
+conducts	the	
+Internet	Domain	Survey.
+	The	survey,	which
+estimates	the	number	of	Internet	hosts	by	counting	the	number	of
+IP	addresses	that	have	been	assigned	a	domain	name,	reveals	an
+amazing	trend.	Since	1987,	when	there	were	about	20,000
+Internet	hosts,	the	number	of	hosts	has	been	increasing
+exponentially.	By	2015,	there	were	over	1,000,000,000	Internet
+hosts!
+at	the	same	time.	And	it	is	
+reliable
+	in	the	sense	that—barring	some
+catastrophic	failure	such	as	a	cable	cut	by	the	proverbial	careless
+backhoe	operator—the	stream	of	bytes	sent	by	the	source	process	is
+eventually	received	by	the	destination	process	in	the	same	order	it	was
+sent.
+A	
+socket
+	is	an	end	point	of	a	connection.	Each	socket	has	a
+corresponding	
+socket	address
+	that	consists	of	an	Internet	address	and	a
+16-bit	integer	
+port
+	and	is	denoted	by	the	notation	
+2.	
+These	software	ports	have	no	relation	to	the	hardware	ports	in	network	switches	and	routers.
+The	port	in	the	client's	socket	address	is	assigned	automatically	by	the
+kernel	when	the	client	makes	a	connection	request	and	is	known	as	an
+ephemeral	port.
+	However,	the	port	in	the	server's	socket	address	is
+2
+
+typically	some	
+well-known	port
+	that	is	permanently	associated	with	the
+service.	For	example,	Web	servers	typically	use	port	80,	and	email
+servers	use	port	25.	Associated	with	each	service	with	a	well-known	port
+is	a	corresponding	
+well-known	service	name.
+	For	example,	the	well-
+known	name	for	the	Web	service	is	
+,	and	the	well-known	name	for
+email	is	
+.	The	mapping	between	well-known	names	and	well-known
+ports	is	contained	in	a	file	called	
+A	connection	is	uniquely	identified	by	the	socket	addresses	of	its	two	end
+points.	This	pair	of	socket	addresses	is	known	as	a	
+socket	pair
+	and	is
+denoted	by	the	tuple
+where	
+cliaddr
+	is	the	client's	IP	address,	
+cliport
+	is	the	client's	port,
+servaddr
+	is	the	server's	IP	address,	and	
+servport
+	is	the	server's	port.	For
+example,	
+Figure	
+11.11
+	shows	a	connection	between	a	Web	client	and
+a	Web	server.
+In	this	example,	the	Web	client's	socket	address	is
+where	port	
+	is	an	ephemeral	port	assigned	by	the	kernel.	The	Web
+server's	socket	address	is
+
+Aside	
+Origins	of	the	Internet
+The	Internet	is	one	of	the	most	successful	examples	of
+government,	university,	and	industry	partnership.	Many	factors
+contributed	to	its	success,	but	we	think	two	are	particularly
+important:	a	sustained	30-year	investment	by	the	United	States
+government	and	a	commitment	by	passionate	researchers	to	what
+Dave	Clarke	at	MIT	has	dubbed	"rough	consensus	and	working
+code."
+The	seeds	of	the	Internet	were	sown	in	1957,	when,	at	the	height
+of	the	Cold	War,	the	Soviet	Union	shocked	the	world	by	launching
+Sputnik,	the	first	artificial	earth	satellite.	In	response,	the	United
+States	government	created	the	Advanced	Research	Projects
+Agency	(ARPA),	whose	charter	was	to	reestablish	the	US	lead	in
+science	and	technology.	In	1967,	Lawrence	Roberts	at	ARPA
+published	plans	for	a	new	network	called	the	ARPANET.	The	first
+ARPANET	nodes	were	up	and	running	by	1969.	By	1971,	there
+were	13	ARPANET	nodes,	and	email	had	emerged	as	the	first
+important	network	application.
+In	1972,	Robert	Kahn	outlined	the	general	principles	of
+internetworking:	a	collection	of	interconnected	networks,	with
+communication	between	the	networks	handled	independently	on	a
+"best-effort	basis"	by	black	boxes	called	"routers."	In	1974,	Kahn
+and	Vinton	Cerf	published	the	first	details	of	TCP/IP,	which	by
+1982	had	become	the	standard	internetworking	protocol	for
+
+ARPANET.	On	January	1,	1983,	every	node	on	the	ARPANET
+switched	to	TCP/IP,	marking	the	birth	of	the	global	IP	Internet.
+In	1985,	Paul	Mockapetris	invented	DNS,	and	there	were	over
+1,000	Internet	hosts.	The	next	year,	the	National	Science
+Foundation	(NSF)	built	the	NSFNET	backbone	connecting	13
+sites	with	56	Kb/s	phone	lines.	It	was	upgraded	to	1.5	Mb/s	T1
+links	in	1988	and	45	Mb/s	T3	links	in	1991.	By	1988,	there	were
+more	than	50,000	hosts.	In	1989,	the	original	ARPANET	was
+officially	retired.	In	1995,	when	there	were	almost	10,000,000
+Internet	hosts,	NSF	retired	NSFNET	and	replaced	it	with	the
+modern	Internet	architecture	based	on	private	commercial
+backbones	connected	by	public	network	access	points.
+Figure	
+11.11	
+Anatomy	of	an	Internet	connection.
+where	port	
+	is	the	well-known	port	associated	with	Web	services.
+Given	these	client	and	server	socket	addresses,	the	connection	between
+the	client	and	server	is	uniquely	identified	by	the	socket	pair
+Aside	
+Origins	of	the	sockets	interface
+
+The	original	sockets	interface	was	developed	by	researchers	at
+University	of	California,	Berkeley,	in	the	early	1980s.	For	this
+reason,	it	is	often	referred	to	as	
+Berkeley	sockets
+.	The	Berkeley
+researchers	developed	the	sockets	interface	to	work	with	any
+underlying	protocol.	The	first	implementation	was	for	TCP/IP,
+which	they	included	in	the	Unix	4.2BSD	kernel	and	distributed	to
+numerous	universities	and	labs.	This	was	an	important	event	in
+Internet	history.	Almost	overnight,	thousands	of	people	had
+access	to	TCP/IP	and	its	source	codes.	It	generated	tremendous
+excitement	and	sparked	a	flurry	of	new	research	in	networking
+and	internetworking.
+
+11.4	
+The	Sockets	Interface
+The	
+sockets	interface
+	is	a	set	of	functions	that	are	used	in	conjunction
+with	the	Unix	I/O	functions	to	build	network	applications.	It	has	been
+implemented	on	most	modern	systems,	including	all	Unix	variants	as	well
+as	Windows	and	Macintosh	systems.	
+Figure	
+11.12
+	gives	an	overview
+of	the	sockets	interface	in	the	context	of	a	typical	client-server
+transaction.	You	should	use	this	picture	as	a	road	map	when	we	discuss
+the	individual	functions.
+
+
+Figure	
+11.12	
+Overview	of	network	applications	based	on	the	sockets
+interface.
+Aside	
+What	does	the	
+	suffix	mean?
+The	
+	suffix	is	short	for	
+internet
+,	not	
+input
+.
+Figure	
+11.13	
+Socket	address	structures.
+11.4.1	
+Socket	Address	Structures
+
+From	the	perspective	of	the	Linux	kernel,	a	socket	is	an	end	point	for
+communication.	From	the	perspective	of	a	Linux	program,	a	socket	is	an
+open	file	with	a	corresponding	descriptor.
+Internet	socket	addresses	are	stored	in	16-byte	structures	having	the
+type	
+,	shown	in	
+Figure	
+11.13
+.	For	Internet	applications,	the
+	field	is	AF_INET,	the	
+	field	is	a	16-bit	port	number,
+and	the	
+	field	contains	a	32-bit	IP	address.	The	IP	address	and
+port	number	are	always	stored	in	network	(big-endian)	byte	order.
+The	
+,	and	
+	functions	require	a	pointer	to	a	protocol-
+specific	socket	address	structure.	The	problem	faced	by	the	designers	of
+the	sockets	interface	was	how	to	define	these	functions	to	accept	any
+kind	of	socket	address	structure.	Today,	we	would	use	the	generic	
+	*
+pointer,	which	did	not	exist	in	C	at	that	time.	Their	solution	was	to	define
+sockets	functions	to	expect	a	pointer	to	a	generic	
+	structure
+(
+Figure	
+11.13
+)	and	then	require	applications	to	cast	any	pointers	to
+protocol-specific	structures	to	this	generic	structure.	To	simplify	our	code
+examples,	we	follow	Stevens's	lead	and	define	the	following	type:
+We	then	use	this	type	whenever	we	need	to	cast	a	
+	structure
+to	a	generic	
+	structure.
+11.4.2	
+The	
+	Function
+
+Clients	and	servers	use	the	
+	function	to	create	a	
+socket	descriptor
+.
+If	we	wanted	the	socket	to	be	the	end	point	for	a	connection,	then	we
+could	call	socket	with	the	following	hardcoded	arguments:
+where	AF_INET	indicates	that	we	are	using	32-bit	IP	addresses	and
+SOCK_STREAM	indicates	that	the	socket	will	be	an	end	point	for	a
+connection.	However,	the	best	practice	is	to	use	the	
+	function
+(
+Section	
+11.4.7
+)	to	generate	these	parameters	automatically,	so	that
+the	code	is	protocol-independent.	We	will	show	you	how	to	use
+	with	the	
+	function	in	
+Section	
+11.4.8
+.
+The	
+	descriptor	returned	by	
+	is	only	partially	opened	and
+cannot	yet	be	used	for	reading	and	writing.	How	we	finish	opening	the
+socket	depends	on	whether	we	are	a	client	or	a	server.	The	next	section
+describes	how	we	finish	opening	the	socket	if	we	are	a	client.
+
+11.4.3	
+The	
+	Function
+A	client	establishes	a	connection	with	a	server	by	calling	the	
+function.
+The	
+	function	attempts	to	establish	an	Internet	connection	with
+the	server	at	socket	address	
+,	where	
+	is	
+.
+The	
+	function	blocks	until	either	the	connection	is	successfully
+established	or	an	error	occurs.	If	successful,	the	
+	descriptor	is
+now	ready	for	reading	and	writing,	and	the	resulting	connection	is
+characterized	by	the	socket	pair
+where	
+	is	the	client's	IP	address	and	
+	is	the	ephemeral	port	that
+uniquely	identifies	the	client	process	on	the	client	host.	As	with	
+,
+the	best	practice	is	to	use	
+	to	supply	the	arguments	to
+	(see	
+Section	
+11.4.8
+).
+
+11.4.4	
+The	
+	Function
+The	remaining	sockets	functions—
+,	and	
+—are	used
+by	servers	to	establish	connections	with	clients.
+The	
+	function	asks	the	kernel	to	associate	the	server's	socket
+address	in	
+	with	the	socket	descriptor	
+.	The	
+	argument
+is	
+.	As	with	
+	and	
+,	the	best	practice	is
+to	use	
+	to	supply	the	arguments	to	
+	(see	
+Section
+11.4.8
+).
+11.4.5	
+The	
+	Function
+Clients	are	active	entities	that	initiate	connection	requests.	Servers	are
+passive	entities	that	wait	for	connection	requests	from	clients.	By	default,
+the	kernel	assumes	that	a	descriptor	created	by	the	
+	function
+corresponds	to	an	
+active	socket
+	that	will	live	on	the	client	end	of	a
+connection.	A	server	calls	the	
+	function	to	tell	the	kernel	that	the
+descriptor	will	be	used	by	a	server	instead	of	a	client.
+
+The	
+	function	converts	
+	from	an	active	socket	to	a	
+listening
+socket
+	that	can	accept	connection	requests	from	clients.	The	
+argument	is	a	hint	about	the	number	of	outstanding	connection	requests
+that	the	kernel	should	queue	up	before	it	starts	to	refuse	requests.	The
+exact	meaning	of	the	
+	argument	requires	an	understanding	of
+TCP/IP	that	is	beyond	our	scope.	We	will	typically	set	it	to	a	large	value,
+such	as	1,024.
+Figure	
+11.14	
+The	roles	of	the	listening	and	connected	descriptors.
+
+11.4.6	
+The	
+	Function
+Servers	wait	for	connection	requests	from	clients	by	calling	the	
+function.
+The	
+	function	waits	for	a	connection	request	from	a	client	to	arrive
+on	the	listening	descriptor	
+,	then	fills	in	the	client's	socket
+address	in	
+,	and	returns	a	
+connected	descriptor
+	that	can	be	used	to
+communicate	with	the	client	using	Unix	I/O	functions.
+The	distinction	between	a	listening	descriptor	and	a	connected	descriptor
+confuses	many	students.	The	listening	descriptor	serves	as	an	end	point
+for	client	connection	requests.	It	is	typically	created	once	and	exists	for
+the	lifetime	of	the	server.	The	connected	descriptor	is	the	end	point	of	the
+connection	that	is	established	between	the	client	and	the	server.	It	is
+created	each	time	the	server	accepts	a	connection	request	and	exists
+only	as	long	as	it	takes	the	server	to	service	a	client.
+Figure	
+11.14
+	outlines	the	roles	of	the	listening	and	connected
+descriptors.	In	step	1,	the	server	calls	
+,	which	waits	for	a
+connection	request	to	arrive	on	the	listening	descriptor,	which	for
+
+concreteness	we	will	assume	is	descriptor	3.	Recall	that	descriptors	0−2
+are	reserved	for	the	standard	files.
+In	step	2,	the	client	calls	the	
+	function,	which	sends	a	connection
+request	to	
+.	In	step	3,	the	
+	function	opens	a	new
+connected	descriptor	
+	(which	we	will	assume	is	descriptor	4),
+establishes	the	connection	between	
+	and	
+,	and	then
+returns	
+	to	the	application.	The
+Aside	
+Why	the	distinction	between
+listening	and	connected	descriptors?
+You	might	wonder	why	the	sockets	interface	makes	a	distinction
+between	listening	and	connected	descriptors.	At	first	glance,	it
+appears	to	be	an	unnecessary	complication.	However,
+distinguishing	between	the	two	turns	out	to	be	quite	useful,
+because	it	allows	us	to	build	concurrent	servers	that	can	process
+many	client	connections	simultaneously.	For	example,	each	time	a
+connection	request	arrives	on	the	listening	descriptor,	we	might
+fork	a	new	process	that	communicates	with	the	client	over	its
+connected	descriptor.	You'll	learn	more	about	concurrent	servers
+in	
+Chapter	
+12
+.
+client	also	returns	from	the	
+,	and	from	this	point,	the	client	and
+server	can	pass	data	back	and	forth	by	reading	and	writing	
+	and
+,	respectively.
+
+11.4.7	
+Host	and	Service	Conversion
+Linux	provides	some	powerful	functions,	called	
+	and
+,	for	converting	back	and	forth	between	binary	socket
+address	structures	and	the	string	representations	of	hostnames,	host
+addresses,	service	names,	and	port	numbers.	When	used	in	conjunction
+with	the	sockets	interface,	they	allow	us	to	write	network	programs	that
+are	independent	of	any	particular	version	of	the	IP	protocol.
+The	
+	Function
+The	
+	function	converts	string	representations	of	hostnames,
+host	addresses,	service	names,	and	port	numbers	into	socket	address
+structures.	It	is	the	modern	replacement	for	the	obsolete	
+and	
+	functions.	Unlike	these	functions,	it	is	reentrant	(see
+Section	
+12.7.2
+)	and	works	with	any	protocol.
+
+Figure	
+11.15	
+Data	structure	returned	by	
+.
+Given	
+	and	
+	(the	two	components	of	a	socket	address),
+	returns	a	
+	that	points	to	a	linked	list	of	
+structures,	each	of	which	points	to	a	socket	address	structure	that
+corresponds	to	
+	and	
+	(
+Figure	
+11.15
+).
+After	a	client	calls	
+,	it	walks	this	list,	trying	each	socket
+address	in	turn	until	the	calls	to	
+	and	
+	succeed	and	the
+
+connection	is	established.	Similarly,	a	server	tries	each	socket	address
+on	the	list	until	the	calls	to	
+	and	
+	succeed	and	the	descriptor	is
+bound	to	a	valid	socket	address.	To	avoid	memory	leaks,	the	application
+must	eventually	free	the	list	by	calling	
+.	If	
+returns	a	nonzero	error	code,	the	application	can	call	
+	to
+convert	the	code	to	a	message	string.
+The	
+	argument	to	
+	can	be	either	a	domain	name	or	a
+numeric	address	(e.g.,	a	dotted-decimal	IP	address).	The	
+argument	can	be	either	a	service	name	
+	or	a	decimal	port
+number.	If	we	are	not	interested	in	converting	the	hostname	to	an
+address,	we	can	set	
+	to	NULL.	The	same	holds	for	
+.
+However,	at	least	one	of	them	must	be	specified.
+The	optional	
+	argument	is	an	
+	structure	(
+Figure	
+11.16
+)
+that	provides	finer	control	over	the	list	of	socket	addresses	that
+	returns.	When	passed	as	a	hints	argument,	only	the
+,	and	
+	fields	can	be	set.	The
+other	fields	must	be	set	to	zero	(or	NULL).	In	practice,	we	use	
+	to
+zero	the	entire	structure	and	then	set	a	few	selected	fields:
+By	default,	
+	can	return	both	IPv4	and	IPv6	socket
+addresses.	Setting	
+	to	AF_INET	restricts	the	list	to	IPv4
+addresses.	Setting	it	to	AF_INET6	restricts	the	list	to	IPv6	addresses.
+
+Figure	
+11.16	
+The	
+	structure	used	by	
+.
+By	default,	for	each	unique	address	associated	with	host,	the
+	function	can	return	up	to	three	
+	structures,	each
+with	a	different	
+	field:	one	for	connections,	one	for
+datagrams	(not	covered),	and	one	for	raw	sockets	(not	covered).
+Setting	
+	to	SOCK_STREAM	restricts	the	list	to	at	most
+one	
+	structure	for	each	unique	address,	one	whose	socket
+address	can	be	used	as	the	end	point	of	a	connection.	This	is	the
+desired	behavior	for	all	of	our	example	programs.
+The	
+	field	is	a	bit	mask	that	further	modifies	the	default
+behavior.	You	create	it	by	
+OR
+ing	combinations	of	various	values.	Here
+are	some	that	we	find	useful:
+
+AI_ADDRCONFIG.	This	flag	is	recommended	if	you	are	using
+connections	
+[34]
+.	It	asks	
+	to	return	IPv4	addresses
+only	if	the	local	host	is	configured	for	IPv4.	Similarly	for	IPv6.
+AI_CANONNAME.	By	default,	the	
+	field	is	NULL.	If
+this	flag	is	set,	it	instructs	
+	to	point	the	
+field	in	the	first	
+	structure	in	the	list	to	the	canonical
+(official)	name	of	
+	(see	
+Figure	
+11.15
+).
+AI_NUMERICSERV.	By	default,	the	
+	argument	can	be	a
+service	name	or	a	port	number.	This	flag	forces	the	
+argument	to	be	a	port	number.
+AI_PASSIVE.	By	default,	
+	returns	socket	addresses
+that	can	be	used	by	clients	as	active	sockets	in	calls	to	
+.
+This	flag	instructs	it	to	return	socket	addresses	that	can	be	used
+by	servers	as	listening	sockets.	In	this	case,	the	
+	argument
+should	be	NULL.	The	address	field	in	the	resulting	socket	address
+structure(s)	will	be	the	
+wildcard	address
+,	which	tells	the	kernel	that
+this	server	will	accept	requests	to	any	of	the	IP	addresses	for	this
+host.	This	is	the	desired	behavior	for	all	of	our	example	servers.
+When	
+	creates	an	
+	structure	in	the	output	list,	it	fills
+in	each	field	except	for	
+.	The	
+	field	points	to	a	socket
+address	structure,	the	
+	field	gives	the	size	of	this	socket
+address	structure,	and	the	
+	field	points	to	the	next	
+structure	in	the	list.	The	other	fields	describe	various	attributes	of	the
+socket	address.
+One	of	the	elegant	aspects	of	
+	is	that	the	fields	in	an	
+
+structure	are	opaque,	in	the	sense	that	they	can	be	passed	directly	to	the
+functions	in	the	sockets	interface	without	any	further	manipulation	by	the
+application	code.	For	example,	
+,	and	
+can	be	passed	directly	to	socket.	Similarly,	
+	and	
+	can
+be	passed	directly	to	
+	and	
+.	This	powerful	property	allows	us
+to	write	clients	and	servers	that	are	independent	of	any	particular	version
+of	the	IP	protocol.
+The	
+	Function
+The	
+	function	is	the	inverse	of	
+.	It	converts	a
+socket	address	structure	to	the	corresponding	host	and	service	name
+strings.	It	is	the	modern	replacement	for	the	obsolete	
+	and
+	functions,	and	unlike	those	functions,	it	is	reentrant	and
+protocol-independent.
+
+The	
+	argument	points	to	a	socket	address	structure	of	size	
+bytes,	
+	to	a	buffer	of	size	
+	bytes,	and	
+	to	a	buffer	of

@@ -1,0 +1,9775 @@
+305
+variable-size	stack	frames,	
+290
+–
+293
+variable-size	arrays,	
+262
+–
+265
+variables
+mapping,	
+994
+–
+995
+nonexistent,	
+874
+shared,	
+992
+–
+995
+,	
+993
+storage	classes,	
+994
+–
+995
+VAX	computers	(Digital	Equipment	Corporation),	Boolean	operations,
+56
+	[x86–64]	convert	packed	single	to	packed	double	precision,
+298
+	[x86–64]	convert	integer	to	double	precision,	
+297
+	[x86–64]	convert	quad-word	integer	to	double	precision,
+297
+	[x86–64]	convert	integer	to	single	precision,	
+297
+	[x86–64]	convert	quad-word	integer	to	single	precision,
+
+297
+	[x86–64]	convert	double	precision	to	integer,	
+297
+	[x86–64]	convert	double	precision	to	quad-word	integer,
+297
+	[x86–64]	convert	single	precision	to	integer,	
+297
+	[x86–64]	convert	single	precision	to	quad-word	integer,
+297
+	[x86–64]	double-precision	division,	
+302
+	[x86–64]	single-precision	division,	
+302
+vector	data	types,	
+26
+,	
+504
+–
+507
+vector	dot	product	function,	
+622
+vector	registers,	
+171
+,	
+546
+vector	sum	function,	
+634
+,	
+635
+–
+636
+vectors,	bit,	
+51
+,	
+51
+–
+52
+verification	in	pipelining,	
+466
+Verilog	hardware	description	language	for	logic	design,	
+373
+Y86–64	pipelining	implementation,	
+467
+vertical	bars	||	for	
+OR
+	operation,	
+373
+VHDL	hardware	description	language,	
+373
+victim	blocks,	
+612
+Video	RAM	(VRAM),	
+586
+virtual	address	spaces,	
+18
+,	
+34
+,	
+804
+virtual	addresses	(VA)
+machine-level	programming,	
+170
+–
+171
+vs.	physical,	
+803
+–
+804
+Y86–64,	
+356
+virtual	machines
+as	abstraction,	
+27
+Java	byte	code,	
+310
+
+virtual	memory	(VM),	
+15
+,	
+18
+,	
+34
+,	
+802
+as	abstraction,	
+27
+address	spaces,	
+804
+–
+805
+address	translation.	
+See	
+address	translation
+bugs,	
+870
+–
+875
+for	caching,	
+805
+–
+811
+characteristics,	
+802
+–
+803
+Core	i7,	
+825
+–
+828
+dynamic	memory	allocation.	
+See	
+dynamic	memory	allocation
+garbage	collection,	
+865
+–
+870
+Linux,	
+830
+–
+833
+in	loading,	
+699
+managing,	
+839
+mapping.	
+See	
+memory	mapping
+for	memory	management,	
+811
+–
+812
+for	memory	protection,	
+812
+–
+813
+overview,	
+18
+–
+19
+physical	vs.	virtual	addresses,	
+803
+–
+804
+summary,	
+875
+–
+876
+virtual	page	numbers	(VPNs),	
+814
+virtual	page	offset	(VPO),	
+814
+virtual	pages	(VPs),	
+289
+,	
+805
+,	
+805
+–
+806
+viruses,	
+285
+–
+286
+VLOG	implementation	of	Y86–64
+pipelining,	
+467
+VM.	
+See	
+virtual	memory	(VM)
+	[x86–64]	double-precision	maximum,	
+302
+	[x86–64]	single-precision	maximum,	
+302
+	[x86–64]	double-precision	minimum,	
+302
+
+	[x86–64]	single-precision	minimum,	
+302
+	[x86–64]	move	aligned,	packed	double	precision,	
+296
+	[x86–64]	move	aligned,	packed	single	precision,	
+296
+	[x86–64]	move	double	precision,	
+296
+	[x86–64]	move	single	precision,	
+296
+	[x86–64]	double-precision	multiplication,	
+302
+	[x86–64]	single-precision	multiplication,	
+302
+	[C]	untyped	pointers,	
+48
+	[C]	volatile	type	qualifier,	
+769
+–
+770
+VP	(virtual	pages),	
+289
+,	
+805
+,	
+805
+–
+806
+VPNs	(virtual	page	numbers),	
+814
+VPO	(virtual	page	offset),	
+814
+VRAM	(video	RAM),	
+586
+	[x86–64]	double-precision	subtraction,	
+302
+	[x86–64]	single-precision	subtraction,	
+302
+VTUNE
+	program,	
+569
+vulnerabilities,	security,	
+86
+–
+87
+	[x86–64]	unpack	and	interleave	low	packed	double
+precision,	
+298
+	[x86–64]	unpack	and	interleave	low	packed	single
+precision,	
+298
+	[x86–64]	
+EXCLUSIVE
+-
+OR
+	packed	double	precision,	
+305
+	[x86–64]	
+EXCLUSIVE
+-
+OR
+	packed	single	precision,	
+305
+
+	[Unix]	wait	for	child	process,	
+746
+wait	for	child	process	functions,	
+744
+,	
+746
+–
+749
+wait	for	client	connection	request	function,	
+936
+,	
+936
+–
+937
+wait	for	signal	instruction,	
+781
+	file,	
+746
+wait	sets,	
+744
+,	
+744
+waiting	for	signals,	
+778
+–
+781
+	[Unix]	wait	for	child	process,	
+743
+,	
+746
+–
+749
+	[CS:APP]	
+	example,	
+747
+	[CS:APP]	
+	example,	
+749
+WANs	(wide	area	networks),	
+921
+,	
+921
+–
+922
+warming	up	caches,	
+612
+WCONTINUED	constant,	
+744
+weak	scaling,	
+1019
+,	
+1020
+weak	symbols,	
+680
+wear	leveling	logic,	
+601
+Web	clients,	
+948
+,	
+948
+Web	servers,	
+701
+,	
+948
+basics,	
+948
+–
+949
+dynamic	content,	
+953
+–
+954
+HTTP	transactions,	
+950
+–
+953
+	example,	
+956
+–
+964
+Web	content,	
+949
+–
+950
+well-known	ports,	
+930
+well-known	service	names,	
+930
+	[C]	loop	statement,	
+223
+–
+228
+wide	area	networks	(WANs),	
+921
+,	
+921
+–
+922
+WIFEXITED	constant,	
+745
+WIFEXITSTATUS	constant,	
+745
+
+WIFSIGNALED	constant,	
+745
+WIFSTOPPED	constant,	
+745
+Windows	Microsoft	operating	system,	
+27
+,	
+45
+wire	names	in	hardware	diagrams,	
+398
+WNOHANG	constant,	
+744
+–
+745
+word-level	combinational	circuits,	
+376
+–
+380
+word	selection
+direct-mapped	caches,	
+619
+fully	associative	caches,	
+627
+–
+628
+set	associative	caches,	
+625
+–
+626
+word	size,	
+8
+,	
+39
+words,	
+8
+,	
+177
+working	sets,	
+613
+,	
+810
+world-wide	data	connections	in	hardware	diagrams,	
+398
+World	Wide	Web,	
+949
+worm	programs,	
+284
+–
+286
+wrapper	functions,	
+711
+error	handling,	
+738
+,	
+1041
+,	
+1043
+–
+1045
+interpositioning	libraries,	
+708
+write	access,	
+289
+write-allocate	approach,	
+630
+write-back	approach,	
+630
+write-back	stage
+instruction	processing,	
+385
+,	
+387
+–
+397
+PIPE	processor,	
+449
+–
+453
+sequential	processing,	
+400
+sequential	Y86–64	implementation,	
+406
+–
+408
+	[Unix]	write	file,	
+895
+,	
+896
+–
+897
+write	hits,	
+630
+
+write	issues	for	caches,	
+630
+–
+631
+write-only	register,	
+527
+write	operations	for	files,	
+891
+,	
+896
+–
+897
+write	ports
+priorities,	
+408
+register	files,	
+382
+write/read	dependencies,	
+557
+–
+559
+write	strategies	for	caches,	
+633
+write-through	approach,	
+630
+write	transactions,	
+587
+,	
+588
+–
+589
+	function,	
+903
+writers	in	readers-writers	problem,	
+1006
+,	
+1008
+writing
+signal	handlers,	
+766
+–
+775
+SSD	oprations,	
+600
+WSTOPSIG	constant,	
+745
+WTERMSIG	constant,	
+745
+WUNTRACED	constant,	
+744
+–
+745
+
+x86	Intel	microprocessor	line,	
+166
+x86–64	instruction	set	architecture	vs.	Y86–64,	
+360
+x86–64	microprocessors,	
+168
+array	access,	
+256
+conditional	move	instructions,	
+214
+–
+220
+data	alignment,	
+276
+exceptions,	
+729
+–
+731
+Intel-compatible	64-bit	microprocessors,	
+45
+machine	language,	
+165
+–
+166
+registers
+data	movement,	
+182
+–
+189
+operand	specifiers,	
+180
+–
+182
+vs.	Y86–64,	
+365
+–
+366
+x87	microprocessors,	
+167
+XDR	library	security	vulnerability,	
+100
+	[x86–64]	16-byte	media	register.	Subregion	of	YMM,	
+295
+,	return	floating-point	value	register,	
+299
+,	
+301
+XMM,	SSE	vector	registers,	
+294
+–
+296
+XOR
+	[instruction	class]	
+EXCLUSIVE
+-
+OR
+,	
+192
+	[Y86–64]	
+EXCLUSIVE
+-
+OR
+,	
+356
+
+Y86–64	instruction	set	architecture,	
+353
+–
+354
+details,	
+370
+–
+372
+exception	handling,	
+363
+–
+364
+hazards,	
+435
+instruction	encoding,	
+358
+–
+360
+instruction	set,	
+356
+–
+358
+programmer-visible	state,	
+355
+–
+356
+programs,	
+364
+–
+370
+sequential	implementation.
+See	
+sequential	Y86–64	implementation
+vs.	x86–64,	
+360
+Y86–64	pipelined	implementations,	
+421
+computation	stages,	
+421
+–
+422
+control	logic.	
+See	
+control	logic	in	pipelining
+exception	handling,	
+444
+–
+447
+hazards.	
+See	
+hazards	in	pipelining
+memory	system	interfacing,	
+469
+–
+470
+multicycle	instructions,	
+468
+–
+469
+performance	analysis,	
+464
+–
+468
+predicted	values,	
+427
+–
+429
+register	insertions,	
+422
+–
+426
+signals,	
+426
+–
+427
+stages.	
+See	
+PIPE	processor	stages
+testing,	
+465
+verification,	
+466
+Verilog,	
+467
+YAS
+	Y86–64	assembler,	
+366
+YIS
+	Y86–64	instruction	set	simulator,	
+366
+	[x86–64]	32-byte	media	register,	
+295
+
+YMM,	AVX	vector	registers,	
+294
+–
+296
+
+zero	extension,	
+77
+zero	flag	condition	code,	
+201
+,	
+306
+,	
+355
+	[x86–64]	zero	flag	condition	code,	
+201
+,	
+306
+,	
+355
+zombie	processes,	
+743
+,	
+743
+–
+744
+,	
+770
+zones,	recording,	
+592
+
+Contents
+1
+.	
+Computer	Systems	
+A	Programmer's	Perspective
+2
+.	
+Computer	Systems	
+A	Programmer's	Perspective
+3
+.	
+MasteringEngineering
+4
+.	
+Contents
+5
+.	
+Preface
+A
+.	
+Assumptions	about	the	Reader's	Background
+B
+.	
+How	to	Read	the	Book
+C
+.	
+Book	Overview
+D
+.	
+New	to	This	Edition
+E
+.	
+Origins	of	the	Book
+F
+.	
+For	Instructors:	Courses	Based	on	the	Book
+G
+.	
+For	Instructors:	Classroom-Tested	Laboratory	Exercises
+6
+.	
+About	the	Authors
+7
+.	
+Chapter	
+1	
+A	Tour	of	Computer	Systems
+A
+.	
+1.1	
+Information	Is	Bits	+	Context
+B
+.	
+1.2	
+Programs	Are	Translated	by	Other	Programs	into	Different
+Forms
+C
+.	
+1.3	
+It	Pays	to	Understand	How	Compilation	Systems	Work
+D
+.	
+1.4	
+Processors	Read	and	Interpret	Instructions	Stored	in
+Memory
+1
+.	
+1.4.1	
+Hardware	Organization	of	a	System
+a
+.	
+Buses
+b
+.	
+I/O	Devices
+c
+.	
+Main	Memory
+®
+
+d
+.	
+Processor
+2
+.	
+1.4.2	
+Running	the	
+	Program
+E
+.	
+1.5	
+Caches	Matter
+F
+.	
+1.6	
+Storage	Devices	Form	a	Hierarchy
+G
+.	
+1.7	
+The	Operating	System	Manages	the	Hardware
+1
+.	
+1.7.1	
+Processes
+2
+.	
+1.7.2	
+Threads
+3
+.	
+1.7.3	
+Virtual	Memory
+4
+.	
+1.7.4	
+Files
+H
+.	
+1.8	
+Systems	Communicate	with	Other	Systems	Using
+Networks
+I
+.	
+1.9	
+Important	Themes
+1
+.	
+1.9.1	
+Amdahl's	Law
+a
+.	
+Practice	Problem	
+1.1	
+(solution	page	28)
+b
+.	
+Practice	Problem	
+1.2	
+(solution	page	28)
+2
+.	
+1.9.2	
+Concurrency	and	Parallelism
+a
+.	
+Thread-Level	Concurrency
+b
+.	
+Instruction-Level	Parallelism
+c
+.	
+Single-Instruction,	Multiple-Data	(SIMD)	Parallelism
+3
+.	
+1.9.3	
+The	Importance	of	Abstractions	in	Computer
+Systems
+J
+.	
+1.10	
+Summary
+K
+.	
+Bibliographic	Notes
+
+8
+.	
+Part	
+I	
+Program	Structure	and	Execution
+A
+.	
+Chapter	
+2	
+Representing	and	Manipulating	Information
+1
+.	
+2.1	
+Information	Storage
+a
+.	
+2.1.1	
+Hexadecimal	Notation
+a
+.	
+Practice	Problem	
+2.1
+	(solution	page	143)
+b
+.	
+Practice	Problem	
+2.2
+	(solution	page	143)
+c
+.	
+Practice	Problem	
+2.3
+	(solution	page	144)
+d
+.	
+Practice	Problem	
+2.4
+	(solution	page	144)
+b
+.	
+2.1.2	
+Data	Sizes
+c
+.	
+2.1.3	
+Addressing	and	Byte	Ordering
+a
+.	
+Practice	Problem	
+2.5
+	(solution	page	144)
+b
+.	
+Practice	Problem	
+2.6
+	(solution	page	145)
+d
+.	
+2.1.4	
+Representing	Strings
+a
+.	
+Practice	Problem	
+2.7
+	(solution	page	145)
+e
+.	
+2.1.5	
+Representing	Code
+f
+.	
+2.1.6	
+Introduction	to	Boolean	Algebra
+a
+.	
+Practice	Problem	
+2.8
+	(solution	page	145)
+b
+.	
+Practice	Problem	
+2.9
+	(solution	page	146)
+g
+.	
+2.1.7	
+Bit-Level	Operations	in	C
+a
+.	
+Practice	Problem	
+2.10
+	(solution	page	146)
+b
+.	
+Practice	Problem	
+2.11
+	(solution	page	146)
+c
+.	
+Practice	Problem	
+2.12
+	(solution	page	146)
+d
+.	
+Practice	Problem	
+2.13
+	(solution	page	147)
+h
+.	
+2.1.8	
+Logical	Operations	in	C
+a
+.	
+Practice	Problem	
+2.14
+	(solution	page	147)
+
+b
+.	
+Practice	Problem	
+2.15
+	(solution	page	148)
+i
+.	
+2.1.9	
+Shift	Operations	in	C
+a
+.	
+Practice	Problem	
+2.16
+	(solution	page	148)
+2
+.	
+2.2	
+Integer	Representations
+a
+.	
+2.2.1	
+Integral	Data	Types
+b
+.	
+2.2.2	
+Unsigned	Encodings
+c
+.	
+2.2.3	
+Two's-Complement	Encodings
+a
+.	
+Practice	Problem	
+2.17
+	(solution	page	148)
+b
+.	
+Practice	Problem	
+2.18
+	(solution	page	149)
+d
+.	
+2.2.4	
+Conversions	between	Signed	and	Unsigned
+a
+.	
+Practice	Problem	
+2.19
+	(solution	page	149)
+b
+.	
+Practice	Problem	
+2.20
+	(solution	page	149)
+e
+.	
+2.2.5	
+Signed	versus	Unsigned	in	C
+a
+.	
+Practice	Problem	
+2.21
+	(solution	page	149)
+f
+.	
+2.2.6	
+Expanding	the	Bit	Representation	of	a	Number
+a
+.	
+Practice	Problem	
+2.22
+	(solution	page	150)
+b
+.	
+Practice	Problem	
+2.23
+	(solution	page	150)
+g
+.	
+2.2.7	
+Truncating	Numbers
+a
+.	
+Practice	Problem	
+2.24
+	(solution	page	150)
+h
+.	
+2.2.8	
+Advice	on	Signed	versus	Unsigned
+a
+.	
+Practice	Problem	
+2.25
+	(solution	page	151)
+b
+.	
+Practice	Problem	
+2.26
+	(solution	page	151)
+
+3
+.	
+2.3	
+Integer	Arithmetic
+a
+.	
+2.3.1	
+Unsigned	Addition
+a
+.	
+Practice	Problem	
+2.27
+	(solution	page	152)
+b
+.	
+Practice	Problem	
+2.28
+	(solution	page	152)
+b
+.	
+2.3.2	
+Two's-Complement	Addition
+a
+.	
+Practice	Problem	
+2.29
+	(solution	page	152)
+b
+.	
+Practice	Problem	
+2.30
+	(solution	page	153)
+c
+.	
+Practice	Problem	
+2.31
+	(solution	page	153)
+d
+.	
+Practice	Problem	
+2.32
+	(solution	page	153)
+c
+.	
+2.3.3	
+Two's-Complement	Negation
+a
+.	
+Practice	Problem	
+2.33
+	(solution	page	153)
+d
+.	
+2.3.4	
+Unsigned	Multiplication
+e
+.	
+2.3.5	
+Two's-Complement	Multiplication
+a
+.	
+Practice	Problem	
+2.34
+	(solution	page	153)
+b
+.	
+Practice	Problem	
+2.35
+	(solution	page	154)
+c
+.	
+Practice	Problem	
+2.36
+	(solution	page	154)
+d
+.	
+Practice	Problem	
+2.37
+	(solution	page	155)
+f
+.	
+2.3.6	
+Multiplying	by	Constants
+a
+.	
+Practice	Problem	
+2.38
+	(solution	page	155)
+b
+.	
+Practice	Problem	
+2.39
+	(solution	page	156)
+c
+.	
+Practice	Problem	
+2.40
+	(solution	page	156)
+d
+.	
+Practice	Problem	
+2.41
+	(solution	page	156)
+g
+.	
+2.3.7	
+Dividing	by	Powers	of	2
+a
+.	
+Practice	Problem	
+2.42
+	(solution	page	156)
+b
+.	
+Practice	Problem	
+2.43
+	(solution	page	157)
+
+h
+.	
+2.3.8	
+Final	Thoughts	on	Integer	Arithmetic
+a
+.	
+Practice	Problem	
+2.44
+	(solution	page	157)
+4
+.	
+2.4	
+Floating	Point
+a
+.	
+2.4.1	
+Fractional	Binary	Numbers
+a
+.	
+Practice	Problem	
+2.45
+	(solution	page	157)
+b
+.	
+Practice	Problem	
+2.46
+	(solution	page	158)
+b
+.	
+2.4.2	
+IEEE	Floating-Point	Representation
+c
+.	
+2.4.3	
+Example	Numbers
+a
+.	
+Practice	Problem	
+2.47
+	(solution	page	158)
+b
+.	
+Practice	Problem	
+2.48
+	(solution	page	159)
+c
+.	
+Practice	Problem	
+2.49
+	(solution	page	159)
+d
+.	
+2.4.4	
+Rounding
+a
+.	
+Practice	Problem	
+2.50
+	(solution	page	159)
+b
+.	
+Practice	Problem	
+2.51
+	(solution	page	159)
+c
+.	
+Practice	Problem	
+2.52
+	(solution	page	160)
+e
+.	
+2.4.5	
+Floating-Point	Operations
+f
+.	
+2.4.6	
+Floating	Point	in	C
+a
+.	
+Practice	Problem	
+2.53
+	(solution	page	160)
+b
+.	
+Practice	Problem	
+2.54
+	(solution	page	160)
+5
+.	
+2.5	
+Summary
+6
+.	
+Bibliographic	Notes
+7
+.	
+Homework	Problems
+a
+.	
+2.55	
+♦
+b
+.	
+2.56	
+♦
+
+c
+.	
+2.57	
+♦
+d
+.	
+2.58	
+♦♦
+e
+.	
+2.59	
+♦♦
+f
+.	
+2.60	♦♦
+g
+.	
+Bit-Level	Integer	Coding	Rules
+h
+.	
+2.61	♦♦
+i
+.	
+2.62	♦♦♦
+j
+.	
+2.63	♦♦♦
+k
+.	
+2.64	♦
+l
+.	
+2.65	♦♦♦♦
+m
+.	
+2.66	♦♦♦♦
+n
+.	
+2.67	♦♦
+o
+.	
+2.68	♦♦
+p
+.	
+2.69	♦♦♦
+q
+.	
+2.70	♦♦
+r
+.	
+2.71
+s
+.	
+2.72
+t
+.	
+2.73
+u
+.	
+2.74
+v
+.	
+2.75
+w
+.	
+2.76
+x
+.	
+2.77
+y
+.	
+2.78
+z
+.	
+2.79
+aa
+.	
+2.80
+ab
+.	
+2.81
+ac
+.	
+2.82
+ad
+.	
+2.83
+ae
+.	
+2.84
+af
+.	
+2.85
+
+ag
+.	
+2.86
+ah
+.	
+2.87
+ai
+.	
+2.88
+aj
+.	
+2.89
+ak
+.	
+2.90
+al
+.	
+2.91
+am
+.	
+Bit-Level	Floating-Point	Coding	Rules
+an
+.	
+2.92	♦♦
+ao
+.	
+2.94
+ap
+.	
+2.95
+aq
+.	
+2.96
+ar
+.	
+2.97
+B
+.	
+Chapter	
+3	
+Machine-Level	Representation	of	Programs
+1
+.	
+3.1	
+A	Historical	Perspective
+2
+.	
+3.2	
+Program	Encodings
+a
+.	
+3.2.1	
+Machine-Level	Code
+b
+.	
+3.2.2	
+Code	Examples
+c
+.	
+3.2.3	
+Notes	on	Formatting
+3
+.	
+3.3	
+Data	Formats
+4
+.	
+3.4	
+Accessing	Information
+a
+.	
+3.4.1	
+Operand	Specifiers
+a
+.	
+Practice	Problem	
+3.1	
+(solution	page	325)
+b
+.	
+3.4.2	
+Data	Movement	Instructions
+a
+.	
+Practice	Problem	
+3.2	
+(solution	page	325)
+b
+.	
+Practice	Problem	
+3.3	
+(solution	page	326)
+c
+.	
+3.4.3	
+Data	Movement	Example
+
+a
+.	
+Practice	Problem	
+3.4	
+(solution	page	326)
+b
+.	
+Practice	Problem	
+3.5	
+(solution	page	327)
+d
+.	
+3.4.4	
+Pushing	and	Popping	Stack	Data
+5
+.	
+3.5	
+Arithmetic	and	Logical	Operations
+a
+.	
+3.5.1	
+Load	Effective	Address
+a
+.	
+Practice	Problem	
+3.6	
+(solution	page	327)
+b
+.	
+Practice	Problem	
+3.7	
+(solution	page	328)
+b
+.	
+3.5.2	
+Unary	and	Binary	Operations
+a
+.	
+Practice	Problem	
+3.8	
+(solution	page	328)
+c
+.	
+3.5.3	
+Shift	Operations
+a
+.	
+Practice	Problem	
+3.9	
+(solution	page	328)
+d
+.	
+3.5.4	
+Discussion
+a
+.	
+Practice	Problem	
+3.10	
+(solution	page	329)
+b
+.	
+Practice	Problem	
+3.11	
+(solution	page	329)
+e
+.	
+3.5.5	
+Special	Arithmetic	Operations
+a
+.	
+Practice	Problem	
+3.12	
+(solution	page	329)
+6
+.	
+3.6	
+Control
+a
+.	
+3.6.1	
+Condition	Codes
+b
+.	
+3.6.2	
+Accessing	the	Condition	Codes
+a
+.	
+Practice	Problem	
+3.13	
+(solution	page	330)
+b
+.	
+Practice	Problem	
+3.14	
+(solution	page	330)
+c
+.	
+3.6.3	
+Jump	Instructions
+
+d
+.	
+3.6.4	
+Jump	Instruction	Encodings
+a
+.	
+Practice	Problem	
+3.15	
+(solution	page	330)
+e
+.	
+3.6.5	
+Implementing	Conditional	Branches	with
+Conditional	Control
+a
+.	
+Practice	Problem	
+3.16	
+(solution	page	331)
+b
+.	
+Practice	Problem	
+3.17	
+(solution	page	331)
+c
+.	
+Practice	Problem	
+3.18	
+(solution	page	332)
+f
+.	
+3.6.6	
+Implementing	Conditional	Branches	with
+Conditional	Moves
+a
+.	
+Practice	Problem	
+3.19	
+(solution	page	332)
+b
+.	
+Practice	Problem	
+3.20	
+(solution	page	333)
+c
+.	
+Practice	Problem	
+3.21	
+(solution	page	333)
+g
+.	
+3.6.7	
+Loops
+a
+.	
+Do-While	Loops
+a
+.	
+Practice	Problem	
+3.22	
+(solution	page	333)
+b
+.	
+Practice	Problem	
+3.23	
+(solution	page	334)
+b
+.	
+While	Loops
+a
+.	
+Practice	Problem	
+3.24	
+(solution	page	335)
+b
+.	
+Practice	Problem	
+3.25	
+(solution	page	335)
+c
+.	
+Practice	Problem	
+3.26	
+(solution	page	336)
+c
+.	
+For	Loops
+a
+.	
+Practice	Problem	
+3.27	
+(solution	page	336)
+b
+.	
+Practice	Problem	
+3.28	
+(solution	page	336)
+c
+.	
+Practice	Problem	
+3.29	
+(solution	page	337)
+
+h
+.	
+3.6.8	
+Switch	Statements
+a
+.	
+Practice	Problem	
+3.30	
+(solution	page	338)
+b
+.	
+Practice	Problem	
+3.31	
+(solution	page	338)
+7
+.	
+3.7	
+Procedures
+a
+.	
+3.7.1	
+The	Run-Time	Stack
+b
+.	
+3.7.2	
+Control	Transfer
+a
+.	
+Practice	Problem	
+3.32	
+(solution	page	339)
+c
+.	
+3.7.3	
+Data	Transfer
+a
+.	
+Practice	Problem	
+3.33	
+(solution	page	339)
+d
+.	
+3.7.4	
+Local	Storage	on	the	Stack
+e
+.	
+3.7.5	
+Local	Storage	in	Registers
+a
+.	
+Practice	Problem	
+3.34	
+(solution	page	340)
+f
+.	
+3.7.6	
+Recursive	Procedures
+a
+.	
+Practice	Problem	
+3.35	
+(solution	page	340)
+8
+.	
+3.8	
+Array	Allocation	and	Access
+a
+.	
+3.8.1	
+Basic	Principles
+a
+.	
+Practice	Problem	
+3.36	
+(solution	page	341)
+b
+.	
+3.8.2	
+Pointer	Arithmetic
+a
+.	
+Practice	Problem	
+3.37	
+(solution	page	341)
+c
+.	
+3.8.3	
+Nested	Arrays
+a
+.	
+Practice	Problem	
+3.38	
+(solution	page	341)
+d
+.	
+3.8.4	
+Fixed-Size	Arrays
+
+a
+.	
+Practice	Problem	
+3.39	
+(solution	page	342)
+b
+.	
+Practice	Problem	
+3.40	
+(solution	page	342)
+e
+.	
+3.8.5	
+Variable-Size	Arrays
+9
+.	
+3.9	
+Heterogeneous	Data	Structures
+a
+.	
+3.9.1	
+Structures
+a
+.	
+Practice	Problem	
+3.41	
+(solution	page	343)
+b
+.	
+Practice	Problem	
+3.42	
+(solution	page	343)
+b
+.	
+3.9.2	
+Unions
+a
+.	
+Practice	Problem	
+3.43	
+(solution	page	344)
+c
+.	
+3.9.3	
+Data	Alignment
+a
+.	
+Practice	Problem	
+3.44	
+(solution	page	345)
+b
+.	
+Practice	Problem	
+3.45	
+(solution	page	345)
+10
+.	
+3.10	
+Combining	Control	and	Data	in	Machine-Level
+Programs
+a
+.	
+3.10.1	
+Understanding	Pointers
+b
+.	
+3.10.2	
+Life	in	the	Real	World:	Using	the	
+GDB
+	
+Debugger
+c
+.	
+3.10.3	
+Out-of-Bounds	Memory	References	and	Buffer
+Overflow
+a
+.	
+Practice	Problem	
+3.46	
+(solution	page	346)
+d
+.	
+3.10.4	
+Thwarting	Buffer	Overflow	Attacks
+a
+.	
+Stack	Randomization
+a
+.	
+Practice	Problem	
+3.47	
+(solution	page	347)
+b
+.	
+Stack	Corruption	Detection
+
+a
+.	
+Practice	Problem	
+3.48	
+(solution	page	347)
+c
+.	
+Limiting	Executable	Code	Regions
+e
+.	
+3.10.5	
+Supporting	Variable-Size	Stack	Frames
+a
+.	
+Practice	Problem	
+3.49	
+(solution	page	347)
+11
+.	
+3.11	
+Floating-Point	Code
+a
+.	
+3.11.1	
+Floating-Point	Movement	and	Conversion
+Operations
+a
+.	
+Practice	Problem	
+3.50	
+(solution	page	347)
+b
+.	
+Practice	Problem	
+3.51	
+(solution	page	348)
+b
+.	
+3.11.2	
+Floating-Point	Code	in	Procedures
+a
+.	
+Practice	Problem	
+3.52	
+(solution	page	348)
+c
+.	
+3.11.3	
+Floating-Point	Arithmetic	Operations
+a
+.	
+Practice	Problem	
+3.53	
+(solution	page	348)
+b
+.	
+Practice	Problem	
+3.54	
+(solution	page	349)
+d
+.	
+3.11.4	
+Defining	and	Using	Floating-Point	Constants
+a
+.	
+Practice	Problem	
+3.55	
+(solution	page	349)
+e
+.	
+3.11.5	
+Using	Bitwise	Operations	in	Floating-Point	Code
+a
+.	
+Practice	Problem	
+3.56	
+(solution	page	350)
+f
+.	
+3.11.6	
+Floating-Point	Comparison	Operations
+a
+.	
+Practice	Problem	
+3.57	
+(solution	page	350)
+g
+.	
+3.11.7	
+Observations	about	Floating-Point	Code
+
+12
+.	
+3.12	
+Summary
+13
+.	
+Bibliographic	Notes
+14
+.	
+Homework	Problems
+a
+.	
+3.58
+b
+.	
+3.59
+c
+.	
+3.60
+d
+.	
+3.61
+e
+.	
+3.62
+f
+.	
+3.63
+g
+.	
+3.64
+h
+.	
+3.65
+i
+.	
+3.66
+j
+.	
+3.67
+k
+.	
+3.68
+l
+.	
+3.69
+m
+.	
+3.70
+n
+.	
+3.71
+o
+.	
+3.72
+p
+.	
+3.73
+q
+.	
+3.74
+r
+.	
+3.75
+C
+.	
+Chapter	
+4	
+Processor	Architecture
+1
+.	
+4.1	
+The	Y86-64	Instruction	Set	Architecture
+a
+.	
+4.1.1	
+Programmer-Visible	State
+b
+.	
+4.1.2	
+Y86-64	Instructions
+c
+.	
+4.1.3	
+Instruction	Encoding
+a
+.	
+Practice	Problem	
+4.1	
+(solution	page	480)
+b
+.	
+Practice	Problem	
+4.2	
+(solution	page	481)
+
+d
+.	
+4.1.4	
+Y86-64	Exceptions
+e
+.	
+4.1.5	
+Y86-64	Programs
+a
+.	
+Practice	Problem	
+4.3	
+(solution	page	482)
+b
+.	
+Practice	Problem	
+4.4	
+(solution	page	482)
+c
+.	
+Practice	Problem	
+4.5	
+(solution	page	483)
+d
+.	
+Practice	Problem	
+4.6	
+(solution	page	483)
+f
+.	
+4.1.6	
+Some	Y86-64	Instruction	Details
+a
+.	
+Practice	Problem	
+4.7	
+(solution	page	484)
+b
+.	
+Practice	Problem	
+4.8	
+(solution	page	484)
+2
+.	
+4.2	
+Logic	Design	and	the	Hardware	Control	Language	HCL
+a
+.	
+4.2.1	
+Logic	Gates
+b
+.	
+4.2.2	
+Combinational	Circuits	and	HCL	Boolean
+Expressions
+a
+.	
+Practice	Problem	
+4.9	
+(solution	page	484)
+c
+.	
+4.2.3	
+Word-Level	Combinational	Circuits	and	HCL
+Integer	Expressions
+a
+.	
+Practice	Problem	
+4.10	
+(solution	page	484)
+b
+.	
+Practice	Problem	
+4.11	
+(solution	page	484)
+c
+.	
+Practice	Problem	
+4.12	
+(solution	page	484)
+d
+.	
+4.2.4	
+Set	Membership
+e
+.	
+4.2.5	
+Memory	and	Clocking
+3
+.	
+4.3	
+Sequential	Y86-64	Implementations
+a
+.	
+4.3.1	
+Organizing	Processing	into	Stages
+a
+.	
+Practice	Problem	
+4.13	
+(solution	page	485)
+
+b
+.	
+Practice	Problem	
+4.14	
+(solution	page	486)
+c
+.	
+Practice	Problem	
+4.15	
+(solution	page	486)
+d
+.	
+Practice	Problem	
+4.16	
+(solution	page	486)
+e
+.	
+Practice	Problem	
+4.17	
+(solution	page	486)
+f
+.	
+Practice	Problem	
+4.18	
+(solution	page	487)
+b
+.	
+4.3.2	
+SEQ	Hardware	Structure
+c
+.	
+4.3.3	
+SEQ	Timing
+d
+.	
+4.3.4	
+SEQ	Stage	Implementations
+a
+.	
+Fetch	Stage
+a
+.	
+Practice	Problem	
+4.19	
+(solution	page	487)
+b
+.	
+Decode	and	Write-Back	Stages
+a
+.	
+Practice	Problem	
+4.20	
+(solution	page	488)
+b
+.	
+Practice	Problem	
+4.21	
+(solution	page	488)
+c
+.	
+Practice	Problem	
+4.22	
+(solution	page	488)
+c
+.	
+Execute	Stage
+a
+.	
+Practice	Problem	
+4.23	
+(solution	page	488)
+b
+.	
+Practice	Problem	
+4.24	
+(solution	page	488)
+d
+.	
+Memory	Stage
+a
+.	
+Practice	Problem	
+4.25	
+(solution	page	488)
+b
+.	
+Practice	Problem	
+4.26	
+(solution	page	489)
+c
+.	
+Practice	Problem	
+4.27	
+(solution	page	489)
+e
+.	
+PC	Update	Stage
+f
+.	
+Surveying	SEQ
+4
+.	
+4.4	
+General	Principles	of	Pipelining
+
+a
+.	
+4.4.1	
+Computational	Pipelines
+b
+.	
+4.4.2	
+A	Detailed	Look	at	Pipeline	Operation
+c
+.	
+4.4.3	
+Limitations	of	Pipelining
+a
+.	
+Nonuniform	Partitioning
+a
+.	
+Practice	Problem	
+4.28	
+(solution	page	489)
+b
+.	
+Diminishing	Returns	of	Deep	Pipelining
+a
+.	
+Practice	Problem	
+4.29	
+(solution	page	490)
+d
+.	
+4.4.4	
+Pipelining	a	System	with	Feedback
+5
+.	
+4.5	
+Pipelined	Y86-64	Implementations
+a
+.	
+4.5.1	
+SEQ+:	Rearranging	the	Computation	Stages
+b
+.	
+4.5.2	
+Inserting	Pipeline	Registers
+c
+.	
+4.5.3	
+Rearranging	and	Relabeling	Signals
+d
+.	
+4.5.4	
+Next	PC	Prediction
+e
+.	
+4.5.5	
+Pipeline	Hazards
+a
+.	
+Avoiding	Data	Hazards	by	Stalling
+b
+.	
+Avoiding	Data	Hazards	by	Forwarding
+c
+.	
+Load/Use	Data	Hazards
+d
+.	
+Avoiding	Control	Hazards
+f
+.	
+4.5.6	
+Exception	Handling
+g
+.	
+4.5.7	
+PIPE	Stage	Implementations
+a
+.	
+PC	Selection	and	Fetch	Stage
+a
+.	
+Practice	Problem	
+4.30	
+(solution	page	490)
+b
+.	
+Decode	and	Write-Back	Stages
+a
+.	
+Practice	Problem	
+4.31	
+(solution	page	490)
+b
+.	
+Practice	Problem	
+4.32	
+(solution	page	490)
+
+c
+.	
+Practice	Problem	
+4.33	
+(solution	page	491)
+d
+.	
+Practice	Problem	
+4.34	
+(solution	page	491)
+c
+.	
+Execute	Stage
+a
+.	
+Practice	Problem	
+4.35	
+(solution	page	491)
+d
+.	
+Memory	Stage
+a
+.	
+Practice	Problem	
+4.36	
+(solution	page	492)
+h
+.	
+4.5.8	
+Pipeline	Control	Logic
+a
+.	
+Desired	Handling	of	Special	Control	Cases
+b
+.	
+Detecting	Special	Control	Conditions
+c
+.	
+Pipeline	Control	Mechanisms
+d
+.	
+Combinations	of	Control	Conditions
+a
+.	
+Practice	Problem	
+4.37	
+(solution	page	492)
+b
+.	
+Practice	Problem	
+4.38	
+(solution	page	492)
+e
+.	
+Control	Logic	Implementation
+a
+.	
+Practice	Problem	
+4.39	
+(solution	page	493)
+b
+.	
+Practice	Problem	
+4.40	
+(solution	page	493)
+c
+.	
+Practice	Problem	
+4.41	
+(solution	page	493)
+d
+.	
+Practice	Problem	
+4.42	
+(solution	page	493)
+i
+.	
+4.5.9	
+Performance	Analysis
+a
+.	
+Practice	Problem	
+4.43	
+(solution	page	494)
+b
+.	
+Practice	Problem	
+4.44	
+(solution	page	494)
+j
+.	
+4.5.10	
+Unfinished	Business
+a
+.	
+Multicycle	Instructions
+b
+.	
+Interfacing	with	the	Memory	System
+
+6
+.	
+4.6	
+Summary
+a
+.	
+4.6.1	
+Y86-64	Simulators
+7
+.	
+Bibliographic	Notes
+8
+.	
+Homework	Problems
+a
+.	
+4.45
+b
+.	
+4.46
+c
+.	
+4.47
+d
+.	
+4.48
+e
+.	
+4.49
+f
+.	
+4.50
+g
+.	
+4.51
+h
+.	
+4.52
+i
+.	
+4.53
+j
+.	
+4.54
+k
+.	
+4.55
+l
+.	
+4.56
+m
+.	
+4.57
+n
+.	
+4.58
+o
+.	
+4.59
+D
+.	
+Chapter	
+5	
+Optimizing	Program	Performance
+1
+.	
+5.1	
+Capabilities	and	Limitations	of	Optimizing	Compilers
+a
+.	
+Practice	Problem	
+5.1	
+(solution	page	573)
+2
+.	
+5.2	
+Expressing	Program	Performance
+a
+.	
+Practice	Problem	
+5.2	
+(solution	page	573)
+3
+.	
+5.3	
+Program	Example
+
+4
+.	
+5.4	
+Eliminating	Loop	Inefficiencies
+a
+.	
+Practice	Problem	
+5.3	
+(solution	page	573)
+5
+.	
+5.5	
+Reducing	Procedure	Calls
+6
+.	
+5.6	
+Eliminating	Unneeded	Memory	References
+a
+.	
+Practice	Problem	
+5.4	
+(solution	page	574)
+7
+.	
+5.7	
+Understanding	Modern	Processors
+a
+.	
+5.7.1	
+Overall	Operation
+b
+.	
+5.7.2	
+Functional	Unit	Performance
+c
+.	
+5.7.3	
+An	Abstract	Model	of	Processor	Operation
+a
+.	
+From	Machine-Level	Code	to	Data-Flow	Graphs
+b
+.	
+Other	Performance	Factors
+a
+.	
+Practice	Problem	
+5.5	
+(solution	page	575)
+b
+.	
+Practice	Problem	
+5.6	
+(solution	page	575)
+8
+.	
+5.8	
+Loop	Unrolling
+a
+.	
+Practice	Problem	
+5.7	
+(solution	page	575)
+9
+.	
+5.9	
+Enhancing	Parallelism
+a
+.	
+5.9.1	
+Multiple	Accumulators
+b
+.	
+5.9.2	
+Reassociation	Transformation
+a
+.	
+Practice	Problem	
+5.8	
+(solution	page	576)
+10
+.	
+5.10	
+Summary	of	Results	for	Optimizing	Combining	Code
+11
+.	
+5.11	
+Some	Limiting	Factors
+a
+.	
+5.11.1	
+Register	Spilling
+b
+.	
+5.11.2	
+Branch	Prediction	and	Misprediction	Penalties
+a
+.	
+Do	Not	Be	Overly	Concerned	about	Predictable
+Branches
+
+b
+.	
+Write	Code	Suitable	for	Implementation	with
+Conditional	Moves
+a
+.	
+Practice	Problem	
+5.9	
+(solution	page	576)
+12
+.	
+5.12	
+Understanding	Memory	Performance
+a
+.	
+5.12.1	
+Load	Performance
+b
+.	
+5.12.2	
+Store	Performance
+a
+.	
+Practice	Problem	
+5.10	
+(solution	page	577)
+b
+.	
+Practice	Problem	
+5.11	
+(solution	page	577)
+c
+.	
+Practice	Problem	
+5.12	
+(solution	page	577)
+13
+.	
+5.13	
+Life	in	the	Real	World:	Performance	Improvement
+Techniques
+14
+.	
+5.14	
+Identifying	and	Eliminating	Performance	Bottlenecks
+
+1
+.	
+A
+.	
+1
+.	
+a
+.	
+5.14.1	
+Program	Profiling
+b
+.	
+5.14.2	
+Using	a	Profiler	to	Guide	Optimization
+2
+.	
+5.15	
+Summary
+3
+.	
+Bibliographic	Notes
+4
+.	
+Homework	Problems
+a
+.	
+5.13	
+♦♦
+b
+.	
+5.14	
+♦
+c
+.	
+5.15	
+♦
+d
+.	
+5.16	
+♦
+e
+.	
+5.17	
+♦♦
+f
+.	
+5.18	
+♦♦♦
+g
+.	
+5.19	
+♦♦♦
+B
+.	
+Chapter	
+6	
+The	Memory	Hierarchy
+1
+.	
+6.1	
+Storage	Technologies
+a
+.	
+6.1.1	
+Random	Access	Memory
+a
+.	
+Static	RAM
+b
+.	
+Dynamic	RAM
+c
+.	
+Conventional	DRAMs
+d
+.	
+Memory	Modules
+a
+.	
+Practice	Problem	
+6.1	
+(solution	page	660)
+e
+.	
+Enhanced	DRAMs
+f
+.	
+Nonvolatile	Memory
+g
+.	
+Accessing	Main	Memory
+
+b
+.	
+6.1.2	
+Disk	Storage
+a
+.	
+Disk	Geometry
+b
+.	
+Disk	Capacity
+a
+.	
+Practice	Problem	
+6.2	
+(solution	page	661)
+c
+.	
+Disk	Operation
+a
+.	
+Practice	Problem	
+6.3	
+(solution	page	661)
+d
+.	
+Logical	Disk	Blocks
+a
+.	
+Practice	Problem	
+6.4	
+(solution	page	661)
+e
+.	
+Connecting	I/O	Devices
+f
+.	
+Accessing	Disks
+c
+.	
+6.1.3	
+Solid	State	Disks
+a
+.	
+Practice	Problem	
+6.5	
+(solution	page	662)
+d
+.	
+6.1.4	
+Storage	Technology	Trends
+a
+.	
+Practice	Problem	
+6.6	
+(solution	page	662)
+2
+.	
+6.2	
+Locality
+a
+.	
+6.2.1	
+Locality	of	References	to	Program	Data
+b
+.	
+6.2.2	
+Locality	of	Instruction	Fetches
+c
+.	
+6.2.3	
+Summary	of	Locality
+a
+.	
+Practice	Problem	
+6.7	
+(solution	page	662)
+b
+.	
+Practice	Problem	
+6.8	
+(solution	page	663)
+3
+.	
+6.3	
+The	Memory	Hierarchy
+a
+.	
+6.3.1	
+Caching	in	the	Memory	Hierarchy
+a
+.	
+Cache	Hits
+
+b
+.	
+Cache	Misses
+c
+.	
+Kinds	of	Cache	Misses
+d
+.	
+Cache	Management
+b
+.	
+6.3.2	
+Summary	of	Memory	Hierarchy	Concepts
+4
+.	
+6.4	
+Cache	Memories
+a
+.	
+6.4.1	
+Generic	Cache	Memory	Organization
+a
+.	
+Practice	Problem	
+6.9	
+(solution	page	663)
+b
+.	
+6.4.2	
+Direct-Mapped	Caches
+a
+.	
+Set	Selection	in	Direct-Mapped	Caches
+b
+.	
+Line	Matching	in	Direct-Mapped	Caches
+c
+.	
+Word	Selection	in	Direct-Mapped	Caches
+d
+.	
+Line	Replacement	on	Misses	in	Direct-Mapped
+Caches
+e
+.	
+Putting	It	Together:	A	Direct-Mapped	Cache	in
+Action
+f
+.	
+Conflict	Misses	in	Direct-Mapped	Caches
+a
+.	
+Practice	Problem	
+6.10	
+(solution	page	663)
+b
+.	
+Practice	Problem	
+6.11	
+(solution	page	663)
+c
+.	
+6.4.3	
+Set	Associative	Caches
+a
+.	
+Set	Selection	in	Set	Associative	Caches
+b
+.	
+Line	Matching	and	Word	Selection	in	Set
+Associative	Caches
+c
+.	
+Line	Replacement	on	Misses	in	Set	Associative
+Caches
+d
+.	
+6.4.4	
+Fully	Associative	Caches
+
+a
+.	
+Set	Selection	in	Fully	Associative	Caches
+b
+.	
+Line	Matching	and	Word	Selection	in	Fully
+Associative	Caches
+a
+.	
+Practice	Problem	
+6.12	
+(solution	page	663)
+b
+.	
+Practice	Problem	
+6.13	
+(solution	page	664)
+c
+.	
+Practice	Problem	
+6.14	
+(solution	page	664)
+d
+.	
+Practice	Problem	
+6.15	
+(solution	page	664)
+e
+.	
+Practice	Problem	
+6.16	
+(solution	page	665)
+e
+.	
+6.4.5	
+Issues	with	Writes
+f
+.	
+6.4.6	
+Anatomy	of	a	Real	Cache	Hierarchy
+g
+.	
+6.4.7	
+Performance	Impact	of	Cache	Parameters
+a
+.	
+Impact	of	Cache	Size
+b
+.	
+Impact	of	Block	Size
+c
+.	
+Impact	of	Associativity
+d
+.	
+Impact	of	Write	Strategy
+5
+.	
+6.5	
+Writing	Cache-Friendly	Code
+a
+.	
+Practice	Problem	
+6.17	
+(solution	page	665)
+b
+.	
+Practice	Problem	
+6.18	
+(solution	page	666)
+c
+.	
+Practice	Problem	
+6.19	
+(solution	page	666)
+d
+.	
+Practice	Problem	
+6.20	
+(solution	page	666)
+6
+.	
+6.6	
+Putting	It	Together:	The	Impact	of	Caches	on	Program
+Performance
+a
+.	
+6.6.1	
+The	Memory	Mountain
+a
+.	
+Practice	Problem	
+6.21	
+(solution	page	666)
+b
+.	
+6.6.2	
+Rearranging	Loops	to	Increase	Spatial	Locality
+c
+.	
+6.6.3	
+Exploiting	Locality	in	Your	Programs
+
+7
+.	
+6.7	
+Summary
+8
+.	
+Bibliographic	Notes
+9
+.	
+Homework	Problems
+a
+.	
+6.22
+b
+.	
+6.23
+c
+.	
+6.24
+d
+.	
+6.25
+e
+.	
+6.26
+f
+.	
+6.27
+g
+.	
+6.28
+h
+.	
+6.29
+i
+.	
+6.30
+j
+.	
+6.31
+k
+.	
+6.32
+l
+.	
+6.33
+m
+.	
+6.34
+n
+.	
+6.35
+o
+.	
+6.36
+p
+.	
+6.37
+q
+.	
+6.38
+r
+.	
+6.39
+s
+.	
+6.40
+t
+.	
+6.41
+u
+.	
+6.42
+v
+.	
+6.43
+w
+.	
+6.44
+x
+.	
+6.45
+y
+.	
+6.46
+
+2
+.	
+Part	
+II	
+Running	Programs	on	a	System
+A
+.	
+Chapter	
+7	
+Linking
+1
+.	
+7.1	
+Compiler	Drivers
+2
+.	
+7.2	
+Static	Linking
+3
+.	
+7.3	
+Object	Files
+4
+.	
+7.4	
+Relocatable	Object	Files
+5
+.	
+7.5	
+Symbols	and	Symbol	Tables
+a
+.	
+Practice	Problem	
+7.1	
+(solution	page	717)
+6
+.	
+7.6	
+Symbol	Resolution
+a
+.	
+7.6.1	
+How	Linkers	Resolve	Duplicate	Symbol	Names
+a
+.	
+Practice	Problem	
+7.2	
+(solution	page	718)
+b
+.	
+7.6.2	
+Linking	with	Static	Libraries
+c
+.	
+7.6.3	
+How	Linkers	Use	Static	Libraries	to	Resolve
+References
+a
+.	
+Practice	Problem	
+7.3	
+(solution	page	718)
+7
+.	
+7.7	
+Relocation
+a
+.	
+7.7.1	
+Relocation	Entries
+b
+.	
+7.7.2	
+Relocating	Symbol	References
+a
+.	
+Relocating	PC-Relative	References
+b
+.	
+Relocating	Absolute	References
+a
+.	
+Practice	Problem	
+7.4	
+(solution	page	718)
+b
+.	
+Practice	Problem	
+7.5	
+(solution	page	718)
+8
+.	
+7.8	
+Executable	Object	Files
+9
+.	
+7.9	
+Loading	Executable	Object	Files
+10
+.	
+7.10	
+Dynamic	Linking	with	Shared	Libraries
+11
+.	
+7.11	
+Loading	and	Linking	Shared	Libraries	from
+
+Applications
+12
+.	
+7.12	
+Position-Independent	Code	(PIC)
+13
+.	
+7.13	
+Library	Interpositioning
+a
+.	
+7.13.1	
+Compile-Time	Interpositioning
+b
+.	
+7.13.2	
+Link-Time	Interpositioning
+c
+.	
+7.13.3	
+Run-Time	Interpositioning
+14
+.	
+7.14	
+Tools	for	Manipulating	Object	Files
+15
+.	
+7.15	
+Summary
+16
+.	
+Bibliographic	Notes
+17
+.	
+Homework	Problems
+a
+.	
+7.6	
+♦
+b
+.	
+7.7	
+♦
+c
+.	
+7.8	
+♦
+d
+.	
+7.9	
+♦
+e
+.	
+7.10	
+♦♦
+f
+.	
+7.11	
+♦♦
+g
+.	
+7.12	
+♦♦
+h
+.	
+7.13	
+♦♦
+B
+.	
+Chapter	
+8	
+Exceptional	Control	Flow
+1
+.	
+8.1	
+Exceptions
+a
+.	
+8.1.1	
+Exception	Handling
+b
+.	
+8.1.2	
+Classes	of	Exceptions
+a
+.	
+Interrupts
+b
+.	
+Traps	and	System	Calls
+c
+.	
+Faults
+d
+.	
+Aborts
+c
+.	
+8.1.3	
+Exceptions	in	Linux/x86-64	Systems
+
+a
+.	
+Linux/x86-64	Faults	and	Aborts
+b
+.	
+Linux/x86-64	System	Calls
+2
+.	
+8.2	
+Processes
+a
+.	
+8.2.1	
+Logical	Control	Flow
+b
+.	
+8.2.2	
+Concurrent	Flows
+a
+.	
+Practice	Problem	
+8.1	
+(solution	page	795)
+c
+.	
+8.2.3	
+Private	Address	Space
+d
+.	
+8.2.4	
+User	and	Kernel	Modes
+e
+.	
+8.2.5	
+Context	Switches
+3
+.	
+8.3	
+System	Call	Error	Handling
+4
+.	
+8.4	
+Process	Control
+a
+.	
+8.4.1	
+Obtaining	Process	IDs
+b
+.	
+8.4.2	
+Creating	and	Terminating	Processes
+a
+.	
+Practice	Problem	
+8.2	
+(solution	page	795)
+c
+.	
+8.4.3	
+Reaping	Child	Processes
+a
+.	
+Determining	the	Members	of	the	Wait	Set
+b
+.	
+Modifying	the	Default	Behavior
+c
+.	
+Checking	the	Exit	Status	of	a	Reaped	Child
+d
+.	
+Error	Conditions
+a
+.	
+Practice	Problem	
+8.3	
+(solution	page	797)
+e
+.	
+The	
+	Function
+f
+.	
+Examples	of	Using	
+a
+.	
+Practice	Problem	
+8.4	
+(solution	page	797)
+
+d
+.	
+8.4.4	
+Putting	Processes	to	Sleep
+a
+.	
+Practice	Problem	
+8.5	
+(solution	page	797)
+e
+.	
+8.4.5	
+Loading	and	Running	Programs
+a
+.	
+Practice	Problem	
+8.6	
+(solution	page	797)
+f
+.	
+8.4.6	
+Using	
+	and	
+	to	Run	Programs
+5
+.	
+8.5	
+Signals
+a
+.	
+8.5.1	
+Signal	Terminology
+b
+.	
+8.5.2	
+Sending	Signals
+a
+.	
+Process	Groups
+b
+.	
+Sending	Signals	with	the	
+	Program
+c
+.	
+Sending	Signals	from	the	Keyboard
+d
+.	
+Sending	Signals	with	the	
+	Function
+e
+.	
+Sending	Signals	with	the	
+	Function
+c
+.	
+8.5.3	
+Receiving	Signals
+a
+.	
+Practice	Problem	
+8.7	
+(solution	page	798)
+d
+.	
+8.5.4	
+Blocking	and	Unblocking	Signals
+e
+.	
+8.5.5	
+Writing	Signal	Handlers
+a
+.	
+Safe	Signal	Handling
+b
+.	
+Correct	Signal	Handling
+a
+.	
+Practice	Problem	
+8.8	
+(solution	page	799)
+c
+.	
+Portable	Signal	Handling
+f
+.	
+8.5.6	
+Synchronizing	Flows	to	Avoid	Nasty	Concurrency
+
+Bugs
+g
+.	
+8.5.7	
+Explicitly	Waiting	for	Signals
+6
+.	
+8.6	
+Nonlocal	Jumps
+7
+.	
+8.7	
+Tools	for	Manipulating	Processes
+8
+.	
+8.8	
+Summary
+9
+.	
+Bibliographic	Notes
+10
+.	
+Homework	Problems
+a
+.	
+8.9	
+♦
+b
+.	
+8.10	
+♦
+c
+.	
+8.11	
+♦
+d
+.	
+8.12	
+♦
+e
+.	
+8.13	
+♦
+f
+.	
+8.14	
+♦
+g
+.	
+8.15	
+♦
+h
+.	
+8.16	
+♦
+i
+.	
+8.17	
+♦
+j
+.	
+8.18	
+♦♦
+k
+.	
+8.19	
+♦♦
+l
+.	
+8.20	
+♦♦
+m
+.	
+8.21	
+♦♦
+n
+.	
+8.22	
+♦♦♦
+o
+.	
+8.23	
+♦♦
+p
+.	
+8.24	
+♦♦♦
+q
+.	
+8.25	
+♦♦♦
+r
+.	
+8.26	
+♦♦♦♦
+C
+.	
+Chapter	
+9	
+Virtual	Memory
+1
+.	
+9.1	
+Physical	and	Virtual	Addressing
+2
+.	
+9.2	
+Address	Spaces
+
+a
+.	
+Practice	Problem	
+9.1	
+(solution	page	880)
+3
+.	
+9.3	
+VM	as	a	Tool	for	Caching
+a
+.	
+9.3.1	
+DRAM	Cache	Organization
+b
+.	
+9.3.2	
+Page	Tables
+a
+.	
+Practice	Problem	
+9.2	
+(solution	page	881)
+c
+.	
+9.3.3	
+Page	Hits
+d
+.	
+9.3.4	
+Page	Faults
+e
+.	
+9.3.5	
+Allocating	Pages
+f
+.	
+9.3.6	
+Locality	to	the	Rescue	Again
+4
+.	
+9.4	
+VM	as	a	Tool	for	Memory	Management
+5
+.	
+9.5	
+VM	as	a	Tool	for	Memory	Protection
+6
+.	
+9.6	
+Address	Translation
+a
+.	
+Practice	Problem	
+9.3	
+(solution	page	881)
+b
+.	
+9.6.1	
+Integrating	Caches	and	VM
+c
+.	
+9.6.2	
+Speeding	Up	Address	Translation	with	a	TLB
+d
+.	
+9.6.3	
+Multi-Level	Page	Tables
+e
+.	
+9.6.4	
+Putting	It	Together:	End-to-End	Address
+Translation
+a
+.	
+Practice	Problem	
+9.4	
+(solution	page	881)
+7
+.	
+9.7	
+Case	Study:	The	Intel	Core	i7/Linux	Memory	System
+a
+.	
+9.7.1	
+Core	i7	Address	Translation
+b
+.	
+9.7.2	
+Linux	Virtual	Memory	System
+a
+.	
+Linux	Virtual	Memory	Areas
+b
+.	
+Linux	Page	Fault	Exception	Handling
+8
+.	
+9.8	
+Memory	Mapping
+
+a
+.	
+9.8.1	
+Shared	Objects	Revisited
+b
+.	
+9.8.2	
+The	
+	Function	Revisited
+c
+.	
+9.8.3	
+The	execve	Function	Revisited
+d
+.	
+9.8.4	
+User-Level	Memory	Mapping	with	the	
+Function
+a
+.	
+Practice	Problem	
+9.5	
+(solution	page	882)
+9
+.	
+9.9	
+Dynamic	Memory	Allocation
+a
+.	
+9.9.1	
+The	
+	and	
+	Functions
+b
+.	
+9.9.2	
+Why	Dynamic	Memory	Allocation?
+c
+.	
+9.9.3	
+Allocator	Requirements	and	Goals
+d
+.	
+9.9.4	
+Fragmentation
+e
+.	
+9.9.5	
+Implementation	Issues
+f
+.	
+9.9.6	
+Implicit	Free	Lists
+a
+.	
+Practice	Problem	
+9.6	
+(solution	page	883)
+g
+.	
+9.9.7	
+Placing	Allocated	Blocks
+h
+.	
+9.9.8	
+Splitting	Free	Blocks
+i
+.	
+9.9.9	
+Getting	Additional	Heap	Memory
+j
+.	
+9.9.10	
+Coalescing	Free	Blocks
+k
+.	
+9.9.11	
+Coalescing	with	Boundary	Tags
+a
+.	
+Practice	Problem	
+9.7	
+(solution	page	883)
+l
+.	
+9.9.12	
+Putting	It	Together:	Implementing	a	Simple
+Allocator
+a
+.	
+General	Allocator	Design
+b
+.	
+Basic	Constants	and	Macros	for	Manipulating	the
+Free	List
+c
+.	
+Creating	the	Initial	Free	List
+
+d
+.	
+Freeing	and	Coalescing	Blocks
+e
+.	
+Allocating	Blocks
+a
+.	
+Practice	Problem	
+9.8	
+(solution	page	884)
+b
+.	
+Practice	Problem	
+9.9	
+(solution	page	884)
+m
+.	
+9.9.13	
+Explicit	Free	Lists
+n
+.	
+9.9.14	
+Segregated	Free	Lists
+a
+.	
+Simple	Segregated	Storage
+a
+.	
+Practice	Problem	
+9.10	
+(solution	page	885)
+b
+.	
+Segregated	Fits
+c
+.	
+Buddy	Systems
+10
+.	
+9.10	
+Garbage	Collection
+a
+.	
+9.10.1	
+Garbage	Collector	Basics
+b
+.	
+9.10.2	
+Mark&Sweep	Garbage	Collectors
+c
+.	
+9.10.3	
+Conservative	Mark&Sweep	for	C	Programs
+11
+.	
+9.11	
+Common	Memory-Related	Bugs	in	C	Programs
+a
+.	
+9.11.1	
+Dereferencing	Bad	Pointers
+b
+.	
+9.11.2	
+Reading	Uninitialized	Memory
+c
+.	
+9.11.3	
+Allowing	Stack	Buffer	Overflows
+d
+.	
+9.11.4	
+Assuming	That	Pointers	and	the	Objects	They
+Point	to	Are	the	Same	Size
+e
+.	
+9.11.5	
+Making	Off-by-One	Errors
+f
+.	
+9.11.6	
+Referencing	a	Pointer	Instead	of	the	Object	It
+Points	To
+g
+.	
+9.11.7	
+Misunderstanding	Pointer	Arithmetic
+h
+.	
+9.11.8	
+Referencing	Nonexistent	Variables
+i
+.	
+9.11.9	
+Referencing	Data	in	Free	Heap	Blocks
+
+j
+.	
+9.11.10	
+Introducing	Memory	Leaks
+12
+.	
+9.12	
+Summary
+13
+.	
+Bibliographic	Notes
+14
+.	
+Homework	Problems
+a
+.	
+9.11
+b
+.	
+9.12
+c
+.	
+9.13
+d
+.	
+9.14
+e
+.	
+9.15
+f
+.	
+9.16
+g
+.	
+9.17
+h
+.	
+9.18
+i
+.	
+9.19
+j
+.	
+9.20
+3
+.	
+Part	
+III	
+Interaction	and	Communication	between	Programs
+A
+.	
+Chapter	
+10	
+System-Level	I/O
+1
+.	
+10.1	
+Unix	I/O
+2
+.	
+10.2	
+Files
+3
+.	
+10.3	
+Opening	and	Closing	Files
+a
+.	
+Practice	Problem	
+10.1	
+(solution	page	915)
+4
+.	
+10.4	
+Reading	and	Writing	Files
+5
+.	
+10.5	
+Robust	Reading	and	Writing	with	the	R
+IO
+	Package
+a
+.	
+10.5.1	
+	Unbuffered	Input	and	Output	Functions
+b
+.	
+10.5.2	
+	Buffered	Input	Functions
+6
+.	
+10.6	
+Reading	File	Metadata
+
+7
+.	
+10.7	
+Reading	Directory	Contents
+8
+.	
+10.8	
+Sharing	Files
+a
+.	
+Practice	Problem	
+10.2	
+(solution	page	915)
+b
+.	
+Practice	Problem	
+10.3	
+(solution	page	915)
+9
+.	
+10.9	
+I/O	Redirection
+a
+.	
+Practice	Problem	
+10.4	
+(solution	page	915)
+b
+.	
+Practice	Problem	
+10.5	
+(solution	page	916)
+10
+.	
+10.10	
+Standard	I/O
+11
+.	
+10.11	
+Putting	It	Together:	Which	I/O	Functions	Should	I
+Use?
+12
+.	
+10.12	
+Summary
+13
+.	
+Bibliographic	Notes
+14
+.	
+Homework	Problems
+a
+.	
+10.6
+b
+.	
+10.7
+c
+.	
+10.8
+d
+.	
+10.9
+e
+.	
+10.10
+B
+.	
+Chapter	
+11	
+Network	Programming
+1
+.	
+11.1	
+The	Client-Server	Programming	Model
+2
+.	
+11.2	
+Networks
+3
+.	
+11.3	
+The	Global	IP	Internet
+a
+.	
+11.3.1	
+IP	Addresses
+a
+.	
+Practice	Problem	
+11.1	
+(solution	page	966)
+b
+.	
+Practice	Problem	
+11.2	
+(solution	page	967)
+c
+.	
+Practice	Problem	
+11.3	
+(solution	page	967)
+
+b
+.	
+11.3.2	
+Internet	Domain	Names
+c
+.	
+11.3.3	
+Internet	Connections
+4
+.	
+11.4	
+The	Sockets	Interface
+a
+.	
+11.4.1	
+Socket	Address	Structures
+b
+.	
+11.4.2	
+The	
+	Function
+c
+.	
+11.4.3	
+The	
+	Function
+d
+.	
+11.4.4	
+The	
+	Function
+e
+.	
+11.4.5	
+The	
+	Function
+f
+.	
+11.4.6	
+The	
+	Function
+g
+.	
+11.4.7	
+Host	and	Service	Conversion
+a
+.	
+The	
+	Function
+b
+.	
+The	
+	Function
+a
+.	
+Practice	Problem	
+11.4	
+(solution	page	968)
+h
+.	
+11.4.8	
+Helper	Functions	for	the	Sockets	Interface
+a
+.	
+The	
+	Function
+b
+.	
+The	
+	Function
+i
+.	
+11.4.9	
+Example	Echo	Client	and	Server
+5
+.	
+11.5	
+Web	Servers
+a
+.	
+11.5.1	
+Web	Basics
+b
+.	
+11.5.2	
+Web	Content
+c
+.	
+11.5.3	
+HTTP	Transactions
+a
+.	
+HTTP	Requests
+b
+.	
+HTTP	Responses
+d
+.	
+11.5.4	
+Serving	Dynamic	Content
+
+a
+.	
+How	Does	the	Client	Pass	Program	Arguments	to
+the	Server?
+b
+.	
+How	Does	the	Server	Pass	Arguments	to	the	Child?
+c
+.	
+How	Does	the	Server	Pass	Other	Information	to	the
+Child?
+d
+.	
+Where	Does	the	Child	Send	Its	Output?
+a
+.	
+Practice	Problem	
+11.5	
+(solution	page	969)
+6
+.	
+11.6	
+Putting	It	Together:	The	T
+INY
+	
+Web	Server
+7
+.	
+11.7	
+Summary
+8
+.	
+Bibliographic	Notes
+9
+.	
+Homework	Problems
+a
+.	
+11.6
+b
+.	
+11.7
+c
+.	
+11.8
+d
+.	
+11.9
+e
+.	
+11.10
+f
+.	
+11.11
+g
+.	
+11.12
+h
+.	
+11.13
+C
+.	
+Chapter	
+12	
+Concurrent	Programming
+1
+.	
+12.1	
+Concurrent	Programming	with	Processes
+a
+.	
+12.1.1	
+A	Concurrent	Server	Based	on	Processes
+b
+.	
+12.1.2	
+Pros	and	Cons	of	Processes
+a
+.	
+Practice	Problem	
+12.1	
+(solution	page	1036)
+b
+.	
+Practice	Problem	
+12.2	
+(solution	page	1036)
+2
+.	
+12.2	
+Concurrent	Programming	with	I/O	Multiplexing
+a
+.	
+Practice	Problem	
+12.3	
+(solution	page	1036)
+
+b
+.	
+12.2.1	
+A	Concurrent	Event-Driven	Server	Based	on	I/O
+Multiplexing
+a
+.	
+Practice	Problem	
+12.4	
+(solution	page	1036)
+c
+.	
+12.2.2	
+Pros	and	Cons	of	I/O	Multiplexing
+3
+.	
+12.3	
+Concurrent	Programming	with	Threads
+a
+.	
+12.3.1	
+Thread	Execution	Model
+b
+.	
+12.3.2	
+Posix	Threads
+c
+.	
+12.3.3	
+Creating	Threads
+d
+.	
+12.3.4	
+Terminating	Threads
+e
+.	
+12.3.5	
+Reaping	Terminated	Threads
+f
+.	
+12.3.6	
+Detaching	Threads
+g
+.	
+12.3.7	
+Initializing	Threads
+h
+.	
+12.3.8	
+A	Concurrent	Server	Based	on	Threads
+a
+.	
+Practice	Problem	
+12.5	
+(solution	page	1036)
+4
+.	
+12.4	
+Shared	Variables	in	Threaded	Programs
+a
+.	
+12.4.1	
+Threads	Memory	Model
+b
+.	
+12.4.2	
+Mapping	Variables	to	Memory
+c
+.	
+12.4.3	
+Shared	Variables
+a
+.	
+Practice	Problem	
+12.6	
+(solution	page	1036)
+5
+.	
+12.5	
+Synchronizing	Threads	with	Semaphores
+a
+.	
+Practice	Problem	
+12.7	
+(solution	page	1037)
+b
+.	
+12.5.1	
+Progress	Graphs
+a
+.	
+Practice	Problem	
+12.8	
+(solution	page	1038)
+c
+.	
+12.5.2	
+Semaphores
+d
+.	
+12.5.3	
+Using	Semaphores	for	Mutual	Exclusion
+
+e
+.	
+12.5.4	
+Using	Semaphores	to	Schedule	Shared
+Resources
+a
+.	
+Producer-Consumer	Problem
+a
+.	
+Practice	Problem	
+12.9	
+(solution	page	1038)
+b
+.	
+Readers-Writers	Problem
+a
+.	
+Practice	Problem	
+12.10	
+(solution	page	1038)
+f
+.	
+12.5.5	
+Putting	It	Together:	A	Concurrent	Server	Based
+on	Prethreading
+6
+.	
+12.6	
+Using	Threads	for	Parallelism
+7
+.	
+12.7	
+Other	Concurrency	Issues
+a
+.	
+12.7.1	
+Thread	Safety
+b
+.	
+12.7.2	
+Reentrancy
+a
+.	
+Practice	Problem	
+12.12	
+(solution	page	1038)
+c
+.	
+12.7.3	
+Using	Existing	Library	Functions	in	Threaded
+Programs
+d
+.	
+12.7.4	
+Races
+a
+.	
+Practice	Problem	
+12.13	
+(solution	page	1039)
+b
+.	
+Practice	Problem	
+12.14	
+(solution	page	1039)
+e
+.	
+12.7.5	
+Deadlocks
+a
+.	
+Practice	Problem	
+12.15	
+(solution	page	1039)
+8
+.	
+12.8	
+Summary
+9
+.	
+Bibliographic	Notes
+10
+.	
+Homework	Problems
+a
+.	
+12.16	
+♦
+
+b
+.	
+12.17	
+♦
+c
+.	
+12.18
+d
+.	
+12.19	
+♦♦
+e
+.	
+12.20	
+♦♦♦
+f
+.	
+12.21	
+♦♦♦♦
+g
+.	
+12.22	
+♦♦
+h
+.	
+12.23	
+♦♦
+i
+.	
+12.24	
+♦
+j
+.	
+12.25	
+♦
+k
+.	
+12.26	
+♦♦♦
+l
+.	
+12.27	
+♦♦
+m
+.	
+12.28	
+♦
+n
+.	
+12.29	
+♦
+o
+.	
+12.30	
+♦
+p
+.	
+12.31	
+♦♦♦
+q
+.	
+12.32	
+♦♦♦
+r
+.	
+12.33	
+♦♦♦
+s
+.	
+12.34	
+♦♦♦
+t
+.	
+12.35	
+♦♦♦
+u
+.	
+12.36	
+♦♦♦
+v
+.	
+12.37	
+♦♦♦
+w
+.	
+12.38	
+♦♦♦♦
+x
+.	
+12.39	
+♦♦♦♦
+4
+.	
+Appendix	
+A	
+Error	Handling
+A
+.	
+A.1	
+Error	Handling	in	Unix	Systems
+B
+.	
+A.2	
+Error-Handling	Wrappers
+5
+.	
+References
+6
+.	
+Index
+
+List	of	Illustrations
+1
+.	
+Figure	1	A	typical	code	example.
+2
+.	
+Figure	2	Five	systems	courses	based	on	the	CS:APP	book.
+3
+.	
+Figure	1.1	The	hello	program.
+4
+.	
+Figure	1.2	The	ASCII	text	representation	of	hello.c.
+5
+.	
+Figure	1.3	The	compilation	system.
+6
+.	
+Figure	1.4	Hardware	organization	of	a	typical	system.
+7
+.	
+Figure	1.5	Reading	the	hello	command	from	the	keyboard.
+8
+.	
+Figure	1.6	Loading	the	executable	from	disk	into	main
+memory.
+9
+.	
+Figure	1.7	Writing	the	output	string	from	memory	to	the
+display.
+10
+.	
+Figure	1.8	Cache	memories.
+11
+.	
+Figure	1.9	An	example	of	a	memory	hierarchy.
+12
+.	
+Figure	1.10	Layered	view	of	a	computer	system.
+13
+.	
+Figure	1.11	Abstractions	provided	by	an	operating	system.
+14
+.	
+Figure	1.12	Process	context	switching.
+15
+.	
+Figure	1.13	Process	virtual	address	space.
+16
+.	
+Figure	1.14	A	network	is	another	I/O	device.
+17
+.	
+Figure	1.15	Using	telnet	to	run	hello	remotely	over	a	network.
+18
+.	
+Figure	1.16	Categorizing	different	processor	configurations.
+19
+.	
+Figure	1.17	Multi-core	processor	organization.
+20
+.	
+Figure	1.18	Some	abstractions	provided	by	a	computer
+system.
+21
+.	
+Figure	2.1	Specifying	different	versions	of	C	to	GCC.
+22
+.	
+Figure	2.2	Hexadecimal	notation.
+
+23
+.	
+Figure	2.3	Typical	sizes	(in	bytes)	of	basic	C	data	types.
+24
+.	
+Figure	2.4	Code	to	print	the	byte	representation	of	program
+objects.
+25
+.	
+Figure	2.5	Byte	representation	examples.
+26
+.	
+Figure	2.6	Byte	representations	of	different	data	values.
+27
+.	
+Figure	2.7	Operations	of	Boolean	algebra.
+28
+.	
+Figure	2.8	Terminology	for	integer	data	and	arithmetic
+operations.
+29
+.	
+Figure	2.9	Typical	ranges	for	C	integral	data	types	for	32-bit
+programs.
+30
+.	
+Figure	2.10	Typical	ranges	for	C	integral	data	types	for	64-bit
+programs.
+31
+.	
+Figure	2.11	Guaranteed	ranges	for	C	integral	data	types.
+32
+.	
+Figure	2.12	Unsigned	number	examples	for
+33
+.	
+Figure	2.13	Two's-complement	number	examples	for
+34
+.	
+Figure	2.14	Important	numbers.
+35
+.	
+Figure	2.15	Two's-complement	representations	of	12,345	and
+–12,345,	and	unsigned	representation	of	53,191.
+36
+.	
+Figure	2.16	Comparing	unsigned	and	two's-complement
+representations	for
+37
+.	
+Figure	2.17	Conversion	from	two's	complement	to	unsigned.
+38
+.	
+Figure	2.18	Conversion	from	unsigned	to	two's	complement.
+39
+.	
+Figure	2.19	Effects	of	C	promotion	rules.
+40
+.	
+Figure	2.20	Examples	of	sign	extension	from	w	=	3	to	w	=	4.
+41
+.	
+Figure	2.21	Integer	addition.
+42
+.	
+Figure	2.22	Relation	between	integer	addition	and	unsigned
+addition.
+43
+.	
+Figure	2.23	Unsigned	addition.
+44
+.	
+Figure	2.24	Relation	between	integer	and	two's-complement
+addition.
+
+45
+.	
+Figure	2.25	Two's-complement	addition	examples.
+46
+.	
+Figure	2.26	Two's-complement	addition.
+47
+.	
+Figure	2.27	Three-bit	unsigned	and	two's-complement
+multiplication	examples.
+48
+.	
+Figure	2.28	Dividing	unsigned	numbers	by	powers	of	2.
+49
+.	
+Figure	2.29	Applying	arithmetic	right	shift.
+50
+.	
+Figure	2.30	Dividing	two's-complement	numbers	by	powers	of
+2.
+51
+.	
+Figure	2.31	Fractional	binary	representation.
+52
+.	
+Figure	2.32	Standard	floating-point	formats.
+53
+.	
+Figure	2.33	Categories	of	single-precision	floating-point
+values.
+54
+.	
+Figure	2.34	Representable	values	for	6-bit	floating-point
+format.
+55
+.	
+Figure	2.35	Example	nonnegative	values	for	8-bit	floating-
+point	format.
+56
+.	
+Figure	2.36	Examples	of	nonnegative	floating-point	numbers.
+57
+.	
+Figure	2.37	Illustration	of	rounding	modes	for	dollar	rounding.
+58
+.	
+Figure	3.1	Sizes	of	C	data	types	in	x86-64.
+59
+.	
+Figure	3.2	Integer	registers.
+60
+.	
+Figure	3.3	Operand	forms.
+61
+.	
+Figure	3.4	Simple	data	movement	instructions.
+62
+.	
+Figure	3.5	Zero-extending	data	movement	instructions.
+63
+.	
+Figure	3.6	Sign-extending	data	movement	instructions.
+64
+.	
+Figure	3.7	C	and	assembly	code	for	exchange	routine.
+65
+.	
+Figure	3.8	Push	and	pop	instructions.
+66
+.	
+Figure	3.9	Illustration	of	stack	operation.
+67
+.	
+Figure	3.10	Integer	arithmetic	operations.
+68
+.	
+Figure	3.11	C	and	assembly	code	for	arithmetic	function.
+69
+.	
+Figure	3.12	Special	arithmetic	operations.
+
+70
+.	
+Figure	3.13	Comparison	and	test	instructions.
+71
+.	
+Figure	3.14	The	set	instructions.
+72
+.	
+Figure	3.15	The	jump	instructions.
+73
+.	
+Figure	3.16	Compilation	of	conditional	statements.
+74
+.	
+Figure	3.17	Compilation	of	conditional	statements	using
+conditional	assignment.
+75
+.	
+Figure	3.18	The	conditional	move	instructions.
+76
+.	
+Figure	3.19	Code	for	do-while	version	of	factorial	program.
+77
+.	
+Figure	3.20	C	and	assembly	code	for	while	version	of	factorial
+using	jump-to-middle	translation.
+78
+.	
+Figure	3.21	C	and	assembly	code	for	while	version	of	factorial
+using	guarded-do	translation.
+79
+.	
+Figure	3.22	Example	switch	statement	and	its	translation	into
+extended	C.
+80
+.	
+Figure	3.23	Assembly	code	for	switch	statement	example	in
+Figure	3.22.
+81
+.	
+Figure	3.24	Assembly	code	and	jump	table	for	Problem	3.31.
+82
+.	
+Figure	3.25	General	stack	frame	structure.
+83
+.	
+Figure	3.26	Illustration	of	call	and	ret	functions.
+84
+.	
+Figure	3.27	Detailed	execution	of	program	involving
+procedure	calls	and	returns.
+85
+.	
+Figure	3.28	Registers	for	passing	function	arguments.
+86
+.	
+Figure	3.29	Example	of	function	with	multiple	arguments	of
+different	types.
+87
+.	
+Figure	3.30	Stack	frame	structure	for	function	proc.
+88
+.	
+Figure	3.31	Example	of	procedure	definition	and	call.
+89
+.	
+Figure	3.32	Example	of	code	to	call	function	proc,	defined	in
+Figure	3.29.
+90
+.	
+Figure	3.33	Stack	frame	for	function	call_proc.
+91
+.	
+Figure	3.34	Code	demonstrating	use	of	callee-saved	registers.
+
+92
+.	
+Figure	3.35	Code	for	recursive	factorial	program.
+93
+.	
+Figure	3.36	Elements	of	array	in	row-major	order.
+94
+.	
+Figure	3.37	Original	and	optimized	code	to	compute	element	i,
+k	of	matrix	product	for	fixed-length	arrays.
+95
+.	
+Figure	3.38	Original	and	optimized	code	to	compute	element	i,
+k	of	matrix	product	for	variable-size	arrays.
+96
+.	
+Figure	3.39	Example	gdb	commands.
+97
+.	
+Figure	3.40	Stack	organization	for	echo	function.
+98
+.	
+Figure	3.41	C	and	disassembled	code	for	Practice	Problem
+3.46.
+99
+.	
+Figure	3.42	Stack	organization	for	echo	function	with	stack
+protector	enabled.
+100
+.	
+Figure	3.43	Function	requiring	the	use	of	a	frame	pointer.
+101
+.	
+Figure	3.44	Stack	frame	structure	for	function	vframe.
+102
+.	
+Figure	3.45	Media	registers.
+103
+.	
+Figure	3.46	Floating-point	movement	instructions.
+104
+.	
+Figure	3.47	Two-operand	floating-point	conversion
+operations.
+105
+.	
+Figure	3.48	Three-operand	floating-point	conversion
+operations.
+106
+.	
+Figure	3.49	Scalar	floating-point	arithmetic	operations.
+107
+.	
+Figure	3.50	Bitwise	operations	on	packed	data.
+108
+.	
+Figure	3.51	Illustration	of	conditional	branching	in	floating-
+point	code.
+109
+.	
+Figure	3.52	Assembly	code	for	Problem	3.62.
+110
+.	
+Figure	3.53	Disassembled	code	for	Problem	3.63.
+111
+.	
+Figure	3.54	Code	for	Problem	3.72.
+112
+.	
+Figure	4.1	Y86-64	programmer-visible	state.
+113
+.	
+Figure	4.2	Y86-64	instruction	set.
+114
+.	
+Figure	4.3	Function	codes	for	Y86-64	instruction	set.
+
+115
+.	
+Figure	4.4	Y86-64	program	register	identifiers.
+116
+.	
+Figure	4.5	Y86-64	status	codes.
+117
+.	
+Figure	4.6	Comparison	of	Y86-64	and	x86-64	assembly
+programs.
+118
+.	
+Figure	4.7	Sample	program	written	in	Y86-64	assembly	code.
+119
+.	
+Figure	4.8	Output	of	yas	assembler.
+120
+.	
+Figure	4.9	Logic	gate	types.
+121
+.	
+Figure	4.10	Combinational	circuit	to	test	for	bit	equality.
+122
+.	
+Figure	4.11	Single-bit	multiplexor	circuit.
+123
+.	
+Figure	4.12	Word-level	equality	test	circuit.
+124
+.	
+Figure	4.13	Word-level	multiplexor	circuit.
+125
+.	
+Figure	4.14	Four-way	multiplexor.
+126
+.	
+Figure	4.15	Arithmetic/logic	unit	(ALU).
+127
+.	
+Figure	4.16	Register	operation.
+128
+.	
+Figure	4.17	Sample	Y86-64	instruction	sequence.
+129
+.	
+Figure	4.18	Computations	in	sequential	implementation	of
+Y86-64	instructions	OPq,	rrmovq,	and	irmovq.
+130
+.	
+Figure	4.19	Computations	in	sequential	implementation	of
+Y86-64	instructions	rmmovq	and	mrmovq.
+131
+.	
+Figure	4.20	Computations	in	sequential	implementation	of
+Y86-64	instructions	pushq	and	popq.
+132
+.	
+Figure	4.21	Computations	in	sequential	implementation	of
+Y86-64	instructions	jXX,	call,	and	ret.
+133
+.	
+Figure	4.22	Abstract	view	of	SEQ,	a	sequential
+implementation.
+134
+.	
+Figure	4.23	Hardware	structure	of	SEQ,	a	sequential
+implementation.
+135
+.	
+Figure	4.24	Identifying	the	different	computation	steps	in	the
+sequential	implementation.
+136
+.	
+Figure	4.25	Tracing	two	cycles	of	execution	by	SEQ.
+
+137
+.	
+Figure	4.26	Constant	values	used	in	HCL	descriptions.
+138
+.	
+Figure	4.27	SEQ	fetch	stage.
+139
+.	
+Figure	4.28	SEQ	decode	and	write-back	stage.
+140
+.	
+Figure	4.29	SEQ	execute	stage.
+141
+.	
+Figure	4.30	SEQ	memory	stage.
+142
+.	
+Figure	4.31	SEQ	PC	update	stage.
+143
+.	
+Figure	4.32	Unpipelined	computation	hardware.
+144
+.	
+Figure	4.33	Three-stage	pipelined	computation	hardware.
+145
+.	
+Figure	4.34	Three-stage	pipeline	timing.
+146
+.	
+Figure	4.35	One	clock	cycle	of	pipeline	operation.
+147
+.	
+Figure	4.36	Limitations	of	pipelining	due	to	nonuniform	stage
+delays.
+148
+.	
+Figure	4.37	Limitations	of	pipelining	due	to	overhead.
+149
+.	
+Figure	4.38	Limitations	of	pipelining	due	to	logical
+dependencies.
+150
+.	
+Figure	4.39	Shifting	the	timing	of	the	PC	computation.
+151
+.	
+Figure	4.40	SEQ+	hardware	structure.
+152
+.	
+Figure	4.41	Hardware	structure	of	PIPE—,	an	initial	pipelined
+implementation.
+153
+.	
+Figure	4.42	Example	of	instruction	flow	through	pipeline.
+154
+.	
+Figure	4.43	Pipelined	execution	of	prog1	without	special
+pipeline	control.
+155
+.	
+Figure	4.44	Pipelined	execution	of	prog2	without	special
+pipeline	control.
+156
+.	
+Figure	4.45	Pipelined	execution	of	prog3	without	special
+pipeline	control.
+157
+.	
+Figure	4.46	Pipelined	execution	of	prog4	without	special
+pipeline	control.
+158
+.	
+Figure	4.47	Pipelined	execution	of	prog2	using	stalls.
+159
+.	
+Figure	4.48	Pipelined	execution	of	prog4	using	stalls.
+
+160
+.	
+Figure	4.49	Pipelined	execution	of	prog2	using	forwarding.
+161
+.	
+Figure	4.50	Pipelined	execution	of	prog3	using	forwarding.
+162
+.	
+Figure	4.51	Pipelined	execution	of	prog4	using	forwarding.
+163
+.	
+Figure	4.52	Hardware	structure	of	PIPE,	our	final	pipelined
+implementation.
+164
+.	
+Figure	4.53	Example	of	load/use	data	hazard.
+165
+.	
+Figure	4.54	Handling	a	load/use	hazard	by	stalling.
+166
+.	
+Figure	4.55	Simplified	view	of	ret	instruction	processing.
+167
+.	
+Figure	4.56	Processing	mispredicted	branch	instructions.
+168
+.	
+Figure	4.57	PIPE	PC	selection	and	fetch	logic.
+169
+.	
+Figure	4.58	PIPE	decode	and	write-back	stage	logic.
+170
+.	
+Figure	4.59	Demonstration	of	forwarding	priority.
+171
+.	
+Figure	4.60	PIPE	execute	stage	logic.
+172
+.	
+Figure	4.61	PIPE	memory	stage	logic.
+173
+.	
+Figure	4.62	Detailed	processing	of	the	ret	instruction.
+174
+.	
+Figure	4.63	Processing	invalid	memory	reference	exception.
+175
+.	
+Figure	4.64	Detection	conditions	for	pipeline	control	logic.
+176
+.	
+Figure	4.65	Additional	pipeline	register	operations,
+177
+.	
+Figure	4.66	Actions	for	pipeline	control	logic.
+178
+.	
+Figure	4.67	Pipeline	states	for	special	control	conditions.
+179
+.	
+Figure	4.68	PIPE	pipeline	control	logic.
+180
+.	
+Figure	4.69	Switch	statements	can	be	translated	into	Y86-64
+code.
+181
+.	
+Figure	4.70	Execute	and	memory	stages	capable	of	load
+forwarding.
+182
+.	
+Figure	4.71	Solution	for	Problem	4.10.
+183
+.	
+Figure	5.1	Prefix-sum	functions.
+184
+.	
+Figure	5.2	Performance	of	prefix-sum	functions.
+185
+.	
+Figure	5.3	Vector	abstract	data	type.
+186
+.	
+Figure	5.4	Implementation	of	vector	abstract	data	type.
+
+187
+.	
+Figure	5.5	Initial	implementation	of	combining	operation.
+188
+.	
+Figure	5.6	Improving	the	efficiency	of	the	loop	test.
+189
+.	
+Figure	5.7	Lowercase	conversion	routines.
+190
+.	
+Figure	5.8	Comparative	performance	of	lowercase	conversion
+routines.
+191
+.	
+Figure	5.9	Eliminating	function	calls	within	the	loop.
+192
+.	
+Figure	5.10	Accumulating	result	in	temporary.
+193
+.	
+Figure	5.11	Block	diagram	of	an	out-of-order	processor.
+194
+.	
+Figure	5.12	Latency,	issue	time,	and	capacity	characteristics
+of	reference	machine	operations.
+195
+.	
+Figure	5.13	Graphical	representation	of	inner-loop	code	for
+combine4
+196
+.	
+Figure	5.14	Abstracting	combine4	operations	as	a	data-flow
+graph.
+197
+.	
+Figure	5.15	Data-flow	representation	of	computation	by	n
+iterations	of	the	inner	loop	of	combine4.
+198
+.	
+Figure	5.16	Applying	2	×	1	loop	unrolling.
+199
+.	
+Figure	5.17	CPE	performance	for	different	degrees	of	k	×	1
+loop	unrolling.
+200
+.	
+Figure	5.18	Graphical	representation	of	inner-loop	code	for
+combine5.
+201
+.	
+Figure	5.19	Abstracting	combine5	operations	as	a	data-flow
+graph.
+202
+.	
+Figure	5.20	Data-flow	representation	of	combine5	operating
+on	a	vector	of	length	n.
+203
+.	
+Figure	5.21	Applying	2	×	2	loop	unrolling.
+204
+.	
+Figure	5.22	Graphical	representation	of	inner-loop	code	for
+combine6.
+205
+.	
+Figure	5.23	Abstracting	combine6	operations	as	a	data-flow
+graph.
+
+206
+.	
+Figure	5.24	Data-flow	representation	of	combine6	operating
+on	a	vector	of	length	n.
+207
+.	
+Figure	5.25	CPE	performance	of	k	×	k	loop	unrolling.
+208
+.	
+Figure	5.26	Applying	2	×	1a	unrolling.
+209
+.	
+Figure	5.27	Graphical	representation	of	inner-loop	code	for
+combine7.
+210
+.	
+Figure	5.28	Abstracting	combine7	operations	as	a	data-flow
+graph.
+211
+.	
+Figure	5.29	Data-flow	representation	of	combine7	operating
+on	a	vector	of	length	n.
+212
+.	
+Figure	5.30	CPE	performance	for	k	×	1a	loop	unrolling.
+213
+.	
+Figure	5.31	Linked	list	function.
+214
+.	
+Figure	5.32	Function	to	set	array	elements	to	0.
+215
+.	
+Figure	5.33	Code	to	write	and	read	memory	locations,	along
+with	illustrative	executions.
+216
+.	
+Figure	5.34	Detail	of	load	and	store	units.
+217
+.	
+Figure	5.35	Graphical	representation	of	inner-loop	code	for
+write_read.
+218
+.	
+Figure	5.36	Abstracting	the	operations	for	write_read.
+219
+.	
+Figure	5.37	Data-flow	representation	of	function	write_read.
+220
+.	
+Figure	5.38	Profile	results	for	different	versions	of	bigram-
+frequency	counting	program.
+221
+.	
+Figure	5.39	Data	dependencies	among	multiplication
+operations	for	cases	in	Problem	5.8.
+222
+.	
+Figure	6.1	Inverted	pendulum.
+223
+.	
+Figure	6.2	Characteristics	of	DRAM	and	SRAM	memory.
+224
+.	
+Figure	6.3	High-level	view	of	a	128-bit	16	×	8	DRAM	chip.
+225
+.	
+Figure	6.4	Reading	the	contents	of	a	DRAM	supercell.
+226
+.	
+Figure	6.5	Reading	the	contents	of	a	memory	module.
+227
+.	
+Figure	6.6	Example	bus	structure	that	connects	the	CPU	and
+
+main	memory.
+228
+.	
+Figure	6.7	Memory	read	transaction	for	a	load	operation:
+movq	A,	%rax.
+229
+.	
+Figure	6.8	Memory	write	transaction	for	a	store	operation:
+movq	%rax,	A.
+230
+.	
+Figure	6.9	Disk	geometry.
+231
+.	
+Figure	6.10	Disk	dynamics.
+232
+.	
+Figure	6.11	Example	bus	structure	that	connects	the	CPU,
+main	memory,	and	I/O	devices.
+233
+.	
+Figure	6.12	Reading	a	disk	sector.
+234
+.	
+Figure	6.13	Solid	state	disk	(SSD).
+235
+.	
+Figure	6.14	Performance	characteristics	of	a	commercial	solid
+state	disk.
+236
+.	
+Figure	6.15	Storage	and	processing	technology	trends.
+237
+.	
+Figure	6.16	The	gap	between	disk,	DRAM,	and	CPU	speeds.
+238
+.	
+Figure	6.17	(a)	A	function	with	good	locality,	(b)	Reference
+pattern	for	vector	v	(N	=	8).
+239
+.	
+Figure	6.18	(a)	Another	function	with	good	locality,	(b)
+Reference	pattern	for	array	a	(M	=	2,	N	=	3).
+240
+.	
+Figure	6.19	(a)	A	function	with	poor	spatial	locality,	(b)
+Reference	pattern	for	array	a	(M	=	2,	N	=	3).
+241
+.	
+Figure	6.20	Code	examples	for	Practice	Problem	6.8.
+242
+.	
+Figure	6.21	The	memory	hierarchy.
+243
+.	
+Figure	6.22	The	basic	principle	of	caching	in	a	memory
+hierarchy.
+244
+.	
+Figure	6.23	The	ubiquity	of	caching	in	modern	computer
+systems.
+245
+.	
+Figure	6.24	Typical	bus	structure	for	cache	memories.
+246
+.	
+Figure	6.25	General	organization	of	cache	(S,	E,	B,	m).
+247
+.	
+Figure	6.26	Summary	of	cache	parameters.
+
+248
+.	
+Figure	6.27	Direct-mapped	cache	(E	=	1).
+249
+.	
+Figure	6.28	Set	selection	in	a	direct-mapped	cache.
+250
+.	
+Figure	6.29	Line	matching	and	word	selection	in	a	direct-
+mapped	cache.
+251
+.	
+Figure	6.30	4-bit	address	space	for	example	direct-mapped
+cache.
+252
+.	
+Figure	6.31	Why	caches	index	with	the	middle	bits.
+253
+.	
+Figure	6.32	Set	associative	cache	(1	<	E	<	C/B).
+254
+.	
+Figure	6.33	Set	selection	in	a	set	associative	cache.
+255
+.	
+Figure	6.34	Line	matching	and	word	selection	in	a	set
+associative	cache.
+256
+.	
+Figure	6.35	Fully	associative	cache	(E	=	C/B).
+257
+.	
+Figure	6.36	Set	selection	in	a	fully	associative	cache.
+258
+.	
+Figure	6.37	Line	matching	and	word	selection	in	a	fully
+associative	cache.
+259
+.	
+Figure	6.38	Intel	Core	i7	cache	hierarchy.
+260
+.	
+Figure	6.39	Characteristics	of	the	Intel	Core	i7	cache
+hierarchy.
+261
+.	
+Figure	6.40	Functions	that	measure	and	compute	read
+throughput.
+262
+.	
+Figure	6.41	A	memory	mountain.
+263
+.	
+Figure	6.42	Ridges	of	temporal	locality	in	the	memory
+mountain.
+264
+.	
+Figure	6.43	A	slope	of	spatial	locality.
+265
+.	
+Figure	6.44	Six	versions	of	matrix	multiply.
+266
+.	
+Figure	6.45	Analysis	of	matrix	multiply	inner	loops.
+267
+.	
+Figure	6.46	Core	i7	matrix	multiply	performance.
+268
+.	
+Figure	6.47	Functions	referenced	in	Problem	6.37.
+269
+.	
+Figure	6.48	Figure	for	solution	to	Problem	6.17.
+270
+.	
+Figure	7.1	Example	program	1.
+
+271
+.	
+Figure	7.2	Static	linking.
+272
+.	
+Figure	7.3	Typical	ELF	relocatable	object	file.
+273
+.	
+Figure	7.4	ELF	symbol	table	entry.
+274
+.	
+Figure	7.5	Example	program	for	Practice	Problem	7.1.
+275
+.	
+Figure	7.6	Member	object	files	in	the	libvector	library.
+276
+.	
+Figure	7.7	Example	program	2.
+277
+.	
+Figure	7.8	Linking	with	static	libraries.
+278
+.	
+Figure	7.9	ELF	relocation	entry.
+279
+.	
+Figure	7.10	Relocation	algorithm.
+280
+.	
+Figure	7.11	Code	and	relocation	entries	from	main.o.
+281
+.	
+Figure	7.12	Relocated	.text	and	.data	sections	for	the
+executable	file	prog.
+282
+.	
+Figure	7.13	Typical	ELF	executable	object	file.
+283
+.	
+Figure	7.14	Program	header	table	for	the	example	executable
+prog.
+284
+.	
+Figure	7.15	Linux	x86-64	run-time	memory	image.
+285
+.	
+Figure	7.16	Dynamic	linking	with	shared	libraries.
+286
+.	
+Figure	7.17	Example	program	3.
+287
+.	
+Figure	7.18	Using	the	GOT	to	reference	a	global	variable.
+288
+.	
+Figure	7.19	Using	the	PLT	and	GOT	to	call	external	functions.
+289
+.	
+Figure	7.20	Compile-time	interpositioning	with	the	C
+preprocessor.
+290
+.	
+Figure	7.21	Link-time	interpositioning	with	the	--wrap	flag.
+291
+.	
+Figure	7.22	Run-time	interpositioning	with	LD_PRELOAD.
+292
+.	
+Figure	8.1	Anatomy	of	an	exception.
+293
+.	
+Figure	8.2	Exception	table.
+294
+.	
+Figure	8.3	Generating	the	address	of	an	exception	handler.
+295
+.	
+Figure	8.4	Classes	of	exceptions.
+296
+.	
+Figure	8.5	Interrupt	handling.
+297
+.	
+Figure	8.6	Trap	handling.
+
+298
+.	
+Figure	8.7	Fault	handling.
+299
+.	
+Figure	8.8	Abort	handling.
+300
+.	
+Figure	8.9	Examples	of	exceptions	in	x86-64	systems.
+301
+.	
+Figure	8.10	Examples	of	popular	system	calls	in	Linux	x86-64
+systems.
+302
+.	
+Figure	8.11	Implementing	the	hello	program	directly	with
+Linux	system	calls.
+303
+.	
+Figure	8.12	Logical	control	flows.
+304
+.	
+Figure	8.13	Process	address	space.
+305
+.	
+Figure	8.14	Anatomy	of	a	process	context	switch.
+306
+.	
+Figure	8.15	Using	fork	to	create	a	new	process.
+307
+.	
+Figure	8.16	Process	graph	for	the	example	program	in	Figure
+8.15.
+308
+.	
+Figure	8.17	Process	graph	for	a	nested	fork.
+309
+.	
+Figure	8.18	Using	the	waitpid	function	to	reap	zombie
+children	in	no	particular	order.
+310
+.	
+Figure	8.19	Using	waitpid	to	reap	zombie	children	in	the	order
+they	were	created.
+311
+.	
+Figure	8.20	Organization	of	an	argument	list.
+312
+.	
+Figure	8.21	Organization	of	an	environment	variable	list.
+313
+.	
+Figure	8.22	Typical	organization	of	the	user	stack	when	a	new
+program	starts.
+314
+.	
+Figure	8.23	The	main	routine	for	a	simple	shell	program.
+315
+.	
+Figure	8.24	eval	evaluates	the	shell	command	line.
+316
+.	
+Figure	8.25	parseline	parses	a	line	of	input	for	the	shell.
+317
+.	
+Figure	8.26	Linux	signals.
+318
+.	
+Figure	8.27	Signal	handling.
+319
+.	
+Figure	8.28	Foreground	and	background	process	groups.
+320
+.	
+Figure	8.29	Using	the	kill	function	to	send	a	signal	to	a	child.
+321
+.	
+Figure	8.30	A	program	that	uses	a	signal	handler	to	catch	a
+
+SIGINT	signal.
+322
+.	
+Figure	8.31	Handlers	can	be	interrupted	by	other	handlers.
+323
+.	
+Figure	8.32	Temporarily	blocking	a	signal	from	being
+received.
+324
+.	
+Figure	8.33	Async-signal-safe	functions.
+325
+.	
+Figure	8.34	The	Sio	(Safe	I/O)	package	for	signal	handlers.
+326
+.	
+Figure	8.35	A	safe	version	of	the	SICINT	handler	from	Figure
+8.30.
+327
+.	
+Figure	8.36	signal1.	This	program	is	flawed	because	it
+assumes	that	signals	are	queued.
+328
+.	
+Figure	8.37	signal2.	An	improved	version	of	Figure	8.36	that
+correctly	accounts	for	the	fact	that	signals	are	not	queued.
+329
+.	
+Figure	8.38	Signal.	A	wrapper	for	sigaction	that	provides
+portable	signal	handling	on	Posix-compliant	systems.
+330
+.	
+Figure	8.39	A	shell	program	with	a	subtle	synchronization
+error.
+331
+.	
+Figure	8.40	Using	sigprocmask	to	synchronize	processes.
+332
+.	
+Figure	8.41	Waiting	for	a	signal	with	a	spin	loop.
+333
+.	
+Figure	8.42	Waiting	for	a	signal	with	sigsuspend.
+334
+.	
+Figure	8.43	Nonlocal	jump	example.
+335
+.	
+Figure	8.44	A	program	that	uses	nonlocal	jumps	to	restart
+itself	when	the	user	types	Ctrl+C.
+336
+.	
+Figure	8.45	Counter	program	referenced	in	Problem	8.23.
+337
+.	
+Figure	8.46	Sample	shell	session	for	Problem	8.26.
+338
+.	
+Figure	8.47	Process	graph	for	Practice	Problem	8.2.
+339
+.	
+Figure	8.48	Process	graph	for	Practice	Problem	8.3.
+340
+.	
+Figure	8.49	Process	graph	for	Practice	Problem	8.4.
+341
+.	
+Figure	9.1	A	system	that	uses	physical	addressing.
+342
+.	
+Figure	9.2	A	system	that	uses	virtual	addressing.
+343
+.	
+Figure	9.3	How	a	VM	system	uses	main	memory	as	a	cache.
+
+344
+.	
+Figure	9.4	Page	table.
+345
+.	
+Figure	9.5	VM	page	hit.
+346
+.	
+Figure	9.6	VM	page	fault	(before).
+347
+.	
+Figure	9.7	VM	page	fault	(after).
+348
+.	
+Figure	9.8	Allocating	a	new	virtual	page.
+349
+.	
+Figure	9.9	How	VM	provides	processes	with	separate	address
+spaces.
+350
+.	
+Figure	9.10	Using	VM	to	provide	page-level	memory
+protection.
+351
+.	
+Figure	9.11	Summary	of	address	translation	symbols.
+352
+.	
+Figure	9.12	Address	translation	with	a	page	table.
+353
+.	
+Figure	9.13	Operational	view	of	page	hits	and	page	faults.
+354
+.	
+Figure	9.14	Integrating	VM	with	a	physically	addressed	cache.
+355
+.	
+Figure	9.15	Components	of	a	virtual	address	that	are	used	to
+access	the	TLB.
+356
+.	
+Figure	9.16	Operational	view	of	a	TLB	hit	and	miss.
+357
+.	
+Figure	9.17	A	two-level	page	table	hierarchy.
+358
+.	
+Figure	9.18	Address	translation	with	a	k-level	page	table.
+359
+.	
+Figure	9.19	Addressing	for	small	memory	system.
+360
+.	
+Figure	9.20	TLB,	page	table,	and	cache	for	small	memory
+system.
+361
+.	
+Figure	9.21	The	Core	i7	memory	system.
+362
+.	
+Figure	9.22	Summary	of	Core	i7	address	translation.
+363
+.	
+Figure	9.23	Format	of	level	1,	level	2,	and	level	3	page	table
+entries.
+364
+.	
+Figure	9.24	Format	of	level	4	page	table	entries.
+365
+.	
+Figure	9.25	Core	i7	page	table	translation.
+366
+.	
+Figure	9.26	The	virtual	memory	of	a	Linux	process.
+367
+.	
+Figure	9.27	How	Linux	organizes	virtual	memory.
+368
+.	
+Figure	9.28	Linux	page	fault	handling.
+
+369
+.	
+Figure	9.29	A	shared	object.
+370
+.	
+Figure	9.30	A	private	copy-on-write	object.
+371
+.	
+Figure	9.31	How	the	loader	maps	the	areas	of	the	user
+address	space.
+372
+.	
+Figure	9.32	Visual	interpretation	of	mmap	arguments.
+373
+.	
+Figure	9.33	The	heap.
+374
+.	
+Figure	9.34	Allocating	and	freeing	blocks	with	malloc	and
+free.
+375
+.	
+Figure	9.35	Format	of	a	simple	heap	block.
+376
+.	
+Figure	9.36	Organizing	the	heap	with	an	implicit	free	list.
+377
+.	
+Figure	9.37	Splitting	a	free	block	to	satisfy	a	three-word
+allocation	request.
+378
+.	
+Figure	9.38	An	example	of	false	fragmentation.
+379
+.	
+Figure	9.39	Format	of	heap	block	that	uses	a	boundary	tag.
+380
+.	
+Figure	9.40	Coalescing	with	boundary	tags.
+381
+.	
+Figure	9.41	memlib.	c:	Memory	system	model.
+382
+.	
+Figure	9.42	Invariant	form	of	the	implicit	free	list.
+383
+.	
+Figure	9.43	Basic	constants	and	macros	for	manipulating	the
+free	list.
+384
+.	
+Figure	9.44	mm_init	creates	a	heap	with	an	initial	free	block.
+385
+.	
+Figure	9.45	extend_heap	extends	the	heap	with	a	new	free
+block.
+386
+.	
+Figure	9.46	mm_free	frees	a	block	and	uses	boundary-tag
+coalescing	to	merge	it	with	any	adjacent	free	blocks	in
+constant	time.
+387
+.	
+Figure	9.47	mm_malloc	allocates	a	block	from	the	free	list.
+388
+.	
+Figure	9.48	Format	of	heap	blocks	that	use	doubly	linked	free
+lists.
+389
+.	
+Figure	9.49	A	garbage	collector's	view	of	memory	as	a
+directed	graph.
+
+390
+.	
+Figure	9.50	Integrating	a	conservative	garbage	collector	and	a
+C	malloc	package.
+391
+.	
+Figure	9.51	Pseudocode	for	the	mark	and	sweep	functions.
+392
+.	
+Figure	9.52	Mark&Sweep	example.
+393
+.	
+Figure	9.53	Left	and	right	pointers	in	a	balanced	tree	of
+allocated	blocks.
+394
+.	
+Figure	10.1	Portion	of	the	Linux	directory	hierarchy.
+395
+.	
+Figure	10.2	Access	permission	bits.
+396
+.	
+Figure	10.3	Using	read	and	write	to	copy	standard	input	to
+standard	output	1	byte	at	a	time.
+397
+.	
+Figure	10.4	The	rio_readn	and	rio_writen	functions.
+398
+.	
+Figure	10.5	Copying	a	text	file	from	standard	input	to
+standard	output.
+399
+.	
+Figure	10.6	A	read	buffer	of	type	rio_t	and	the	rio_readinitb
+function	that	initializes	it.
+400
+.	
+Figure	10.7	The	internal	rio_read	function.
+401
+.	
+Figure	10.8	The	rio_readlineb	and	rio_readnb	functions.
+402
+.	
+Figure	10.9	The	stat	structure.
+403
+.	
+Figure	10.10	Querying	and	manipulating	a	file's	st_mode	bits.
+404
+.	
+Figure	10.11	Reading	the	contents	of	a	directory.
+405
+.	
+Figure	10.12	Typical	kernel	data	structures	for	open	files.
+406
+.	
+Figure	10.13	File	sharing.
+407
+.	
+Figure	10.14	How	a	child	process	inherits	the	parent's	open
+files.
+408
+.	
+Figure	10.15	Kernel	data	structures	after	redirecting	standard
+output	by	calling	dup2(4,	1).
+409
+.	
+Figure	10.16	Relationship	between	Unix	I/O,	standard	I/O,	and
+Rio.
+410
+.	
+Figure	11.1	A	client-server	transaction.
+411
+.	
+Figure	11.2	Hardware	organization	of	a	network	host.
+
+412
+.	
+Figure	11.3	Ethernet	segment.
+413
+.	
+Figure	11.4	Bridged	Ethernet	segments.
+414
+.	
+Figure	11.5	Conceptual	view	of	a	LAN.
+415
+.	
+Figure	11.6	A	small	internet.
+416
+.	
+Figure	11.7	How	data	travel	from	one	host	to	another	on	an
+internet.
+417
+.	
+Figure	11.8	Hardware	and	software	organization	of	an	Internet
+application.
+418
+.	
+Figure	11.9	IP	address	structure.
+419
+.	
+Figure	11.10	Subset	of	the	Internet	domain	name	hierarchy.
+420
+.	
+Figure	11.11	Anatomy	of	an	Internet	connection.
+421
+.	
+Figure	11.12	Overview	of	network	applications	based	on	the
+sockets	interface.
+422
+.	
+Figure	11.13	Socket	address	structures.
+423
+.	
+Figure	11.14	The	roles	of	the	listening	and	connected
+descriptors.
+424
+.	
+Figure	11.15	Data	structure	returned	by	getaddrinfo.
+425
+.	
+Figure	11.16	The	addrinfo	structure	used	by	getaddrinfo.
+426
+.	
+Figure	11.17	Hostinfo	displays	the	mapping	of	a	domain	name
+to	its	associated	IP	addresses.
+427
+.	
+Figure	11.18	open_clientfd:	Helper	function	that	establishes	a
+connection	with	a	server.
+428
+.	
+Figure	11.19	open_listenfd:	Helper	function	that	opens	and
+returns	a	listening	descriptor.
+429
+.	
+Figure	11.20	Echo	client	main	routine.
+430
+.	
+Figure	11.21	Iterative	echo	server	main	routine.
+431
+.	
+Figure	11.22	echo	function	that	reads	and	echoes	text	lines.
+432
+.	
+Figure	11.23	Example	MIME	types.
+433
+.	
+Figure	11.24	Example	of	an	HTTP	transaction	that	serves
+static	content.
+
+434
+.	
+Figure	11.25	Some	HTTP	status	codes.
+435
+.	
+Figure	11.26	Examples	of	CGI	environment	variables.
+436
+.	
+Figure	11.27	CGI	program	that	sums	two	integers.
+437
+.	
+Figure	11.28	An	HTTP	transaction	that	serves	dynamic	HTML
+content.
+438
+.	
+Figure	11.29	The	Tiny	Web	server.
+439
+.	
+Figure	11.30	Tiny	doit	handles	one	HTTP	transaction.
+440
+.	
+Figure	11.31	Tiny	clienterror	sends	an	error	message	to	the
+client.
+441
+.	
+Figure	11.32	Tiny	read_requesthdrs	reads	and	ignores
+request	headers.
+442
+.	
+Figure	11.33	Tiny	parse_uri	parses	an	HTTP	URI.
+443
+.	
+Figure	11.34	Tiny	serve_static	serves	static	content	to	a
+client.
+444
+.	
+Figure	11.35	Tiny	serve_dynamic	serves	dynamic	content	to	a
+client.
+445
+.	
+Figure	12.1	Step	1:	Server	accepts	connection	request	from
+client.
+446
+.	
+Figure	12.2	Step	2:	Server	forks	a	child	process	to	service	the
+client.
+447
+.	
+Figure	12.3	Step	3:	Server	accepts	another	connection
+request.
+448
+.	
+Figure	12.4	Step	4:	Server	forks	another	child	to	service	the
+new	client.
+449
+.	
+Figure	12.5	Concurrent	echo	server	based	on	processes.
+450
+.	
+Figure	12.6	An	iterative	echo	server	that	uses	I/O
+multiplexing.
+451
+.	
+Figure	12.7	State	machine	for	a	logical	flow	in	a	concurrent
+event-driven	echo	server.
+452
+.	
+Figure	12.8	Concurrent	echo	server	based	on	I/O
+
+multiplexing.
+453
+.	
+Figure	12.9	init_pool	initializes	the	pool	of	active	clients.
+454
+.	
+Figure	12.10	add_client	adds	a	new	client	connection	to	the
+pool.
+455
+.	
+Figure	12.11	check_clients	services	ready	client	connections.
+456
+.	
+Figure	12.12	Concurrent	thread	execution.
+457
+.	
+Figure	12.13	hello.c:	The	Pthreads	"Hello,	world!"	program.
+458
+.	
+Figure	12.14	Concurrent	echo	server	based	on	threads.
+459
+.	
+Figure	12.15	Example	program	that	illustrates	different
+aspects	of	sharing.
+460
+.	
+Figure	12.16	badcnt.c:	An	improperly	synchronized	counter
+program.
+461
+.	
+Figure	12.17	Assembly	code	for	the	counter	loop	(lines	40−41)
+in	badcnt.c.
+462
+.	
+Figure	12.18	Instruction	orderings	for	the	first	loop	iteration	in
+badcnt.c.
+463
+.	
+Figure	12.19	Progress	graph	for	the	first	loop	iteration	of
+badcnt.c.
+464
+.	
+Figure	12.20	An	example	trajectory.
+465
+.	
+Figure	12.21	Safe	and	unsafe	trajectories.
+466
+.	
+Figure	12.22	Using	semaphores	for	mutual	exclusion.
+467
+.	
+Figure	12.23	Producer-consumer	problem.
+468
+.	
+Figure	12.24	sbuf_t:	Bounded	buffer	used	by	the	Sbuf
+package.
+469
+.	
+Figure	12.25	Sbuf:	A	package	for	synchronizing	concurrent
+access	to	bounded	buffers.
+470
+.	
+Figure	12.26	Solution	to	the	first	readers-writers	problem.
+471
+.	
+Figure	12.27	Organization	of	a	prethreaded	concurrent	server.
+472
+.	
+Figure	12.28	A	prethreaded	concurrent	echo	server.
+473
+.	
+Figure	12.29	echo_cnt:	A	version	of	echo	that	counts	all	bytes
+
+received	from	clients.
+474
+.	
+Figure	12.30	Relationships	between	the	sets	of	sequential,
+concurrent,	and	parallel	programs.
+475
+.	
+Figure	12.31	Main	routine	for	psum-mutex.
+476
+.	
+Figure	12.32	Thread	routine	for	psum-mutex.
+477
+.	
+Figure	12.33	Thread	routine	for	psum-array.
+478
+.	
+Figure	12.34	Thread	routine	for	psum-local.
+479
+.	
+Figure	12.35	Performance	of	psum-local	(Figure	12.34).
+480
+.	
+Figure	12.36	Speedup	and	parallel	efficiency	for	the	execution
+times	in	Figure	12.35.
+481
+.	
+Figure	12.37	A	thread-unsafe	pseudorandom	number
+generator.
+482
+.	
+Figure	12.38	Thread-safe	wrapper	function	for	the	C	standard
+library	ctime	function.
+483
+.	
+Figure	12.39	Relationships	between	the	sets	of	reentrant,
+thread-safe,	and	thread-unsafe	functions.
+484
+.	
+Figure	12.40	rand_r:	A	reentrant	version	of	the	rand	function
+from	Figure	12.37.
+485
+.	
+Figure	12.41	Common	thread-unsafe	library	functions.
+486
+.	
+Figure	12.42	program	with	a	race.
+487
+.	
+Figure	12.43
+488
+.	
+Figure	12.44	Progress	graph	for	a	program	that	can	deadlock.
+489
+.	
+Figure	12.45	Progress	graph	for	a	deadlock-free	program.
+490
+.	
+Figure	12.46	Buggy	program	for	Problem	12.17.
+491
+.	
+Figure	12.47	Driver	program	for	Problems	12.31−12.33.
+492
+.	
+Figure	12.48	Progress	graph	for	a	program	that	deadlocks.
+493
+.	
+Figure	12.49	Progress	graph	for	the	corrected	deadlock-free
+program.
+494
+.	
+Figure	A.1	Error-reporting	functions.
+495
+.	
+Figure	A.2	Wrapper	for	Unix-style	wait	function.
+
+496
+.	
+Figure	A.3	Wrapper	for	Unix-style	kill	function.
+497
+.	
+Figure	A.4	Wrapper	for	Posix-style	pthread_detach	function.
+498
+.	
+Figure	A.5	Wrapper	for	GAI-style	getaddrinfo	function.
+
+Landmarks
+1
+.	
+Contents
+2
+.	
+Frontmatter
+3
+.	
+Start	of	Content
+4
+.	
+backmatter
+5
+.	
+List	of	Illustrations
+1
+.	
+i
+2
+.	
+ii
+3
+.	
+iii
+4
+.	
+iv
+5
+.	
+v
+6
+.	
+vi
+7
+.	
+vii
+8
+.	
+viii
+9
+.	
+ix
+10
+.	
+x
+11
+.	
+xi
+12
+.	
+xii
+13
+.	
+xiii
+14
+.	
+xiv
+15
+.	
+xv
+16
+.	
+xvi
+17
+.	
+xvii
+18
+.	
+xviii
+19
+.	
+xix
+
+20
+.	
+xx
+21
+.	
+xxi
+22
+.	
+xxii
+23
+.	
+xxiii
+24
+.	
+xxiv
+25
+.	
+xxv
+26
+.	
+xxvi
+27
+.	
+xxvii
+28
+.	
+xxviii
+29
+.	
+xxix
+30
+.	
+xxx
+31
+.	
+xxxi
+32
+.	
+xxxii
+33
+.	
+xxxiii
+34
+.	
+xxxiv
+35
+.	
+xxxv
+36
+.	
+xxxvi
+37
+.	
+1
+38
+.	
+2
+39
+.	
+3
+40
+.	
+4
+41
+.	
+5
+42
+.	
+6
+43
+.	
+7
+44
+.	
+8
+45
+.	
+9
+46
+.	
+10
+47
+.	
+11
+48
+.	
+12
+49
+.	
+13
+
+50
+.	
+14
+51
+.	
+15
+52
+.	
+16
+53
+.	
+17
+54
+.	
+18
+55
+.	
+19
+56
+.	
+20
+57
+.	
+21
+58
+.	
+22
+59
+.	
+23
+60
+.	
+24
+61
+.	
+25
+62
+.	
+26
+63
+.	
+27
+64
+.	
+28
+65
+.	
+29
+66
+.	
+30
+67
+.	
+31
+68
+.	
+32
+69
+.	
+33
+70
+.	
+34
+71
+.	
+35
+72
+.	
+36
+73
+.	
+37
+74
+.	
+38
+75
+.	
+39
+76
+.	
+40
+77
+.	
+41
+78
+.	
+42
+79
+.	
+43
+
+80
+.	
+44
+81
+.	
+45
+82
+.	
+46
+83
+.	
+47
+84
+.	
+48
+85
+.	
+49
+86
+.	
+50
+87
+.	
+51
+88
+.	
+52
+89
+.	
+53
+90
+.	
+54
+91
+.	
+55
+92
+.	
+56
+93
+.	
+57
+94
+.	
+58
+95
+.	
+59
+96
+.	
+60
+97
+.	
+61
+98
+.	
+62
+99
+.	
+63
+100
+.	
+64
+101
+.	
+65
+102
+.	
+66
+103
+.	
+67
+104
+.	
+68
+105
+.	
+69
+106
+.	
+70
+107
+.	
+71
+108
+.	
+72
+109
+.	
+73
+
+110
+.	
+74
+111
+.	
+75
+112
+.	
+76
+113
+.	
+77
+114
+.	
+78
+115
+.	
+79
+116
+.	
+80
+117
+.	
+81
+118
+.	
+82
+119
+.	
+83
+120
+.	
+84
+121
+.	
+85
+122
+.	
+86
+123
+.	
+87
+124
+.	
+88
+125
+.	
+89
+126
+.	
+90
+127
+.	
+91
+128
+.	
+92
+129
+.	
+93
+130
+.	
+94
+131
+.	
+95
+132
+.	
+96
+133
+.	
+97
+134
+.	
+98
+135
+.	
+99
+136
+.	
+100
+137
+.	
+101
+138
+.	
+102
+139
+.	
+103
+
+140
+.	
+104
+141
+.	
+105
+142
+.	
+106
+143
+.	
+107
+144
+.	
+108
+145
+.	
+109
+146
+.	
+110
+147
+.	
+111
+148
+.	
+112
+149
+.	
+113
+150
+.	
+114
+151
+.	
+115
+152
+.	
+116
+153
+.	
+117
+154
+.	
+118
+155
+.	
+119
+156
+.	
+120
+157
+.	
+121
+158
+.	
+122
+159
+.	
+123
+160
+.	
+124
+161
+.	
+125
+162
+.	
+126
+163
+.	
+127
+164
+.	
+128
+165
+.	
+129
+166
+.	
+130
+167
+.	
+131
+168
+.	
+132
+169
+.	
+133
+
+170
+.	
+134
+171
+.	
+135
+172
+.	
+136
+173
+.	
+137
+174
+.	
+138
+175
+.	
+139
+176
+.	
+140
+177
+.	
+141
+178
+.	
+142
+179
+.	
+143
+180
+.	
+144
+181
+.	
+145
+182
+.	
+146
+183
+.	
+147
+184
+.	
+148
+185
+.	
+149
+186
+.	
+150
+187
+.	
+151
+188
+.	
+152
+189
+.	
+153
+190
+.	
+154
+191
+.	
+155
+192
+.	
+156
+193
+.	
+157
+194
+.	
+158
+195
+.	
+159
+196
+.	
+160
+197
+.	
+161
+198
+.	
+162
+199
+.	
+163
+
+200
+.	
+164
+201
+.	
+165
+202
+.	
+166
+203
+.	
+167
+204
+.	
+168
+205
+.	
+169
+206
+.	
+170
+207
+.	
+171
+208
+.	
+172
+209
+.	
+173
+210
+.	
+174
+211
+.	
+175
+212
+.	
+176
+213
+.	
+177
+214
+.	
+178
+215
+.	
+179
+216
+.	
+180
+217
+.	
+181
+218
+.	
+182
+219
+.	
+183
+220
+.	
+184
+221
+.	
+185
+222
+.	
+186
+223
+.	
+187
+224
+.	
+188
+225
+.	
+189
+226
+.	
+190
+227
+.	
+191
+228
+.	
+192
+229
+.	
+193
+
+230
+.	
+194
+231
+.	
+195
+232
+.	
+196
+233
+.	
+197
+234
+.	
+198
+235
+.	
+199
+236
+.	
+200
+237
+.	
+201
+238
+.	
+202
+239
+.	
+203
+240
+.	
+204
+241
+.	
+205
+242
+.	
+206
+243
+.	
+207
+244
+.	
+208
+245
+.	
+209
+246
+.	
+210
+247
+.	
+211
+248
+.	
+212
+249
+.	
+213
+250
+.	
+214
+251
+.	
+215
+252
+.	
+216
+253
+.	
+217
+254
+.	
+218
+255
+.	
+219
+256
+.	
+220
+257
+.	
+221
+258
+.	
+222
+259
+.	
+223
+
+260
+.	
+224
+261
+.	
+225
+262
+.	
+226
+263
+.	
+227
+264
+.	
+228
+265
+.	
+229
+266
+.	
+230
+267
+.	
+231
+268
+.	
+232
+269
+.	
+233
+270
+.	
+234
+271
+.	
+235
+272
+.	
+236
+273
+.	
+237
+274
+.	
+238
+275
+.	
+239
+276
+.	
+240
+277
+.	
+241
+278
+.	
+242
+279
+.	
+243
+280
+.	
+244
+281
+.	
+245
+282
+.	
+246
+283
+.	
+247
+284
+.	
+248
+285
+.	
+249
+286
+.	
+250
+287
+.	
+251
+288
+.	
+252
+289
+.	
+253
+
+290
+.	
+254
+291
+.	
+255
+292
+.	
+256
+293
+.	
+257
+294
+.	
+258
+295
+.	
+259
+296
+.	
+260
+297
+.	
+261
+298
+.	
+262
+299
+.	
+263
+300
+.	
+264
+301
+.	
+265
+302
+.	
+266
+303
+.	
+267
+304
+.	
+268
+305
+.	
+269
+306
+.	
+270
+307
+.	
+271
+308
+.	
+272
+309
+.	
+273
+310
+.	
+274
+311
+.	
+275
+312
+.	
+276
+313
+.	
+277
+314
+.	
+278
+315
+.	
+279
+316
+.	
+280
+317
+.	
+281
+318
+.	
+282
+319
+.	
+283
+
+320
+.	
+284
+321
+.	
+285
+322
+.	
+286
+323
+.	
+287
+324
+.	
+288
+325
+.	
+289
+326
+.	
+290
+327
+.	
+291
+328
+.	
+292
+329
+.	
+293
+330
+.	
+294
+331
+.	
+295
+332
+.	
+296
+333
+.	
+297
+334
+.	
+298
+335
+.	
+299
+336
+.	
+300
+337
+.	
+301
+338
+.	
+302
+339
+.	
+303
+340
+.	
+304
+341
+.	
+305
+342
+.	
+306
+343
+.	
+307
+344
+.	
+308
+345
+.	
+309
+346
+.	
+310
+347
+.	
+311
+348
+.	
+312
+349
+.	
+313
+
+350
+.	
+314
+351
+.	
+315
+352
+.	
+316
+353
+.	
+317
+354
+.	
+318
+355
+.	
+319
+356
+.	
+320
+357
+.	
+321
+358
+.	
+322
+359
+.	
+323
+360
+.	
+324
+361
+.	
+325
+362
+.	
+326
+363
+.	
+327
+364
+.	
+328
+365
+.	
+329
+366
+.	
+330
+367
+.	
+331
+368
+.	
+332
+369
+.	
+333
+370
+.	
+334
+371
+.	
+335
+372
+.	
+336
+373
+.	
+337
+374
+.	
+338
+375
+.	
+339
+376
+.	
+340
+377
+.	
+341
+378
+.	
+342
+379
+.	
+343
+
+380
+.	
+344
+381
+.	
+345
+382
+.	
+346
+383
+.	
+347
+384
+.	
+348
+385
+.	
+349
+386
+.	
+350
+387
+.	
+351
+388
+.	
+352
+389
+.	
+353
+390
+.	
+354
+391
+.	
+355
+392
+.	
+356
+393
+.	
+357
+394
+.	
+358
+395
+.	
+359
+396
+.	
+360
+397
+.	
+361
+398
+.	
+362
+399
+.	
+363
+400
+.	
+364
+401
+.	
+365
+402
+.	
+366
+403
+.	
+367
+404
+.	
+368
+405
+.	
+369
+406
+.	
+370
+407
+.	
+371
+408
+.	
+372
+409
+.	
+373
+
+410
+.	
+374
+411
+.	
+375
+412
+.	
+376
+413
+.	
+377
+414
+.	
+378
+415
+.	
+379
+416
+.	
+380
+417
+.	
+381
+418
+.	
+382
+419
+.	
+383
+420
+.	
+384
+421
+.	
+385
+422
+.	
+386
+423
+.	
+387
+424
+.	
+388
+425
+.	
+389
+426
+.	
+390
+427
+.	
+391
+428
+.	
+392
+429
+.	
+393
+430
+.	
+394
+431
+.	
+395
+432
+.	
+396
+433
+.	
+397
+434
+.	
+398
+435
+.	
+399
+436
+.	
+400
+437
+.	
+401
+438
+.	
+402
+439
+.	
+403
+
+440
+.	
+404
+441
+.	
+405
+442
+.	
+406
+443
+.	
+407
+444
+.	
+408
+445
+.	
+409
+446
+.	
+410
+447
+.	
+411
+448
+.	
+412
+449
+.	
+413
+450
+.	
+414
+451
+.	
+415
+452
+.	
+416
+453
+.	
+417
+454
+.	
+418
+455
+.	
+419
+456
+.	
+420
+457
+.	
+421
+458
+.	
+422
+459
+.	
+423
+460
+.	
+424
+461
+.	
+425
+462
+.	
+426
+463
+.	
+427
+464
+.	
+428
+465
+.	
+429
+466
+.	
+430
+467
+.	
+431
+468
+.	
+432
+469
+.	
+433
+
+470
+.	
+434
+471
+.	
+435
+472
+.	
+436
+473
+.	
+437
+474
+.	
+438
+475
+.	
+439
+476
+.	
+440
+477
+.	
+441
+478
+.	
+442
+479
+.	
+443
+480
+.	
+444
+481
+.	
+445
+482
+.	
+446
+483
+.	
+447
+484
+.	
+448
+485
+.	
+449
+486
+.	
+450
+487
+.	
+451
+488
+.	
+452
+489
+.	
+453
+490
+.	
+454
+491
+.	
+455
+492
+.	
+456
+493
+.	
+457
+494
+.	
+458
+495
+.	
+459
+496
+.	
+460
+497
+.	
+461
+498
+.	
+462
+499
+.	
+463
+
+500
+.	
+464
+501
+.	
+465
+502
+.	
+466
+503
+.	
+467
+504
+.	
+468
+505
+.	
+469
+506
+.	
+470
+507
+.	
+471
+508
+.	
+472
+509
+.	
+473
+510
+.	
+474
+511
+.	
+475
+512
+.	
+476
+513
+.	
+477
+514
+.	
+478
+515
+.	
+479
+516
+.	
+480
+517
+.	
+481
+518
+.	
+482
+519
+.	
+483
+520
+.	
+484
+521
+.	
+485
+522
+.	
+486
+523
+.	
+487
+524
+.	
+488
+525
+.	
+489
+526
+.	
+490
+527
+.	
+491
+528
+.	
+492
+529
+.	
+493
+
+530
+.	
+494
+531
+.	
+495
+532
+.	
+496
+533
+.	
+497
+534
+.	
+498
+535
+.	
+499
+536
+.	
+500
+537
+.	
+501
+538
+.	
+502
+539
+.	
+503
+540
+.	
+504
+541
+.	
+505
+542
+.	
+506
+543
+.	
+507
+544
+.	
+508
+545
+.	
+509
+546
+.	
+510
+547
+.	
+511
+548
+.	
+512
+549
+.	
+513
+550
+.	
+514
+551
+.	
+515
+552
+.	
+516
+553
+.	
+517
+554
+.	
+518
+555
+.	
+519
+556
+.	
+520
+557
+.	
+521
+558
+.	
+522
+559
+.	
+523
+
+560
+.	
+524
+561
+.	
+525
+562
+.	
+526
+563
+.	
+527
+564
+.	
+528
+565
+.	
+529
+566
+.	
+530
+567
+.	
+531
+568
+.	
+532
+569
+.	
+533
+570
+.	
+534
+571
+.	
+535
+572
+.	
+536
+573
+.	
+537
+574
+.	
+538
+575
+.	
+539
+576
+.	
+540
+577
+.	
+541
+578
+.	
+542
+579
+.	
+543
+580
+.	
+544
+581
+.	
+545
+582
+.	
+546
+583
+.	
+547
+584
+.	
+548
+585
+.	
+549
+586
+.	
+550
+587
+.	
+551
+588
+.	
+552
+589
+.	
+553
+
+590
+.	
+554
+591
+.	
+555
+592
+.	
+556
+593
+.	
+557
+594
+.	
+558
+595
+.	
+559
+596
+.	
+560
+597
+.	
+561
+598
+.	
+562
+599
+.	
+563
+600
+.	
+564
+601
+.	
+565
+602
+.	
+566
+603
+.	
+567
+604
+.	
+568
+605
+.	
+569
+606
+.	
+570
+607
+.	
+571
+608
+.	
+572
+609
+.	
+573
+610
+.	
+574
+611
+.	
+575
+612
+.	
+576
+613
+.	
+577
+614
+.	
+578
+615
+.	
+579
+616
+.	
+580
+617
+.	
+581
+618
+.	
+582
+619
+.	
+583
+
+620
+.	
+584
+621
+.	
+585
+622
+.	
+586
+623
+.	
+587
+624
+.	
+588
+625
+.	
+589
+626
+.	
+590
+627
+.	
+591
+628
+.	
+592
+629
+.	
+593
+630
+.	
+594
+631
+.	
+595
+632
+.	
+596
+633
+.	
+597
+634
+.	
+598
+635
+.	
+599
+636
+.	
+600
+637
+.	
+601
+638
+.	
+602
+639
+.	
+603
+640
+.	
+604
+641
+.	
+605
+642
+.	
+606
+643
+.	
+607
+644
+.	
+608
+645
+.	
+609
+646
+.	
+610
+647
+.	
+611
+648
+.	
+612
+649
+.	
+613
+
+650
+.	
+614
+651
+.	
+615
+652
+.	
+616
+653
+.	
+617
+654
+.	
+618
+655
+.	
+619
+656
+.	
+620
+657
+.	
+621
+658
+.	
+622
+659
+.	
+623
+660
+.	
+624
+661
+.	
+625
+662
+.	
+626
+663
+.	
+627
+664
+.	
+628
+665
+.	
+629
+666
+.	
+630
+667
+.	
+631
+668
+.	
+632
+669
+.	
+633
+670
+.	
+634
+671
+.	
+635
+672
+.	
+636
+673
+.	
+637
+674
+.	
+638
+675
+.	
+639
+676
+.	
+640
+677
+.	
+641
+678
+.	
+642
+679
+.	
+643
+
+680
+.	
+644
+681
+.	
+645
+682
+.	
+646
+683
+.	
+647
+684
+.	
+648
+685
+.	
+649
+686
+.	
+650
+687
+.	
+651
+688
+.	
+652
+689
+.	
+653
+690
+.	
+654
+691
+.	
+655
+692
+.	
+656
+693
+.	
+657
+694
+.	
+658
+695
+.	
+659
+696
+.	
+660
+697
+.	
+661
+698
+.	
+662
+699
+.	
+663
+700
+.	
+664
+701
+.	
+665
+702
+.	
+666
+703
+.	
+667
+704
+.	
+668
+705
+.	
+669
+706
+.	
+670
+707
+.	
+671
+708
+.	
+672
+709
+.	
+673
+
+710
+.	
+674
+711
+.	
+675
+712
+.	
+676
+713
+.	
+677
+714
+.	
+678
+715
+.	
+679
+716
+.	
+680
+717
+.	
+681
+718
+.	
+682
+719
+.	
+683
+720
+.	
+684
+721
+.	
+685
+722
+.	
+686
+723
+.	
+687
+724
+.	
+688
+725
+.	
+689
+726
+.	
+690
+727
+.	
+691
+728
+.	
+692
+729
+.	
+693
+730
+.	
+694
+731
+.	
+695
+732
+.	
+696
+733
+.	
+697
+734
+.	
+698
+735
+.	
+699
+736
+.	
+700
+737
+.	
+701
+738
+.	
+702
+739
+.	
+703
+
+740
+.	
+704
+741
+.	
+705
+742
+.	
+706
+743
+.	
+707
+744
+.	
+708
+745
+.	
+709
+746
+.	
+710
+747
+.	
+711
+748
+.	
+712
+749
+.	
+713
+750
+.	
+714
+751
+.	
+715
+752
+.	
+716
+753
+.	
+717
+754
+.	
+718
+755
+.	
+719
+756
+.	
+720
+757
+.	
+721
+758
+.	
+722
+759
+.	
+723
+760
+.	
+724
+761
+.	
+725
+762
+.	
+726
+763
+.	
+727
+764
+.	
+728
+765
+.	
+729
+766
+.	
+730
+767
+.	
+731
+768
+.	
+732
+769
+.	
+733
+
+770
+.	
+734
+771
+.	
+735
+772
+.	
+736
+773
+.	
+737
+774
+.	
+738
+775
+.	
+739
+776
+.	
+740
+777
+.	
+741
+778
+.	
+742
+779
+.	
+743
+780
+.	
+744
+781
+.	
+745
+782
+.	
+746
+783
+.	
+747
+784
+.	
+748
+785
+.	
+749
+786
+.	
+750
+787
+.	
+751
+788
+.	
+752
+789
+.	
+753
+790
+.	
+754
+791
+.	
+755
+792
+.	
+756
+793
+.	
+757
+794
+.	
+758
+795
+.	
+759
+796
+.	
+760
+797
+.	
+761
+798
+.	
+762
+799
+.	
+763
+
+800
+.	
+764
+801
+.	
+765
+802
+.	
+766
+803
+.	
+767
+804
+.	
+768
+805
+.	
+769
+806
+.	
+770
+807
+.	
+771
+808
+.	
+772
+809
+.	
+773
+810
+.	
+774
+811
+.	
+775
+812
+.	
+776
+813
+.	
+777
+814
+.	
+778
+815
+.	
+779
+816
+.	
+780
+817
+.	
+781
+818
+.	
+782
+819
+.	
+783
+820
+.	
+784
+821
+.	
+785
+822
+.	
+786
+823
+.	
+787
+824
+.	
+788
+825
+.	
+789
+826
+.	
+790
+827
+.	
+791
+828
+.	
+792
+829
+.	
+793
+
+830
+.	
+794
+831
+.	
+795
+832
+.	
+796
+833
+.	
+797
+834
+.	
+798
+835
+.	
+799
+836
+.	
+800
+837
+.	
+801
+838
+.	
+802
+839
+.	
+803
+840
+.	
+804
+841
+.	
+805
+842
+.	
+806
+843
+.	
+807
+844
+.	
+808
+845
+.	
+809
+846
+.	
+810
+847
+.	
+811
+848
+.	
+812
+849
+.	
+813
+850
+.	
+814
+851
+.	
+815
+852
+.	
+816
+853
+.	
+817
+854
+.	
+818
+855
+.	
+819
+856
+.	
+820
+857
+.	
+821
+858
+.	
+822
+859
+.	
+823
+
+860
+.	
+824
+861
+.	
+825
+862
+.	
+826
+863
+.	
+827
+864
+.	
+828
+865
+.	
+829
+866
+.	
+830
+867
+.	
+831
+868
+.	
+832
+869
+.	
+833
+870
+.	
+834
+871
+.	
+835
+872
+.	
+836
+873
+.	
+837
+874
+.	
+838
+875
+.	
+839
+876
+.	
+840
+877
+.	
+841
+878
+.	
+842
+879
+.	
+843
+880
+.	
+844
+881
+.	
+845
+882
+.	
+846
+883
+.	
+847
+884
+.	
+848
+885
+.	
+849
+886
+.	
+850
+887
+.	
+851
+888
+.	
+852
+889
+.	
+853
+
+890
+.	
+854
+891
+.	
+855
+892
+.	
+856
+893
+.	
+857
+894
+.	
+858
+895
+.	
+859
+896
+.	
+860
+897
+.	
+861
+898
+.	
+862
+899
+.	
+863
+900
+.	
+864
+901
+.	
+865
+902
+.	
+866
+903
+.	
+867
+904
+.	
+868
+905
+.	
+869
+906
+.	
+870
+907
+.	
+871
+908
+.	
+872
+909
+.	
+873
+910
+.	
+874
+911
+.	
+875
+912
+.	
+876
+913
+.	
+877
+914
+.	
+878
+915
+.	
+879
+916
+.	
+880
+917
+.	
+881
+918
+.	
+882
+919
+.	
+883
+
+920
+.	
+884
+921
+.	
+885
+922
+.	
+886
+923
+.	
+887
+924
+.	
+888
+925
+.	
+889
+926
+.	
+890
+927
+.	
+891
+928
+.	
+892
+929
+.	
+893
+930
+.	
+894
+931
+.	
+895
+932
+.	
+896
+933
+.	
+897
+934
+.	
+898
+935
+.	
+899
+936
+.	
+900
+937
+.	
+901
+938
+.	
+902
+939
+.	
+903
+940
+.	
+904
+941
+.	
+905
+942
+.	
+906
+943
+.	
+907
+944
+.	
+908
+945
+.	
+909
+946
+.	
+910
+947
+.	
+911
+948
+.	
+912
+949
+.	
+913
+
+950
+.	
+914
+951
+.	
+915
+952
+.	
+916
+953
+.	
+917
+954
+.	
+918
+955
+.	
+919
+956
+.	
+920
+957
+.	
+921
+958
+.	
+922
+959
+.	
+923
+960
+.	
+924
+961
+.	
+925
+962
+.	
+926
+963
+.	
+927
+964
+.	
+928
+965
+.	
+929
+966
+.	
+930
+967
+.	
+931
+968
+.	
+932
+969
+.	
+933
+970
+.	
+934
+971
+.	
+935
+972
+.	
+936
+973
+.	
+937
+974
+.	
+938
+975
+.	
+939
+976
+.	
+940
+977
+.	
+941
+978
+.	
+942
+979
+.	
+943
+
+980
+.	
+944
+981
+.	
+945
+982
+.	
+946
+983
+.	
+947
+984
+.	
+948
+985
+.	
+949
+986
+.	
+950
+987
+.	
+951
+988
+.	
+952
+989
+.	
+953
+990
+.	
+954
+991
+.	
+955
+992
+.	
+956
+993
+.	
+957
+994
+.	
+958
+995
+.	
+959
+996
+.	
+960
+997
+.	
+961
+998
+.	
+962
+999
+.	
+963
+1000
+.	
+964
+1001
+.	
+965
+1002
+.	
+966
+1003
+.	
+967
+1004
+.	
+968
+1005
+.	
+969
+1006
+.	
+970
+1007
+.	
+971
+1008
+.	
+972
+1009
+.	
+973
+
+1010
+.	
+974
+1011
+.	
+975
+1012
+.	
+976
+1013
+.	
+977
+1014
+.	
+978
+1015
+.	
+979
+1016
+.	
+980
+1017
+.	
+981
+1018
+.	
+982
+1019
+.	
+983
+1020
+.	
+984
+1021
+.	
+985
+1022
+.	
+986
+1023
+.	
+987
+1024
+.	
+988
+1025
+.	
+989
+1026
+.	
+990
+1027
+.	
+991
+1028
+.	
+992
+1029
+.	
+993
+1030
+.	
+994
+1031
+.	
+995
+1032
+.	
+996
+1033
+.	
+997
+1034
+.	
+998
+1035
+.	
+999
+1036
+.	
+1000
+1037
+.	
+1001
+1038
+.	
+1002
+1039
+.	
+1003
+
+1040
+.	
+1004
+1041
+.	
+1005
+1042
+.	
+1006
+1043
+.	
+1007
+1044
+.	
+1008
+1045
+.	
+1009
+1046
+.	
+1010
+1047
+.	
+1011
+1048
+.	
+1012
+1049
+.	
+1013
+1050
+.	
+1014
+1051
+.	
+1015
+1052
+.	
+1016
+1053
+.	
+1017
+1054
+.	
+1018
+1055
+.	
+1019
+1056
+.	
+1020
+1057
+.	
+1021
+1058
+.	
+1022
+1059
+.	
+1023
+1060
+.	
+1024
+1061
+.	
+1025
+1062
+.	
+1026
+1063
+.	
+1027
+1064
+.	
+1028
+1065
+.	
+1029
+1066
+.	
+1030
+1067
+.	
+1031
+1068
+.	
+1032
+1069
+.	
+1033
+
+1070
+.	
+1034
+1071
+.	
+1035
+1072
+.	
+1036
+1073
+.	
+1037
+1074
+.	
+1038
+1075
+.	
+1039
+1076
+.	
+1040
+1077
+.	
+1041
+1078
+.	
+1042
+1079
+.	
+1043
+1080
+.	
+1044
+1081
+.	
+1045
+1082
+.	
+1046
+1083
+.	
+1047
+1084
+.	
+1048
+1085
+.	
+1049
+1086
+.	
+1050
+1087
+.	
+1051
+1088
+.	
+1052
+1089
+.	
+1053
+1090
+.	
+1054
+1091
+.	
+1055
+1092
+.	
+1056
+1093
+.	
+1057
+1094
+.	
+1058
+1095
+.	
+1059
+1096
+.	
+1060
+1097
+.	
+1061
+1098
+.	
+1062
+1099
+.	
+1063
+
+1100
+.	
+1064
+1101
+.	
+1065
+1102
+.	
+1066
+1103
+.	
+1067
+1104
+.	
+1068
+1105
+.	
+1069
+1106
+.	
+1070
+1107
+.	
+1071
+1108
+.	
+1072
+1109
+.	
+1073
+1110
+.	
+1074
+1111
+.	
+1075
+1112
+.	
+1076
+1113
+.	
+1077
+1114
+.	
+1078
+1115
+.	
+1079
+1116
+.	
+1080
+1117
+.	
+1081
+1118
+.	
+1082
+1119
+.	
+1083
+1120
+.	
+1084
+

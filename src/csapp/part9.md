@@ -1,0 +1,9774 @@
+dereferencing	pointers,	
+48
+,	
+188
+,	
+257
+,	
+277
+,	
+870
+–
+871
+descriptor	sets,	
+977
+,	
+978
+descriptor	tables,	
+907
+,	
+909
+descriptors,	
+891
+connected	and	listening,	
+936
+,	
+936
+–
+937
+socket,	
+934
+destination	hosts,	
+922
+detach	thread	function,	
+990
+detached	threads,	
+989
+detaching	threads,	
+989
+–
+990
+
+	[x86–64]	low	order	16	bits	of	register	
+,	
+180
+diagrams
+hardware,	
+398
+pipeline,	
+413
+Digital	Equipment	Corporation,	
+56
+Dijkstra,	Edsger,	
+1001
+–
+1002
+	[x86–64]	low	order	8	of	register	
+,	
+180
+DIMM	(dual	inline	memory	module),	
+584
+direct	jumps,	
+206
+direct-mapped	caches,	
+617
+conflict	misses,	
+622
+–
+624
+example,	
+619
+–
+621
+line	matching,	
+618
+line	replacement,	
+619
+set	selection,	
+618
+word	selection,	
+619
+direct	memory	access	(DMA),	
+11
+,	
+598
+directives,	assembler,	
+176
+,	
+366
+directories
+description,	
+891
+,	
+891
+–
+892
+reading	contents,	
+905
+–
+906
+directory	streams,	
+905
+dirty	bits
+in	cache,	
+630
+Core	i7,	
+827
+dirty	pages,	
+827
+	command,	
+280
+disassemblers,	
+44
+,	
+69
+,	
+173
+,	
+173
+–
+174
+disks,	
+589
+
+accessing,	
+597
+–
+600
+anatomy,	
+600
+backups,	
+611
+capacity,	
+591
+,	
+591
+–
+592
+connecting,	
+596
+–
+597
+controllers,	
+595
+,	
+595
+–
+596
+geometry,	
+590
+–
+591
+logical	blocks,	
+595
+–
+596
+operation,	
+592
+–
+595
+trends,	
+602
+distributing	software,	
+701
+division
+floating-point,	
+302
+instructions,	
+198
+–
+200
+Linux/x86–64	system	errors,	
+729
+by	powers	of	2,	
+103
+–
+107
+	[x86–64]	unsigned	divide,	
+198
+,	
+200
+	[x86–64]	low	order	8	of	register	
+,	
+180
+	[Unix]	close	shared	library,	
+702
+	[Unix]	report	shared	library	error,	
+702
+DLL	(dynamic	link	library),	
+699
+	[Unix]	open	shared	libary,	
+701
+	[Unix]	get	address	of	shared	library	symbol,	
+702
+DMA	(direct	memory	access),	
+11
+,	
+598
+DMA	transfer,	
+598
+DNS	(domain	name	system),	
+928
+	[C]	variant	of	
+	loop,	
+220
+–
+223
+	statement,	
+220
+	[CS:APP]	T
+INY
+	helper	function,	
+956
+,	
+958
+,	
+958
+–
+959
+
+dollar	signs	($)	for	immediate	operands,	
+181
+domain	names,	
+925
+,	
+927
+–
+929
+domain	name	system	(DNS),	
+928
+	[CS:APP]	vector	dot	product,	
+622
+dots	(.)	in	dotted-decimal	notation,	
+926
+dotted-decimal	notation,	
+926
+,	
+926
+	[C]	double-precision	floating	point,	
+124
+,	
+125
+	[C]	integer	data	type,	
+41
+double	data-rate	synchronous	DRAM	(DDR	SDRAM),	
+586
+	floating-point	declaration,	
+178
+double-precision	addition	instruction,	
+302
+double-precision	division	instruction,	
+302
+double-precision	maximum	instruction,	
+302
+double-precision	minimum	instruction,	
+302
+double-precision	multiplication	instruction,	
+302
+double-precision	representation	C,	
+41
+,	
+124
+–
+126
+IEEE,	
+113
+,	
+113
+machine-level	data,	
+178
+double-precision	square	root	instruction,	
+302
+double-precision	subtraction	instruction,	
+302
+double	word	to	quad	word	instruction,	
+199
+double	words,	
+177
+DRAM.	
+See	
+dynamic	RAM	(DRAM)
+DRAM	arrays,	
+582
+DRAM	cells,	
+582
+,	
+583
+drivers,	compiler,	
+4
+,	
+671
+–
+672
+dual	inline	memory	module	(DIMM),	
+584
+	[Unix]	copy	file	descriptor,	
+909
+duplicate	symbol	names,	
+680
+–
+684
+
+dynamic	code,	
+290
+dynamic	content,	
+701
+,	
+953
+–
+954
+dynamic	link	libraries	(DLLs),	
+699
+dynamic	linkers,	
+699
+dynamic	linking,	
+699
+,	
+699
+–
+701
+dynamic	memory	allocation
+allocated	block	placement,	
+849
+allocator	design,	
+854
+–
+856
+allocator	requirements	and	goals,	
+844
+–
+845
+coalescing	free	blocks,	
+850
+–
+851
+coalescing	with	boundary	tags,	
+851
+–
+854
+explicit	free	lists,	
+862
+–
+863
+fragmentation,	
+846
+heap	memory	requests,	
+850
+implementation	issues,	
+846
+–
+847
+implicit	free	lists,	
+847
+–
+849
+	and	
+	functions,	
+840
+–
+843
+overview,	
+839
+–
+840
+purpose,	
+843
+–
+844
+segregated	free	lists,	
+863
+–
+865
+splitting	free	blocks,	
+849
+–
+850
+dynamic	memory	allocators,	
+839
+–
+840
+dynamic	RAM	(DRAM),	
+9
+,	
+582
+caches,	
+806
+,	
+808
+,	
+808
+–
+809
+conventional,	
+582
+–
+584
+enhanced,	
+585
+–
+586
+historical	popularity,	
+586
+modules,	
+584
+,	
+585
+vs.	SRAM,	
+582
+
+trends,	
+602
+–
+603
+dynamic	Web	content,	
+949
+	[x86–64]	low	order	16	bits	of	register	
+,	
+180
+
+E-way	set	associative	caches,	
+624
+–
+625
+	[x86–64]	low	order	32	bits	of	register	
+,	
+180
+	[x86–64]	low	order	32	bits	of	register	
+,	
+180
+	[x86–64]	low	order	32	bits	of	register	
+,	
+180
+ECF.	
+See	
+exceptional	control	flow	(ECF)
+ECHILD	return	code,	
+746
+–
+747
+	[CS:APP]	read	and	echo	input	lines,	
+947
+	function,	
+281
+–
+282
+,	
+287
+	[CS:APP]	counting	version	of	
+,	
+1012
+	[CS:APP]	echo	client,	
+944
+–
+945
+	[CS:APP]	iterative	echo	server,	
+936
+–
+937
+,	
+947
+	[CS:APP]	concurrent	echo	server	based	on	threads,
+991
+	[CS:APP]	prethreaded	concurrent	echo	server,
+1011
+	[x86–64]	low	order	32	bits	of	register	
+,	
+180
+	[x86–64]	low	order	32	bits	of	register	
+,	
+180
+EDO	DRAM	(extended	data	out	DRAM),	
+586
+	[x86–64]	low	order	32	bits	of	register	
+,	
+180
+EEPROMs	(electrically	erasable
+programmable	ROMs),	
+587
+effective	addresses,	
+181
+,	
+690
+effective	cycle	time,	
+602
+efficiency	of	parallel	programs,	
+1019
+,	
+1019
+EINTR	return	code,	
+746
+electrically	erasable	programmable	ROMs	(EEPROMs),	
+587
+ELF.	
+See	
+executable	and	linkable	format	(ELF)
+EM64T	processors,	
+168
+
+embedded	processors,	
+363
+encapsulation,	
+922
+encodings	in	machine-level	programming,	
+169
+–
+170
+code	examples,	
+172
+–
+175
+code	overview,	
+170
+–
+171
+formatting,	
+175
+–
+177
+Y86–64	instructions,	
+358
+–
+360
+end-of-file	(EOF)	condition,	
+891
+,	
+948
+end	of	line	(EOL)	indicators,	
+892
+entry	points,	
+696
+,	
+697
+–
+698
+environment	variables	lists,	
+751
+–
+752
+EOF	(end-of-file)	condition,	
+891
+,	
+948
+EOL	(end	of	line)	indicators,	
+892
+ephemeral	ports,	
+930
+epilogue	blocks,	
+855
+EPIPE	error	return	code,	
+964
+erasable	programmable	ROMs	(EPROMs),	
+587
+	[Unix]	Unix	error	variable,	
+1042
+error-correcting	codes	for	memory,	
+582
+error	handling
+system	calls,	
+737
+–
+738
+Unix	systems,	
+1042
+–
+1043
+wrappers,	
+738
+,	
+1041
+,	
+1043
+–
+1045
+error-reporting	functions,	
+737
+errors
+child	processes,	
+745
+–
+746
+link-time,	
+7
+off-by-one,	
+872
+race,	
+776
+,	
+776
+–
+778
+
+reporting,	
+1043
+synchronization,	
+995
+	[x86–64]	low	order	32	bits	of	register	
+,	
+180
+	[x86–64]	low	order	32	bits	of	stack	pointer	register	
+,	
+180
+establish	connection	with	server	functions,	
+934
+,	
+934
+–
+935
+,	
+942
+–
+944
+establish	listening	socket	function,	
+944
+,	
+944
+etest	script,	
+465
+Ethernet	segments,	
+920
+,	
+920
+Ethernet	technology,	
+920
+EUs	(execution	units),	
+518
+,	
+520
+	[CS:APP]	shell	helper	routine,	
+754
+,	
+755
+event-driven	programs,	
+980
+based	on	I/O	multiplexing,	
+980
+–
+985
+based	on	threads,	
+1013
+events,	
+723
+scheduling,	
+763
+state	machines,	
+980
+evicting	blocks,	
+612
+exabytes,	
+39
+excepting	instructions,	
+445
+exception	handlers,	
+724
+,	
+724
+exception	handling
+in	instruction	processing,	
+385
+Y86–64,	
+363
+–
+364
+,	
+444
+–
+447
+exception	numbers,	
+725
+exception	table	base	registers,	
+725
+exception	tables,	
+725
+,	
+725
+exceptional	control	flow	(ECF),	
+722
+exceptions,	
+723
+–
+731
+
+importance,	
+722
+–
+723
+nonlocal	jumps,	
+781
+–
+786
+process	control.	
+See	
+processes
+signals.	
+See	
+signals
+summary,	
+787
+system	call	error	handling,	
+737
+–
+738
+exceptions,	
+723
+anatomy,	
+723
+–
+724
+asynchronous,	
+726
+classes,	
+726
+–
+728
+data	alignment,	
+276
+handling,	
+724
+–
+726
+Linux/x86–64	systems,	
+729
+–
+731
+status	code	for,	
+404
+synchronous,	
+727
+Y86,	
+356
+exclamation	points	!	for	
+NOT
+	operation,	
+373
+EXCLUSIVE
+-
+OR
+	Boolean	operation,	
+51
+exclusive-or	instruction
+x86–64,	
+192
+Y86–64,	
+356
+EXCLUSIVE
+-
+OR
+	operation	in	execute	stage,	
+408
+exclusive-or	packed	double	precision	instruction,	
+305
+exclusive-or	packed	single	precision	instruction,	
+305
+executable	and	linkable	format	(ELF),	
+673
+executable	object	files,	
+695
+–
+696
+header	tables,	
+674
+,	
+696
+headers,	
+674
+–
+675
+relocation,	
+690
+symbol	tables,	
+675
+–
+679
+
+executable	code,	
+170
+executable	object	files,	
+4
+creating,	
+672
+description,	
+672
+fully	linked,	
+696
+loading,	
+697
+–
+698
+running,	
+7
+–
+8
+executable	object	programs,	
+4
+execute	access,	
+289
+execute	disable	bit,	
+827
+execute	stage
+instruction	processing,	
+385
+,	
+387
+–
+397
+PIPE	processor,	
+453
+–
+454
+sequential	processing,	
+400
+sequential	Y86–64	implementation,	
+408
+–
+409
+Y86–64	pipelining,	
+423
+execution
+concurrent,	
+733
+parallel,	
+734
+speculative,	
+519
+,	
+519
+,	
+549
+–
+550
+tracing,	
+387
+,	
+394
+–
+395
+,	
+403
+execution	code	regions,	
+289
+–
+290
+execution	units	(EUs),	
+518
+,	
+520
+	[Unix]	load	program,	
+750
+arguments	and	environment	variables,	
+750
+–
+752
+child	processes,	
+699
+,	
+701
+loading	programs,	
+697
+running	programs,	
+753
+–
+756
+virtual	memory,	
+836
+–
+837
+
+	[C	Stdlib]	terminate	process,	
+739
+exit	status,	
+739
+,	
+745
+expanding	bit	representation,	
+76
+–
+80
+expansion	slots,	
+597
+explicit	allocator	requirements	and	goals,	
+844
+–
+845
+explicit	dynamic	memory	allocators,	
+839
+–
+840
+explicit	free	lists,	
+862
+–
+863
+explicit	thread	termination,	
+988
+explicit	waiting	for,	signals,	
+778
+–
+781
+explicitly	reentrant	functions,	
+1023
+exploit	code,	
+284
+exponents	in	floating-point	representation,	
+112
+	[CS:APP]	allocator:	extend	heap,	
+858
+extended	data	out	DRAM	(EDO	DRAM),	
+586
+extended	precision	floating-point	representation,	
+137
+,	
+137
+external	exceptions	in	pipelining,	
+444
+external	fragmentation,	
+846
+,	
+846
+
+fall	through	in	
+	statements,	
+233
+false	fragmentation,	
+850
+fast	page	mode	DRAM	(FPM	DRAM),	
+585
+fault	exception	class,	
+726
+faulting	instructions,	
+727
+faults,	
+728
+Linux/x86–64	systems,	
+729
+,	
+832
+–
+833
+Y86–64	pipelining	caches,	
+470
+	[Unix]	clear	bit	in	descriptor	set,	
+977
+,	
+978
+	[Unix]	bit	turned	on	in	descriptor	set,	
+977
+,	
+978
+,	
+980
+	[Unix]	set	bit	in	descriptor	set,	
+977
+,	
+978
+	[Unix]	clear	descriptor	set,	
+977
+,	
+978
+feedback	in	pipelining,	
+419
+–
+421
+,	
+425
+feedback	paths,	
+396
+,	
+419
+fetch	file	metadata	function,	
+903
+fetch	stage
+instruction	processing,	
+384
+,	
+387
+–
+397
+PIPE	processor,	
+447
+–
+449
+SEQ,	
+404
+–
+406
+sequential	processing,	
+400
+Y86–64	pipelining,	
+423
+fetches,	locality,	
+607
+–
+608
+	function,	
+282
+Fibonacci	(Pisano),	
+32
+field-programmable	gate	arrays	(FPGAs),	
+467
+FIFOs,	
+977
+file	descriptors,	
+891
+file	position,	
+891
+file	tables,	
+736
+,	
+906
+
+FILE
+	type,	
+911
+filenames,	
+891
+files,	
+19
+as	abstraction,	
+27
+anonymous,	
+833
+binary,	
+3
+metadata,	
+903
+–
+904
+object.	
+See	
+object	files
+register,	
+10
+,	
+171
+,	
+358
+–
+359
+,	
+382
+–
+383
+,	
+401
+,	
+521
+regular,	
+833
+sharing,	
+906
+–
+908
+system-level	I/O.	
+See	
+system-level	I/O
+types,	
+891
+–
+893
+Unix,	
+890
+,	
+890
+–
+891
+FINGER
+	command,	
+284
+	daemon,	
+284
+	command,	
+280
+firmware,	
+587
+first-fit	block	placement	policy,	
+849
+,	
+849
+first-level	domain	names,	
+927
+first	readers-writers	problem,	
+1008
+fits,	segregated,	
+863
+,	
+864
+–
+865
+five-stage	pipelines,	
+471
+fixed-size	arithmetic,	
+85
+fixed-size	arrays,	
+260
+–
+262
+fixed-size	integer	types,	
+41
+,	
+67
+flash	memory,	
+587
+flash	translation	layers,	
+600
+–
+601
+flat	addressing,	
+167
+
+	[C]	single-precision	floating	point,	
+124
+	floating-point	declaration,	
+178
+floating-point	code
+architecture,	
+293
+,	
+293
+–
+296
+arithmetic	operations,	
+302
+–
+304
+bitwise	operations,	
+305
+–
+306
+comparison	operations,	
+306
+–
+309
+constants,	
+304
+–
+305
+movement	and	conversion	operations,	
+296
+–
+301
+observations,	
+309
+in	procedures,	
+301
+–
+302
+floating-point	representation	and	programs,	
+108
+–
+109
+arithmetic,	
+33
+C,	
+124
+–
+126
+denormalized	values,	
+114
+,	
+114
+–
+116
+encodings,	
+32
+extended	precision,	
+137
+,	
+137
+fractional	binary	numbers,	
+109
+–
+112
+IEEE,	
+112
+–
+114
+normalized	value,	
+113
+–
+114
+operations,	
+122
+–
+124
+overflow,	
+127
+pi,	
+140
+rounding,	
+120
+,	
+120
+–
+122
+special	values,	
+115
+support,	
+40
+x87	processors,	
+167
+flows
+concurrent,	
+733
+,	
+733
+–
+734
+
+control,	
+722
+logical,	
+732
+,	
+732
+–
+733
+parallel,	
+734
+synchronizing,	
+776
+–
+778
+flushed	instructions,	
+522
+	[Y86–64]	default	function	code,	
+404
+footers	of	blocks,	
+851
+	[C]	general	loop	statement,	
+228
+–
+232
+guarded-do	translation,	
+225
+jump-to-middle	translation,	
+223
+forbidden	regions,	
+1003
+foreground	processes,	
+753
+	[Unix]	create	child	process,	
+740
+child	processes,	
+701
+example,	
+741
+–
+743
+running	programs,	
+753
+–
+756
+virtual	memory,	
+836
+	[CS:APP]	
+	example,	
+741
+formal	verification	in	pipelining,	
+466
+format	strings,	
+47
+formats	for	machine-level	data,	
+177
+–
+179
+formatted	disk	capacity,	
+596
+formatted	printing,	
+47
+formatting
+disks,	
+596
+machine-level	code,	
+175
+–
+177
+forwarding
+for	data	hazards,	
+436
+–
+439
+load,	
+477
+
+forwarding	priority,	
+451
+–
+452
+FPGAs	(field-programmable	gate	arrays),	
+467
+FPM	DRAM	(fast	page	mode	DRAM),	
+585
+	[C	Stdlib]	function,	
+47
+fractional	binary	numbers,	
+109
+–
+112
+fractional	floating-point	representation,	
+112
+–
+120
+,	
+137
+fragmentation,	
+846
+dynamic	memory	allocation,	
+846
+false,	
+850
+frame	pointers,	
+290
+frames
+Ethernet,	
+920
+stack,	
+240
+,	
+240
+–
+241
+,	
+276
+,	
+290
+–
+293
+free	blocks,	
+839
+coalescing,	
+850
+–
+851
+splitting,	
+849
+–
+850
+free	bounded	buffer	function,	
+1007
+	[C	Stdlib]	deallocate	heap	storage,	
+841
+,	
+841
+–
+843
+interpositioning	libraries,	
+708
+wrappers	for,	
+711
+free	heap	block	function,	
+860
+free	heap	blocks,	referencing	data	in,	
+874
+–
+875
+free	lists
+creating,	
+857
+–
+859
+dynamic	memory	allocation,	
+847
+–
+849
+explicit,	
+862
+–
+863
+implicit,	
+848
+manipulating,	
+856
+–
+857
+segregated,	
+863
+–
+865
+
+free	software,	
+6
+free	up	getaddrinfo	resources	function,	
+937
+	[Unix]	free	up	getaddrinfo	resources,	
+937
+,	
+938
+FreeBSD	open-source	operating	system,	
+86
+–
+87
+freeing	blocks,	
+860
+Freescale
+processor	family,	
+352
+RISC	design,	
+361
+front	side	bus	(FSB),	
+588
+	[Unix]	fetch	file	metadata,	
+903
+full	duplex	connections,	
+929
+full	duplex	streams,	
+912
+fully	associative	caches,	
+626
+line	matching	and	word	selection,	
+627
+–
+628
+set	selection,	
+627
+fully	linked	executable	object	files,	
+696
+fully	pipelined	functional	units,	
+523
+function	calls
+performance	strategies,	
+561
+PIC,	
+705
+–
+707
+function	part	in	Y86–64	instruction	specifier,	
+358
+functional	units,	
+520
+–
+521
+,	
+523
+–
+524
+functions
+pointers	to,	
+278
+reentrant,	
+766
+,	
+1023
+static	libraries,	
+684
+–
+688
+system-level,	
+730
+thread-safe	and	thread-unsafe,	
+1020
+,	
+1020
+–
+1022
+wrapper,	
+711
+
+in	Y86	instructions,	
+359
+
+	[CS:APP]	reports	GAI-style	errors,	
+1043
+	[Unix]	print	getaddrinfo	error	message,	
+938
+GAI-style	error	handling,	
+1042
+,	
+1042
+–
+1043
+gaps	between	disk	sectors,	
+590
+,	
+596
+garbage,	
+866
+garbage	collection,	
+840
+,	
+866
+garbage	collectors,	
+840
+,	
+866
+basics,	
+866
+–
+867
+conservative,	
+867
+,	
+869
+–
+870
+Mark&Sweep,	
+867
+–
+870
+overview,	
+865
+–
+866
+gates,	logic,	
+373
+GCC
+	(GNU	compiler	collection)	compiler
+code	formatting,	
+175
+–
+176
+inline	assembly,	
+178
+options,	
+35
+working	with,	
+168
+–
+169
+GDB
+	GNU	debugger,	
+173
+,	
+279
+,	
+279
+–
+280
+general	protection	faults,	
+729
+general-purpose	registers,	
+179
+,	
+17
+–
+180
+geometry	of	disks,	
+590
+–
+591
+get	address	of	shared	library	symbol	function,	
+702
+"get	from"	operator	(C++),	
+890
+GET	method	in	HTTP,	
+951
+get	parent	process	ID	function,	
+739
+get	process	group	ID	function,	
+759
+get	process	ID	function,	
+739
+get	thread	ID	function,	
+988
+	[Unix]	convert	host	and	service	names,	
+937
+,	
+937
+–
+940
+
+	[C	Stdlib]	read	environment	variable,	
+751
+	[Unix]	get	DNS	host	entry,	
+1024
+	[Unix]	get	DNS	host	entry,	
+1024
+	[Unix]	convert	socket	address	to	host	and	service	names,
+940
+,	
+940
+–
+942
+	function	[C	Stdlib]	security	vulnerability,	
+86
+–
+87
+	[Unix]	get	process	group	ID,	
+759
+	[Unix]	get	process	ID,	
+739
+	[Unix]	get	parent	process	ID,	
+739
+	[Unix]	function,	
+811
+	function,	
+279
+,	
+281
+–
+282
+GHz	(gigahertz),	
+502
+giga-instructions	per	second	(GIPS),	
+413
+gigabytes,	
+592
+gigahertz	(GHz),	
+502
+GIPS	(giga-instructions	per	second),	
+413
+global	IP	Internet.	
+See	
+Internet
+Global	Offset	Table	(GOT),	
+705
+,	
+705
+–
+707
+global	symbols,	
+675
+global	variable	mapping,	
+994
+–
+995
+GNU	compiler	collection.	
+See	
+GCC
+	(GNU	compiler	collection)
+compiler
+GNU	project,	
+6
+GOT	(global	offset	table),	
+705
+,	
+705
+–
+707
+	[C]	control	transfer	statement,	
+210
+,	
+233
+goto	code,	
+210
+GPROF
+	Unix	profiler,	
+562
+,	
+562
+–
+563
+gradual	underflow,	
+115
+
+granularity	of	concurrency,	
+985
+graphic	user	interfaces	for	debuggers,	
+279
+graphics	adapters,	
+596
+graphs
+data-flow,	
+525
+–
+530
+process,	
+741
+,	
+742
+progress.	
+See	
+progress	graphs
+reachability,	
+866
+greater	than	signs	>
+deferencing	operation,	
+266
+"get	from"	operator,	
+890
+right	hoinkies,	
+909
+groups
+abelian,	
+89
+process,	
+759
+guard	values,	
+286
+guarded-do	translation,	
+225
+
+	header	files,	
+686
+half-precision	floating-point	representation,	
+137
+,	
+137
+	[Y86–64]	halt	instruction	execution,	
+357
+code	for,	
+404
+–
+405
+exceptions,	
+364
+,	
+444
+–
+447
+in	pipelining,	
+462
+handlers
+exception,	
+724
+,	
+724
+interrupt,	
+726
+signal,	
+758
+,	
+763
+handling	signals
+blocking	and	unblocking,	
+764
+–
+765
+portable,	
+774
+–
+775
+hardware	caches.	
+See	
+caches	and	cache	memory
+hardware	control	language	(HCL),	
+372
+Boolean	expressions,	
+374
+–
+375
+integer	expressions,	
+376
+–
+380
+logic	gates,	
+373
+hardware	description	languages	(HDLs),	
+373
+,	
+467
+hardware	exceptions,	
+724
+hardware	interrupts,	
+726
+hardware	management,	
+14
+–
+15
+hardware	organization,	
+8
+buses,	
+8
+I/O	devices,	
+9
+main	memory,	
+9
+processors,	
+9
+–
+10
+hardware	registers,	
+381
+–
+384
+hardware	structure	for	Y86–64,	
+396
+–
+400
+
+hardware	units,	
+396
+–
+398
+,	
+401
+hash	tables,	
+567
+–
+568
+Haswell	microarchitecture,	
+825
+Haswell	microprocessors,	
+168
+,	
+215
+,	
+294
+,	
+507
+,	
+521
+,	
+523
+hazards	in	pipelining,	
+354
+,	
+429
+avoiding,	
+441
+–
+444
+classes,	
+435
+forwarding	for,	
+436
+–
+439
+load/use,	
+439
+–
+441
+overview,	
+429
+–
+433
+stalling	for,	
+433
+–
+436
+HCL	(hardware	control	language),	
+372
+Boolean	expressions,	
+374
+–
+375
+integer	expressions,	
+376
+–
+380
+logic	gates,	
+373
+HDLs	(hardware	description	languages),	
+373
+,	
+467
+head	crashes,	
+593
+HEAD	method	in	HTTP,	
+951
+header	files
+static	libraries,	
+687
+system,	
+746
+header	tables	in	ELF,	
+674
+,	
+696
+headers
+blocks,	
+847
+Ethernet,	
+920
+request,	
+951
+response,	
+952
+heap,	
+18
+,	
+18
+–
+19
+,	
+839
+dynamic	memory	allocation,	
+839
+–
+840
+Linux	systems,	
+697
+
+referencing	data	in,	
+874
+–
+875
+requests,	
+850
+	[CS:APP]	C	hello	program,	
+2
+,	
+10
+–
+12
+	command,	
+280
+helper	functions,	sockets	interface,	
+942
+–
+944
+Hennessy,	John,	
+361
+,	
+471
+heterogeneous	data	structures,	
+265
+data	alignment,	
+273
+–
+276
+structures,	
+265
+–
+269
+unions,	
+269
+–
+273
+hexadecimal	(hex)	notation,	
+36
+,	
+36
+–
+39
+hierarchies
+domain	name,	
+927
+storage	devices,	
+14
+,	
+14
+,	
+609
+–
+614
+high-level	design	performance	strategies,	
+561
+hit	rates,	
+631
+hit	time,	
+631
+hits
+cache,	
+612
+,	
+631
+write,	
+630
+	[x86–64]	halt	instruction	execution,	
+357
+	[Y86–64]	status	code	indicating	
+	instruction,	
+364
+hoinkies,	
+909
+,	
+910
+holding	mutexes,	
+1003
+Horner,	William,	
+530
+Horner's	method,	
+530
+host	bus	adapters,	
+597
+host	bus	interfaces,	
+597
+host	entries,	
+928
+
+host	information	program	command,	
+926
+HOSTNAME
+	command,	
+926
+hosts
+client-server	model,	
+919
+network,	
+922
+number	of,	
+930
+sockets	interface,	
+937
+–
+942
+htest	script,	
+465
+HTML	(hypertext	markup	language),	
+948
+,	
+948
+–
+949
+	[Unix]	convert	host-to-network	long,	
+925
+	[Unix]	convert	host-to-network	short,	
+925
+HTTP.	
+See	
+hypertext	transfer	protocol	(HTTP)
+hubs,	
+920
+hyperlinks,	
+948
+hypertext	markup	language	(HTML),	
+948
+,	
+948
+–
+949
+hypertext	transfer	protocol	(HTTP),	
+948
+dynamic	content,	
+953
+–
+954
+methods,	
+951
+–
+952
+requests,	
+951
+,	
+951
+–
+952
+responses,	
+952
+,	
+952
+–
+953
+transactions,	
+950
+–
+951
+hyperthreading,	
+24
+,	
+168
+Hyper	Transport	interconnect,	
+588
+
+i-caches	(instruction	caches),	
+518
+,	
+631
+	source	files,	
+671
+i386	microprocessor,	
+167
+i486	microprocessor,	
+167
+IA32	(Intel	Architecture	32-bit)	microprocessors,	
+45
+,	
+168
+machine	language,	
+165
+–
+166
+registers,	
+179
+–
+180
+	[Y86–64]	immediate	add,	
+369
+IBM
+Freescale	microprocessors,	
+352
+,	
+361
+out-of-order	processing,	
+522
+RISC	design,	
+361
+–
+363
+	[Y86–64]	instruction	code	for	
+	instruction,	
+404
+ICANN	(Internet	Corporation	for	Assigned	Names	and	Numbers),	
+927
+icode	(instruction	code),	
+384
+,	
+405
+ICUs	(instruction	control	units),	
+518
+identifiers,	register,	
+358
+	[x86–64]	signed	divide,	
+199
+	[x86–64]	signed	divide,	
+198
+IDs	(identifiers)
+processes,	
+739
+–
+740
+register,	
+358
+–
+359
+IEEE.	
+See	
+Institute	for	Electrical	and	Electronics	Engineers
+(IEEE)
+	[C]	conditional	statement,	
+211
+–
+213
+ifun	(instruction	function),	
+384
+,	
+405
+	[Y86–64]	instruction	code	for	
+	instruction,	
+404
+	[Y86–64]	instruction	code	for	
+	instruction,	
+404
+ijk	matrix	multiplication,	
+644
+–
+646
+,	
+645
+
+	[Y86–64]	instruction	code	for	jump	instructions,	
+404
+ikj	matrix	multiplication,	
+644
+–
+646
+,	
+645
+illegal	instruction	exceptions,	
+404
+	signal,	
+405
+immediate	add	instruction,	
+369
+immediate	coalescing,	
+850
+immediate	offset,	
+181
+immediate	operands,	
+181
+immediate	to	register	move	instruction,	
+356
+implicit	dynamic	memory	allocators,	
+840
+implicit	free	lists,	
+847
+–
+849
+,	
+848
+implicit	thread	termination,	
+988
+implicitly	reentrant	functions,	
+1023
+implied	leading	1	representation,	
+114
+	[Y86–64]	instruction	code	for	
+	instruction,	
+404
+IMUL
+	[instruction	class]	multiply,	
+192
+	[x86–64]	signed	multiply,	
+198
+,	
+198
+	[HCL]	set	membership	test,	
+381
+	[Unix]	IP	address	structure,	
+925
+INC
+	[instruction	class]	increment,	
+192
+include	files,	
+686
+	[C]	preprocessor	directive,	
+170
+	instruction,	
+194
+increment	instruction,	
+192
+,	
+194
+indefinite	integer	values,	
+125
+	file,	
+950
+index	registers,	
+181
+indexes	for	direct-mapped	caches,	
+622
+–
+624
+indirect	jumps,	
+206
+,	
+234
+
+inefficiencies	in	loops,	
+508
+–
+512
+	[Unix]	convert	network-to-application,	
+1024
+	[Unix]	convert	network-to-application,	
+926
+	[Unix]	convert	application-to-network,	
+926
+infinity
+constants,	
+124
+representation,	
+114
+–
+115
+	command,	
+280
+	command,	
+280
+information,	
+2
+–
+4
+information	access	with	x86–64
+registers,	
+179
+–
+180
+data	movement,	
+182
+–
+189
+operand	specifiers,	
+180
+–
+182
+information	storage,	
+34
+addressing	and	byte	ordering,	
+42
+–
+49
+bit-level	operations,	
+54
+–
+56
+Boolean	algebra,	
+50
+–
+53
+code,	
+49
+–
+50
+data	sizes,	
+39
+–
+42
+disks.	
+See	
+disks
+floating	point.	
+See	
+floating-point	representation	and	programs
+hexadecimal,	
+36
+–
+39
+integers.	
+See	
+integers
+locality.	
+See	
+locality
+logical	operations,	
+56
+–
+57
+memory.	
+See	
+memory
+segregated,	
+863
+shift	operations,	
+57
+–
+59
+
+strings,	
+49
+summary,	
+648
+	function,	
+743
+	function,	
+981
+,	
+983
+initial	state	in	progress	graphs,	
+999
+initialize	nonlocal	handler	jump	function,	
+783
+initialize	nonlocal	jump	functions,	
+783
+initialize	read	buffer	function,	
+898
+,	
+900
+initialize	semaphore	function,	
+1002
+initialize	thread	function,	
+990
+initializing	threads,	
+990
+inline	assembly,	
+178
+inline	substitution,	
+501
+inlining,	
+501
+	[Y86–64]	instruction	code	for	
+	instruction,	
+404
+input	events,	
+980
+input/output.	
+See	
+I/O	(input/output)
+insert	item	in	bounded	buffer	function,	
+1007
+install	portable	handler	function,	
+775
+installing	signal	handlers,	
+763
+Institute	for	Electrical	and	Electronics	Engineers	(IEEE)
+description,	
+109
+floating-point	representation	and	programs,	
+112
+–
+114
+denormalized,	
+114
+normalized,	
+113
+–
+114
+special	values,	
+115
+Standard	754,	
+109
+standards,	
+109
+Posix	standards,	
+16
+
+	signal,	
+405
+–
+406
+instruction	caches	(i-caches),	
+518
+,	
+631
+instruction	code	(icode),	
+384
+,	
+405
+instruction	control	units	(ICUs),	
+518
+instruction	function	(ifun),	
+384
+,	
+405
+instruction-level	parallelism,	
+26
+,	
+497
+,	
+518
+,	
+562
+instruction	memory	in	SEQ	timing,	
+401
+instruction	set	architectures	(ISAs),	
+10
+,	
+27
+,	
+170
+,	
+352
+instruction	set	simulators,	
+366
+instructions
+classes,	
+182
+decoding,	
+518
+excepting,	
+445
+fetch	locality,	
+607
+–
+608
+issuing,	
+427
+–
+428
+jump,	
+10
+,	
+205
+–
+209
+load,	
+10
+low-level.	
+See	
+machine-level	programming
+move,	
+214
+–
+220
+,	
+550
+–
+553
+operate,	
+10
+pipelining,	
+468
+–
+469
+,	
+549
+privileged,	
+735
+store,	
+10
+update,	
+9
+–
+10
+Y86–64.	
+See	
+Y86–64	instruction	set	architecture
+instructions	per	cycle	(IPC),	
+471
+	[C]	integer	data	type,	
+40
+	[HCL]	integer	signal,	
+376
+	data	types,	integral,	
+61
+
+	constant,	maximum	signed	integer,	
+68
+	constant,	minimum	signed	integer,	
+68
+	[Unix]	fixed-size,	
+41
+integer	arithmetic,	
+84
+,	
+192
+division	by	powers	of	2,	
+103
+–
+107
+multiplication	by	constants,	
+101
+–
+103
+overview,	
+107
+–
+108
+two's	complement	addition,	
+90
+–
+95
+two's	complement	multiplication,	
+97
+–
+101
+two's	complement	negation,	
+95
+unsigned	addition,	
+84
+–
+90
+integer	bits	in	floating-point	representation,	
+137
+integer	expressions	in	HCL,	
+376
+–
+380
+integer	indefinite	values,	
+125
+integer	operation	instruction,	
+404
+integer	registers	in	x86–64,	
+179
+–
+180
+integers,	
+32
+,	
+59
+–
+60
+arithmetic	operations.	
+See	
+integer	arithmetic
+bit-level	operations,	
+54
+–
+56
+bit	representation	expansion,	
+76
+–
+80
+byte	order,	
+43
+–
+44
+data	types,	
+60
+–
+62
+shift	operations,	
+57
+–
+59
+signed	and	unsigned	conversions,	
+70
+–
+76
+signed	vs.	unsigned	guidelines,	
+83
+–
+84
+truncating,	
+81
+–
+82
+two's	complement	representation,	
+64
+–
+70
+unsigned	encoding,	
+62
+–
+64
+integral	data	types,	
+60
+,	
+60
+–
+62
+
+integration	of	caches	and	VM,	
+817
+Intel	assembly-code	format,	
+177
+,	
+294
+,	
+311
+Intel	Corporation,	
+165
+Intel	microprocessors
+8086,	
+26
+,	
+167
+80286,	
+167
+Core	2,	
+168
+,	
+588
+Core	i7.	
+See	
+Core	i7	microprocessors
+data	alignment,	
+276
+evolution,	
+167
+–
+168
+floating-point	representation,	
+137
+Haswell,	
+168
+,	
+215
+,	
+294
+,	
+523
+i386,	
+167
+i486,	
+167
+northbridge	and	southbridge	chipsets,	
+588
+out-of-order	processing,	
+522
+Pentium,	
+167
+Pentium	II,	
+167
+Pentium	III,	
+167
+–
+168
+Pentium	4,	
+168
+Pentium	4E,	
+168
+PentiumPro,	
+167
+,	
+522
+Sandy	Bridge,	
+168
+x86–64.	
+See	
+x86–64	microprocessors
+Y86–64.	
+See	
+Y86–64	instruction	set	architecture
+interconnected	networks	(internets),	
+921
+,	
+921
+–
+922
+interfaces
+bus,	
+588
+host	bus,	
+597
+interlocks,	load,	
+441
+
+internal	exceptions	in	pipelining,	
+444
+internal	fragmentation,	
+846
+internal	read	function,	
+901
+International	Standards	Organization	(ISO),	
+4
+,	
+35
+Internet,	
+921
+connections,	
+929
+–
+931
+domain	names,	
+927
+–
+929
+IP	addresses,	
+925
+–
+927
+organization,	
+924
+–
+925
+origins,	
+931
+internet	addresses,	
+922
+Internet	Corporation	for	Assigned	Names	and	Numbers	(ICANN),	
+927
+Internet	domain	names,	
+925
+Internet	Domain	Survey
+,	
+930
+Internet	hosts,	number	of,	
+930
+Internet	Protocol	(IP),	
+924
+Internet	Software	Consortium,	
+930
+Internet	worms,	
+284
+internets	(interconnected	networks),	
+921
+,	
+921
+–
+922
+interpositioning	libraries,	
+707
+,	
+707
+–
+708
+compile-time,	
+708
+–
+709
+link-time,	
+708
+,	
+710
+run-time,	
+710
+–
+712
+interpretation	of	bit	patterns,	
+32
+interprocess	communication	(IPC),	
+977
+interrupt	handlers,	
+726
+interruptions,	
+764
+interrupts,	
+726
+,	
+726
+–
+727
+interval	counting	schemes,	
+564
+
+	[C]	maximum	value	of	
+N
+-bit	signed	data	type,	
+67
+	[C]	minimum	value	of	
+N
+-bit	signed	data	type,	
+67
+	[C]	
+N
+-bit	signed	integer	data	type,	
+67
+	fixed-size	integer	types,	
+198
+invalid	address	status	code,	
+364
+invariants,	semaphore,	
+1002
+I/O	(input/output),	
+9
+,	
+890
+memory-mapped,	
+598
+ports,	
+598
+redirection,	
+909
+,	
+909
+–
+910
+system-level.	
+See	
+system-level	I/O
+Unix,	
+19
+,	
+890
+,	
+890
+–
+891
+I/O	bridges,	
+587
+I/O	buses,	
+588
+,	
+596
+,	
+598
+I/O	devices,	
+9
+addressing,	
+598
+connecting,	
+596
+–
+597
+I/O	multiplexing,	
+973
+concurrent	programming	with,	
+978
+–
+985
+event-driven	servers	based	on,	
+980
+–
+985
+pros	and	cons,	
+985
+	[Y86–64]	instruction	code	for	integer	operation	instruction,	
+404
+IP	(Internet	Protocol),	
+924
+IP	address	structure,	
+925
+,	
+926
+IP	addresses,	
+924
+,	
+925
+–
+927
+IPC	(instructions	per	cycle),	
+471
+IPC	(interprocess	communication),	
+977
+iPhone	5S,	
+353
+	[Y86–64]	instruction	code	for	
+	instruction,	
+404
+
+	[Y86–64]	instruction	code	for	
+	instruction,	
+404
+IPv6,	
+925
+	[Y86–64]	instruction	code	for	
+	instruction,	
+404
+	[Y86–64]	instruction	code	for	
+	instruction,	
+404
+	[Y86–64]	immediate	to	register	move,	
+356
+,	
+404
+	[Y86–64]	instruction	code	for	
+	instruction,	
+404
+ISAs	(instruction	set	architectures),	
+10
+,	
+27
+,	
+170
+,	
+352
+ISO	(International	Standards	Organization),	
+4
+,	
+35
+ISO	C11	C	standard,	
+35
+ISO	C90	C	standard,	
+35
+ISO	C99	C	standard,	
+35
+,	
+41
+,	
+324
+integral	data	types,	
+67
+static	libraries,	
+684
+–
+688
+	function,	
+869
+issue	time	for	arithmetic	operations,	
+523
+issuing	instructions,	
+427
+–
+428
+iterative	servers,	
+946
+iterative	sorting	routines,	
+567
+
+	[x86–64]	jump	if	unsigned	greater,	
+206
+	[x86–64]	jump	if	unsigned	greater	or	equal,	
+206
+Java	language,	
+677
+byte	code,	
+310
+linker	symbols,	
+680
+numeric	ranges,	
+68
+objects,	
+266
+–
+267
+software	exceptions,	
+723
+–
+724
+,	
+786
+threads,	
+1030
+Java	monitors,	
+1010
+Java	Native	Interface	(JNI),	
+704
+	[x86–64]	jump	if	unsigned	less,	
+206
+	[x86–64]	jump	if	unsigned	less	or	equal,	
+206
+	[Y86–64]	jump	when	equal,	
+357
+,	
+394
+	[x86–64]	jump	if	greater,	
+206
+,	
+357
+	[x86–64]	jump	if	greater	or	equal,	
+206
+,	
+357
+jik	matrix	multiplication,	
+644
+–
+646
+,	
+645
+jki	matrix	multiplication,	
+644
+–
+646
+,	
+645
+	[x86–64]	jump	if	less,	
+206
+,	
+357
+	[x86–64]	jump	if	less	or	equal,	
+206
+,	
+357
+	[x86–64]	jump	unconditionally,	
+206
+,	
+357
+	[x86–64]	jump	if	not	unsigned	greater,	
+206
+	[x86–64]	jump	if	unsigned	greater	or	equal,	
+206
+	[x86–64]	jump	if	not	unsigned	less,	
+206
+	[x86–64]	jump	if	not	unsigned	less	or	equal,	
+206
+	[x86–64]	jump	if	not	equal,	
+206
+,	
+357
+	[x86–64]	jump	if	not	greater,	
+206
+	[x86–64]	jump	if	not	greater	or	equal,	
+206
+
+JNI	(Java	Native	Interface),	
+704
+	[x86–64]	jump	if	not	less,	
+206
+	[x86–64]	jump	if	not	less	or	equal,	
+206
+	[x86–64]	jump	if	nonnegative,	
+206
+	[x86–64]	jump	if	not	zero,	
+206
+jobs,	
+760
+joinable	threads,	
+989
+	[x86–64]	jump	when	parity	flag	set,	
+306
+	[x86–64]	jump	if	negative,	
+206
+jtest	script,	
+465
+jump	if	greater	instruction,	
+206
+,	
+357
+jump	if	greater	or	equal	instruction,	
+206
+,	
+357
+jump	if	less	instruction,	
+206
+,	
+357
+jump	if	less	or	equal	instruction,	
+206
+,	
+357
+jump	if	negative	instruction,	
+206
+jump	if	nonnegative	instruction,	
+206
+jump	if	not	equal	instruction,	
+206
+,	
+357
+jump	if	not	greater	instruction,	
+206
+jump	if	not	greater	or	equal	instruction,	
+206
+jump	if	not	less	instruction,	
+206
+jump	if	not	less	or	equal	instruction,	
+206
+jump	if	not	unsigned	greater	instruction,	
+206
+jump	if	not	unsigned	less	instruction,	
+206
+jump	if	not	unsigned	less	or	equal	instruction,	
+206
+jump	if	not	zero	instruction,	
+206
+jump	if	unsigned	greater	instruction,	
+206
+jump	if	unsigned	greater	or	equal	instruction,	
+206
+jump	if	unsigned	less	instruction,	
+206
+jump	if	unsigned	less	or	equal	instruction,	
+206
+
+jump	if	zero	instruction,	
+206
+jump	instructions,	
+10
+,	
+205
+–
+209
+,	
+404
+direct,	
+206
+indirect,	
+206
+,	
+234
+instruction	code	for,	
+404
+nonlocal,	
+723
+,	
+781
+,	
+781
+–
+786
+targets,	
+206
+jump	tables,	
+233
+,	
+234
+–
+235
+,	
+725
+jump-to-middle	translation,	
+223
+jump	unconditionally	instruction,	
+206
+,	
+206
+jump	when	equal	instruction,	
+357
+jump	when	parity	flag	set	instruction,	
+306
+just-in-time	compilation,	
+290
+,	
+310
+	[x86–64]	jump	if	zero,	
+206
+
+k
+	×	1	loop	unrolling,	
+531
+k
+	×	1
+a
+	loop	unrolling,	
+544
+k
+	×	
+k
+	loop	unrolling,	
+539
+–
+540
+K&R	(C	book),	
+4
+Kahan,	William,	
+109
+Kahn,	Robert,	
+931
+kernel	mode
+exception	handlers,	
+726
+processes,	
+734
+–
+736
+,	
+735
+system	calls,	
+728
+kernels,	
+17
+,	
+19
+,	
+698
+exception	numbers,	
+725
+virtual	memory,	
+830
+–
+831
+Kernighan,	Brian,	
+2
+,	
+4
+,	
+16
+,	
+35
+,	
+278
+,	
+914
+Kerrisk,	Michael,	
+914
+keyboard,	signals	from,	
+760
+–
+761
+kij	matrix	multiplication,	
+644
+–
+646
+,	
+645
+	[Unix]	send	signal,	
+761
+	command	in	
+GDB
+	debugger,	
+280
+	[CS:APP]	
+	example,	
+761
+kji	matrix	multiplication,	
+644
+–
+646
+,	
+645
+Knuth,	Donald,	
+849
+,	
+851
+	[Unix]	Unix	shell	program,	
+753
+
+l	suffix,	
+179
+L1	cache,	
+13
+,	
+615
+L2	cache,	
+13
+,	
+615
+L3	cache,	
+615
+labels	for	jump	instructions,	
+205
+LANs	(local	area	networks),	
+920
+,	
+920
+–
+922
+last-in,	first	out	discipline,	
+189
+last-in	first-out	(LIFO)	free	list	order,	
+863
+latency
+arithmetic	operations,	
+523
+,	
+524
+disks,	
+594
+instruction,	
+413
+load	operations,	
+554
+–
+555
+pipelining,	
+412
+latency	bounds,	
+518
+,	
+524
+lazy	binding,	
+706
+LD
+	Unix	static	linker,	
+672
+LD
+-
+LINUX
+.
+SO
+	linker,	
+699
+	environment	variable,	
+710
+–
+712
+LDD
+	tool,	
+713
+	instruction,	
+102
+leaf	procedures,	
+241
+leaks,	memory,	
+875
+,	
+992
+	[x86–64]	load	effective	address,	
+191
+,	
+191
+–
+192
+,	
+277
+least-frequently-used	(LFU)	replacement	policies,	
+626
+least-recently-used	(LRU)	replacement	policies,	
+612
+,	
+626
+least	squares	fit,	
+502
+,	
+504
+	[x86–64]	prepare	stack	for	return	instruction,	
+292
+left	hoinkies	(<),	
+910
+
+length	of	strings,	
+83
+less	than	signs	<
+left	hoinkies,	
+909
+"put	to"	operator,	
+890
+levels
+optimization,	
+498
+storage,	
+609
+–
+610
+LF	(line	feed)	characters,	
+892
+LFU	(least-frequently-used)	replacement	policies,	
+626
+	library,	
+911
+,	
+698
+libraries
+in	concurrent	programming,	
+1024
+–
+1025
+header	files,	
+83
+interpositioning,	
+707
+,	
+707
+–
+712
+shared,	
+19
+,	
+699
+,	
+699
+–
+701
+standard	I/O,	
+911
+static,	
+684
+,	
+684
+–
+688
+LIFO	(last-in	first-out)	free	list	order,	
+863
+	file	for	numeric	limit	declarations,	
+67
+–
+68
+,	
+77
+line	feed	(LF)	characters,	
+892
+line	matching
+direct-mapped	caches,	
+618
+fully	associative	caches,	
+626
+set	associative	caches,	
+625
+–
+626
+line	replacement
+direct-mapped	caches,	
+619
+set	associative	caches,	
+626
+	section,	
+675
+
+linear	address	spaces,	
+804
+link-time	errors,	
+7
+link-time	interpositioning,	
+708
+,	
+710
+linkers	and	linking,	
+5
+,	
+164
+,	
+170
+compiler	drivers,	
+671
+–
+672
+dynamic,	
+699
+,	
+699
+–
+701
+library	interpositioning,	
+707
+,	
+707
+–
+712
+object	files,	
+673
+,	
+673
+–
+674
+executable,	
+695
+–
+698
+loading,	
+697
+–
+698
+relocatable,	
+674
+–
+675
+tools	for,	
+713
+overview,	
+670
+–
+671
+position-independent	code,	
+704
+–
+707
+relocation,	
+689
+–
+695
+shared	libraries	from	applications,	
+701
+–
+703
+static,	
+672
+summary,	
+713
+–
+714
+symbol	resolution,	
+679
+–
+689
+symbol	tables,	
+675
+–
+679
+virtual	memory	for,	
+811
+–
+812
+linking	phase,	
+6
+links	in	directories,	
+891
+Linux	operating	system,	
+20
+,	
+45
+code	segments,	
+697
+–
+698
+dynamic	linker	interfaces,	
+702
+and	ELF,	
+673
+exceptions,	
+729
+–
+731
+files,	
+891
+–
+893
+signals,	
+756
+
+static	libraries,	
+685
+–
+686
+virtual	memory,	
+830
+–
+833
+Lisp	language,	
+85
+	[Unix]	convert	active	socket	to	listening	socket,	
+935
+listening	descriptors,	
+936
+–
+937
+listening	sockets,	
+935
+little-endian	ordering	convention,	
+42
+,	
+42
+–
+44
+load	effective	address	instruction,	
+191
+–
+193
+,	
+277
+load	forwarding	in	PIPE,	
+477
+load	instructions,	
+10
+load	interlocks,	
+441
+load	operations
+example,	
+588
+process,	
+519
+–
+520
+load	penalty	in	CPI,	
+467
+load	performance	of	memory,	
+554
+–
+555
+load	program	function,	
+750
+load-store	architecture	in	CISC	vs.	RISC,	
+362
+load	time	for	code,	
+670
+load/use	data	hazards,	
+439
+,	
+439
+–
+441
+loaders,	
+672
+,	
+697
+loading
+concepts,	
+699
+executable	object	files,	
+697
+–
+698
+process,	
+697
+programs,	
+750
+–
+752
+shared	libraries	from	applications,	
+701
+–
+703
+virtual	memory	for,	
+812
+local	area	networks	(LANs),	
+920
+,	
+920
+–
+922
+
+local	automatic	variables,	
+994
+local	registers,	
+527
+local	static	variables,	
+994
+,	
+994
+–
+995
+local	storage
+registers,	
+251
+–
+253
+stack,	
+248
+–
+251
+local	symbols,	
+676
+locality,	
+13
+,	
+580
+,	
+604
+–
+605
+blocking	for,	
+647
+caches,	
+643
+–
+647
+,	
+810
+exploiting,	
+647
+forms,	
+604
+,	
+614
+instruction	fetches,	
+607
+–
+608
+program	data	references,	
+606
+–
+607
+summary,	
+608
+–
+609
+	function,	
+1024
+lock-and-copy	technique,	
+1022
+,	
+1022
+locking	mutexes
+lock	ordering	rule,	
+1029
+for	semaphores,	
+1003
+logic	design,	
+372
+combinational	circuits,	
+374
+–
+380
+,	
+413
+logic	gates,	
+373
+,	
+373
+memory	and	clocking,	
+381
+–
+384
+set	membership,	
+380
+–
+381
+logic	gates,	
+373
+logic	synthesis,	
+355
+,	
+373
+,	
+467
+logical	blocks
+disks,	
+595
+,	
+595
+–
+596
+
+SSDs,	
+601
+logical	control	flow,	
+732
+,	
+732
+–
+733
+logical	operations,	
+56
+–
+57
+,	
+191
+discussion,	
+196
+–
+197
+load	effective	address,	
+191
+–
+193
+shift,	
+58
+,	
+104
+,	
+192
+,	
+194
+–
+196
+special,	
+197
+–
+200
+unary	and	binary,	
+194
+	[C]	integer	data	type,	
+40
+–
+41
+,	
+61
+–
+62
+	double	[C]	extended-precision	floating	point,	
+125
+,	
+137
+	floating-point	declaration,	
+178
+long	words	in	machine-level	data,	
+179
+	[C	Stdlib]	nonlocal	jump,	
+723
+,	
+783
+,	
+783
+loop	registers,	
+527
+loop	unrolling,	
+502
+,	
+504
+,	
+531
+Core	i7,	
+572
+k
+	×	1,	
+531
+k
+	×	1
+a
+,	
+544
+k
+	×	
+k
+,	
+539
+–
+540
+overview,	
+531
+–
+535
+with	reassociation	transformations,	
+541
+–
+543
+loopback	addresses,	
+928
+loops,	
+220
+,	
+220
+–
+223
+,	
+228
+–
+232
+inefficiencies,	
+508
+–
+512
+reverse	engineering,	
+222
+segments,	
+526
+–
+527
+for	spatial	locality,	
+643
+–
+647
+
+,	
+223
+–
+228
+low-level	instructions.	
+See	
+machine-level	programming
+low-level	optimizations,	
+562
+lowercase	conversions,	
+509
+–
+511
+LRU	(least-recently-used)	replacement	policies,	
+612
+,	
+626
+	command,	
+892
+	[Unix]	function,	
+896
+–
+897
+lvalue	(C)	assignable	value	for	pointers,	
+277
+
+Mac	OS	X	(Apple	Macintosh)	operating	system,	
+27
+machine	checks,	
+729
+machine	code,	
+164
+machine-level	programming
+arithmetic.	
+See	
+arithmetic
+arrays.	
+See	
+arrays
+buffer	overflow.	
+See	
+buffer	overflow
+control.	
+See	
+control	structures
+data-flow	graphs	from,	
+525
+–
+529
+data	formats,	
+177
+–
+179
+data	movement	instructions,	
+182
+–
+189
+encodings,	
+169
+–
+177
+floating	point.	
+See	
+floating-point	code
+GDB
+	debugger,	
+279
+–
+280
+heterogeneous	data	structures.	
+See	
+heterogeneous	data
+structures
+historical	perspective,	
+166
+–
+169
+information	access,	
+179
+–
+180
+instructions,	
+4
+operand	specifiers,	
+180
+–
+182
+overview,	
+164
+–
+166
+pointer	principles,	
+278
+procedures.	
+See	
+procedures
+x86–64.	
+See	
+x86–64	microprocessors
+macros	for	storage	allocators,	
+856
+–
+857
+main	memory,	
+9
+accessing,	
+587
+–
+589
+memory	modules,	
+584
+main	threads,	
+986
+
+	[C	Stdlib]	allocate	heap	storage,	
+35
+,	
+324
+,	
+697
+,	
+839
+–
+840
+,	
+840
+alignment	with,	
+276
+declaration,	
+134
+–
+135
+dynamic	memory	allocation,	
+840
+–
+843
+interpositioning	libraries,	
+708
+wrappers	for,	
+711
+	command,	
+48
+mandatory	alignment,	
+276
+mangling	process	(C++	and	Java),	
+680
+many-core	processors,	
+471
+map	disk	object	into	memory	function,	
+837
+mapping
+memory.	
+See	
+memory	mapping
+variables,	
+994
+–
+995
+mark	phase	in	Mark&Sweep,	
+867
+Mark&Sweep	algorithm,	
+866
+Mark&Sweep	garbage	collectors,	
+867
+,	
+867
+–
+870
+masking	operations,	
+55
+matrices
+adjacency,	
+660
+multiplying,	
+643
+–
+647
+maximum	floating-point	instructions,	
+302
+maximum	two's	complement	number,	
+66
+maximum	unsigned	number	function,	
+63
+maximum	values,	constants	for,	
+68
+McCarthy,	John,	
+866
+McIlroy,	Doug,	
+16
+media	instructions,	
+294
+	[CS:APP]	heap	model,	
+855
+
+	[CS:APP]	sbrk	emulator,	
+855
+membership,	set,	
+380
+–
+381
+	[Unix]	copy	bytes	from	one	region	of	memory	to	another,	
+133
+memory,	
+580
+accessing,	
+587
+–
+589
+aliasing,	
+499
+,	
+500
+associative,	
+625
+caches.	
+See	
+caches	and	cache	memory
+copying	bytes	in,	
+133
+data	alignment	in,	
+273
+–
+276
+data	hazards,	
+435
+design,	
+384
+dynamic.	
+See	
+dynamic	memory	allocation
+hazards,	
+435
+hierarchy,	
+14
+,	
+14
+,	
+609
+–
+614
+leaks,	
+875
+,	
+992
+load	performance,	
+554
+–
+555
+in	logic	design,	
+361
+–
+364
+machine-language	procedures,	
+239
+machine-level	programming,	
+170
+main,	
+9
+,	
+584
+,	
+587
+–
+589
+mapping.	
+See	
+memory	mapping
+nonvolatile,	
+587
+performance,	
+553
+–
+561
+pipelining,	
+469
+–
+470
+protecting,	
+289
+,	
+812
+–
+813
+RAM.	
+See	
+random	access	memory	(RAM)
+ROM,	
+587
+threads,	
+993
+–
+994
+
+trends,	
+602
+–
+604
+virtual.	
+See	
+virtual	memory	(VM)
+Y86,	
+356
+memory	buses,	
+587
+memory	controllers,	
+583
+,	
+584
+memory	management	units	(MMUs),	
+804
+,	
+807
+memory-mapped	I/O,	
+598
+memory	mapping,	
+812
+areas,	
+833
+,	
+833
+	function,	
+836
+–
+837
+	function,	
+836
+in	loading,	
+699
+objects,	
+833
+–
+836
+user-level,	
+837
+–
+839
+memory	mountains,	
+639
+Core	i7	microprocessors,	
+641
+overview,	
+639
+–
+643
+memory	references
+operands,	
+181
+out	of	bounds.	
+See	
+buffer	overflow
+in	performance,	
+514
+–
+517
+memory	stage
+instruction	processing,	
+385
+,	
+387
+–
+397
+PIPE	processor,	
+454
+–
+455
+sequential	processing,	
+400
+sequential	Y86–64	implementation,	
+409
+–
+411
+Y86–64	pipelining,	
+423
+memory	system,	
+580
+memory	utilization,	
+845
+,	
+845
+
+	function,	declaration,	
+134
+–
+135
+metadata,	
+903
+,	
+903
+–
+904
+metastable	states,	
+581
+methods
+hypertext	transfer	protocol,	
+951
+–
+952
+objects,	
+267
+micro-operations,	
+519
+microarchitecture,	
+10
+,	
+517
+microprocessors.	
+See	
+central	processing	units	(CPUs)
+Microsoft	Windows	operating	system,	
+45
+MIME	(multipurpose	internet	mail	extensions)	types,	
+949
+minimum	block	size,	
+848
+minimum	floating-point	instructions,	
+302
+minimum	two's	complement	number,	
+66
+minimum	values
+constants,	
+68
+two's	complement	representation,	
+66
+mispredicted	branches
+handling,	
+443
+–
+444
+performance	penalties,	
+467
+,	
+520
+,	
+549
+–
+553
+miss	rates,	
+631
+misses,	caches,	
+470
+,	
+612
+kinds,	
+612
+–
+613
+penalties,	
+632
+,	
+806
+rates,	
+631
+	command,	
+892
+	[CS:APP]	allocator:	boundary	tag	coalescing,	
+860
+	[CS:APP]	allocator:	free	heap	block,	
+860
+	[CS:APP]	matrix	multiply	
+ijk,
+	
+645
+
+	[CS:APP]	matrix	multiply	
+ikj,
+	
+645
+	[CS:APP]	allocator:	initialize	heap,	
+858
+	[CS:APP]	matrix	multiply	
+jik
+,	
+645
+	[CS:APP]	matrix	multiply	
+jki
+,	
+645
+	[CS:APP]	matrix	multiply	
+kij
+,	
+645
+	[CS:APP]	matrix	multiply	
+kji,
+	
+645
+	[CS:APP]	allocator:	allocate	heap	block,	
+860
+,	
+861
+	[Unix]	map	disk	object	into	memory,	
+837
+,	
+837
+–
+839
+MMUs	(memory	management	units),	
+804
+,	
+807
+MMX	media	instructions,	
+167
+,	
+294
+Mockapetris,	Paul,	
+931
+mode	bits,	
+735
+modern	processor	performance,	
+518
+–
+531
+modes
+kernel,	
+726
+,	
+728
+processes,	
+734
+–
+736
+,	
+735
+user,	
+726
+,	
+728
+modified	sequential	processor	implementation,	
+421
+–
+422
+modular	arithmetic,	
+85
+–
+86
+,	
+89
+modules
+DRAM,	
+584
+,	
+585
+object,	
+673
+monitors,	Java,	
+1010
+monotonicity	assumption,	
+846
+monotonicity	property,	
+124
+Moore,	Gordon,	
+169
+Moore's	Law,	
+169
+,	
+169
+MOSAIC
+	browser,	
+949
+motherboards,	
+9
+
+Motorola	RISC	processors,	
+363
+MOV
+	[instruction	class]	move	data,	
+182
+,	
+182
+–
+183
+	[x86–64]	move	absolute	quad	word,	
+183
+,	
+183
+	[x86–64]	move	byte,	
+183
+move	absolute	quad	word	instruction,	
+183
+,	
+183
+move	aligned,	packed	double	precision	instruction,	
+296
+move	aligned,	packed	single	precision	instruction,	
+296
+move	and	sign-extend	instruction,	
+184
+,	
+185
+move	byte	instruction,	
+183
+move	data	instructions,	
+182
+–
+189
+move	double	precision	instruction,	
+296
+move	double	word	instruction,	
+183
+move	if	even	parity	instruction,	
+324
+move	if	greater	instruction,	
+217
+,	
+357
+move	if	greater	or	equal	instruction,	
+217
+,	
+357
+move	if	less	instruction,	
+217
+,	
+357
+move	if	less	or	equal	instruction,	
+217
+,	
+357
+move	if	negative	instruction,	
+217
+move	if	nonnegative	instruction,	
+217
+move	if	not	equal	instruction,	
+217
+,	
+357
+move	if	not	greater	instruction,	
+217
+move	if	not	greater	or	equal	instruction,	
+217
+move	if	not	less	instruction,	
+217
+move	if	not	less	or	equal	instruction,	
+217
+move	if	not	unsigned	greater	instruction,	
+217
+move	if	not	unsigned	less	instruction,	
+217
+move	if	not	unsigned	less	or	equal	instruction,	
+217
+move	if	not	zero	instruction,	
+217
+move	if	unsigned	greater	instruction,	
+217
+
+move	if	unsigned	greater	or	equal	instruction,	
+217
+move	if	unsigned	less	instruction,	
+217
+move	if	unsigned	less	or	equal	instruction,	
+217
+move	if	zero	instruction,	
+217
+move	instructions,	conditional,	
+214
+–
+220
+,	
+550
+–
+553
+move	quad	word	instruction,	
+183
+move	sign-extended	byte	to	double	word	instruction,	
+185
+move	sign-extended	byte	to	quad	word	instruction,	
+185
+move	sign-extended	byte	to	word	instruction,	
+185
+move	sign-extended	double	word	to	quad	word	instruction,	
+185
+move	sign-extended	word	to	double	word	instruction,	
+185
+move	sign-extended	word	to	quad	word	instruction,	
+185
+move	single	precision	instruction,	
+296
+move	when	equal	instruction,	
+357
+move	with	zero	extension	instruction,	
+184
+,	
+184
+move	word	instruction,	
+183
+move	zero-extended	byte	to	double	word	instruction,	
+184
+move	zero-extended	byte	to	quad	word	instruction,	
+184
+move	zero-extended	byte	to	word	instruction,	
+184
+move	zero-extended	word	to	double	word	instruction,	
+184
+move	zero-extended	word	to	quad	word	instruction,	
+184
+movement	operations,	floating-point	code,	
+296
+–
+301
+	[x86–64]	move	double	word,	
+183
+	[x86–64]	move	quad	word,	
+183
+MOVS
+	[instruction	class]	move	and	sign-extend,	
+184
+,	
+185
+	[x86–64]	move	sign-extended	byte	to	double	word,	
+185
+	[x86–64]	move	sign-extended	byte	to	quad	word,	
+185
+	[x86–64]	move	sign-extended	byte	to	word,	
+185
+	[x86–64]	move	sign-extended	double	word	to	quad	word,	
+185
+
+	[x86–64]	move	sign-extended	word	to	double	word,	
+185
+	[x86–64]	move	sign-extended	word	to	quad	word,	
+185
+	[x86–64]	move	word,	
+183
+MOVZ
+	[instruction	class]	move	with	zero	extension,	
+184
+,	
+184
+	[x86–64]	move	zero-extended	byte	to	double	word,	
+184
+	[x86–64]	move	zero-extended	byte	to	quad	word,	
+184
+	[x86–64]	move	zero-extended	byte	to	word,	
+184
+	[x86–64]	move	zero-extended	word	to	double	word,	
+184
+	[x86–64]	move	zero-extended	word	to	quad	word,	
+184
+	instruction,	
+404
+	[x86–64]	unsigned	multiply,	
+198
+,	
+198
+multi-core	processors,	
+16
+,	
+24
+–
+25
+,	
+168
+,	
+605
+,	
+972
+multi-level	page	tables,	
+819
+–
+821
+multi-threading,	
+17
+–
+18
+,	
+25
+Multics,	
+16
+multicycle	instructions,	
+468
+–
+469
+multidimensional	arrays,	
+258
+–
+260
+multiple	accumulators	in	parallelism,	
+536
+–
+541
+multiple	zone	recording,	
+592
+multiplexing,	I/O,	
+973
+concurrent	programming	with,	
+978
+–
+985
+event-driven	servers	based	on,	
+980
+–
+985
+pros	and	cons,	
+985
+multiplexors,	
+374
+,	
+374
+–
+375
+HCL	with	case	expression,	
+378
+word-level,	
+378
+–
+380
+multiplication
+constants,	
+101
+–
+103
+floating	point,	
+124
+,	
+302
+
+instructions,	
+198
+matrices,	
+643
+–
+647
+two's	complement,	
+97
+–
+101
+unsigned,	
+96
+–
+97
+,	
+198
+,	
+198
+multiply	instruction,	
+192
+multiported	random	access	memory,	
+382
+multiprocessor	systems,	
+24
+multipurpose	internet	mail	extensions	(MIME)	types,	
+949
+multitasking,	
+733
+multiway	branch	statements,	
+232
+–
+238
+	[Unix]	unmap	disk	object,	
+839
+mutexes
+lock	ordering	rule,	
+1029
+Pthreads,	
+1010
+for	semaphores,	
+1003
+mutual	exclusion
+progress	graphs,	
+1000
+semaphores	for,	
+1002
+–
+1004
+mutually	exclusive	access,	
+1000
+
+	(newline	character),	
+3
+,	
+891
+n
+-gram	statistics,	
+565
+named	pipes,	
+892
+names
+domain,	
+925
+,	
+927
+–
+929
+mangling	and	demangling	processes	(C++	and	Java),	
+680
+,	
+680
+protocols,	
+922
+types,	
+47
+Y86–64	pipelines,	
+427
+NaN
+	(not	a	number)
+constants,	
+124
+floating	point,	
+306
+representation,	
+114
+,	
+115
+nanoseconds	(ns),	
+502
+National	Science	Foundation	(NSF),	
+931
+	signal,	
+405
+	signal,	
+405
+NEG
+	[instruction	class]	negate,	
+192
+negate	instruction,	
+192
+negation,	two's	complement,	
+95
+negative	overflow,	
+90
+,	
+90
+–
+91
+nested	arrays,	
+258
+–
+260
+nested	structures,	
+268
+network	adapters,	
+597
+network	byte	order,	
+925
+network	clients,	
+21
+,	
+918
+Network	File	System	(NFS),	
+610
+network	programming,	
+918
+client-server	model,	
+918
+–
+919
+
+Internet.	
+See	
+Internet
+networks,	
+919
+–
+923
+sockets	interface.	
+See	
+sockets	interface
+summary,	
+964
+–
+965
+T
+INY
+	Web	server,	
+956
+–
+964
+Web	servers,	
+948
+–
+956
+network	servers,	
+21
+,	
+918
+networks,	
+20
+–
+21
+acyclic,	
+374
+LANs,	
+920
+,	
+920
+–
+922
+WANs,	
+921
+,	
+921
+–
+922
+never	taken	(NT)	branch	prediction	strategy,	
+428
+newline	character	(
+),	
+3
+,	
+891
+next-fit	block	placement	policy,	
+849
+,	
+849
+	command,	
+280
+NFS	(Network	File	System),	
+610
+NM
+	tool,	
+713
+no-execute	(NX)	memory	protection,	
+289
+no	operation	nop	instruction,	
+286
+,	
+404
+instruction	code	for,	
+405
+pipelining,	
+430
+–
+431
+in	stack	randomization,	
+286
+no-write-allocate	approach,	
+630
+nodes,	root,	
+866
+nondeterminism,	
+748
+nondeterministic	behavior,	
+748
+nonexistent	variables,	referencing,	
+874
+nonlocal	jumps,	
+723
+,	
+781
+,	
+781
+–
+786
+nonuniform	partitioning,	
+416
+–
+418
+
+nonvolatile	memory,	
+586
+	[x86–64]	no	operation	instruction,	
+286
+,	
+404
+instruction	code	for,	
+405
+pipelining,	
+430
+–
+431
+in	stack	randomization,	
+286
+nop	sleds,	
+286
+	[CS:APP]	Pthreads	program	without	a	race,	
+1027
+normal	operation	status	code,	
+364
+,	
+404
+normalized	values,	floating-point,	
+113
+,	
+113
+–
+114
+northbridge	chipsets,	
+588
+not	a	number	
+(NaN)
+constants,	
+124
+floating	point,	
+306
+representation,	
+114
+,	
+115
+NOT
+	[instruction	class]	complement,	
+192
+NOT
+	operation
+Boolean,	
+51
+–
+52
+C	operators,	
+56
+–
+57
+logic	gates,	
+373
+ns	(nanoseconds),	
+502
+NSF	(National	Science	Foundation),	
+931
+NSFNET,	
+931
+NSLOOKUP
+	program,	
+928
+	[Unix]	convert	network-to-host	long,	
+925
+	[Unix]	convert	network-to-host	short,	
+925
+number	systems	conversions.	
+See	
+conversions
+numeric	limit	declarations,	
+77
+numeric	ranges
+C	standards,	
+61
+
+integral	types,	
+60
+–
+62
+Java	standard,	
+68
+NX	(no-execute)	memory	protection,	
+289
+
+	files,	
+173
+,	
+672
+	optimization	flag,	
+170
+	optimization	flag,	
+170
+OBJDUMP
+	
+GNU
+	machine-code	file	reader,	
+173
+,	
+279
+,	
+692
+,	
+713
+object	code,	
+170
+,	
+173
+object	files,	
+173
+executable.	
+See	
+executable	object	files
+formats,	
+673
+forms,	
+673
+relocatable,	
+5
+,	
+672
+,	
+673
+–
+675
+shared,	
+673
+tools,	
+713
+object	modules,	
+673
+objects
+C++	and	Java,	
+266
+memory-mapped,	
+833
+–
+836
+private,	
+834
+,	
+834
+program,	
+34
+shared,	
+699
+,	
+833
+–
+836
+as	
+,	
+266
+–
+267
+oct	word,	
+197
+,	
+197
+–
+198
+	[x86–64]	overflow	flag	condition	code,	
+201
+,	
+355
+off-by-one	errors,	
+872
+offsets
+GOTs,	
+705
+,	
+705
+–
+707
+memory	references,	
+181
+PPOs,	
+814
+unions,	
+270
+VPOs,	
+814
+
+	optimization	flag,	
+170
+,	
+563
+one-operand	multiply	instructions,	
+198
+ones'-complement	representation,	
+68
+	[Unix]	open	file,	
+891
+,	
+893
+–
+895
+	[CS:APP]	establish	connection	with	server,	
+942
+,
+942
+–
+944
+	[CS:APP]	establish	a	listening	socket,	
+944
+,	
+944
+open	operations	for	files,	
+891
+,	
+893
+–
+895
+open	shared	library	function,	
+701
+open-source	operating	systems,	
+86
+–
+87
+	functions,	
+905
+operand	specifiers,	
+180
+–
+182
+operate	instruction,	
+10
+operating	systems	(OS),	
+15
+files,	
+19
+hardware	management,	
+14
+–
+15
+kernels,	
+19
+Linux,	
+20
+,	
+45
+processes,	
+15
+–
+17
+threads,	
+17
+–
+18
+Unix,	
+35
+virtual	memory,	
+18
+–
+19
+Windows,	
+45
+operations
+bit-level,	
+54
+–
+56
+logical,	
+56
+–
+57
+shift,	
+57
+–
+59
+optest	script,	
+465
+optimization
+
+address	translation,	
+830
+compiler,	
+170
+levels,	
+498
+program	performance.	
+See	
+performance
+optimization	blockers,	
+496
+–
+497
+,	
+500
+OPTIONS	method,	
+951
+OR
+	[instruction	class]	or,	
+192
+OR
+	operation
+Boolean,	
+51
+–
+52
+C	operators,	
+56
+–
+57
+HCL	expressions,	
+374
+–
+375
+logic	gates,	
+373
+order,	bytes,	
+42
+–
+49
+disassembled	code,	
+210
+network,	
+925
+unions,	
+272
+origin	servers,	
+952
+OS.	
+See	
+operating	systems	(OS)
+Ossanna,	Joe,	
+16
+out-of-bounds	memory	references.	
+See	
+buffer	overflow
+out-of-order	execution,	
+518
+five-stage	pipelines,	
+471
+history,	
+522
+overflow
+arithmetic,	
+87
+,	
+87
+–
+89
+,	
+134
+buffer.	
+See	
+buffer	overflow
+floating-point	values,	
+127
+identifying,	
+92
+–
+93
+infinity	representation,	
+115
+multiplication,	
+102
+
+negative,	
+90
+,	
+90
+–
+91
+operations,	
+32
+positive,	
+90
+,	
+90
+–
+91
+overflow	flag	condition	code,	
+201
+,	
+355
+overloaded	functions	(C++	and	Java),	
+680
+
+P	semaphore	operation,	
+1001
+,	
+1001
+–
+1002
+P	[CS:APP]	wrapper	function	for	Posix	sem_wait,	
+1002
+P6	microarchitecture,	
+167
+PA	(physical	addresses),	
+803
+vs.	virtual,	
+803
+–
+804
+Y86–64,	
+356
+packages,	processor,	
+825
+packet	headers,	
+922
+packets,	
+922
+padding
+alignment,	
+274
+–
+275
+blocks,	
+847
+page	faults
+DRAM	caches,	
+808
+,	
+808
+–
+809
+Linux/x86–64	systems,	
+729
+,	
+832
+–
+833
+memory	caches,	
+470
+pipelining	caches,	
+808
+page	frames,	
+805
+page	hits	in	caches,	
+808
+page	table	base	registers	(PTBRs),	
+814
+page	table	entries	(PTEs),	
+807
+,	
+807
+–
+808
+Core	i7,	
+826
+–
+828
+TLBs	for,	
+817
+–
+821
+,	
+823
+page	table	entry	addresses	(PTEAs),	
+817
+page	tables,	
+736
+,	
+823
+caches,	
+806
+–
+808
+,	
+807
+multi-level,	
+819
+–
+821
+paged-in	pages,	
+809
+paged-out	pages,	
+809
+pages
+
+allocation,	
+810
+demand	zero,	
+833
+dirty,	
+827
+physical,	
+805
+,	
+805
+–
+806
+SSDs,	
+601
+virtual,	
+289
+,	
+805
+,	
+805
+–
+806
+paging
+demand,	
+810
+description,	
+809
+parallel	execution,	
+734
+parallel	flows,	
+734
+,	
+734
+parallel	programs,	
+1013
+parallelism,	
+24
+,	
+536
+instruction-level,	
+26
+,	
+497
+,	
+518
+,	
+562
+multiple	accumulators,	
+536
+–
+541
+reassociation	transformations,	
+541
+–
+546
+SIMD,	
+26
+,	
+546
+–
+547
+thread-level,	
+26
+threads	for,	
+1013
+–
+1018
+parent	directories,	
+892
+parent	processes,	
+739
+,	
+739
+–
+740
+parity	flag	condition	code,	
+178
+,	
+306
+	[CS:APP]	T
+INY
+	helper	function,	
+960
+	[CS:APP]	shell	helper	routine,	
+756
+partitioning
+addresses,	
+615
+–
+616
+nonuniform	in	pipelining,	
+416
+–
+418
+passing	data
+machine-language	procedures,	
+239
+
+pointers	to	structures,	
+266
+pathnames,	
+893
+Patterson,	David,	
+361
+,	
+471
+	[Unix]	suspend	until	signal	arrives,	
+750
+payloads
+aggregate,	
+845
+Ethernet,	
+920
+protocol,	
+922
+PC.	
+See	
+program	counters	(PCs)
+PC-relative	addressing
+jumps,	
+207
+,	
+207
+–
+209
+symbol	references,	
+690
+,	
+692
+–
+693
+Y86–64,	
+359
+PC	selection	stage	in	PIPE	processor,	
+447
+–
+449
+PC	update	stage
+instruction	processing,	
+385
+,	
+387
+–
+395
+sequential	processing,	
+400
+sequential	Y86–64	implementation,	
+411
+PCI	(peripheral	component	interconnect),	
+598
+PCIe	(PCI	express),	
+598
+PE	(Portable	Executable)	format,	
+673
+peak	utilization	metric,	
+844
+–
+845
+,	
+845
+peer	threads,	
+986
+pending	bit	vectors,	
+759
+pending	signals,	
+758
+Pentium	II	microprocessor,	
+167
+Pentium	III	microprocessor,	
+167
+–
+168
+Pentium	4	microprocessor,	
+168
+Pentium	4E	microprocessor,	
+168
+
+Pentium	microprocessor,	
+167
+PentiumPro	microprocessor,	
+167
+,	
+522
+performance,	
+6
+Amdahl's	law,	
+22
+–
+24
+basic	strategies,	
+561
+–
+562
+bottlenecks,	
+562
+–
+568
+branch	prediction	and	misprediction	penalties,	
+549
+–
+553
+caches,	
+553
+,	
+631
+–
+633
+,	
+639
+–
+647
+compiler	capabilities	and	limitations,	
+498
+–
+502
+expressing,	
+502
+–
+504
+limiting	factors,	
+548
+–
+553
+loop	inefficiencies,	
+508
+–
+512
+loop	unrolling,	
+531
+,	
+531
+–
+535
+memory,	
+553
+–
+561
+memory	references,	
+514
+–
+517
+modern	processors,	
+518
+–
+531
+overview,	
+496
+–
+498
+parallelism.	
+See	
+parallelism
+procedure	calls,	
+512
+–
+513
+program	example,	
+504
+–
+508
+program	profiling,	
+562
+–
+564
+register	spilling,	
+548
+–
+549
+results	summary,	
+547
+–
+548
+sequential	Y86–64	implementation,	
+412
+summary,	
+568
+–
+569
+Y86–64	pipelining,	
+464
+–
+468
+periods	(.)	in	dotted-decimal	notation,	
+926
+persistent	connections	in	HTTP,	
+952
+P
+F
+	[x86–64]	parity	flag	condition	code,	
+178
+,	
+306
+physical	address	spaces,	
+804
+
+physical	addresses	(PA),	
+803
+vs.	virtual,	
+803
+–
+804
+Y86–64,	
+356
+physical	page	numbers	(PPNs),	
+814
+physical	page	offset	(PPO),	
+814
+physical	pages	(PPs),	
+805
+,	
+805
+–
+806
+pi	in	floating-point	representation,	
+140
+PIC	(position-independent	code),	
+704
+data	references,	
+704
+–
+705
+function	calls,	
+705
+–
+707
+picoseconds	(ps),	
+413
+,	
+502
+PIDs	(process	IDs),	
+739
+pins,	DRAM,	
+582
+–
+583
+PIPE–	processor,	
+421
+,	
+422
+,	
+426
+–
+430
+PIPE	processor	stages,	
+439
+–
+440
+,	
+447
+decode	and	write-back,	
+449
+–
+453
+execute,	
+453
+–
+454
+memory,	
+454
+–
+455
+PC	selection	and	fetch,	
+447
+–
+449
+pipelining,	
+26
+,	
+215
+,	
+412
+bubble,	
+434
+combinational,	
+412
+–
+414
+deep,	
+418
+–
+419
+diagram,	
+413
+five-stage,	
+471
+functional	units,	
+523
+–
+524
+instruction,	
+549
+limitations,	
+416
+–
+418
+nonuniform	partitioning,	
+416
+–
+418
+operation,	
+414
+–
+416
+
+registers,	
+413
+,	
+427
+store	operation,	
+555
+–
+556
+systems	with	feedback,	
+419
+–
+421
+Y86–64.	
+See	
+Y86–64	pipelined	implementations
+pipes,	
+977
+Pisano,	Leonardo	(Fibonacci),	
+32
+placement
+memory	blocks,	
+847
+,	
+849
+policies,	
+612
+,	
+849
+platters,	disk,	
+590
+,	
+591
+PLT	(procedure	linkage	table),	
+706
+,	
+706
+–
+707
+PMAP
+	tool,	
+786
+point-to-point	connections,	
+929
+pointers,	
+34
+arithmetic,	
+257
+–
+258
+,	
+873
+arrays	relationship	to,	
+48
+,	
+277
+block,	
+856
+creating,	
+48
+,	
+188
+declaring,	
+41
+dereferencing,	
+48
+,	
+188
+,	
+257
+,	
+277
+,	
+870
+–
+871
+examples,	
+188
+to	functions,	
+278
+machine-level	data,	
+177
+principles,	
+278
+role,	
+36
+stack,	
+239
+to	structures,	
+266
+virtual	memory,	
+870
+–
+873
+,	
+48
+
+polynomial	evaluation,	
+530
+,	
+530
+,	
+572
+–
+573
+pools	of	peer	threads,	
+987
+pop	instructions	in	x86–64	models,	
+372
+
+pop	operations	on	stack,	
+189
+,	
+189
+–
+191
+	[Y86–64]	pop	instruction,	
+190
+,	
+190
+,	
+357
+behavior	of,	
+371
+code	for,	
+404
+run-time	stack,	
+239
+portability	and	data	type	size,	
+41
+Portable	Executable	(PE)	format,	
+673
+portable	signal	handling,	
+774
+–
+775
+ports
+Ethernet,	
+920
+Internet,	
+930
+I/O,	
+598
+register	files,	
+382
+	[Y86–64]	directive,	
+366
+position-independent	code	(PIC),	
+704
+data	references,	
+704
+–
+705
+function	calls,	
+705
+–
+707
+positive	overflow,	
+90
+,	
+90
+–
+91
+	[CS:APP]	reports	Posix-style	errors,	
+1043
+Posix	standards,	
+16
+Posix-style	error	handling,	
+1042
+,	
+1043
+Posix	threads,	
+987
+,	
+987
+–
+988
+POST	method,	
+951
+–
+953
+PowerPC
+processor	family,	
+352
+,	
+361
+RISC	design,	
+361
+–
+363
+powers	of	2,	division	by,	
+103
+–
+107
+PPNs	(physical	page	numbers),	
+814
+PPO	(physical	page	offset),	
+814
+
+PPs	(physical	pages),	
+805
+,	
+805
+–
+806
+precedence	of	shift	operations,	
+59
+precision,	floating-point,	
+113
+,	
+137
+prediction
+branch,	
+215
+misprediction	penalties,	
+549
+–
+553
+Y86–64	pipelining,	
+422
+,	
+427
+–
+429
+preempted	processes,	
+733
+prefetching	mechanism,	
+641
+–
+642
+prefix	sums,	
+502
+,	
+503
+,	
+561
+,	
+573
+prepare	stack	for	return	instruction,	
+292
+preprocessors,	
+5
+,	
+170
+prethreading,	
+1005
+–
+1013
+,	
+1008
+primary	inputs	in	logic	gates,	
+374
+principle	of	locality,	
+604
+,	
+604
+	command,	
+280
+print	getaddrinfo	error	message	function,	
+938
+	[C	Stdlib]	formatted	printing	function
+formatted	printing,	
+47
+numeric	values	with,	
+75
+printing,	formatted,	
+47
+priorities
+PIPE	processor	forwarding	sources,	
+451
+–
+452
+write	ports,	
+408
+private	address	space,	
+734
+private	areas,	
+834
+private	copy-on-write	structures,	
+836
+private	declarations	(C++	and	Java),	
+677
+private	objects,	
+834
+,	
+834
+
+privileged	instructions,	
+735
+	filesystem,	
+735
+,	
+735
+–
+736
+,	
+786
+procedure	linkage	table	(PLT),	
+706
+,	
+706
+–
+707
+procedure	return	instruction,	
+357
+procedures,	
+238
+–
+239
+call	performance,	
+512
+–
+513
+control	transfer,	
+241
+–
+245
+data	transfer,	
+245
+–
+248
+floating-point	code	in,	
+301
+–
+302
+recursive,	
+253
+–
+255
+register	usage	conventions,	
+251
+–
+253
+run-time	stack,	
+239
+–
+241
+process	contexts,	
+16
+,	
+736
+process	graphs,	
+741
+,	
+742
+process	groups,	
+759
+process	IDs,	
+739
+process	tables,	
+736
+processes,	
+15
+,	
+732
+,	
+738
+background,	
+753
+child,	
+740
+concurrent	flow,	
+732
+–
+734
+,	
+733
+concurrent	programming	with,	
+973
+–
+977
+concurrent	servers	based	on,	
+974
+–
+975
+context	switches,	
+736
+–
+737
+creating	and	terminating,	
+739
+–
+743
+default	behavior,	
+744
+error	conditions,	
+745
+–
+746
+exit	status,	
+745
+foreground,	
+753
+
+group,	
+759
+IDs,	
+739
+–
+740
+loading	programs,	
+699
+,	
+750
+–
+752
+overview,	
+15
+–
+17
+parent,	
+739
+,	
+740
+preempted,	
+733
+private	address	space,	
+734
+vs.	programs,	
+753
+pros	and	cons,	
+975
+reaping,	
+743
+,	
+743
+–
+749
+running	programs,	
+750
+–
+756
+sleeping,	
+749
+–
+750
+tools,	
+786
+–
+787
+user	and	kernel	modes,	
+734
+–
+735
+	function,	
+746
+–
+749
+zombie,	
+743
+processor-memory	gap,	
+13
+,	
+604
+processor	packages,	
+825
+processor	states,	
+723
+processors.	
+See	
+central	processing	units	(CPUs)
+producer-consumer	problem,	
+1004
+,	
+1005
+–
+1006
+profilers	code,	
+497
+profiling,	program,	
+562
+–
+564
+program	counters	(PCs),	
+9
+,	
+44
+in	fetch	stage,	
+384
+hazards,	
+435
+machine-language	procedures,	
+239
+,	
+171
+SEQ	timing,	
+401
+
+Y86–64	instruction	set	architecture,	
+356
+Y86–64	pipelining,	
+423
+,	
+427
+–
+429
+program	data	references	locality,	
+606
+–
+607
+program	header	tables,	
+696
+,	
+696
+program	registers
+clocked,	
+381
+–
+384
+data	hazards,	
+435
+Y86–64,	
+355
+–
+356
+programmable	ROMs	(PROMs),	
+587
+programmer-visible	state,	
+355
+,	
+355
+–
+356
+programs
+code	and	data,	
+18
+concurrent.	
+See	
+concurrent	programming
+forms,	
+4
+–
+5
+loading	and	running,	
+750
+–
+752
+machine-level.	
+See	
+machine-level	programming
+objects,	
+34
+vs.	processes,	
+753
+profiling,	
+562
+–
+564
+running,	
+10
+–
+12
+,	
+753
+–
+756
+Y86–64,	
+364
+–
+370
+progress	graphs,	
+999
+,	
+999
+–
+1001
+deadlock	regions,	
+1027
+–
+1028
+,	
+1028
+forbidden	regions,	
+1003
+limitations,	
+1004
+prologue	blocks,	
+855
+PROMs	(programmable	ROMs),	
+587
+protection,	memory,	
+812
+–
+813
+protocol	software,	
+922
+protocols,	
+922
+
+proxy	caches,	
+952
+proxy	chains,	
+952
+ps	(picoseconds),	
+413
+,	
+502
+PS
+	tool,	
+786
+pseudorandom	number	generator	functions,	
+1021
+	[CS:APP]	parallel	sum	program	using	array,	
+1016
+	[CS:APP]	parallel	sum	program	using	local	variables,
+1017
+	[CS:APP]	parallel	sum	program	using	mutex,	
+1015
+PTBRs	(page	table	base	registers),	
+814
+PTEAs	(page	table	entry	addresses),	
+817
+PTEs	(page	table	entries),	
+807
+,	
+807
+–
+808
+Core	i7,	
+826
+–
+828
+TLBs	for,	
+817
+–
+821
+,	
+823
+	[Unix]	terminate	another	thread,	
+989
+	[Unix]	create	a	thread,	
+988
+	[Unix]	detach	thread,	
+990
+,	
+990
+	[Unix]	terminate	current	thread,	
+989
+	[Unix]	reap	a	thread,	
+989
+	[Unix]	initialize	a	thread,	
+990
+,	
+1012
+	[Unix]	get	thread	ID,	
+988
+Pthreads,	
+987
+,	
+987
+–
+988
+,	
+1010
+public	declarations	(C++	and	Java),	
+677
+push	instructions	in	x86–64	models,	
+372
+push	operations	on	stack,	
+189
+,	
+189
+–
+191
+	[x86–64]	push	quad	word,	
+173
+,	
+190
+,	
+190
+,	
+357
+code	for,	
+404
+processing	steps,	
+370
+–
+371
+,	
+392
+
+run-time	stack,	
+239
+PUT	method	in	HTTP,	
+951
+"put	to"	operator	(C++),	
+890
+	function,	
+566
+quad	words,	
+177
+QuickPath	interconnect,	
+588
+,	
+826
+	command,	
+280
+
+	(absolute	addressing),	
+691
+	(PC-relative	addressing),	
+690
+symbol	table	entry,	
+677
+and	Unix,	
+673
+	[Y86–64]	program	register,	
+180
+,	
+355
+	[x86–64]	low	order	32	bits	of	register	
+,	
+180
+	[x86–64]	low	order	16	bits	of	register	
+,	
+180
+	[Y86–64]	program	register,	
+180
+,	
+355
+	[x86–64]	low	order	32	bits	of	register	
+,	
+180
+	[x86–64]	low	order	16	bits	of	register	
+,	
+180
+	[Y86–64]	program	register,	
+180
+,	
+355
+	[x86–64]	low	order	32	bits	of	register	
+,	
+180
+	[x86–64]	low	order	16	bits	of	register	
+,	
+180
+	[Y86–64]	program	register,	
+180
+,	
+355
+	[x86–64]	low	order	32	bits	of	register	
+,	
+180
+	[x86–64]	low	order	16	bits	of	register	
+,	
+180
+	[Y86–64]	program	register,	
+180
+,	
+355
+	[x86–64]	low	order	32	bits	of	register	
+,	
+180
+	[x86–64]	low	order	16	bits	of	register	
+,	
+180
+	[Y86–64]	program	register,	
+180
+,	
+355
+	[x86–64]	low	order	32	bits	of	register	
+,	
+180
+	[x86–64]	low	order	16	bits	of	register	
+,	
+180
+	[Y86–64]	program	register,	
+180
+,	
+355
+	[x86–64]	low	order	32	bits	of	register	
+,	
+180
+	[x86–64]	low	order	16	bits	of	register	
+,	
+180
+	[x86–64]	program	register,	
+180
+,	
+355
+	[x86–64]	low	order	32	bits	of	register	
+,	
+180
+
+	[x86–64]	low	order	16	bits	of	register	
+,	
+180
+	[CS:APP]	program	with	a	race,	
+1025
+race	conditions,	
+776
+,	
+992
+concurrent	programming,	
+1025
+,	
+1025
+–
+1027
+signals,	
+776
+–
+778
+RAM.	
+See	
+random	access	memory	(RAM)
+	[CS:APP]	pseudorandom	number	generator,	
+1021
+,	
+1024
+	function,	
+1024
+random	access	memory	(RAM),	
+381
+,	
+581
+dynamic.	
+See	
+dynamic	RAM	(DRAM)
+multiported,	
+382
+processors,	
+384
+SEQ	timing,	
+401
+static.	
+See	
+static	RAM	(SRAM)
+random	operations	in	SSDs,	
+600
+random	replacement	policies,	
+612
+ranges
+asymmetric,	
+66
+,	
+77
+bytes,	
+36
+constants	for,	
+67
+–
+68
+data	types,	
+40
+integral	types,	
+60
+–
+62
+Java	standard,	
+68
+RAS	(row	access	strobe)	requests,	
+583
+	[Y86–64]	program	register,	
+180
+,	
+355
+	[Y86–64]	program	register,	
+180
+,	
+355
+	[Y86–64]	program	register,	
+180
+,	
+355
+	[Y86–64]	program	register,	
+180
+,	
+355
+	[Y86–64]	program	register,	
+180
+,	
+355
+
+	[Y86–64]	program	register,	
+180
+,	
+355
+reachability	graphs,	
+866
+reachable	nodes,	
+866
+read	access,	
+289
+read	and	echo	input	lines	function,	
+947
+read	bandwidth,	
+639
+read	environment	variable	function,	
+751
+read/evaluate	steps,	
+753
+	[Unix]	read	file,	
+895
+,	
+895
+–
+897
+read-only	memory	(ROM),	
+586
+read-only	register,	
+527
+read	operations
+buffered,	
+898
+,	
+900
+–
+901
+disk	sectors,	
+597
+–
+599
+file	metadata,	
+903
+–
+904
+files,	
+891
+,	
+895
+–
+897
+SSDs,	
+601
+unbuffered,	
+897
+–
+898
+uninitialized	memory,	
+871
+read	ports,	
+382
+	[CS:APP]	T
+INY
+	helper	function,	
+960
+read	sets,	
+978
+read	throughput,	
+639
+read	transactions
+descriptions,	
+587
+example	of,	
+588
+–
+589
+read/write	heads,	
+592
+	functions,	
+905
+READELF
+	GNU	object	file	reader,	
+678
+,	
+713
+
+readers-writers	problem,	
+1006
+,	
+1008
+reading
+directory	contents,	
+905
+–
+906
+disk	sectors,	
+597
+	function,	
+903
+	function,	
+903
+ready	read	descriptors,	
+978
+ready	sets,	
+978
+	function,	
+841
+reap	thread	function,	
+989
+reaping
+child	processes,	
+743
+,	
+743
+–
+749
+threads,	
+989
+rearranging	signals	in	pipelining,	
+426
+–
+427
+reassociation	transformations,	
+541
+,	
+541
+–
+546
+,	
+570
+receiving	signals,	
+758
+,	
+762
+–
+764
+recording	density,	
+591
+recording	zones,	
+592
+recursive	procedures,	
+253
+–
+255
+redirection	of	I/O,	
+909
+,	
+909
+–
+910
+reduced	instruction	set	computers	(RISC),	
+361
+VS
+.
+	CISC,	
+361
+–
+363
+SPARC	processors,	
+471
+reentrancy	issues,	
+1023
+–
+1024
+reentrant	functions,	
+766
+,	
+1023
+reference	bits,	
+827
+reference	counts,	
+906
+reference	machines,	
+507
+referencing
+
+data	in	free	heap	blocks,	
+874
+–
+875
+nonexistent	variables,	
+874
+refresh,	DRAM,	
+582
+regions,	deadlock,	
+1027
+–
+1028
+,	
+1028
+register	files,	
+10
+,	
+358
+contents,	
+382
+–
+383
+,	
+521
+purpose,	
+358
+–
+359
+SEQ	timing,	
+401
+register	identifier	(ID),	
+358
+–
+359
+register	operands,	
+181
+register	specifier	bytes	in	Y86–64	instruction,	
+358
+register	to	memory	move	instruction,	
+356
+register	to	register	move	instruction,	
+356
+registers,	
+9
+clocked,	
+381
+data	hazards,	
+435
+data	transfer,	
+245
+–
+248
+hardware,	
+381
+–
+384
+local,	
+527
+local	storage,	
+251
+–
+253
+loop,	
+527
+pipeline,	
+413
+,	
+427
+program,	
+355
+–
+356
+,	
+381
+–
+384
+,	
+435
+read-only,	
+527
+register	files,	
+171
+renaming,	
+522
+spilling,	
+548
+–
+549
+updating	conventions,	
+179
+write-only,	
+527
+x86–64	integer,	
+179
+,	
+179
+–
+180
+
+Y86–64,	
+359
+,	
+422
+–
+426
+regular	files,	
+833
+,	
+891
+	section,	
+675
+	section,	
+675
+relabeling	signals,	
+426
+–
+427
+relative	pathnames,	
+893
+relative	speedup	in	parallel	programs,	
+1019
+reliable	connections,	
+930
+relocatable	object	files,	
+5
+,	
+672
+,	
+673
+–
+675
+relocation,	
+673
+,	
+689
+–
+690
+algorithm,	
+691
+entries,	
+690
+,	
+690
+–
+691
+PC-relative	references,	
+692
+–
+693
+practice	problems,	
+694
+–
+695
+remove	item	from	bounded	buffer	function,	
+1007
+renaming	registers,	
+522
+	[x86–64]	string	repeat	instruction	used	as	no-op,	
+208
+replacement	policies,	
+613
+replacing	blocks,	
+612
+report	shared	library	error	function,	
+702
+reporting	errors,	
+1043
+request	headers	in	HTTP,	
+951
+request	lines	in	HTTP,	
+951
+requests
+client-server	model,	
+918
+HTTP,	
+951
+,	
+951
+–
+952
+requests	for	comments	(RFCs),	
+965
+reset	configuration	in	pipelining,	
+460
+resident	sets,	
+810
+
+resources
+client-server	model,	
+918
+shared,	
+1004
+–
+1008
+	[Y86–64]	register	ID	for	
+,	
+404
+response	bodies	in	HTTP,	
+952
+response	headers	in	HTTP,	
+952
+response	lines	in	HTTP,	
+952
+responses
+client-server	model,	
+918
+HTTP,	
+952
+,	
+952
+–
+953
+	[CS:APP]	nonlocal	jump	example,	
+785
+restrictions,	alignment,	
+273
+–
+276
+	[Y86–64]	procedure	return,	
+357
+	[x86–64]	return	from	procedure	call,	
+208
+,	
+241
+–
+242
+	instruction,	
+404
+processing	steps,	
+395
+Y86–64	pipelining,	
+428
+–
+429
+,	
+455
+–
+457
+,	
+461
+–
+462
+retiming	circuits,	
+421
+retirement	units,	
+521
+	[x86–64]	return	from	procedure,	
+241
+return	addresses,	
+241
+predicting,	
+429
+procedures,	
+240
+return	penalty	in	CPI,	
+467
+reverse	engineering
+loops,	
+222
+machine	code,	
+165
+revolutions	per	minute	(RPM),	
+590
+RFCs	(requests	for	comments),	
+965
+
+ridges	in	memory	mountains,	
+641
+right	hoinkies	(>),	
+910
+right	shift	operations,	
+57
+–
+58
+,	
+192
+rings,	Boolean,	
+52
+RIO
+	[CS:APP]	Robust	I/O	package,	
+897
+buffered	functions,	
+898
+–
+902
+origins,	
+903
+unbuffered	functions,	
+897
+–
+898
+	[CS:APP]	internal	read	function,	
+901
+	[CS:APP]	init	read	buffer,	
+898
+,	
+900
+	[CS:APP]	robust	buffered	read,	
+898
+,	
+902
+	[CS:APP]	robust	unbuffered	read,	
+897
+,	
+897
+–
+899
+,	
+901
+,	
+903
+	[CS:APP]	robust	buffered	read,	
+898
+,	
+902
+	[CS:APP]	read	buffer,	
+900
+	[CS:APP]	robust	unbuffered	write,	
+897
+,	
+897
+–
+899
+,	
+903
+	[x86–64]	program	counter,	
+171
+	program	counter,	
+171
+RISC	(reduced	instruction	set	computers),	
+361
+VS
+.
+	CISC,	
+361
+–
+363
+SPARC	processors,	
+471
+Ritchie,	Dennis,	
+2
+,	
+4
+,	
+16
+,	
+35
+,	
+914
+	command,	
+892
+	[Y86–64]	register	to	memory	move,	
+356
+,	
+390
+,	
+404
+	[Y86–64]	ID	for	indicating	no	register,	
+404
+Roberts,	Lawrence,	
+931
+robust	buffered	read	functions,	
+898
+,	
+902
+Robust	I/O	(
+RIO
+)	package,	
+897
+buffered	functions,	
+898
+–
+902
+
+origins,	
+903
+unbuffered	functions,	
+897
+–
+898
+robust	unbuffered	read	function,	
+897
+,	
+897
+–
+899
+robust	unbuffered	write	function,	
+897
+,	
+897
+–
+899
+	section,	
+674
+ROM	(read-only	memory),	
+586
+root	directory,	
+892
+root	nodes,	
+866
+rotating	disks	term,	
+591
+rotational	latency	of	disks,	
+594
+rotational	rate	of	disks,	
+590
+round-down	mode,	
+121
+,	
+121
+round-to-even	mode,	
+120
+,	
+120
+–
+121
+,	
+124
+round-to-nearest	mode,	
+120
+,	
+120
+round-toward-zero	mode,	
+120
+,	
+120
+–
+121
+round-up	mode,	
+121
+,	
+121
+rounding
+in	division,	
+105
+–
+106
+floating-point	representation,	
+120
+–
+122
+rounding	modes,	
+120
+,	
+120
+–
+122
+routers,	Ethernet,	
+921
+routines,	thread,	
+987
+row	access	strobe	(RAS)	requests,	
+583
+row-major	array	order,	
+258
+,	
+606
+row-major	sum	function,	
+635
+,	
+635
+RPM	(revolutions	per	minute),	
+590
+	[Y86–64]	register	to	register	move,	
+356
+,	
+404
+	[x86–64]	program	register,	
+180
+	[Y86–64]	stack	pointer	program	register	
+179
+–
+180
+,	
+355
+
+	command,	
+280
+run	concurrency,	
+733
+run	time
+interpositioning,	
+710
+–
+712
+linking,	
+670
+shared	libraries,	
+699
+stacks,	
+171
+,	
+239
+–
+241
+running
+in	parallel,	
+734
+processes,	
+739
+programs,	
+10
+–
+12
+,	
+750
+–
+756
+
+	assembly	language	files,	
+672
+	[CS:APP]	shorthand	for	
+	sockaddr,	
+933
+	[Y86–64]	status	code	for	address	exception,	
+404
+safe	optimization,	
+498
+,	
+498
+–
+499
+safe	signal	handling,	
+766
+–
+770
+safe	trajectories	in	progress	graphs,	
+1000
+safely	emit	error	message	and	terminate	instruction,	
+766
+,	
+768
+safely	emit	long	int	instruction,	
+766
+,	
+768
+safely	emit	string	instruction,	
+766
+,	
+768
+SAL
+	[instruction	class]	shift	left,	
+192
+	[x86–64]	shift	left,	
+195
+	[x86–64]	shift	left,	
+195
+	[x86–64]	shift	left,	
+195
+Sandy	Bridge	microprocessor,	
+168
+	[Y86–64]	status	code	for	normal	operation,	
+404
+SAR
+	[instruction	class]	shift	arithmetic	right,	
+192
+,	
+195
+SATA	interfaces,	
+597
+saturating	arithmetic,	
+134
+	[C	Stdlib]	extend	the	heap,	
+841
+,	
+841
+emulator,	
+855
+heap	memory,	
+850
+	[CS:APP]	shared	bounded	buffer	package,	
+1005
+,	
+1006
+	[CS:APP]	free	bounded	buffer,	
+1007
+	[CS:APP]	allocate	and	init	bounded	buffer,	
+1007
+	[CS:APP]	insert	item	in	a	bounded	buffer,	
+1007
+	[CS:APP]	remove	item	from	bounded	buffer,	
+1007
+	[CS:APP]	bounded	buffer	used	by	S
+BUF
+	package,	
+1006
+scalar	code	performance	summary,	
+547
+–
+548
+
+scalar	format	data,	
+294
+scalar	instructions,	
+296
+scale	factor	in	memory	references,	
+181
+scaling	parallel	programs,	
+1019
+,	
+1019
+–
+1020
+	function,	
+870
+–
+871
+schedule	alarm	to	self	function,	
+762
+schedulers,	
+736
+scheduling,	
+736
+events,	
+763
+shared	resources,	
+1004
+–
+1008
+SCSI	interfaces,	
+597
+SDRAM	(synchronous	DRAM),	
+586
+second-level	domain	names,	
+928
+second	readers-writers	problem,	
+1008
+sectors,	disk,	
+590
+,	
+590
+–
+592
+access	time,	
+593
+–
+595
+gaps,	
+596
+reading,	
+597
+–
+599
+security	monoculture,	
+285
+security	vulnerabilities,	
+7
+	function,	
+86
+–
+87
+XDR	library,	
+100
+seeds	for	pseudorandom	number	generators,	
+1021
+seek	operations,	
+593
+,	
+891
+seek	time	for	disks,	
+593
+,	
+593
+segmentation	faults,	
+729
+segmented	addressing,	
+287
+–
+288
+segments
+code,	
+696
+,	
+697
+–
+698
+
+data,	
+696
+Ethernet,	
+920
+,	
+920
+loops,	
+526
+–
+527
+virtual	memory,	
+830
+segregated	fits,	
+863
+,	
+864
+–
+865
+segregated	free	lists,	
+863
+–
+865
+segregated	storage,	
+863
+	[Unix]	wait	for	I/O	events,	
+977
+self-loops,	
+980
+self-modifying	code,	
+435
+	[Unix]	initialize	semaphore,	
+1002
+	[Unix]	V	operation,	
+1002
+	[Unix]	P	operation,	
+1002
+semaphores,	
+1001
+,	
+1001
+–
+1002
+concurrent	server	example,	
+1005
+–
+1013
+for	mutual	exclusion,	
+1002
+–
+1004
+for	scheduling	shared	resources,	
+1004
+–
+1008
+sending	signals,	
+735
+,	
+759
+–
+762
+separate	compilation,	
+670
+SEQ+	pipelined	implementations,	
+421
+,	
+421
+–
+422
+SEQ	Y86–64	processor	design.
+See	
+sequential	Y86–64	implementation
+sequential	circuits,	
+381
+sequential	execution,	
+200
+–
+201
+sequential	operations	in	SSDs,	
+600
+sequential	reference	patterns,	
+606
+sequential	Y86–64	implementation,	
+384
+,	
+421
+decode	and	write-back	stage,	
+406
+–
+408
+execute	stage,	
+408
+–
+409
+
+fetch	stage,	
+404
+–
+406
+hardware	structure,	
+396
+–
+400
+instruction	processing	stages,	
+384
+–
+395
+memory	stage,	
+409
+–
+411
+PC	update	stage,	
+411
+performance,	
+412
+SEQ+	implementations,	
+421
+,	
+421
+–
+422
+timing,	
+400
+–
+403
+	[CS:APP]	T
+INY
+	helper	function,	
+963
+–
+964
+	[CS:APP]	T
+INY
+	helper	function,	
+961
+–
+963
+servers,	
+21
+client-server	model,	
+918
+concurrent.	
+See	
+concurrent	servers
+network,	
+21
+Web.	
+See	
+Web	servers
+service	conversions	in	sockets	interface,	
+937
+–
+942
+services	in	client-server	model,	
+918
+serving
+dynamic	content,	
+953
+–
+954
+Web	content,	
+949
+set	associative	caches,	
+624
+line	matching	and	word	selection,	
+625
+–
+626
+line	replacement,	
+625
+set	selection,	
+625
+,	
+625
+set	bit	in	descriptor	set	macro,	
+978
+set	index	bits,	
+615
+,	
+615
+–
+616
+set	on	equal	instruction,	
+203
+set	on	greater	instruction,	
+203
+set	on	greater	or	equal	instruction,	
+203
+
+set	on	less	instruction,	
+203
+set	on	less	or	equal	instruction,	
+203
+set	on	negative	instruction,	
+203
+set	on	nonnegative	instruction,	
+203
+set	on	not	equal	instruction,	
+203
+set	on	not	greater	instruction,	
+203
+set	on	not	greater	or	equal	instruction,	
+203
+set	on	not	less	instruction,	
+203
+set	on	not	less	or	equal	instruction,	
+203
+set	on	not	zero	instruction,	
+203
+set	on	unsigned	greater	instruction,	
+203
+set	on	unsigned	greater	or	equal	instruction,	
+203
+set	on	unsigned	less	instruction,	
+203
+set	on	unsigned	less	or	equal	instruction,	
+203
+set	on	unsigned	not	greater	instruction,	
+203
+set	on	unsigned	not	less	instruction,	
+203
+set	on	unsigned	not	less	or	equal	instruction,	
+203
+set	on	zero	instruction,	
+203
+set	process	group	ID	function,	
+759
+set	selection
+direct-mapped	caches,	
+618
+fully	associative	caches,	
+625
+set	associative	caches,	
+625
+	[x86–64]	set	on	unsigned	greater,	
+203
+	[x86–64]	set	on	unsigned	greater	or	equal,	
+203
+	[x86–64]	set	on	unsigned	less,	
+203
+	[x86–64]	set	on	unsigned	less	or	equal,	
+203
+	[x86–64]	set	on	equal,	
+203
+	[Unix]	create/change	environment	variable,	
+752
+
+	[x86–64]	set	on	greater,	
+203
+	[x86–64]	set	on	greater	or	equal,	
+203
+	[C	Stdlib]	init	nonlocal	jump,	
+723
+,	
+781
+,	
+783
+	[CS:APP]	nonlocal	jump	example,	
+784
+	[x86–64]	set	on	less,	
+203
+	[x86–64]	set	on	less	or	equal,	
+203
+	[x86–64]	set	on	unsigned	not	greater,	
+203
+	[x86–64]	set	on	unsigned	not	less	or	equal,	
+203
+	[x86–64]	set	on	unsigned	not	less,	
+203
+	[x86–64]	set	on	unsigned	not	less	or	equal,	
+203
+	[x86–64]	set	on	not	equal,	
+203
+	[x86–64]	set	on	not	greater,	
+203
+	[x86–64]	set	on	not	greater	or	equal,	
+203
+	[x86–64]	set	on	not	less,	
+203
+	[x86–64]	set	on	not	less	or	equal,	
+203
+	[x86–64]	set	on	nonnegative,	
+203
+	[x86–64]	set	on	not	zero,	
+203
+	[Unix]	set	process	group	ID,	
+759
+sets
+VS
+.	cache	lines,	
+634
+membership,	
+380
+–
+381
+	[x86–64]	set	on	negative,	
+203
+	[x86–64]	set	on	zero,	
+203
+	[x86–64]	sign	flag	condition	code,	
+201
+,	
+355
+	[Unix]	Unix	shell	program,	
+753
+Shannon,	Claude,	
+51
+shared	areas,	
+834
+
+shared	libraries,	
+19
+,	
+699
+dynamic	linking	with,	
+699
+–
+701
+loading	and	linking	from	applications,	
+701
+–
+703
+shared	object	files,	
+673
+shared	objects,	
+699
+,	
+833
+–
+836
+,	
+834
+shared	resources,	scheduling,	
+1004
+–
+1008
+shared	variables,	
+992
+–
+995
+,	
+993
+sharing
+files,	
+906
+–
+908
+virtual	memory	for,	
+812
+	[CS:APP]	sharing	in	Pthreads	programs,	
+993
+	[CS:APP]	shell	main	routine,	
+754
+shells,	
+7
+,	
+753
+shift	arithmetic	right	instruction,	
+192
+shift	left	instruction,	
+192
+shift	logical	right	instruction,	
+192
+shift	operations,	
+57
+,	
+57
+–
+59
+for	division,	
+103
+–
+107
+machine	language,	
+194
+–
+196
+for	multiplication,	
+101
+–
+103
+shift	arithmetic	right	instruction,	
+192
+shift	left	instruction,	
+192
+shift	logical	right	instruction,	
+192
+SHL
+	[instruction	class]	shift	left,	
+192
+,	
+195
+	[Y86–64]	status	code	for	
+,	
+404
+short	counts,	
+895
+	[C]	integer	data	type,	
+40
+,	
+61
+SHR
+	[instruction	class]	shift	logical	right,	
+192
+,	
+195
+	[x86–64]	low	order	16	bits	of	register	
+,	
+180
+
+side	effects,	
+500
+	type,	
+770
+	[Unix]	install	portable	handler,	
+775
+	[Unix]	add	signal	to	signal	set,	
+765
+	[Unix]	delete	signal	from	signal	set,	
+765
+	[Unix]	clear	a	signal	set,	
+765
+	[Unix]	add	every	signal	to	signal	set,	
+765
+	[CS:APP]	catches	SIGINT	signal,	
+763
+	[Unix]	test	signal	set	membership,	
+765
+	[Unix]	init	nonlocal	jump,	
+783
+,	
+785
+sign	bits
+floating-point	representation,	
+137
+two's	complement	representation,	
+64
+sign	extension,	
+77
+,	
+77
+,	
+183
+–
+184
+sign	flag	condition	code,	
+201
+,	
+355
+sign-magnitude	representation,	
+68
+	[CS:APP]	portable	version	of	
+,	
+775
+signal	handlers,	
+758
+installing,	
+763
+writing,	
+766
+–
+775
+Y86–64,	
+364
+	[CS:APP]	flawed	signal	handler,	
+771
+	[CS:APP]	flawed	signal	handler,	
+772
+signals,	
+722
+,	
+756
+–
+758
+blocking	and	unblocking,	
+764
+–
+765
+correct	handling,	
+770
+–
+774
+enabling	and	disabling,	
+52
+flow	synchronizing,	
+776
+–
+778
+
+portable	handling,	
+774
+–
+775
+processes,	
+739
+receiving,	
+762
+,	
+762
+–
+764
+safe	handling,	
+766
+–
+770
+sending,	
+758
+,	
+759
+–
+762
+terminology,	
+758
+–
+759
+waiting	for,	
+778
+–
+781
+Y86–64	pipelined	implementations,	
+426
+–
+427
+	[C]	integer	data	type,	
+41
+signed	divide	instruction,	
+198
+,	
+199
+signed	integers,	
+32
+,	
+40
+,	
+61
+–
+62
+,	
+67
+alternate	representations,	
+68
+shift	operations,	
+58
+two's	complement	encoding,	
+64
+–
+70
+unsigned	conversions,	
+70
+–
+76
+signed	multiply	instruction,	
+198
+,	
+198
+signed	number	representation
+guidelines,	
+83
+–
+84
+ones'	complement,	
+68
+sign	magnitude,	
+68
+signed	size	type,	
+896
+significands	in	floating-point	representation,	
+112
+signs	for	floating-point	representation,	
+112
+,	
+112
+–
+113
+SIGPIPE	signal,	
+964
+	[Unix]	block	and	unblock	signals,	
+765
+,	
+781
+	[Unix]	init	nonlocal	handler	jump,	
+781
+,	
+785
+	[Unix]	wait	for	a	signal,	
+781
+	[x86–64]	low	order	8	of	register	
+,	
+180
+SimAquarium	game,	
+637
+–
+638
+
+SIMD	(single-instruction,	multiple-data)	parallelism,	
+26
+,	
+294
+,	
+546
+,	
+547
+SIMD	streaming	extensions	(SSE)	instructions,	
+276
+simple	segregated	storage,	
+863
+,	
+863
+–
+864
+simplicity	in	instruction	processing,	
+385
+simulated	concurrency,	
+24
+simultaneous	multi-threading,	
+25
+single-bit	data	connections,	
+398
+single-instruction,	multiple-data	(SIMD)	parallelism,	
+26
+,	
+294
+,	
+546
+–
+547
+single-precision	floating-point	representation
+IEEE,	
+113
+,	
+113
+machine-level	data,	
+178
+support	for,	
+41
+	[Y86–64]	status	code	for	illegal	instruction	exception,	
+404
+	[CS:APP]	safely	emit	error	message	and	terminate,	
+766
+,
+768
+	[CS:APP]	safely	emit	string,	
+768
+	[CS:APP]	safely	emit	long	int,	
+766
+,	
+768
+	[CS:APP]	safely	emit	string,	
+766
+,	
+768
+	[CS:APP]	safely	emit	string,	
+768
+size
+blocks,	
+848
+caches,	
+632
+–
+633
+data,	
+39
+–
+42
+word,	
+8
+,	
+39
+
+size	classes,	
+863
+	[Unix]	unsigned	size	type	for	designating	sizes,	
+44
+,	
+83
+–
+84
+,	
+86
+,
+99
+,	
+896
+SIZE
+	tool,	
+713
+	[C]	compute	size	of	object,	
+45
+,	
+129
+–
+131
+,	
+133
+slashes	(/)	for	root	directory,	
+892
+	[Unix]	suspend	process,	
+749
+slow	system	calls,	
+774
+	shared	object	file,	
+699
+	[Unix]	generic	socket	address	structure,	
+933
+	[Unix]	Internet-style	socket	address	structure,	
+933
+socket	addresses,	
+930
+socket	descriptors,	
+912
+,	
+934
+	function,	
+934
+socket	pairs,	
+930
+sockets,	
+892
+,	
+930
+sockets	interface,	
+932
+,	
+932
+–
+933
+	function,	
+936
+–
+937
+address	structures,	
+933
+–
+934
+	function,	
+935
+	function,	
+934
+–
+935
+example,	
+944
+–
+947
+helper	functions,	
+942
+–
+944
+host	and	service	conversions,	
+937
+–
+942
+	function,	
+935
+	function,	
+934
+–
+935
+	function,	
+934
+Software	Engineering	Institute,	
+100
+
+software	exceptions
+C++	and	Java,	
+786
+ECF	for,	
+723
+–
+724
+VS
+.	hardware,	
+724
+Solaris	Sun	Microsystems	operating	system,	
+16
+,	
+45
+solid	state	disks	(SSDs),	
+591
+,	
+600
+benefits,	
+587
+operation,	
+600
+–
+602
+sorting	performance,	
+566
+–
+567
+source	files,	
+3
+source	hosts,	
+922
+source	programs,	
+3
+southbridge	chipsets,	
+588
+Soviet	Union,	
+931
+	[x86–64]	low	order	16	bits	of	stack	pointer	register	
+,	
+180
+SPARC
+five-stage	pipelines,	
+471
+RISC	processors,	
+363
+Sun	Microsystems	processor,	
+45
+spare	cylinders,	
+596
+spatial	locality,	
+604
+caches,	
+643
+–
+647
+exploiting,	
+614
+special	arithmetic	operations,	
+197
+–
+200
+special	control	conditions	in	Y86–64	pipelining
+detecting,	
+457
+–
+459
+handling,	
+455
+–
+457
+specifiers,	operand,	
+180
+–
+182
+speculative	execution,	
+519
+,	
+519
+,	
+549
+–
+550
+
+speedup	of	parallel	programs,	
+1018
+,	
+1018
+–
+1019
+spilling,	register,	
+548
+–
+549
+spin	loops,	
+778
+spindles,	disks,	
+590
+	[x86–64]	low	order	8	of	stack	pointer	register	
+,	
+180
+splitting
+free	blocks,	
+849
+–
+850
+memory	blocks,	
+847
+	[C	Stdlib]	function,	
+47
+,	
+282
+Sputnik,	
+931
+	[x86–64]	double-precision	square	root,	
+302
+	[x86–64]	single-precision	square	root,	
+302
+square	root	floating-point	instructions,	
+302
+squashing	mispredicted	branch	handling,	
+444
+SRAM	(static	RAM),	
+13
+,	
+581
+,	
+581
+–
+582
+	cache.	
+See	
+caches	and
+cache	memory
+	
+VS
+.	DRAM,	
+582
+trends,	
+602
+–
+603
+SRAM	cells,	
+581
+	[CS:APP]	pseudorandom	number	generator	seed,	
+1021
+SSDs	(solid	state	disks),	
+591
+,	
+600
+benefits,	
+587
+operation,	
+600
+–
+602
+SSE	(streaming	SIMD	extensions)	instructions,	
+167
+–
+168
+,	
+294
+alignment	exceptions,	
+276
+parallelism,	
+546
+–
+547
+	[Unix]	signed	size	type,	
+896
+stack	corruption	detection,	
+286
+–
+289
+stack	frames,	
+240
+,	
+240
+–
+241
+alignment	on,	
+276
+
+variable-size,	
+290
+–
+293
+stack	pointers,	
+239
+stack	protectors,	
+286
+–
+287
+stack	randomization,	
+284
+–
+286
+stack	storage	allocation	function,	
+290
+,	
+324
+stacks,	
+19
+,	
+189
+,	
+189
+–
+191
+bottom,	
+190
+buffer	overflow,	
+871
+with	
+	function,	
+751
+–
+752
+local	storage,	
+248
+–
+251
+machine-level	programming,	
+171
+overflow.	
+See	
+buffer	overflow
+recursive	procedures,	
+253
+–
+255
+run	time,	
+239
+–
+241
+top,	
+190
+Y86–64	pipelining,	
+429
+stages,	SEQ,	
+384
+–
+395
+decode	and	write-back,	
+406
+–
+408
+execute,	
+408
+–
+409
+fetch,	
+404
+–
+406
+memory	stage,	
+409
+–
+411
+PC	update,	
+411
+stalling
+for	data	hazards,	
+442
+pipeline,	
+433
+–
+436
+,	
+459
+–
+460
+Stallman,	Richard,	
+6
+,	
+16
+standard	C	library,	
+4
+,	
+4
+–
+5
+standard	error	files,	
+891
+standard	I/O	library,	
+911
+,	
+911
+
+standard	input	files,	
+891
+standard	output	files,	
+891
+Standard	Unix	Specification,	
+16
+,	
+698
+starvation	in	readers-writers	problem,	
+1008
+	[Unix]	fetch	file	metadata,	
+903–
+904
+state	machines,	
+980
+states
+bistable	memory,	
+581
+deadlock,	
+1027
+processor,	
+723
+programmer-visible,	
+355
+,	
+355
+–
+356
+progress	graphs,	
+999
+state	machines,	
+980
+static	libraries,	
+684
+,	
+684
+–
+688
+static	linkers,	
+672
+static	linking,	
+672
+static	RAM	(SRAM),	
+13
+,	
+581
+–
+582
+cache.	
+See	
+caches	and	cache	memory
+VS
+.	DRAM,	
+582
+trends,	
+602
+–
+603
+	[C]	variable	and	function	attribute,	
+676
+,	
+677
+,	
+994
+static	variables,	
+994
+,	
+994
+–
+995
+static	Web	content,	
+949
+status	code	registers,	
+435
+status	codes
+HTTP,	
+953
+Y86–64,	
+363
+–
+364
+,	
+364
+status	messages	in	HTTP,	
+953
+
+status	register	hazards,	
+435
+	[Unix]	constant	for	standard	error	descriptor,	
+891
+	stream,	
+911
+	[Unix]	constant	for	standard	input	descriptor,	
+891
+	stream,	
+911
+	file,	
+67
+	[Unix]	standard	I/O	library	header	file,	
+84
+,	
+86
+,	
+4
+,	
+4
+–
+5
+	[Unix]	constant	for	standard	output	descriptor,	
+891
+	stream,	
+911
+	command,	
+280
+	command,	
+280
+Stevens,	W.	Richard,	
+903
+,	
+914
+,	
+965
+,	
+1041
+stopped	processes,	
+739
+storage.	
+See	also	
+information	storage
+device	hierarchy,	
+14
+registers,	
+251
+–
+253
+stack,	
+248
+–
+251
+storage	classes	for	variables,	
+994
+–
+995
+store	buffers,	
+557
+–
+558
+store	instructions,	
+10
+store	operations
+example,	
+588
+processors,	
+521
+store	performance	of	memory,	
+555
+–
+561
+STRACE
+	tool,	
+786
+straight-line	code,	
+200
+–
+201
+	[C	Stdlib]	string	concatenation	function,	
+282
+
+	[C	Stdlib]	string	copy	function,	
+282
+streaming	SIMD	extensions	(SSE)	instructions,	
+167
+–
+168
+,	
+294
+alignment	exceptions,	
+276
+parallelism,	
+546
+–
+547
+streams,	
+911
+buffers,	
+911
+directory,	
+905
+full	duplex,	
+912
+	function,	
+738
+stride-1	reference	patterns,	
+606
+stride-
+k
+	reference	patterns,	
+606
+string	concatenation	function,	
+282
+string	copy	function,	
+282
+string	generation	function,	
+282
+strings
+in	buffer	overflow,	
+279
+,	
+281
+length,	
+83
+lowercase	conversions,	
+509
+–
+511
+representing,	
+49
+STRINGS
+	tool,	
+713
+STRIP
+	tool,	
+713
+	[C	Stdlib]	string	length	function,	
+83
+,	
+509
+–
+511
+strong	scaling,	
+1019
+strong	symbols,	
+680
+	section,	
+675
+	[C	Stdlib]	string	function,	
+1024
+	[C]	structure	data	type,	
+265
+structures
+address,	
+933
+–
+934
+
+heterogeneous.	
+See	
+heterogeneous	data	structures
+machine-level	programming,	
+171
+SUB
+	[instruction	class]	subtract,	
+192
+subdomains,	
+927
+	[Y86–64]	subtract,	
+356
+,	
+388
+substitution,	inline,	
+501
+subtract	instruction,	
+192
+subtract	operation	in	execute	stage,	
+408
+subtraction,	floating-point,	
+302
+	[CS:APP]	column-major	sum,	
+636
+	[CS:APP]	row-major	sum,	
+635
+,	
+635
+	[CS:APP]	vector	sum,	
+634
+,	
+635
+–
+636
+Sun	Microsystems,	
+45
+five-stage	pipelines,	
+471
+RISC	processors,	
+363
+security	vulnerability,	
+100
+supercells,	
+582
+,	
+582
+–
+583
+superscalar	processors,	
+26
+,	
+471
+,	
+518
+supervisor	mode,	
+735
+surfaces,	disks,	
+590
+,	
+595
+suspend	process	function,	
+749
+suspend	until	signal	arrives	function,	
+750
+suspended	processes,	
+739
+swap	areas,	
+833
+swap	files,	
+833
+swap	space,	
+833
+swapped-in	pages,	
+809
+swapped-out	pages,	
+809
+swapping	pages,	
+809
+
+sweep	phase	in	Mark&Sweep	garbage	collectors,	
+867
+Swift,	Jonathan,	
+43
+	[C]	multiway	branch	statement,	
+232
+–
+238
+switches,	context,	
+736
+–
+737
+symbol	resolution,	
+673
+,	
+679
+duplicate	symbol	names,	
+680
+–
+684
+static	libraries,	
+684
+–
+688
+symbol	tables,	
+675
+,	
+675
+–
+679
+symbolic	links,	
+892
+symbolic	methods,	
+466
+symbols
+address	translation,	
+814
+caches,	
+617
+global,	
+675
+local,	
+676
+relocation,	
+689
+–
+695
+strong	and	weak,	
+680
+	section,	
+675
+synchronization
+flow,	
+776
+–
+778
+Java	threads,	
+1010
+progress	graphs,	
+1000
+threads,	
+995
+–
+999
+progress	graphs,	
+999
+–
+1001
+with	semaphores.	
+See	
+semaphores
+synchronization	errors,	
+995
+synchronous	DRAM	(SDRAM),	
+586
+synchronous	exceptions,	
+727
+	filesystem,	
+736
+
+	function,	
+730
+system	bus,	
+587
+system	calls,	
+17
+,	
+727
+,	
+727
+–
+728
+error	handling,	
+737
+–
+738
+Linux/x86–64	systems,	
+730
+–
+731
+slow,	
+774
+system-level	functions,	
+730
+system-level	I/O
+closing	files,	
+894
+–
+895
+file	metadata,	
+903
+–
+904
+I/O	redirection,	
+909
+–
+910
+opening	files,	
+893
+–
+895
+packages	summary,	
+911
+–
+913
+reading	files,	
+895
+–
+897
+RIO
+	package,	
+897
+–
+903
+sharing	files,	
+906
+–
+908
+standard,	
+911
+summary,	
+913
+–
+914
+Unix	I/O,	
+890
+–
+891
+writing	files,	
+896
+–
+897
+system	startup	function,	
+698
+System	V	Unix,	
+16
+semaphores,	
+977
+shared	memory,	
+977
+
+T2B
+	(two's	complement	to	binary	conversion),	
+60
+,	
+65
+,	
+71
+T2U
+	(two's	complement	to	unsigned	conversion),	
+60
+,	
+71
+,	
+71
+–
+73
+tables
+descriptor,	
+907
+,	
+909
+exception,	
+725
+,	
+725
+GOTs,	
+705
+,	
+705
+–
+707
+hash,	
+567
+–
+568
+header,	
+674
+,	
+696
+jump,	
+233
+,	
+234
+–
+235
+,	
+725
+page,	
+736
+,	
+806
+–
+808
+,	
+807
+,	
+819
+–
+821
+,	
+823
+program	header,	
+696
+,	
+696
+symbol,	
+675
+,	
+675
+–
+679
+tag	bits,	
+615
+,	
+616
+tags,	boundary,	
+851
+,	
+851
+–
+854
+,	
+859
+Tanenbaum,	Andrew	S.,	
+20
+target	functions	in	interpositioning	libraries,	
+708
+targets,	jump,	
+206
+,	
+206
+–
+209
+TCP	(Transmission	Control	Protocol),	
+924
+TCP/IP	(Transmission	Control	Protocol/Internet	Protocol),	
+924
+	[Unix]	Unix	shell	program,	
+753
+TELNET
+	remote	login	program,	
+950
+,	
+950
+–
+951
+temporal	locality,	
+604
+blocking	for,	
+647
+exploiting,	
+614
+terminate	another	thread	function,	
+989
+terminate	current	thread	function,	
+989
+terminate	process	function,	
+739
+terminated	processes,	
+739
+terminating
+
+processes,	
+739
+–
+743
+threads,	
+988
+–
+989
+TEST
+	[instruction	class]	Test,	
+202
+test	byte	instruction,	
+202
+test	double	word	instruction,	
+202
+test	instructions,	
+202
+test	quad	word	instruction,	
+202
+test	signal	set	membership	instruction,	
+765
+test	word	instruction,	
+202
+	[x86–64]	test	byte,	
+202
+testing	Y86–64	pipeline	design,	
+465
+	[x86–64]	test	double	word,	
+202
+	[x86–64]	test	quad	word,	
+202
+	[x86–64]	test	word,	
+202
+text	files,	
+3
+,	
+891
+,	
+892
+,	
+900
+text	lines,	
+891
+,	
+898
+text	representation
+ASCII,	
+49
+Unicode,	
+50
+	section,	
+674
+Thompson,	Ken,	
+16
+thrashing
+direct-mapped	caches,	
+622
+,	
+622
+–
+623
+pages,	
+810
+thread	contexts,	
+986
+,	
+993
+thread	IDs	(TIDs),	
+986
+thread-level	concurrency,	
+24
+–
+26
+thread-level	parallelism,	
+26
+thread	routines,	
+987
+,	
+988
+
+thread-safe	functions,	
+1020
+,	
+1020
+–
+1022
+thread-unsafe	functions,	
+1020
+,	
+1020
+–
+1022
+threads,	
+17
+,	
+18
+,	
+973
+,	
+985
+–
+986
+concurrent	server	based	on,	
+991
+–
+992
+creating,	
+988
+detaching,	
+989
+–
+990
+execution	model,	
+986
+–
+987
+initializing,	
+990
+library	functions	for,	
+1024
+–
+1025
+mapping	variables	in,	
+994
+–
+995
+memory	models,	
+993
+–
+994
+for	parallelism,	
+1013
+–
+1018
+Posix,	
+987
+–
+988
+races,	
+1025
+–
+1027
+reaping,	
+989
+safety	issues,	
+1020
+–
+1022
+shared	variables	with,	
+992
+–
+995
+,	
+993
+synchronizing,	
+995
+–
+999
+progress	graphs,	
+999
+–
+1001
+with	semaphores.	
+See	
+semaphores
+terminating,	
+988
+–
+989
+three-stage	pipelines,	
+414
+–
+416
+throughput,	
+524
+dynamic	memory	allocators,	
+845
+pipelining	for.	
+See	
+pipelining	read,
+	
+639
+throughput	bounds,	
+518
+,	
+524
+TIDs	(thread	IDs),	
+986
+time	slicing,	
+733
+timing,	SEQ,	
+400
+–
+403
+
+	[CS:APP]	Web	server,	
+956
+,	
+956
+–
+964
+TLB	index	(TLBI),	
+817
+TLB	tags	(TLBT),	
+817
+,	
+823
+TLBI	(TLB	index),	
+817
+TLBs	(translation	lookaside	buffers),	
+470
+,	
+817
+,	
+817
+–
+825
+TLBT	(TLB	tags),	
+817
+,	
+823
+TMax
+	(maximum	two's	complement	number),	
+60
+,	
+65
+,	
+66
+TMin
+	(minimum	two's	complement	number),	
+60
+,	
+65
+,	
+66
+,	
+77
+top	of	stack,	
+190
+,	
+190
+TOP
+	tool,	
+786
+topological	sorts	of	vertices,	
+742
+Torvalds,	Linus,	
+20
+touching	pages,	
+833
+TRACE	method,	
+951
+tracing	execution,	
+387
+,	
+394
+–
+395
+,	
+403
+track	density	of	disks,	
+591
+tracks,	disk,	
+590
+,	
+595
+trajectories	in	progress	graphs,	
+1000
+,	
+1000
+transactions
+bus,	
+587
+,	
+588
+–
+589
+client-server	model,	
+918
+client-server	vs.	database,	
+919
+HTTP,	
+950
+–
+953
+transfer	time	for	disks,	
+594
+transfer	units,	
+612
+transferring	control,	
+241
+–
+245
+transformations,	reassociation,	
+541
+,	
+541
+–
+546
+,	
+570
+transistors	in	Moore's	Law,	
+169
+transitions
+
+progress	graphs,	
+999
+state	machines,	
+980
+translating	programs,	
+4
+–
+5
+translation
+address.	
+See	
+address	translation
+	statements,	
+233
+translation	lookaside	buffers	(TLBs),	
+470
+,	
+817
+,	
+817
+–
+825
+Transmission	Control	Protocol	(TCP),	
+924
+Transmission	Control	Protocol/Internet	Protocol	(TCP/IP),	
+924
+trap	exception	class,	
+727
+traps,	
+727
+,	
+727
+–
+728
+tree	height	reduction,	
+570
+tree	structure,	
+270
+–
+271
+truncating	numbers,	
+81
+–
+82
+two-operand	multiply	instructions,	
+198
+two-way	parallelism,	
+536
+–
+537
+two's-complement	representation
+addition,	
+90
+–
+95
+asymmetric	range,	
+66
+,	
+77
+bit-level	representation,	
+96
+encodings,	
+32
+minimum	value,	
+65
+multiplication,	
+97
+–
+101
+negation,	
+95
+signed	and	unsigned	conversions,	
+70
+–
+74
+signed	numbers,	
+64
+,	
+64
+–
+70
+	[C]	type	definition,	
+44
+,	
+47
+types
+conversions.	
+See	
+conversions
+
+floating	point,	
+124
+–
+126
+integral,	
+60
+,	
+60
+–
+62
+machine-level,	
+171
+,	
+177
+–
+178
+MIME,	
+949
+naming,	
+47
+pointers,	
+36
+,	
+277
+pointers	associated	with,	
+34
+
+U2B
+	(unsigned	to	binary	conversion),	
+60
+,	
+64
+,	
+71
+,	
+74
+U2T
+	(unsigned	to	two's-complement	conversion),	
+60
+,	
+71
+,	
+73
+,	
+82
+	[x86–64]	compare	double	precision,	
+306
+	[x86–64]	compare	single	precision,	
+306
+UDP	(Unreliable	Datagram	Protocol),	
+924
+	constant,	maximum	unsigned	integer,	
+68
+	[C]	maximum	value	of	
+N
+-bit	unsigned	data	type,	
+67
+	[C]	
+N
+-bit	unsigned	integer	data	type,	
+67
+	function,	
+894
+–
+895
+UMax
+	(maximum	unsigned	number),	
+63
+,	
+66
+–
+67
+unallocated	pages,	
+805
+unary	operations,	
+194
+unblocking	signals,	
+764
+–
+765
+unbuffered	input	and	output,	
+897
+–
+898
+uncached	pages,	
+806
+unconditional	jump	instruction,	
+357
+underflow,	gradual,	
+115
+Unicode	characters,	
+50
+unified	caches,	
+631
+uniform	resource	identifiers	(URIs),	
+951
+uninitialized	memory,	reading,	
+871
+unions,	
+44
+,	
+269
+–
+273
+uniprocessor	systems,	
+16
+,	
+24
+United	States,	ARPA	creation	in,	
+931
+universal	resource	locators	(URLs),	
+949
+Universal	Serial	Bus	(USB),	
+596
+Unix	4.xBSD,	
+16
+,	
+932
+	[CS:APP]	reports	Unix-style	errors,	
+738
+,	
+738
+,	
+1043
+Unix	IPC,	
+977
+
+Unix	operating	systems,	
+16
+,	
+16
+,	
+35
+constants,	
+746
+error	handling,	
+1043
+,	
+1043
+I/O,	
+19
+,	
+890
+,	
+890
+–
+891
+Unix	signals,	
+759
+unlocking	mutexes,	
+1003
+unmap	disk	object	function,	
+839
+unordered,	floating-point	comparison	outcome,	
+306
+unpack	and	interleave	low	packed	double	precision	instruction,	
+298
+unpack	and	interleave	low	packed	single	precision	instruction,	
+298
+Unreliable	Datagram	Protocol	(UDP),	
+924
+unrolling
+k
+	×	1,	
+531
+k
+	×	1
+a
+,	
+544
+	×	
+,	
+539
+–
+540
+loops,	
+502
+,	
+504
+,	
+531
+,	
+531
+–
+535
+,	
+572
+unsafe	regions	in	progress	graphs,	
+1000
+unsafe	trajectories	in	progress	graphs,	
+1000
+	[Unix]	delete	environment	variable,	
+752
+	[C]	integer	data	type,	
+41
+,	
+61
+unsigned	representations,	
+83
+–
+84
+addition,	
+84
+–
+90
+conversions,	
+70
+–
+76
+division,	
+198
+,	
+199
+encodings,	
+32
+,	
+62
+–
+64
+integers,	
+40
+maximum	value,	
+63
+multiplication,	
+96
+–
+97
+,	
+198
+,	
+198
+	size	type,	
+896
+
+update	instructions,	
+9
+–
+10
+URIs	(uniform	resource	identifiers),	
+951
+URLs	(universal	resource	locators),	
+949
+USB	(Universal	Serial	Bus),	
+596
+user-level	memory	mapping,	
+837
+–
+839
+user	mode,	
+726
+processes,	
+734
+–
+736
+,	
+735
+regular	functions	in,	
+728
+user	stack,	
+19
+UTF-8	characters,	
+50
+
+	[CS:APP]	wrapper	function	for	Posix	sem_post,	
+1002
+v-node	tables,	
+906
+V	semaphore	operation,	
+1001
+,	
+1001
+–
+1002
+VA.	
+See	
+virtual	addresses	(VA)
+	[x86–64]	double-precision	addition,	
+302
+	[x86–64]	single-precision	addition,	
+302
+VALGRIND
+	program,	
+569
+valid	bit
+cache	lines,	
+615
+page	tables,	
+807
+values,	pointers,	
+36
+,	
+277
+	[x86–64]	and	packed	double	precision,	
+305
+	[x86–64]	and	packed	single	precision,	

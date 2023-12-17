@@ -1,0 +1,9774 @@
+EXCLUSIVE
+-
+OR
+	
+is	commutative	and
+associative,	and	that	
+a
+	^	
+a
+	=	0	for	any	
+a
+.
+Step
+*x
+*y
+Initially
+a
+b
+Step	1
+a
+a
+	^	
+b
+Step	2
+a
+	^	(
+a
+	^	
+b
+)	=	(
+a
+	^	
+a
+)	^	
+b
+	=	
+b
+a
+	^	
+b
+Step	3
+b
+b
+	^	(
+a
+	^	
+b
+)	=	(
+b
+	^	
+b
+)	^	
+a
+	=	
+a
+See	
+Problem	
+2.11
+	for	a	case	where	this	function	will	fail.
+
+Solution	to	Problem	
+2.11	
+(page
+55
+)
+This	problem	illustrates	a	subtle	and	interesting	feature	of	our	inplace
+swap	routine.
+A
+.	
+Both	
+	and	
+	have	value	
+k
+,	so	we	are	attempting	to	swap
+the	middle	element	with	itself.
+B
+.	
+In	this	case,	arguments	
+	and	
+	to	
+	both	point	to	the
+same	location.	When	we	compute	
+,	we	get	0.	We	then
+store	0	as	the	middle	element	of	the	array,	and	the	subsequent
+steps	keep	setting	this	element	to	0.	We	can	see	that	our
+reasoning	in	
+Problem	
+2.10
+	implicitly	assumed	that	
+	and	
+denote	different	locations.
+C
+.	
+Simply	replace	the	test	in	line	4	of	
+	to	be	
+,	since	there	is	no	need	to	swap	the	middle	element	with	itself.
+Solution	to	Problem	
+2.12	
+(page
+55
+)
+Here	are	the	expressions:
+A
+.	
+B
+.	
+
+C
+.	
+These	expressions	are	typical	of	the	kind	commonly	found	in	performing
+low-level	bit	operations.	The	expression	
+	creates	a	mask	where	the
+8	least-significant	bits	equal	0	and	the	rest	equal	1.	Observe	that	such	a
+mask	will	be	generated	regardless	of	the	word	size.	By	contrast,	the
+expression	
+	would	only	work	when	data	type	
+	is	32	bits.
+Solution	to	Problem	
+2.13	
+(page
+56
+)
+These	problems	help	you	think	about	the	relation	between	Boolean
+operations	and	typical	ways	that	programmers	apply	masking	operations.
+Here	is	the	code:
+
+The	
+	operation	is	equivalent	to	Boolean	
+OR
+—a	bit	is	set	in	
+	if	either
+this	bit	is	set	in	
+	or	it	is	set	in	
+.	On	the	other	hand,	
+	is
+equivalent	to	
+;	we	want	the	result	to	equal	1	only	when	the
+corresponding	bit	of	
+	is	1	and	of	
+	is	0.
+Given	that,	we	can	implement	|	with	a	single	call	to	
+.	To	implement	
+,
+we	take	advantage	of	the	property
+Solution	to	Problem	
+2.14	
+(page
+57
+)
+This	problem	highlights	the	relation	between	bit-level	Boolean	operations
+and	logical	operations	in	C.	A	common	programming	error	is	to	use	a	bit-
+level	operation	when	a	logical	one	is	intended,	or	vice	versa.
+Expression
+Value
+Expression
+Value
+x
+^
+y
+=
+(
+x
+ 
+&
+∼
+y
+)
+ 
+ 
+(
+∼
+x
+&
+y
+)
+
+Solution	to	Problem	
+2.15	
+(page
+57
+)
+The	expression	is	!	
+.
+That	is,	
+	will	be	zero	if	and	only	if	every	bit	of	
+	matches	the
+corresponding	bit	of	
+.	We	then	exploit	the	ability	of	
+	to	determine
+whether	a	word	contains	any	nonzero	bit.
+There	is	no	real	reason	to	use	this	expression	rather	than	simply	writing	
+,	but	it	demonstrates	some	of	the	nuances	of	bit-level	and	logical
+operations.
+Solution	to	Problem	
+2.16	
+(page
+58
+)
+This	problem	is	a	drill	to	help	you	understand	the	different	shift
+operations.
+
+Logical	
+Arithmet	
+Hex
+Binary
+Binary
+Hex
+Binary
+Hex
+Binary
+Hex
+[11000011]
+[00011000]
+[00110000]
+[11110000]
+[01110101]
+[10101000]
+[00011101]
+[00011101]
+[10000111]
+[00111000]
+[00100001]
+[11100001]
+[01100110]
+[00110000]
+[00011001]
+[00011001]
+Solution	to	Problem	
+2.17	
+(page
+65
+)
+In	general,	working	through	examples	for	very	small	word	sizes	is	a	very
+good	way	to	understand	computer	arithmetic.
+The	unsigned	values	correspond	to	those	in	
+Figure	
+2.2
+.	For	the	two's-
+complement	values,	hex	digits	
+	through	
+	have	a	most	significant	bit	of
+0,	yielding	nonnegative	values,	while	hex	digits	
+	through	
+	have	a	most
+significant	bit	of	1,	yielding	a	negative	value.
+Hexadecimal
+Binary
+[1110]
+2
+	+2
+	+2
+	=	14
+–2
+	+	2
+	+2
+	=	–2
+x
+→
+B
+2
+U
+ 
+4
+(
+x
+→
+)
+B
+2
+T
+ 
+4
+(
+x
+→
+)
+3
+2
+1
+3
+2
+1
+
+[0000]
+0
+0
+[0101]
+2
+	+	2
+	=	5
+2
+	+	2
+	=	5
+[1000]
+2
+	=	8
+–2
+	=	–8
+[1101]
+2
+	+	2
+	+	2
+	=	13
+–2
+	+	2
+	+	2
+	=	–3
+[1111]
+2
+	+	2
+	+	2
+	+	2
+	=	15
+–2
+	+	2
+	+	2
+	+	2
+	=	–1
+Solution	to	Problem	
+2.18	
+(page
+69
+)
+For	a	32–bit	word,	any	value	consisting	of	8	hexadecimal	digits	beginning
+with	one	of	the	digits	
+	through	
+	represents	a	negative	number.	It	is
+quite	common	to	see	numbers	beginning	with	a	string	of	
+,	since	the
+leading	bits	of	a	negative	number	are	all	ones.	You	must	look	carefully,
+though.	For	example,	the	number	
+	has	only	7	digits.	Filling	this
+out	with	a	leading	zero	gives	
+,	a	positive	number.
+2
+0
+2
+0
+3
+3
+3
+2
+0
+3
+2
+0
+3
+2
+1
+0
+3
+2
+1
+0
+
+Solution	to	Problem	
+2.19	
+(page
+71
+)
+The	functions	
+T2U
+	and	
+U2T
+	are	very	peculiar	from	a	mathematical
+perspective.	It	is	important	to	understand	how	they	behave.
+We	solve	this	problem	by	reordering	the	rows	in	the	solution	of	
+Problem
+2.17
+	according	to	the	two's-complement	value	and	then	listing	the
+
+unsigned	value	as	the	result	of	the	function	application.	We	show	the
+hexadecimal	values	to	make	this	process	more	concrete.
+(hex)
+x
+T2U
+(x)
+–8
+8
+–3
+13
+–2
+14
+–1
+15
+0
+0
+5
+5
+Solution	to	Problem	
+2.20	
+(page
+73
+)
+This	exercise	tests	your	understanding	of	
+Equation	
+2.5
+.
+For	the	first	four	entries,	the	values	of	
+x
+	are	negative	and	
+T2U
+(x)
+	=	
+x
+	+
+2
+.
+For	the	remaining	two	entries,	the	values	of	
+x
+	are	nonnegative	and
+T2U
+(x)
+	=	
+x
+.
+x
+→
+	
+4
+4
+4
+4
+
+Solution	to	Problem	
+2.21	
+(page
+76
+)
+This	problem	reinforces	your	understanding	of	the	relation	between
+two's-complement	and	unsigned	representations,	as	well	as	the	effects	of
+the	C	promotion	rules.	Recall	that	
+TMin
+	is	–2,147,483,648,	and	that
+when	cast	to	unsigned	it	
+becomes	2,147,483,648.	In	addition,	if	either
+operand	is	unsigned,	then	the	other	operand	will	be	cast	to	unsigned
+before	comparing.
+Expression
+Type
+Evaluation
+Unsigned
+Signed
+Unsigned
+Signed
+Unsigned
+Solution	to	Problem	
+2.22	
+(page
+79
+)
+32
+
+This	exercise	provides	a	concrete	demonstration	of	how	sign	extension
+preserves	the	numeric	value	of	a	two's-complement	representation.
+A.
+B.
+C.
+Solution	to	Problem	
+2.23	
+(page
+80
+)
+The	expressions	in	these	functions	are	common	program	“idioms”	for
+extracting	values	from	a	word	in	which	multiple	bit	fields	have	been
+packed.	They	exploit	the	zero-filling	and	sign-extending	properties	of	the
+different	shift	operations.	Note	carefully	the	ordering	of	the	cast	and	shift
+operations.	In	
+,	the	shifts	are	performed	on	unsigned	variable	word
+and	hence	are	logical.	In	
+,	shifts	are	performed	after	casting	
+	to
+	and	hence	are	arithmetic.
+A
+.	
+
+B
+.	
+Function	
+	extracts	a	value	from	the	low-order	8	bits	of	the
+argument,	giving	an	integer	ranging	between	0	and	255.	Function
+	extracts	a	value	from	the	low-order	8	bits	of	the	argument,
+but	it	also	performs	sign	extension.	The	result	will	be	a	number
+between	–128	and	127.
+Solution	to	Problem	
+2.24	
+(page
+82
+)
+The	effect	of	truncation	is	fairly	intuitive	for	unsigned	numbers,	but	not	for
+two's-complement	numbers.	This	exercise	lets	you	explore	its	properties
+using	very	small	word	sizes.
+Hex
+Unsigned
+Two's	complement
+Original
+Truncated
+Original
+Truncated
+Original
+Truncated
+0
+0
+0
+0
+2
+2
+2
+2
+9
+1
+–7
+1
+
+11
+3
+–5
+3
+15
+7
+–1
+-1
+As	
+Equation	
+2.9
+	states,	the	effect	of	this	truncation	on	unsigned
+values	is	to	simply	find	their	residue,	modulo	8.	The	effect	of	the
+truncation	on	signed	values	is	a	bit	more	complex.	According	to
+Equation	
+2.10
+,	we	first	compute	the	modulo	8	residue	of	the
+argument.	This	will	give	values	0	through	7	for	arguments	0	through	7,
+and	also	for	arguments	–8	through	–1.	Then	we	apply	function	
+U2T
+	to
+these	residues,	giving	two	repetitions	of	the	sequences	0	through	3	and	–
+4	through	–1.
+Solution	to	Problem	
+2.25	
+(page
+83
+)
+This	problem	is	designed	to	demonstrate	how	easily	bugs	can	arise	due
+to	the	implicit	casting	from	signed	to	unsigned.	It	seems	quite	natural	to
+pass	parameter	
+	as	an	unsigned,	since	one	would	never	want	to
+use	a	negative	length.	The	stopping	criterion	
+	also	seems
+quite	natural.	But	combining	these	two	yields	an	unexpected	outcome!
+Since	parameter	
+	is	unsigned,	the	computation	0	–	1	is	performed
+using	unsigned	arithmetic,	which	is	equivalent	to	modular	addition.	The
+result	is	then	
+UMax
+.	The	≤	comparison	is	also	performed	using	an
+unsigned	comparison,	and	since	any	number	is	less	than	or	equal	to
+3
+
+UMax
+,	the	comparison	always	holds!	Thus,	the	code	attempts	to	access
+invalid	elements	of	array	
+.
+The	code	can	be	fixed	either	by	declaring	
+	to	be	an	
+	or	by
+changing	the	test	of	the	
+	loop	to	be	
+.
+Solution	to	Problem	
+2.26	
+(page
+83
+)
+This	example	demonstrates	a	subtle	feature	of	unsigned	arithmetic,	and
+also	the	property	that	we	sometimes	perform	unsigned	arithmetic	without
+realizing	it.	This	can	lead	to	very	tricky	bugs.
+A
+.	
+For	what	cases	will	this	function	produce	an	incorrect	result?
+	The
+function	will	incorrectly	return	1	when	s	is	shorter	than	
+.
+B
+.	
+Explain	how	this	incorrect	result	comes	about.
+	Since	
+	is
+defined	to	yield	an	unsigned	result,	the	difference	and	the
+comparison	are	both	computed	using	unsigned	arithmetic.	When
+	is	shorter	than	
+,	the	difference	
+	should
+be	negative,	but	instead	becomes	a	large,	unsigned	number,
+which	is	greater	than	0.
+C
+.	
+Show	how	to	fix	the	code	so	that	it	will	work	reliably.
+	Replace	the
+test	with	the	following:
+
+Solution	to	Problem	
+2.27	
+(page
+89
+)
+This	function	is	a	direct	implementation	of	the	rules	given	to	determine
+whether	or	not	an	unsigned	addition	overflows.
+Solution	to	Problem	
+2.28	
+(page
+89
+)
+This	problem	is	a	simple	demonstration	of	arithmetic	modulo	16.	The
+easiest	way	to	solve	it	is	to	convert	the	hex	pattern	into	its	unsigned
+decimal	value.	For	nonzero	values	of	
+x
+,	we	must	have	
+.
+Then	we	convert	the	complemented	value	back	to	hex.
+(
+−
+u
+4
+x
+)
++
+x
+=
+16
+
+x
+Hex
+Decimal
+Decimal
+Hex
+0
+0
+5
+11
+8
+8
+13
+3
+15
+1
+Solution	to	Problem	
+2.29	
+(page
+93
+)
+This	problem	is	an	exercise	to	make	sure	you	understand	two's-
+complement	addition.
+x
+y
+x
+	+	
+y
+Case
+–12
+–15
+–27
+5
+1
+[10100]
+[10001]
+[100101]
+[00101]
+–8
+–8
+–16
+–16
+2
+[11000]
+[11000]
+[110000]
+[10000]
+–9
+8
+–1
+–1
+2
+4
+−
+u
+x
+x
++
+t
+5
+y
+
+[10111]
+[01000]
+[111111]
+[11111]
+2
+5
+7
+7
+3
+[00010]
+[00101]
+[000111]
+[00111]
+12
+4
+16
+–16
+4
+[01100]
+[00100]
+[010000]
+[10000]
+Solution	to	Problem	
+2.30	
+(page
+94
+)
+This	function	is	a	direct	implementation	of	the	rules	given	to	determine
+whether	or	not	a	two's-complement	addition	overflows.
+
+Solution	to	Problem	
+2.31	
+(page
+94
+)
+Your	coworker	could	have	learned,	by	studying	
+Section	
+2.3.2
+,	that
+two's-complement	addition	forms	an	abelian	group,	and	so	the
+expression	
+	will	evaluate	to	
+	regardless	of	whether	or	not	the
+addition	overflows,	and	that	
+	will	always	evaluate	to	
+.
+Solution	to	Problem	
+2.32	
+(page
+94
+)
+This	function	will	give	correct	values,	except	when	
+	is	
+TMin
+.	In	this
+case,	we	will	have	
+	also	equal	to	
+TMin
+,	and	so	the	call	to	function
+	will	indicate	overflow	when	
+	is	negative	and	no	overflow	when
+	is	nonnegative.	In	fact,	the	opposite	is	true:	
+(
+,	
+TMin
+)	should
+yield	0	when	
+	is	negative	and	1	when	it	is	nonnegative.
+One	lesson	to	be	learned	from	this	exercise	is	that	
+TMin
+	should	be
+included	as	one	of	the	cases	in	any	test	procedure	for	a	function.
+Solution	to	Problem	
+2.33	
+(page
+95
+)
+
+This	problem	helps	you	understand	two's-complement	negation	using	a
+very	small	word	size.
+For	
+w
+	=	4,	we	have	
+TMin
+	=	–8.	So	–8	is	its	own	additive	inverse,	while
+other	values	are	negated	by	integer	negation.
+x
+Hex
+Decimal
+Decimal
+Hex
+The	bit	patterns	are	the	same	as	for	unsigned	negation.
+Solution	to	Problem	
+2.34	
+(page
+98
+)
+This	problem	is	an	exercise	to	make	sure	you	understand	two's-
+complement	multiplication.
+4
+4
+−
+t
+x
+
+Mode
+x
+y
+x	·	y
+Truncated	
+x	·	y
+Unsigned
+4
+[100]
+5
+[101]
+20
+[010100]
+4
+[100]
+Two's	complement
+–4
+[100]
+–3
+[101]
+12
+[001100]
+–4
+[100]
+Unsigned
+2
+[010]
+7
+[111]
+14
+[001110]
+6
+[110]
+Two's	complement
+2
+[010]
+–1
+[111]
+–2
+[111110]
+–2
+[110]
+Unsigned
+6
+[110]
+6
+[110]
+36
+[100100]
+4
+[100]
+Two's	complement
+–2
+[110]
+–2
+[110]
+4
+[000100]
+–4
+[100]
+Solution	to	Problem	
+2.35	
+(page
+99
+)
+It	is	not	realistic	to	test	this	function	for	all	possible	values	of	
+	and	
+.
+Even	if	you	could	run	10	billion	tests	per	second,	it	would	require	over	58
+years	to	test	all	combinations	when	data	type	
+	is	32	bits.	On	the	other
+hand,	it	is	feasible	to	test	your	code	by	writing	the	function	with	data	type
+	or	
+	and	then	testing	it	exhaustively.
+Here's	a	more	principled	approach,	following	the	proposed	set	of
+arguments:
+1
+.	
+We	know	that	
+x	·	y
+	can	be	written	as	a	2
+w
+-bit	two's-complement
+number.	Let	
+u
+	denote	the	unsigned	number	represented	by	the
+lower	
+w
+	bits,	and	
+v
+	denote	the	two's-complement	number
+
+represented	by	the	upper	
+w
+	bits.	Then,	based	on	
+Equation	
+2.3
+,
+we	can	see	that	
+x	·	y
+	=	
+v
+2
+	+	
+u
+.
+We	also	know	that	
+u
+	=	
+T2U
+(p)
+,	since	they	are	unsigned	and
+two's-complement	numbers	arising	from	the	same	bit	pattern,	and
+so	by	
+Equation	
+2.6
+,	we	can	write	
+u
+	=	
+p
+	+	
+p
+2
+,	where	
+p
+	is
+the	most	significant	bit	of	
+p
+.	Letting	
+t
+	=	
+v
+	+	
+p
+,	we	have	
+x	·	y
+	=	
+p
+	+
+t
+2
+.
+When	
+t
+	=	0,	we	have	
+x	.	y	=	p
+;	the	multiplication	does	not	overflow.
+When	
+t
+	=	0,	we	have	
+x	·	y
+	=	
+p
+;	the	multiplication	does	overflow.
+2
+.	
+By	definition	of	integer	division,	dividing	
+p
+	by	nonzero	
+x
+	gives	a
+quotient	
+q
+	and	a	remainder	
+r
+	such	that	
+p
+	=	
+x	·	q	+	r
+,	and	|
+r
+|	<	|
+x
+|.
+(We	use	absolute	values	here,	because	the	signs	of	
+x
+	and	
+r
+	may
+differ.	For	example,	dividing	–7	by	2	gives	quotient	–3	and
+remainder	–1.)
+3
+.	
+Suppose	
+q	=	y
+.	Then	we	have	
+x	·	y	=	x	·	y	+	r	+	t
+2
+.	From	this,	we
+can	see	that	
+r	+	t
+2
+	=	0.	But	|
+r
+|	<	|
+x
+|	≤	2
+,	and	so	this	identity	can
+hold	only	if	
+t
+	=	0,	in	which	case	
+r
+	=	0.
+Suppose	
+r
+	=	
+t
+	=	0.	Then	we	will	have	
+x	·	y	=	x	·	q
+,	implying	that	
+y	=
+q
+.
+When	
+x
+	equals	0,	multiplication	does	not	overflow,	and	so	we	see	that	our
+code	provides	a	reliable	way	to	test	whether	or	not	two's-complement
+multiplication	causes	overflow.
+Solution	to	Problem	
+2.36	
+(page
+99
+)
+w
+w
+w
+–1
+w
+w
+–1
+w
+–1
+w
+w
+w
+w
+
+With	64	bits,	we	can	perform	the	multiplication	without	overflowing.	We
+then	test	whether	casting	the	product	to	32	bits	changes	the	value:
+Note	that	the	casting	on	the	right-hand	side	of	line	5	is	critical.	If	we
+instead	wrote	the	line	as
+the	product	would	be	computed	as	a	32-bit	value	(possibly	overflowing)
+and	then	sign	extended	to	64	bits.
+Solution	to	Problem	
+2.37	
+(page
+99
+)
+
+A
+.	
+This	change	does	not	help	at	all.	Even	though	the	computation	of
+	will	be	accurate,	the	call	to	
+	will	cause	this	value	to	be
+converted	to	a	32-bit	unsigned	number,	and	so	the	same	overflow
+conditions	will	occur.
+B
+.	
+With	
+	having	a	32-bit	unsigned	number	as	its	argument,	it
+cannot	possibly	allocate	a	block	of	more	than	2
+	bytes,	and	so
+there	is	no	point	attempting	to	allocate	or	copy	this	much	memory.
+Instead,	the	function	should	abort	and	return	
+,	as	illustrated	by
+the	following	replacement	to	the	original	call	to	
+	(line	9):
+Solution	to	Problem	
+2.38	
+(page
+102
+)
+In	
+Chapter	
+3
+,	we	will	see	many	examples	of	the	
+LEA
+	
+instruction	in
+action.	The	instruction	is	provided	to	support	pointer	arithmetic,	but	the	C
+32
+
+compiler	often	uses	it	as	a	way	to	perform	multiplication	by	small
+constants.
+For	each	value	of	
+k
+,	we	can	compute	two	multiples:	2
+	(when	
+	is	0)	and
+2
+	+	1	(when	
+	is	
+).	Thus,	we	can	compute	multiples	1,	2,	3,	4,	5,	8,	and
+9.
+Solution	to	Problem	
+2.39	
+(page
+103
+)
+The	expression	simply	becomes	-(x<<
+m
+).	To	see	this,	let	the	word	size
+be	
+w
+	so	that	
+n
+	=	
+w
+	—	1.	Form	B	states	that	we	should	compute	(x<<
+w
+)	—
+(x<<
+m
+),	but	shifting	
+	to	the	left	by	
+w
+	will	yield	the	value	
+.
+Solution	to	Problem	
+2.40	
+(page
+103
+)
+This	problem	requires	you	to	try	out	the	optimizations	already	described
+and	also	to	supply	a	bit	of	your	own	ingenuity.
+K
+Shifts
+Add/Subs
+Expression
+6
+2
+1
+k
+k
+
+31
+1
+1
+-6
+2
+1
+55
+2
+2
+Observe	that	the	fourth	case	uses	a	modified	version	of	form	B.	We	can
+view	the	bit	pattern	[110111]	as	having	a	run	of	6	ones	with	a	zero	in	the
+middle,	and	so	we	apply	the	rule	for	form	B,	but	then	we	subtract	the	term
+corresponding	to	the	middle	zero	bit.
+Solution	to	Problem	
+2.41	
+(page
+103
+)
+Assuming	that	addition	and	subtraction	have	the	same	performance,	the
+rule	is	to	choose	form	A	when	
+n
+	=	
+m
+,	either	form	when	
+n
+	=	
+m
+	+	1,	and
+form	B	when	
+n
+	>	
+m
+	+	1.
+The	justification	for	this	rule	is	as	follows.	Assume	first	that	
+m
+	>	0.	When
+n
+	=	
+m
+,	form	A	requires	only	a	single	shift,	while	form	B	requires	two	shifts
+and	a	subtraction.	When	
+n
+	=	
+m
+	+	1,	both	forms	require	two	shifts	and
+either	an	addition	or	a	subtraction.	When
+n
+	>	
+m
+	+	1,	form	B	requires	only
+two	shifts	and	one	subtraction,	while	form	A	requires	
+n
+	—	
+m
+	+	1	>	2	shifts
+and	
+n
+	—	
+m
+	>	1	additions.	For	the	case	of	
+m
+	=	0,	we	get	one	fewer	shift
+for	both	forms	A	and	B,	and	so	the	same	rules	apply	for	choosing
+between	the	two.
+
+Solution	to	Problem	
+2.42	
+(page
+107
+)
+The	only	challenge	here	is	to	compute	the	bias	without	any	testing	or
+conditional	operations.	We	use	the	trick	that	the	expression	
+generates	a	word	with	all	ones	if	
+	is	negative,	and	all	zeros	otherwise.
+By	masking	off	the	appropriate	bits,	we	get	the	desired	bias	value.
+Solution	to	Problem	
+2.43	
+(page
+107
+)
+We	have	found	that	people	have	difficulty	with	this	exercise	when
+working	directly	with	assembly	code.	It	becomes	more	clear	when	put	in
+the	form	shown	in	
+.
+We	can	see	that	
+	is	
+	is	computed	as	
+.
+
+We	can	see	that	
+	is	8;	a	bias	value	of	7	is	added	when	y	is	negative,
+and	the	right	shift	is	by	3.
+Solution	to	Problem	
+2.44	
+(page
+108
+)
+These"C	puzzle”	problems	provide	a	clear	demonstration	that
+programmers	must	understand	the	properties	of	computer	arithmetic:
+A
+.	
+False
+.	Let	
+	be	–2,147,483,648	(
+TMin
+).	We	will	then	have	
+equal	to	2,147,483,647	(
+TMax
+).
+B
+.	
+True
+.	If	
+	evaluates	to	0,	then	we	must	have	bit	
+x
+equal	to	1.	When	shifted	left	by	29,	this	will	become	the	sign	bit.
+C
+.	
+False
+.	When	
+	is	65,535	
+,	x*x	is	-131,071	
+.
+D
+.	
+True
+.	If	
+	is	nonnegative,	then	
+	is	nonpositive.
+E
+.	
+False
+.	Let	
+	be	–2,147,483,648	(
+TMin
+).	Then	both	
+	and	
+	are
+negative.
+F
+.	
+True
+.	Two's-complement	and	unsigned	addition	have	the	same	bit-
+level	behavior,	and	they	are	commutative.
+32
+32
+2
+32
+
+G
+.	
+True
+.	
+.	Thus,	the	left-hand	side	is
+equivalent	to	
+.
+Solution	to	Problem	
+2.45	
+(page
+111
+)
+Understanding	fractional	binary	representations	is	an	important	step	to
+understanding	floating-point	encodings.	This	exercise	lets	you	try	out
+some	simple	examples.
+0.001
+0.125
+0.11
+0.75
+1.1001
+1.5625
+10.1011
+2.6875
+1.001
+1.125
+101.111
+5.875
+11.0011
+3.1875
+One	simple	way	to	think	about	fractional	binary	representations	is	to
+represent	a	number	as	a	fraction	of	the	form	
+.	We	can	write	this	in
+binary	using	the	binary	representation	of	
+x
+,	with	the	binary	point	inserted
+1
+8
+3
+4
+25
+16
+43
+16
+9
+8
+47
+8
+51
+16
+x
+2
+k
+
+k
+	positions	from	the	right.	As	an	example,	for	
+,	we	have	25
+	=
+11001
+.	We	then	put	the	binary	point	four	positions	from	the	right	to	get
+1.1001
+.
+Solution	to	Problem	
+2.46	
+(page
+111
+)
+In	most	cases,	the	limited	precision	of	floating-point	numbers	is	not	a
+major	problem,	because	the	
+relative
+	error	of	the	computation	is	still	fairly
+low.	In	this	example,	however,	the	system	was	sensitive	to	the	
+absolute
+error.
+A
+.	
+We	can	see	that	0.1	—	
+	has	the	binary	representation
+B
+.	
+Comparing	this	to	the	binary	representation	of	
+,	we	can	see
+that	it	is	simply	
+,	which	is	around	9.54	×	10
+.
+C
+.	
+9.54	×	10
+	×	100	×	60	×	60	×	10	≈	0.343	seconds.
+D
+.	
+0.343	×	2,000	≈	687	meters.
+Solution	to	Problem	
+2.47	
+(page
+117
+)
+25
+16
+10
+2
+2
+0.000000000000000000000001100
+[
+1100
+]
+…
+ 
+2
+1
+10
+2
+−
+20
+ 
+×
+ 
+1
+10
+−8
+−8
+
+Working	through	floating-point	representations	for	very	small	word	sizes
+helps	clarify	how	IEEE	floating	point	works.	Note	especially	the	transition
+between	denormalized	and	normalized	values.
+Bits
+e
+E
+2
+f
+M
+2
+	×	
+M
+V
+Decimal
+0
+0
+1
+0
+0.0
+0
+0
+1
+0.25
+0
+0
+1
+0.5
+0
+0
+1
+0.75
+1
+0
+1
+1
+1.0
+1
+0
+1
+1.25
+1
+0
+1
+1.5
+1
+0
+1
+1.75
+2
+1
+2
+2
+2.0
+2
+1
+2
+2.5
+2
+1
+2
+3
+3.0
+2
+1
+2
+3.5
+—
+—
+—
+—
+—
+—
+∞
+—
+—
+—
+—
+—
+—
+—
+NaN
+—
+—
+—
+—
+—
+—
+—
+NaN
+—
+E
+E
+0
+4
+0
+4
+0
+4
+1
+4
+1
+4
+1
+4
+1
+4
+2
+4
+2
+4
+2
+4
+1
+2
+3
+4
+3
+4
+3
+4
+3
+4
+0
+4
+4
+4
+4
+4
+1
+4
+5
+4
+5
+4
+5
+4
+2
+4
+6
+4
+6
+4
+3
+2
+3
+4
+7
+4
+7
+4
+7
+4
+0
+4
+4
+4
+8
+4
+1
+4
+5
+4
+10
+4
+5
+2
+2
+4
+6
+4
+12
+4
+3
+4
+7
+4
+14
+4
+7
+2
+
+—
+—
+—
+—
+—
+—
+NaN
+—
+Solution	to	Problem	
+2.48	
+(page
+119
+)
+Hexadecimal	
+	is	equivalent	to	binary
+[1101011001000101000001].	Shifting	this	right	21	places	gives
+1.101011001000101000001
+	×	2
+.	We	form	the	fraction	field	by	dropping
+the	leading	1	and	adding	two	zeros,	giving
+The	exponent	is	formed	by	adding	bias	127	to	21,	giving	148	(binary
+[10010100]).	We	combine	this	with	a	sign	field	of	0	to	give	a	binary
+representation
+We	see	that	the	matching	bits	in	the	two	representations	correspond	to
+the	low-order	bits	of	the	integer,	up	to	the	most	significant	bit	equal	to	1
+matching	the	high-order	21	bits	of	the	fraction:
+2
+21
+[
+10101100100010100000100
+]
+[
+01001010010101100100010100000100
+]
+
+Solution	to	Problem	
+2.49	
+(page
+120
+)
+This	exercise	helps	you	think	about	what	numbers	cannot	be	represented
+exactly	in	floating	point.
+A
+.	
+The	number	has	binary	representation	1,	followed	by	
+n
+	zeros,
+followed	by	1,	giving	value	2
+	+	1.
+B
+.	
+When	
+n
+	=	23,	the	value	is	2
+	+	1	=	16,777,217.
+Solution	to	Problem	
+2.50	
+(page
+121
+)
+Performing	rounding	by	hand	helps	reinforce	the	idea	of	round-to-even
+with	binary	numbers.
+Origin;
+Rounded
+10.010
+10.0
+2
+10.011
+10.1
+10.110
+11.0
+3
+11.001
+11.0
+3
+n
++1
+24
+2
+2
+1
+4
+2
+2
+3
+8
+2
+1
+2
+2
+2
+3
+4
+2
+3
+1
+8
+
+Solution	to	Problem	
+2.51	
+(page
+122
+)
+A
+.	
+Looking	at	the	nonterminating	sequence	for	
+,	we	see	that	the
+2	bits	to	the	right	of	the	rounding	position	are	1,	so	a	better
+approximation	to	
+would	be	obtained	by	incrementing	
+x
+	to	get
+x
+′	=	0.00011001100110011001101
+,	which	is	larger	than	0.1.
+B
+.	
+We	can	see	that	
+x
+′	–	0.1	has	binary	representation
+Comparing	this	to	the	binary	representation	of	
+,	we	can	see
+that	it	is	2
+	×	
+,	which	is	around	2.38	×	10
+.
+C
+.	
+2.38	×	10
+	×	100	×	60	×	60	×	10	≈	0.086	seconds,	a	factor	of	4
+less	than	the	error	in	the	Patriot	system.
+D
+.	
+0.086	×	2,000	≈	171	meters.
+Solution	to	Problem	
+2.52	
+(page
+122
+)
+This	problem	tests	a	lot	of	concepts	about	floating-point	representations,
+including	the	encoding	of	normalized	and	denormalized	values,	as	well
+as	rounding.
+Format	A
+Format	B
+1
+	
+10
+	
+1
+	
+10
+	
+2
+0.0000000000000000000000000
+[
+1100
+]
+1
+	
+10
+	
+−22
+2
+−
+22
+×
+1
+10
+−8
+−8
+
+Bits
+Value
+Bits
+Value
+Comments
+1
+1
+Round	down
+16
+Round	up
+Denorm	→	norm
+Solution	to	Problem	
+2.53	
+(page
+125
+)
+In	general,	it	is	better	to	use	a	library	macro	rather	than	inventing	your
+own	code.	This	code	seems	to	work	on	a	variety	of	machines,	however.
+We	assume	that	the	value	
+	overflows	to	infinity.
+15
+2
+15
+2
+25
+32
+3
+4
+31
+2
+1
+64
+1
+64
+
+Solution	to	Problem	
+2.54	
+(page
+125
+)
+Exercises	such	as	this	one	help	you	develop	your	ability	to	reason	about
+floating-point	operations	from	a	programmer's	perspective.	Make	sure
+you	understand	each	of	the	answers.
+A
+.	
+Yes,	since	
+	has	greater	precision	and	range	than	
+.
+B
+.	
+No.	For	example,	when	
+	is	
+TMax.
+C
+.	
+No.	For	example,	when	
+	is	
+,	we	will	get	+	∞	on	the	right.
+D
+.	
+Yes,	since	
+	has	greater	precision	and	range	than	
+.
+E
+.	
+Yes,	since	a	floating-point	number	is	negated	by	simply	inverting
+its	sign	bit.
+F
+.	
+Yes,	the	numerators	and	denominators	will	both	be	converted	to
+floating-point	representations	before	the	division	is	performed.
+G
+.	
+Yes,	although	it	may	overflow	to	+	∞.
+H
+.	
+No.	For	example,	when	f	is	
+	and	
+	is	1.0,	the	expression
+	will	be	rounded	to	
+,	and	so	the	expression	on	the	left-
+
+hand	side	will	evaluate	to	0.0,	while	the	right-hand	side	will	be	1.0.
+
+Chapter	
+3	
+Machine-Level
+Representation	of	Programs
+3.1	
+A	Historical	Perspective	
+166
+3.2	
+Program	Encodings
+	
+169
+3.3	
+Data	Formats
+	
+177
+3.4	
+Accessing	Information
+	
+179
+3.5	
+Arithmetic	and	Logical	Operations
+	
+191
+3.6	
+Control
+	
+200
+3.7	
+Procedures
+	
+238
+3.8	
+Array	Allocation	and	Access
+	
+255
+3.9	
+Heterogeneous	Data	Structures
+	
+265
+3.10	
+Combining	Control	and	Data	in	Machine-Level	Programs
+	
+276
+3.11	
+Floating-Point	Code
+	
+293
+3.12	
+Summary
+	
+309
+Bibliographic	Notes	
+310
+
+Homework	Problems	
+311
+Solutions	to	Practice	Problems
+	
+325
+Computers	execute	
+machine	code
+,	sequences	of
+bytes	encoding	the	low-level	operations	that
+manipulate	data,	manage	memory,	read	and	write
+data	on	storage	devices,	and	communicate	over
+networks.	A	compiler	generates	machine	code
+through	a	series	of	stages,	based	on	the	rules	of	the
+programming	language,	the	instruction	set	of	the
+target	machine,	and	the	conventions	followed	by	the
+operating	system.	The	
+GCC
+	
+C	compiler	generates	its
+output	in	the	form	of	
+assembly	code
+,	a	textual
+representation	of	the	machine	code	giving	the
+individual	instructions	in	the	program.	
+G
+CC
+	
+then
+invokes	both	an	
+assembler
+	and	a	
+linker
+	to	generate
+the	executable	machine	code	from	the	assembly
+code.	In	this	chapter,	we	will	take	a	close	look	at
+machine	code	and	its	human-readable
+representation	as	assembly	code.
+When	programming	in	a	high-level	language	such
+as	C,	and	even	more	so	in	Java,	we	are	shielded
+from	the	detailed	machine-level	implementation	of
+our	program.	In	contrast,	when	writing	programs	in
+assembly	code	(as	was	done	in	the	early	days	of
+computing)	a	programmer	must	specify	the	low-level
+instructions	the	program	uses	to	carry	out	a
+computation.	Most	of	the	time,	it	is	much	more
+
+productive	and	reliable	to	work	at	the	higher	level	of
+abstraction	provided	by	a	high-level	language.	The
+type	checking	provided	by	a	compiler	helps	detect
+many	program	errors	and	makes	sure	we	reference
+and	manipulate	data	in	consistent	ways.	With
+modern	optimizing	compilers,	the	generated	code	is
+usually	at	least	as	efficient	as	what	a	skilled
+assembly-language	programmer	would	write	by
+hand.	Best	of	all,	a	program	written	in	a	high-level
+language	can	be	compiled	and	executed	on	a
+number	of	different	machines,	whereas	assembly
+code	is	highly	machine	specific.
+So	why	should	we	spend	our	time	learning	machine
+code?	Even	though	compilers	do	most	of	the	work
+in	generating	assembly	code,	being	able	to	read
+and	understand	it	is	an	important	skill	for	serious
+programmers.	By	invoking	the	compiler	with
+appropriate	command-line	parameters,	the	compiler
+will	generate	a	file	showing	its	output	in	assembly-
+code	form.	By	reading	this	code,	we	can	understand
+the	optimization	capabilities	of	the	compiler	and
+analyze	the	underlying	inefficiencies	in	the	code.	As
+we	will	experience	in	
+Chapter	
+5
+,	programmers
+seeking	to	maximize	the	performance	of	a	critical
+section	of	code	often	try	different	variations	of	the
+source	code,	each	time	compiling	and	examining
+the	generated	assembly	code	to	get	a	sense	of	how
+efficiently	the	program	will	run.	Furthermore,	there
+
+are	times	when	the	layer	of	abstraction	provided	by
+a	high-level	language	hidesinformationabouttherun-
+timebehaviorofaprogramthatweneedtounder-stand.
+For	example,	when	writing	concurrent	programs
+using	a	thread	package,	as	covered	in	
+Chapter
+12
+,	it	is	important	to	understand	how	program	data
+are	shared	or	kept	private	by	the	different	threads
+and	precisely	how	and	where	shared	data	are
+accessed.	Such	information	is	visible	at	the
+machine-code	level.	As	another	example,	many	of
+the	ways	programs	can	be	attacked,	allowing
+malware	to	infest	a	system,	involve	nuances	of	the
+way	programs	store	their	run-time	control
+information.	Many	attacks	involve	exploiting
+weaknesses	in	system	programs	to	overwrite
+information	and	thereby	take	control	of	the	system.
+Understanding	how	these	vulnerabilities	arise	and
+how	to	guard	against	them	requires	a	knowledge	of
+the	machine-level	representation	of	programs.	The
+need	for	programmers	to	learn	
+machine	code	has
+shifted	over	the	years	from	one	of	being	able	to
+write	programs	directly	in	assembly	code	to	one	of
+being	able	to	read	and	understand	the	code
+generated	by	compilers.
+In	this	chapter,	we	will	learn	the	details	of	one
+particular	assembly	language	and	see	how	C
+programs	get	compiled	into	this	form	of	machine
+code.	Reading	the	assembly	code	generated	by	a
+
+compiler	involves	a	different	set	of	skills	than	writing
+assembly	code	by	hand.	We	must	understand	the
+transformations	typical	compilers	make	in
+converting	the	constructs	of	C	into	machine	code.
+Relative	to	the	computations	expressed	in	the	C
+code,	optimizing	compilers	can	rearrange	execution
+order,	eliminate	unneeded	computations,	replace
+slow	operations	with	faster	ones,	and	even	change
+recursive	computations	into	iterative	ones.
+Understanding	the	relation	between	source	code
+and	the	generated	assembly	can	often	be	a
+challenge—it's	much	like	putting	together	a	puzzle
+having	a	slightly	different	design	than	the	picture	on
+the	box.	It	is	a	form	of	
+reverse	engineering
+—trying
+to	understand	the	process	by	which	a	system	was
+created	by	studying	the	system	and	working
+backward.	In	this	case,	the	system	is	a	machine-
+generated	assembly-language	program,	rather	than
+something	designed	by	a	human.	This	simplifies	the
+task	of	reverse	engineering	because	the	generated
+code	follows	fairly	regular	patterns	and	we	can	run
+experiments,	having	the	compiler	generate	code	for
+many	different	programs.	In	our	presentation,	we
+give	many	examples	and	provide	a	number	of
+exercises	illustrating	different	aspects	of	assembly
+language	and	compilers.	This	is	a	subject	where
+mastering	the	details	is	a	prerequisite	to	under-
+standing	the	deeper	and	more	fundamental
+concepts.	Those	who	say	"I	understand	the	general
+
+principles,	I	don't	want	to	bother	learning	the	details"
+are	deluding	themselves.	It	is	critical	for	you	to
+spend	time	studying	the	examples,	working	through
+the	exercises,	and	checking	your	solutions	with
+those	provided.
+Our	presentation	is	based	on	x86-64,	the	machine
+language	for	most	of	the	processors	found	in	today's
+laptop	and	desktop	machines,	as	well	as	those	that
+power	very	large	data	centers	and	supercomputers.
+This	language	has	evolved	over	a	long	history,
+starting	with	Intel	Corporation's	first	16-bit	processor
+in	1978,	through	to	the	expansion	to	32	bits,	and
+most	recently	to	64	bits.	Along	the	way,	features
+have	been	added	to	make	better	use	of	the
+available	semiconductor	technology,	and	to	satisfy
+the	demands	of	the	marketplace.	Much	of	the
+development	has	been	driven	by	Intel,	but	its	rival
+Advanced	Micro	Devices	(AMD)	has	also	made
+important	contributions.	The	result	is	a	rather
+peculiar	design	with	features	that	make	sense	only
+when	viewed	from	a	historical	perspective.	It	is	also
+laden	with	features	providing	backward	compatibility
+that	are	not	used	by	modern	compilers	and
+operating	systems.	We	will	focus	on	the	subset	of
+the	features	used	by	
+GCC
+	
+and	Linux.	This	allows	us
+to	avoid	much	of	the	complexity	and	many	of	the
+arcane	features	of	x86-64.
+
+Our	technical	presentation	starts	with	a	quick	tour	to
+show	the	relation	between	C,	assembly	code,	and
+machine	code.	We	then	proceed	to	the	details	of
+x86-64,	starting	with	the	representation	and
+manipulation	of	data	and	the	implementation	of
+control.	We	see	how	control	constructs	in	C,	such	as
+,	
+,	and	
+	statements,	are	implemented.
+We	then	cover	the	implementation	of	procedures,
+including	how	the	program	maintains	a	run-time
+stack	to	support	the
+Web	Aside	ASM:IA32	
+IA32
+programming
+IA32,	the	32-bit	predecessor	to	x86-64,	was
+introduced	by	Intel	in	1985.	It	served	as	the
+machine	language	of	choice	for	several
+decades.	Most	x86	microprocessors	sold
+today,	and	most	operating	systems	installed
+on	these	machines,	are	designed	to	run	x86-
+64.	However,	they	can	also	execute	IA32
+programs	in	a	backward	compatibility	mode.
+As	a	result,	many	application	programs	are
+still	based	on	IA32.	In	addition,	many	existing
+systems	cannot	execute	x86-64,	due	to
+limitations	of	their	hardware	or	system
+software.	IA32	continues	to	be	an	important
+
+machine	language.	You	will	find	that	having	a
+background	in	x86-64	will	enable	you	to	learn
+the	IA32	machine	language	quite	readily.
+passing	of	data	and	control	between	procedures,	as
+well	as	storage	for	local	variables.	Next,	we
+consider	how	data	structures	such	as	arrays,
+structures,	and	unions	are	implemented	at	the
+machine	level.	With	this	background	in	machine-
+level	programming,	we	can	examine	the	problems	of
+out-of-bounds	memory	references	and	the
+vulnerability	of	systems	to	buffer	overflow	attacks.
+We	finish	this	part	of	the	presentation	with	some	tips
+on	using	the	
+GDB
+	
+debugger	for	examining	the	run-
+time	behavior	of	a	machine-level	program.	The
+chapter	concludes	with	a	presentation	on	machine-
+program	representations	of	code	involving	floating-
+point	data	and	operations.
+The	computer	industry	has	recently	made	the
+transition	from	32-bit	to	64-bit	machines.	A	32-bit
+machine	can	only	make	use	of	around	4	gigabytes
+(2
+	bytes)	of	random	access	memory,	With	memory
+prices	dropping	at	dramatic	rates,	and	our
+computational	demands	and	data	sizes	increasing,
+it	has	become	both	economically	feasible	and
+technically	desirable	to	go	beyond	this	limitation.
+Current	64-bit	machines	can	use	up	to	256
+terabytes	(2
+	bytes)	of	memory,	and	could	readily
+be	extended	to	use	up	to	16	exabytes	(2
+	bytes).
+32
+48
+64
+
+Although	it	is	hard	to	imagine	having	a	machine	with
+that	much	memory,	keep	in	mind	that	4	gigabytes
+seemed	like	an	extreme	amount	of	memory	when
+32-bit	machines	became	commonplace	in	the	1970s
+and	1980s.
+Our	presentation	focuses	on	the	types	of	machine-
+level	programs	generated	when	compiling	C	and
+similar	programming	languages	targeting	modern
+operating	systems.	As	a	consequence,	we	make	no
+attempt	to	describe	many	of	the	features	of	x86-64
+that	arise	out	of	its	legacy	support	for	the	styles	of
+programs	written	in	the	early	days	of
+microprocessors,	when	much	of	the	code	was
+written	manually	and	where	programmers	had	to
+struggle	with	the	limited	range	of	addresses	allowed
+by	16-bit	machines.
+
+3.1	
+A	Historical	Perspective
+The	Intel	processor	line,	colloquially	referred	to	as	
+x86
+,	has	followed	a
+long	evolutionary	development.	It	started	with	one	of	the	first	single-chip
+16-bit	microprocessors,	where	many	compromises	had	to	be	made	due
+to	the	limited	capabilities	of	integrated	circuit	technology	at	the	time.
+Since	then,	it	has	grown	to	take	advantage	
+of	technology	improvements
+as	well	as	to	satisfy	the	demands	for	higher	performance	and	for
+supporting	more	advanced	operating	systems.
+The	list	that	follows	shows	some	models	of	Intel	processors	and	some	of
+their	key	features,	especially	those	affecting	machine-level	programming.
+We	use	the	number	of	transistors	required	to	implement	the	processors
+as	an	indication	of	how	they	have	evolved	in	complexity.	In	this	table,	"K"
+denotes	1,000	(10
+),	"M"	denotes	1,000,000	(10
+),	and	"G"	denotes
+1,000,000,000	(10
+).
+8086	(1978,	29	K	transistors).	
+One	of	the	first	single-chip,	16-bit
+microprocessors.	The	8088,	a	variant	of	the	8086	with	an	8-bit
+external	bus,	formed	the	heart	of	the	original	IBM	personal	computers.
+IBM	contracted	with	then-tiny	Microsoft	to	develop	the	MS-DOS
+operating	system.	The	original	models	came	with	32,768	bytes	of
+memory	and	two	floppy	drives	(no	hard	drive).	Architecturally,	the
+machines	were	limited	to	a	655,360-byte	address	space—addresses
+were	only	20	bits	long	(1,048,576	bytes	addressable),	and	the
+operating	system	reserved	393,216	bytes	for	its	own	use.	In	1980,
+Intel	introduced	the	8087	floating-point	coprocessor	(45	K	transistors)
+3
+6
+9
+
+to	operate	alongside	an	8086	or	8088	processor,	executing	the
+floating-point	instructions.	The	8087	established	the	floating-point
+model	for	the	x86	line,	often	referred	to	as	"x87."
+80286	(1982,	134	K	transistors).	
+Added	more	(and	now	obsolete)
+addressing	modes.	Formed	the	basis	of	the	IBM	PC-AT	personal
+computer,	the	original	platform	for	MS	Windows.
+i386	(1985,	275	K	transistors).	
+Expanded	the	architecture	to	32	bits.
+Added	the	flat	addressing	model	used	by	Linux	and	recent	versions	of
+the	Windows	operating	system.	This	was	the	first	machine	in	the
+series	that	could	fully	support	a	Unix	operating	system.
+i486	(1989,	1.2	M	transistors).	
+Improved	performance	and	integrated
+the	floating-point	unit	onto	the	processor	chip	but	did	not	significantly
+change	the	instruction	set.
+Pentium	(1993,	3.1	M	transistors).	
+Improved	performance	but	only
+added	minor	extensions	to	the	instruction	set.
+PentiumPro	(1995,	5.5	M	transistors).	
+Introduced	a	radically	new
+processor	design,	internally	known	as	the	
+P6
+	microarchitecture.
+Added	a	class	of	"conditional	move"	instructions	to	the	instruction	set.
+Pentium/MMX	(1997,	4.5	M	transistors).	
+Added	new	class	of
+instructions	to	the	Pentium	processor	for	manipulating	vectors	of
+integers.	Each	datum	can	be	1,	2,	or	4	bytes	long.	Each	vector	totals
+64	bits.
+Pentium	II	(1997,	7	M	transistors).	
+Continuation	of	the	P6
+microarchitecture.
+Pentium	III	(1999,	8.2	M	transistors).	
+Introduced	SSE,	a	class	of
+instructions	for	manipulating	vectors	of	integer	or	floating-point	data.
+
+Each	datum	can	be	1,	2,	or	4	bytes,	packed	into	vectors	of	128	bits.
+Later	versions	of	this	chip	
+went	up	to	24	M	transistors,	due	to	the
+incorporation	of	the	level-2	cache	on	chip.
+Pentium	4	(2000,	42	M	transistors).	
+Extended	SSE	to	SSE2,	adding
+new	data	types	(including	double-precision	floating	point),	along	with
+144	new	instructions	for	these	formats.	With	these	extensions,
+compilers	can	use	SSE	instructions,	rather	than	x87	instructions,	to
+compile	floating-point	code.
+Pentium	4E	(2004,	125	M	transistors).	
+Added	
+hyperthreading
+,	a
+method	to	run	two	programs	simultaneously	on	a	single	processor,	as
+well	as	EM64T,	Intel's	implementation	of	a	64-bit	extension	to	IA32
+developed	by	Advanced	Micro	Devices	(AMD),	which	we	refer	to	as
+x86-64.
+Core	2	(2006,	291	M	transistors).	
+Returned	to	a	microarchitecture
+similar	to	P6.	First	
+multi-core
+	Intel	microprocessor,	where	multiple
+processors	are	implemented	on	a	single	chip.	Did	not	support
+hyperthreading.
+Core	i7,	Nehalem	(2008,	781	M	transistors).	
+Incorporated	both
+hyperthreading	and	multi-core,	with	the	initial	version	supporting	two
+executing	programs	on	each	core	and	up	to	four	cores	on	each	chip.
+Core	i7,	Sandy	Bridge	(2011,	1.17	G	transistors).	
+Introduced	AVX,
+an	extension	of	the	SSE	to	support	data	packed	into	256-bit	vectors.
+Core	i7,	Haswell	(2013,	1.4	G	transistors).	
+Extended	AVX	to	AVX2,
+adding	more	instructions	and	instruction	formats.
+Each	successive	processor	has	been	designed	to	be	backward
+compatible—able	to	run	code	compiled	for	any	earlier	version.	As	we	will
+
+see,	there	are	many	strange	artifacts	in	the	instruction	set	due	to	this
+evolutionary	heritage.	Intel	has	had	several	names	for	their	processor
+line,	including	
+IA32
+,	for	"Intel	Architecture	32-bit"	and	most	recently
+Intel64
+,	the	64-bit	extension	to	IA32,	which	we	will	refer	to	as	
+x86-64
+.	We
+will	refer	to	the	overall	line	by	the	commonly	used	colloquial	name	"x86,"
+reflecting	the	processor	naming	conventions	up	through	the	i486.
+Over	the	years,	several	companies	have	produced	processors	that	are
+compatible	with	Intel	processors,	capable	of	running	the	exact	same
+machine-level	programs.	Chief	among	these	is	Advanced	Micro	Devices
+(AMD).	For	years,	AMD	lagged	just	behind	Intel	in	technology,	forcing	a
+marketing	strategy	where	they	produced	processors	that	were	less
+expensive	although	somewhat	lower	in	performance.	They	became	more
+competitive	around	2002,	being	the	first	to	break	the	1-gigahertz	clock-
+speed	barrier	for	a	commercially	available	microprocessor,	and
+introducing	x86-64,	the	widely	adopted	64-bit	extension	to	Intel's	IA32.
+Although	we	will	talk	about	Intel	processors,	our	presentation	holds	just
+as	well	for	the	compatible	processors	produced	by	Intel's	rivals.
+Much	of	the	complexity	of	x86	is	not	of	concern	to	those	interested	in
+programs	for	the	Linux	operating	system	as	generated	by	the	
+GCC
+compiler.	The	memory	model	provided	in	the	original	8086	and	its
+extensions	in	the	80286	became	obsolete	with	the	i386.	The	original	x87
+floating-point	instructions	became	obsolete
+Aside	
+Moore's	Law
+
+If	we	plot	the	number	of	transistors	in	the	different	Intel	processors
+versus	the	year	of	introduction,	and	use	a	logarithmic	scale	for	the
+y
+-axis,	we	can	see	that	the	growth	has	been	phenomenal.	Fitting	a
+line	through	the	data,	we	see	that	the	number	of	transistors
+increases	at	an	annual	rate	of	approximately	37%,	meaning	that
+the	number	of	transistors	doubles	about	every	26	months.	This
+growth	has	been	sustained	over	the	multiple-decade	history	of	x86
+microprocessors.
+In	1965,	Gordon	Moore,	a	founder	of	Intel	Corporation,
+extrapolated	from	the	chip	technology	of	the	day	(by	which	they
+could	fabricate	circuits	with	around	64	transistors	on	a	single	chip)
+to	predict	that	the	number	of	transistors	per	chip	would	double
+every	year	for	the	next	10	years.	This	prediction	became	known
+as	
+Moore's	Law
+.	As	it	turns	out,	his	prediction	was	just	a	little	bit
+optimistic,	but	also	too	short-sighted.	Over	more	than	50	years,
+the	semiconductor	industry	has	been	able	to	double	transistor
+counts	on	average	every	18	months.
+
+Similar	exponential	growth	rates	have	occurred	for	other	aspects
+of	computer	technology,	including	the	storage	capacities	of
+magnetic	disks	and	semiconductor	memories.	These	remarkable
+growth	rates	have	been	the	major	driving	forces	of	the	computer
+revolution.
+with	the	introduction	of	SSE2.	Although	we	see	vestiges	of	the	historical
+evolution	of	x86	in	x86-64	programs,	many	of	the	most	arcane	features	of
+x86	do	not	appear.
+
+3.2	
+Program	Encodings
+Suppose	we	write	a	C	program	as	two	files	
+	and	
+	We	can	then
+compile	this	code	using	a	Unix	command	line:
+The	command	
+	indicates	the	
+GCC
+	
+C	compiler.	Since	this	is	the	default
+compiler	on	Linux,	we	could	also	invoke	it	as	simply	
+.	The	command-
+line	option	–
+	instructs	the	compiler	to	apply	a	level	of	optimization	that
+yields	machine	code	that	follows	the	overall	structure	of	the	original	C
+code.	Invoking	higher	levels	of	optimization	can	generate	code	that	is	so
+heavily	transformed	that	the	relationship	between	the	generated	machine
+code	and	the	original	source	code	is	difficult	to	understand.	We	will
+therefore	use	–
+	optimization	as	a	learning	tool	and	then	see	what
+happens	as	we	increase	the	level	of	optimization.	In	practice,	higher
+levels	of	optimization	(e.g.,	specified	with	the	option	–
+	or	–
+)	are
+considered	a	better	choice	in	terms	of	the	resulting	program
+performance.
+1.	
+This	optimization	level	was	introduced	in	
+GCC
+	
+version	4.8.	Earlier	versions	of	
+GCC
+,	as	well	as
+non-GNU	compilers,	will	not	recognize	this	option.	For	these,	using	optimization	level	one
+(specified	with	the	command-line	flag	
+)	is	probably	the	best	choice	for	generating	code	that
+follows	the	original	program	structure.
+1
+
+The	
+	command	invokes	an	entire	sequence	of	programs	to	turn	the
+source	code	into	executable	code.	First,	the	C	
+preprocessor
+	expands	the
+source	code	to	include	any	files	specified	with	
+	commands	and
+to	expand	any	macros,	specified	with	
+	declarations.	Second,	the
+compiler
+	generates	assembly-code	versions	of	the	two	source	files
+having	names	
+	and	
+	Next,	the	
+assembler
+	converts	the
+assembly	code	into	binary	
+object-code
+	files	
+	and	
+	Object	code
+is	one	form	of	machine	code—it	contains	binary	representations	of	all	of
+the	instructions,	but	the	addresses	of	global	values	are	not	yet	filled	in.
+Finally,	the	
+linker
+	merges	these	two	object-code	files	along	with	code
+implementing	library	functions	(e.g.,	
+)	and	generates	the	final
+executable	code	file	
+	(as	specified	by	the	command-line	directive	
+).
+Executable	code	is	the	second	form	of	machine	code	we	will	consider—it
+is	the	exact	form	of	code	that	is	executed	by	the	processor.	The	relation
+between	these	different	forms	of	machine	code	and	the	linking	process	is
+described	in	more	detail	in	
+Chapter	
+7
+.
+3.2.1	
+Machine-Level	Code
+As	described	in	
+Section	
+1.9.3
+,	computer	systems	employ	several
+different	forms	of	abstraction,	hiding	details	of	an	implementation	through
+the	use	of	a	simpler	abstract	model.	Two	of	these	are	especially
+important	for	machine-level	programming.	First,	the	format	and	behavior
+of	a	machine-level	program	is	defined	by	the	
+instruction	set	architecture
+,
+or	ISA,	defining	the	processor	state,	the	format	of	the	instructions,	and
+the	effect	each	of	these	instructions	will	have	on	the	state.	Most	ISAs,
+including	x86-64,	describe	the	behavior	of	a	program	as	if	each
+
+instruction	is	executed	in	sequence,	with	one	instruction	completing
+before	the	next	one	begins.	The	processor	hardware	is	far	more
+elaborate,	executing	many	instructions	concurrently,	but	it	employs
+safeguards	to	ensure	that	the	overall	behavior	matches	the	sequential
+operation	dictated	by	the	ISA.	Second,	the	memory	addresses	used	by	a
+machine-level	program	are	
+virtual	addresses
+,	providing	a	memory	model
+that	
+appears	to	be	a	very	large	byte	array.	The	actual	implementation	of
+the	memory	system	involves	a	combination	of	multiple	hardware
+memories	and	operating	system	software,	as	described	in	
+Chapter	
+9
+.
+The	compiler	does	most	of	the	work	in	the	overall	compilation	sequence,
+transforming	programs	expressed	in	the	relatively	abstract	execution
+model	provided	by	C	into	the	very	elementary	instructions	that	the
+processor	executes.	The	assembly-code	representation	is	very	close	to
+machine	code.	Its	main	feature	is	that	it	is	in	a	more	readable	textual
+format,	as	compared	to	the	binary	format	of	machine	code.	Being	able	to
+understand	assembly	code	and	how	it	relates	to	the	original	C	code	is	a
+key	step	in	understanding	how	computers	execute	programs.
+The	machine	code	for	x86-64	differs	greatly	from	the	original	C	code.
+Parts	of	the	processor	state	are	visible	that	normally	are	hidden	from	the
+C	programmer:
+The	
+program	counter
+	(commonly	referred	to	as	the	PC,	and	called
+	in	x86-64)	indicates	the	address	in	memory	of	the	next
+instruction	to	be	executed.
+The	integer	
+register	file
+	contains	16	named	locations	storing	64-bit
+values.	These	registers	can	hold	addresses	(corresponding	to	C
+pointers)	or	integer	data.	Some	registers	are	used	to	keep	track	of
+
+critical	parts	of	the	program	state,	while	others	are	used	to	hold
+temporary	data,	such	as	the	arguments	and	local	variables	of	a
+procedure,	as	well	as	the	value	to	be	returned	by	a	function.
+The	condition	code	registers	hold	status	information	about	the	most
+recently	executed	arithmetic	or	logical	instruction.	These	are	used	to
+implement	conditional	changes	in	the	control	or	data	flow,	such	as	is
+required	to	implement	if	and	while	statements.
+A	set	of	vector	registers	can	each	hold	one	or	more	integer	or	floating-
+point	values.
+Whereas	C	provides	a	model	in	which	objects	of	different	data	types	can
+be	declared	and	allocated	in	memory,	machine	code	views	the	memory
+as	simply	a	large	byte-addressable	array.	Aggregate	data	types	in	C	such
+as	arrays	and	structures	are	represented	in	machine	code	as	contiguous
+collections	of	bytes.	Even	for	scalar	data	types,	assembly	code	makes	no
+distinctions	between	signed	or	unsigned	integers,	between	different	types
+of	pointers,	or	even	between	pointers	and	integers.
+The	program	memory	contains	the	executable	machine	code	for	the
+program,	some	information	required	by	the	operating	system,	a	run-time
+stack	for	managing	procedure	calls	and	returns,	and	blocks	of	memory
+allocated	by	the	user	(e.g.,	by	using	the	
+	library	function).	As
+mentioned	earlier,	the	program	memory	is	addressed	using	virtual
+addresses.	At	any	given	time,	only	limited	subranges	of	virtual	addresses
+are	considered	valid.	For	example,	x86-64	virtual	addresses	are
+represented	by	64-bit	words.	In	current	implementations	of	these
+machines,	the	upper	16	bits	must	be	set	to	zero,	and	so	an	address	can
+potentially	specify	a	byte	over	a	range	of	2
+,	or	64	terabytes.	More
+48
+
+typical	programs	will	only	have	access	to	a	few	megabytes,	or	perhaps
+several	gigabytes.	The	operating	system	manages
+Aside	
+The	ever-changing	forms	of
+generated	code
+In	our	presentation,	we	will	show	the	code	generated	by	a
+particular	version	of	
+GCC
+	
+with	particular	settings	of	the	command-
+line	options.	If	you	compile	code	on	your	own	machine,	chances
+are	you	will	be	using	a	different	compiler	or	a	different	version	of
+GCC
+	
+and	hence	will	generate	different	code.	The	open-source
+community	supporting	
+GCC
+	
+keeps	changing	the	code	generator,
+attempting	to	generate	more	efficient	code	according	to	changing
+code	guidelines	provided	by	the	microprocessor	manufacturers.
+Our	goal	in	studying	the	examples	shown	in	our	presentation	is	to
+demonstrate	how	to	examine	assembly	code	and	map	it	back	to
+the	constructs	found	in	high-level	programming	languages.	You
+will	need	to	adapt	these	techniques	to	the	style	of	code	generated
+by	your	particular	compiler.
+this	virtual	address	space,	translating	virtual	addresses	into	the	physical
+addresses	of	values	in	the	actual	processor	memory.
+A	single	machine	instruction	performs	only	a	very	elementary	operation.
+For	example,	it	might	add	two	numbers	stored	in	registers,	transfer	data
+between	memory	and	a	register,	or	conditionally	branch	to	a	new
+instruction	address.	The	compiler	must	generate	sequences	of	such
+instructions	to	implement	program	constructs	such	as	arithmetic
+expression	evaluation,	loops,	or	procedure	calls	and	returns.
+
+3.2.2	
+Code	Examples
+Suppose	we	write	a	C	code	file	
+	containing	the	following	function
+definition:
+To	see	the	assembly	code	generated	by	the	C	compiler,	we	can	use	the	-
+S	option	on	the	command	line:
+This	will	cause	
+GCC
+	
+to	run	the	compiler,	generating	an	assembly	file
+,	and	go	no	further.	(Normally	it	would	then	invoke	the	assembler
+to	generate	an	object-code	file.)
+The	assembly-code	file	contains	various	declarations,	including	the
+following	set	of	lines:
+
+Aside	
+How	do	I	display	the	byte
+representation	of	a	program?
+To	display	the	binary	object	code	for	a	program	(say,	
+),	we
+use	a	
+disassembler
+	(described	below)	to	determine	that	the	code
+for	the	procedure	is	14	bytes	long.	Then	we	run	the	GNU
+debugging	tool	
+GDB
+	
+on	file	
+	and	give	it	the	command
+telling	it	to	display	(abbreviated	`x')	14	hex-formatted	(also	`x')
+bytes	(`b')	starting	at	the	address	where	function	multstore	is
+located.	You	will	find	that	
+GDB
+	has	many	useful	features	for
+analyzing	machine-level	programs,	as	will	be	discussed	in
+Section	
+3.10.2
+.
+
+Each	indented	line	in	the	code	corresponds	to	a	single	machine
+instruction.	For	example,	the	
+	instruction	indicates	that	the	contents
+of	register	
+	should	be	pushed	onto	the	program	stack.	All	information
+about	local	variable	names	or	data	types	has	been	stripped	away.
+If	we	use	the	-c	command-line	option,	
+GCC
+	
+will	both	compile	and
+assemble	the	code
+This	will	generate	an	object-code	file	
+	that	is	in	binary	format	and
+hence	cannot	be	viewed	directly.	Embedded	within	the	1,368	bytes	of	the
+file	
+	is	a	14-byte	sequence	with	the	hexadecimal	representation
+This	is	the	object	code	corresponding	to	the	assembly	instructions	listed
+previously.	A	key	lesson	to	learn	from	this	is	that	the	program	executed
+by	the	machine	is	simply	a	sequence	of	bytes	encoding	a	series	of
+instructions.	The	machine	has	very	little	information	about	the	source
+code	from	which	these	instructions	were	generated.
+
+To	inspect	the	contents	of	machine-code	files,	a	class	of	programs	known
+as	
+disassemblers
+	can	be	invaluable.	These	programs	generate	a	format
+similar	to	assembly	code	from	the	machine	code.	With	Linux	systems,	the
+program	
+OBJDUMP
+	
+(for	"object	dump")	can	serve	this	role	given	the	
+command-line	flag:
+The	result	(where	we	have	added	line	numbers	on	the	left	and
+annotations	in	italicized	text)	is	as	follows:
+
+On	the	left	we	see	the	14	hexadecimal	byte	values,	listed	in	the	byte
+sequence	shown	earlier,	partitioned	into	groups	of	1	to	5	bytes	each.
+Each	of	these	groups	is	a	single	instruction,	with	the	assembly-language
+equivalent	shown	on	the	right.
+Several	features	about	machine	code	and	its	disassembled
+representation	are	worth	noting:
+x86-64	instructions	can	range	in	length	from	1	to	15	bytes.	The
+instruction	encoding	is	designed	so	that	commonly	used	instructions
+and	those	with	fewer	operands	require	a	smaller	number	of	bytes	than
+do	less	common	ones	or	ones	with	more	operands.
+The	instruction	format	is	designed	in	such	a	way	that	from	a	given
+starting	position,	there	is	a	unique	decoding	of	the	bytes	into	machine
+instructions.	For	example,	only	the	instruction	
+	can	start
+with	byte	value	
+.
+The	disassembler	determines	the	assembly	code	based	purely	on	the
+byte	sequences	in	the	machine-code	file.	It	does	not	require	access	to
+the	source	or	assembly-code	versions	of	the	program.
+The	disassembler	uses	a	slightly	different	naming	convention	for	the
+instructions	than	does	the	assembly	code	generated	by	
+GCC
+.	In	our
+example,	it	has	omitted	the	suffix	`
+'	from	many	of	the	instructions.
+These	suffixes	are	size	designators	and	can	be	omitted	in	most
+cases.	Conversely,	the	disassembler	adds	the	suffix	`
+'	to	the	
+and	
+	instructions.	Again,	these	suffixes	can	safely	be	omitted.
+Generating	the	actual	executable	code	requires	running	a	linker	on	the
+set	of	object-code	files,	one	of	which	must	contain	a	function	
+.
+Suppose	in	file	
+	we	had	the	following	function:
+
+Then	we	could	generate	an	executable	program	prog	as	follows:
+The	file	
+	has	grown	to	8,655	bytes,	since	it	contains	not	just	the
+machine	code	for	the	procedures	we	provided	but	also	code	used	to	start
+and	terminate	the	program	as	well	as	to	interact	with	the	operating
+system.
+
+We	can	disassemble	the	file	
+The	disassembler	will	extract	various	code	sequences,	including	the
+following:
+This	code	is	almost	identical	to	that	generated	by	the	disassembly	of
+	One	important	difference	is	that	the	addresses	listed	along	the
+left	are	different—the	linker	has	shifted	the	location	of	this	code	to	a
+different	range	of	addresses.	A	second	difference	is	that	the	linker	has
+filled	in	the	address	that	the	
+	instruction	should	use	in	calling	the
+function	
+	(line	4	of	the	disassembly).	One	task	for	the	linker	is	to
+match	function	calls	with	the	locations	of	the	executable	code	for	those
+functions.	A	final	difference	is	that	we	see	two	additional	lines	of	code
+
+(lines	8-9).	These	instructions	will	have	no	effect	on	the	program,	since
+they	occur	after	the	return	instruction	(line	7).	They	have	been	inserted	to
+grow	the	code	for	the	function	to	16	bytes,	enabling	a	better	placement	of
+the	next	block	of	code	in	terms	of	memory	system	performance.
+3.2.3	
+Notes	on	Formatting
+The	assembly	code	generated	by	
+GCC
+is	difficult	for	a	human	to	read.	On
+one	hand,	it	contains	information	with	which	we	need	not	be	concerned,
+while	on	the	other	hand,	it	does	not	provide	any	description	of	the
+program	or	how	it	works.	For	example,	suppose	we	give	the	command
+to	generate	the	file	
+	The	full	content	of	the	file	is	as	follows:
+
+All	of	the	lines	beginning	with	`.'	are	directives	to	guide	the	assembler
+and	linker.	We	can	generally	ignore	these.	On	the	other	hand,	there	are
+no	explanatory	remarks	about	what	the	instructions	do	or	how	they	relate
+to	the	source	code.
+To	provide	a	clearer	presentation	of	assembly	code,	we	will	show	it	in	a
+form	that	omits	most	of	the	directives,	while	including	line	numbers	and
+explanatory	annotations.	For	our	example,	an	annotated	version	would
+appear	as	follows:
+
+We	typically	show	only	the	lines	of	code	relevant	to	the	point	being
+discussed.	Each	line	is	numbered	on	the	left	for	reference	and	annotated
+on	the	right	by	a	brief	description	of	the	effect	of	the	instruction	and	how	it
+relates	to	the	computations	of	the	original	C	code.	This	is	a	stylized
+version	of	the	way	assembly-language	programmers	format	their	code.
+We	also	provide	Web	asides	to	cover	material	intended	for	dedicated
+machine-language	enthusiasts.	One	Web	aside	describes	IA32	machine
+code.	Having	a	background	in	x86-64	makes	learning	IA32	fairly	simple.
+Another	Web	aside	gives	a	brief	presentation	of	ways	to	incorporate
+assembly	code	into	C	programs.	For	some	applications,	the	programmer
+must	drop	down	to	assembly	code	to	access	low-level	features	of	the
+machine.	One	approach	is	to	write	entire	functions	in	assembly	code	and
+combine	them	with	C	functions	during	the	linking	stage.	A
+Aside	
+ATT	versus	Intel	assembly-code
+formats
+In	our	presentation,	we	show	assembly	code	in	ATT	format
+(named	after	AT&T,	the	company	that	operated	Bell	Laboratories
+for	many	years),	the	default	format	for	
+GCC
+,	
+OBJDUMP
+,	and	the	other
+tools	we	will	consider.	Other	programming	tools,	including	those
+from	Microsoft	as	well	as	the	documentation	from	Intel,	show
+assembly	code	in	
+Intel
+	format.	The	two	formats	differ	in	a	number
+of	ways.	As	an	example,	
+GCC
+	
+can	generate	code	in	Intel	format	for
+the	sum	function	using	the	following	command	line:
+
+This	gives	the	following	assembly	code:
+We	see	that	the	Intel	and	ATT	formats	differ	in	the	following	ways:
+The	Intel	code	omits	the	size	designation	suffixes.	We	see
+instruction	push	and	
+	instead	of	
+	and	
+.
+The	Intel	code	omits	the	`%'	character	in	front	of	register
+names,	using	
+	instead	of	
+.
+The	Intel	code	has	a	different	way	of	describing	locations	in
+memory—for	example,	
+	rather	than	
+.
+Instructions	with	multiple	operands	list	them	in	the	reverse
+order.	This	can	be	very	confusing	when	switching	between	the
+two	formats.
+Although	we	will	not	be	using	Intel	format	in	our	presentation,	you
+will	encounter	it	in	documentation	from	Intel	and	Microsoft.
+
+second	is	to	use	
+GCC
+'s	support	for	embedding	assembly	code	directly
+within	C	programs.
+
+3.3	
+Data	Formats
+Due	to	its	origins	as	a	16-bit	architecture	that	expanded	into	a	32-bit	one,
+Intel	uses	the	term	"word"	to	refer	to	a	16-bit	data	type.	Based	on	this,
+they	refer	to	32-bit	quantities	as	"double	words,"	and	64-bit	quantities	as
+"quad	words."	
+Figure	
+3.1
+	shows	the	x86-64	representations	used	for
+the	primitive	data	types	of	C.	Standard	
+	values	are	stored	as	double
+words	(32	bits).	Pointers	(shown	here	as	char	*)	are	stored	as	8-byte
+quad	words,	as	would	be	expected	in	a	64-bit	machine.	With	x86-64,	data
+type	long	is	implemented	with	64	bits,	allowing	a	very	wide	range	of
+values.	Most	of	our	code	examples	in	this	chapter	use	pointers	and	long
+data
+Web	Aside	ASM:EASM	
+Combining
+assembly	code	with	C	programs
+Although	a	C	compiler	does	a	good	job	of	converting	the
+computations	expressed	in	a	program	into	machine	code,	there
+are	some	features	of	a	machine	that	cannot	be	accessed	by	a	C
+program.	For	example,	every	time	an	x86-64	processor	executes
+an	arithmetic	or	logical	operation,	it	sets	a	1-bit	
+condition	code
+flag,	named	
+PF
+	
+(for	"parity	flag"),	to	1	when	the	lower	8	bits	in	the
+resulting	computation	have	an	even	number	of	ones	and	to	0
+otherwise.	Computing	this	information	in	C	requires	at	least	seven
+shifting,	masking,	and	
+EXCLUSIVE
+-
+OR
+	
+operations	(see	
+Problem
+2.65
+).	Even	though	the	hardware	performs	this	computation	as
+
+part	of	every	arithmetic	or	logical	operation,	there	is	no	way	for	a
+C	program	to	determine	the	value	of	the	
+PF
+	
+condition	code	flag.
+This	task	can	readily	be	performed	by	incorporating	a	small
+number	of	assembly-code	instructions	into	the	program.
+There	are	two	ways	to	incorporate	assembly	code	into	C
+programs.	First,	we	can	write	an	entire	function	as	a	separate
+assembly-code	file	and	let	the	assembler	and	linker	combine	this
+with	code	we	have	written	in	C.	Second,	we	can	use	the	
+inline
+assembly
+	feature	of	
+GCC
+,	where	brief	sections	of	assembly	code
+can	be	incorporated	into	a	C	program	using	the	
+	directive.	This
+approach	has	the	advantage	that	it	minimizes	the	amount	of
+machine-specific	code.
+Of	course,	including	assembly	code	in	a	C	program	makes	the
+code	specific	to	a	particular	class	of	machines	(such	as	x86-64),
+and	so	it	should	only	be	used	when	the	desired	feature	can	only
+be	accessed	in	this	way.
+C	declaration
+Intel	data	type
+Assembly-code	suffix
+Size	(bytes)
+Byte
+1
+Word
+2
+Double	word
+4
+Quad	word
+8
+	*
+Quad	word
+8
+Single	precision
+4
+Double	precision
+8
+
+Figure	
+3.1	
+Sizes	of	C	data	types	in	x86-64.
+With	a	64-bit	machine,	pointers	are	8	bytes	long.
+types,	and	so	they	will	operate	on	quad	words.	The	x86-64	instruction	set
+includes	a	full	complement	of	instructions	for	bytes,	words,	and	double
+words	as	well.
+Floating-point	numbers	come	in	two	principal	formats:	single-precision	(4-
+byte)	values,	corresponding	to	C	data	type	
+,	and	double-precision
+(8-byte)	values,	corresponding	to	C	data	type	double.	Microprocessors	in
+the	x86	family	historically	implemented	all	floating-point	operations	with	a
+special	80-bit	(10-byte)	floating-point	format	(see	
+Problem	
+2.86
+).	This
+format	can	be	specified	in	C	programs	using	the	declaration	long	double.
+We	recommend	against	using	this	format,	however.	It	is	not	portable	to
+other	classes	of	machines,	and	it	is	typically	
+not	implemented	with	the
+same	high-performance	hardware	as	is	the	case	for	single-	and	double-
+precision	arithmetic.
+As	the	table	of	
+Figure	
+3.1
+	indicates,	most	assembly-code	instructions
+generated	by	
+GCC
+	
+have	a	single-character	suffix	denoting	the	size	of	the
+operand.	For	example,	the	data	movement	instruction	has	four	variants:
+	(move	byte),	
+	(move	word),	
+	(move	double	word),	and
+	(move	quad	word).	The	suffix	`
+'	is	used	for	double	words,	since
+32-bit	quantities	are	considered	to	be	"long	words."	The	assembly	code
+uses	the	suffix	`
+'	to	denote	a	4-byte	integer	as	well	as	an	8-byte	double-
+precision	floating-point	number.	This	causes	no	ambiguity,	since	floating-
+point	code	involves	an	entirely	different	set	of	instructions	and	registers.
+
+3.4	
+Accessing	Information
+An	x86-64	central	processing	unit	(CPU)	contains	a	set	of	16	
+general-
+purpose	registers
+	storing	64-bit	values.	These	registers	are	used	to	store
+integer	data	as	well	as	pointers.	
+Figure	
+3.2
+	diagrams	the	16	registers.
+Their	names	all	begin	with	
+,	but	otherwise	follow	multiple	different
+naming	conventions,	owing	to	the	historical	evolution	of	the	instruction
+set.	The	original	8086	had	eight	16-bit	registers,	shown	in	
+Figure	
+3.2
+as	registers	
+	through	
+.	Each	had	a	specific	purpose,	and	hence
+they	were	given	names	that	reflected	how	they	were	to	be	used.	With	the
+extension	to	IA32,	these	registers	were	expanded	to	32-bit	registers,
+labeled	
+	through	
+.	In	the	extension	to	x86-64,	the	original	eight
+registers	were	expanded	to	64	bits,	labeled	
+	through	
+.	In
+addition,	eight	new	registers	were	added,	and	these	were	given	labels
+according	to	a	new	naming	convention:	
+	through	
+.
+As	the	nested	boxes	in	
+Figure	
+3.2
+	indicate,	instructions	can	operate
+on	data	of	different	sizes	stored	in	the	low-order	bytes	of	the	16	registers.
+Byte-level	operations	can	access	the	least	significant	byte,	16-bit
+operations	can	access	the	least	significant	2	bytes,	32-bit	operations	can
+access	the	least	significant	4	bytes,	and	64-bit	operations	can	access
+entire	registers.
+In	later	sections,	we	will	present	a	number	of	instructions	for	copying	and
+generating	1-,	2-,	4-,	and	8-byte	values.	When	these	instructions	have
+registers	as	destinations,	two	conventions	arise	for	what	happens	to	the
+remaining	bytes	in	the	register	for	instructions	that	generate	less	than	8
+
+bytes:	Those	that	generate	1-or	2-byte	quantities	leave	the	remaining
+bytes	unchanged.	Those	that	generate	4-byte	quantities	set	the	upper	4
+bytes	of	the	register	to	zero.	The	latter	convention	was	adopted	as	part	of
+the	expansion	from	IA32	to	x86-64.
+As	the	annotations	along	the	right-hand	side	of	
+Figure	
+3.2
+	indicate,
+different	registers	serve	different	roles	in	typical	programs.	Most	unique
+among	them	is	the	stack	pointer,	
+,	used	to	indicate	the	end	position
+in	the	run-time	stack.	Some	instructions	specifically	read	and	write	this
+register.	The	other	15	registers	have	more	flexibility	in	their	uses.	A	small
+number	of	instructions	make	specific	use	of	certain	registers.	More
+importantly,	a	set	of	standard	programming	conventions	governs	how	the
+registers	are	to	be	used	for	managing	the	stack,	passing	function
+
+Figure	
+3.2	
+Integer	registers.
+The	low-order	portions	of	all	16	registers	can	be	accessed	as	byte,	word
+(16-bit),	double	word	(32-bit),	and	quad	word	(64-bit)	quantities.
+arguments,	returning	values	from	functions,	and	storing	local	and
+temporary	data.	We	will	cover	these	conventions	in	our	presentation,
+
+especially	in	
+Section	
+3.7
+,	where	we	describe	the	implementation	of
+procedures.
+3.4.1	
+Operand	Specifiers
+Most	instructions	have	one	or	more	
+operands
+	specifying	the	source
+values	to	use	in	performing	an	operation	and	the	destination	location	into
+which	to	place	the
+Type
+Form
+Operand	value
+Name
+Immediate
+Imm
+Imm
+Immediate
+Register
+R[
+]
+Register
+Memory
+Imm
+M[
+Imm
+]
+Absolute
+Memory
+M[R[
+]]
+Indirect
+Memory
+Imm
+	
+M[
+Imm
+	+	R[
+]]
+Base	+	displacement
+Memory
+M[R[
+]	+	R[
+]
+Indexed
+Memory
+Imm
+M[
+Imm
+	+	R[
+]	+	R[
+]]
+Indexed
+Memory
+M[R[
+]	
+]
+Scaled	indexed
+Memory
+Imm
+	
+M[
+Imm
+	+	R[
+]	
+]
+Scaled	indexed
+Memory
+M[R[
+]	+	R[
+]	
+]
+Scaled	indexed
+Memory
+Imm
+	
+M[
+Imm
+	+	R[
+]	+	R[
+]	
+]
+Scaled	indexed
+
+Figure	
+3.3	
+Operand	forms.
+Operands	can	denote	immediate	(constant)	values,	register	values,	or
+values	from	memory.	The	scaling	factor	
+s
+	must	be	either	1,	2,	4,	or	8.
+result.	x86-64	supports	a	number	of	operand	forms	(see	
+Figure	
+3.3
+).
+Source	values	can	be	given	as	constants	or	read	from	registers	or
+memory.	Results	can	be	stored	in	either	registers	or	memory.	Thus,	the
+different	operand	possibilities	can	be	classified	into	three	types.	The	first
+type,	
+immediate
+,	is	for	constant	values.	In	ATT-format	assembly	code,
+these	are	written	with	a	`$'	followed	by	an	integer	using	standard	C
+notation—for	example,	$-577	or	
+.	Different	instructions	allow
+different	ranges	of	immediate	values;	the	assembler	will	automatically
+select	the	most	compact	way	of	encoding	a	value.	The	second	type,
+register
+,	denotes	the	contents	of	a	register,	one	of	the	sixteen	8-,	4-,	2-,
+or	1-byte	low-order	portions	of	the	registers	for	operands	having	64,	32,
+16,	or	8	bits,	respectively.	In	
+Figure	
+3.3
+,	we	use	the	notation	
+	to
+denote	an	arbitrary	register	
+a
+	and	indicate	its	value	with	the	reference
+,	viewing	the	set	of	registers	as	an	array	R	indexed	by	register
+identifiers.
+The	third	type	of	operand	is	a	
+memory
+	reference,	in	which	we	access
+some	memory	location	according	to	a	computed	address,	often	called	the
+effective	address
+.	Since	we	view	the	memory	as	a	large	array	of	bytes,
+we	use	the	notation	M
+[
+Addr
+]	to	denote	a	reference	to	the	
+b
+-byte	value
+stored	in	memory	starting	at	address	
+Addr
+.	To	simplify	things,	we	will
+generally	drop	the	subscript	
+b
+.
+b
+
+As	
+Figure	
+3.3
+	shows,	there	are	many	different	
+addressing	modes
+allowing	different	forms	of	memory	references.	The	most	general	form	is
+shown	at	the	bottom	of	the	table	with	syntax	
+Imm
+(
+).	Such	a
+reference	has	four	components:	an	immediate	offset	
+Imm
+,	a	base	register
+,	an	index	register	
+,	and	a	scale	factor	
+s
+,	where	
+s
+	must	be	1,	2,	4,	or
+8.	Both	the	base	and	index	must	be	64-bit	registers.	The	effective
+address	is	computed	as	
+Imm
+	+	
+	This	general	form	is
+often	seen	when	referencing	elements	of	arrays.	The	other	forms	are
+simply	special	cases	of	this	general	form	where	some	of	the	components
+are	omitted.	As	we	
+will	see,	the	more	complex	addressing	modes	are
+useful	when	referencing	array	and	structure	elements.
+Practice	Problem	
+3.1	
+(solution	page	
+325
+)
+Assume	the	following	values	are	stored	at	the	indicated	memory
+addresses	and	registers:
+Address
+Value
+Register
+Value
+Fill	in	the	following	table	showing	the	values	for	the	indicated
+operands:
+Operand
+Value
+
+__________
+__________
+__________
+__________
+__________
+__________
+__________
+__________
+__________
+3.4.2	
+Data	Movement	Instructions
+Among	the	most	heavily	used	instructions	are	those	that	copy	data	from
+one	location	to	another.	The	generality	of	the	operand	notation	allows	a
+simple	data	movement	instruction	to	express	a	range	of	possibilities	that
+in	many	machines	would	require	a	number	of	different	instructions.	We
+present	a	number	of	different	data	movement	instructions,	differing	in
+their	source	and	destination	types,	what	conversions	they	perform,	and
+other	side	effects	they	may	have.	In	our	presentation,	we	group	the	many
+different	instructions	into	
+instruction	classes
+,	where	the	instructions	in	a
+class	perform	the	same	operation	but	with	different	operand	sizes.
+
+Figure	
+3.4
+	lists	the	simplest	form	of	data	movement	instructions—
+MOV
+class.	These	instructions	copy	data	from	a	source	location	to	a
+destination	location,	without	any	transformation.	The	class	consists	of
+four	instructions:	
+,	and	
+.	All	four	of	these
+instructions	have	similar	effects;	they	differ	primarily	in	that	they	operate
+on	data	of	different	sizes:	1,	2,	4,	and	8	bytes,	respectively.
+Instruction
+Effect
+Description
+MOV
+S
+,	
+D
+D
+	←	
+S
+Move
+ 
+Move	byte
+ 
+Move	word
+ 
+Move	double	word
+ 
+Move	quad	word
+I
+,	
+R
+R
+	←	
+I
+Move	absolute	quad	word
+Figure	
+3.4	
+Simple	data	movement	instructions.
+The	source	operand	designates	a	value	that	is	immediate,	stored	in	a
+register,	or	stored	in	memory.	The	destination	operand	designates	a
+location	that	is	either	a	register	or	a	memory	address.	x86-64	imposes
+the	restriction	that	a	move	instruction	cannot	have	both	operands	refer	to
+memory	locations.	Copying	a	value	from	one	memory	location	to	another
+requires	two	instructions—the	first	to	load	the	source	value	into	a	register,
+and	the	second	to	write	this	register	value	to	the	destination.	Referring	to
+Figure	
+3.2
+,	register	operands	for	these	instructions	can	be	the	labeled
+
+portions	of	any	of	the	16	registers,	where	the	size	of	the	register	must
+match	the	size	designated	by	the	last	character	of	the	instruction	(
+,	or	
+).	For	most	cases,	the	
+MOV
+	
+instructions	will	only	update
+the	specific	register	bytes	or	memory	locations	indicated	by	the
+destination	operand.	The	only	exception	is	that	when	
+	has	a	register
+as	the	destination,	it	will	also	set	the	high-order	4	bytes	of	the	register	to
+0.	This	exception	arises	from	the	convention,	adopted	in	x86-64,	that	any
+instruction	that	generates	a	32-bit	value	for	a	register	also	sets	the	high-
+order	portion	of	the	register	to	0.
+The	following	
+MOV
+	
+instruction	examples	show	the	five	possible
+combinations	of	source	and	destination	types.	Recall	that	the	source
+operand	comes	first	and	the	destination	second.
+A	final	instruction	documented	in	
+Figure	
+3.4
+	is	for	dealing	with	64-bit
+immediate	data.	The	regular	
+	instruction	can	only	have	immediate
+source	operands	that	can	be	represented	as	32-bit	two's-complement
+numbers.	This	value	is	then	sign	extended	to	produce	the	64-bit	value	for
+the	destination.	The	
+	instruction	can	have	an	arbitrary	64-bit
+immediate	value	as	its	source	operand	and	can	only	have	a	register	as	a
+destination.
+
+Figures	
+3.5
+	and	
+3.6
+	document	two	classes	of	data	movement
+instructions	for	use	when	copying	a	smaller	source	value	to	a	larger
+destination.	All	of	these	instructions	copy	data	from	a	source,	which	can
+be	either	a	register	or	stored
+Aside	
+Understanding	how	data
+movement	changes	a	destination
+register
+As	described,	there	are	two	different	conventions	regarding
+whether	and	how	data	movement	instructions	modify	the	upper
+bytes	of	a	destination	register.	This	distinction	is	illustrated	by	the
+following	code	sequence:
+
+In	the	following	discussion,	we	use	hexadecimal	notation.	In	the
+example,	the	instruction	on	line	1	initializes	register	
+	to	the
+pattern	
+.	The	remaining	instructions	have
+immediate	value	–1	as	their	source	values.	Recall	that	the
+hexadecimal	representation	of	–1	is	of	the	form	
+,	where	the
+number	of	
+F
+'
+S
+	
+is	twice	the	number	of	bytes	in	the	representation.
+The	
+	instruction	(line	2)	therefore	sets	the	low-order	byte	of
+	to	
+FF
+,	while	the	
+	instruction	(line	3)	sets	the	low-order	2
+bytes	to	
+FFFF
+,	with	the	remaining	bytes	unchanged.	The	
+instruction	(line	4)	sets	the	low-order	4	bytes	to	
+,	but	it
+also	sets	the	high-order	4	bytes	to	
+.	Finally,	the	
+instruction	(line	5)	sets	the	complete	register	to	
+.
+Instruction
+Effect
+Description
+R
+	←	ZeroExtend
+(S)
+Move	with	zero	extension
+Move	zero-extended	byte	to	word
+Move	zero-extended	byte	to	double	word
+Move	zero-extended	word	to	double	word
+Move	zero-extended	byte	to	quad	word
+Move	zero-extended	word	to	quad	word
+Figure	
+3.5	
+Zero-extending	data	movement	instructions.
+These	instructions	have	a	register	or	memory	location	as	the	source	and
+a	register	as	the	destination.
+
+in	memory,	to	a	register	destination.	Instructions	in	the	
+MOVZ
+	
+class	fill	out
+the	remaining	bytes	of	the	destination	with	zeros,	while	those	in	the	
+MOVS
+class	fill	them	out	by	sign	extension,	replicating	copies	of	the	most
+significant	bit	of	the	source	operand.	Observe	that	each	instruction	name
+has	size	designators	as	its	final	two	characters—the	first	specifying	the
+source	size,	and	the	second	specifying	the	destination	size.	As	can	be
+seen,	there	are	three	instructions	in	each	of	these	classes,	covering	all
+cases	of	1-and	2-byte	source	sizes	and	2-	and	4-byte	destination	sizes,
+considering	only	cases	where	the	destination	is	larger	than	the	source,	of
+course.
+Instruction
+Effect
+Description
+MOVS
+	
+S
+,
+R
+R
+	←	SignExtend
+(S)
+Move	with	sign	extension
+Move	sign-extended	byte	to	word
+Move	sign-extended	byte	to	double	word
+Move	sign-extended	word	to	double	word
+Move	sign-extended	byte	to	quad	word
+Move	sign-extended	word	to	quad	word
+Move	sign-extended	double	word	to	quad	word
+%rax	←	SignExtend(%eax)
+Sign-extend	%eax	to	%rax
+Figure	
+3.6	
+Sign-extending	data	movement	instructions.
+The	
+MOVS
+	
+instructions	have	a	register	or	memory	location	as	the	source
+and	a	register	as	the	destination.	The	
+	instruction	is	specific	to
+
+registers	
+	and	
+.
+Note	the	absence	of	an	explicit	instruction	to	zero-extend	a	4-byte	source
+value	to	an	8-byte	destination	in	
+Figure	
+3.5
+.	Such	an	instruction	would
+logically	be	named	
+,	but	this	instruction	does	not	exist.	Instead,
+this	type	of	data	movement	can	be	implemented	using	a	
+	instruction
+having	a	register	as	the	destination.	This	technique	takes	advantage	of
+the	property	that	an	instruction	generating	a	4-byte	value	with	a	register
+as	the	destination	will	fill	the	upper	4	bytes	with	zeros.	Otherwise,	for	64-
+bit	destinations,	moving	with	sign	extension	is	supported	for	all	three
+source	types,	and	moving	with	zero	extension	is	supported	for	the	two
+smaller	source	types.
+Figure	
+3.6
+	also	documents	the	
+	instruction.	This	instruction	has
+no	operands—it	always	uses	register	
+	as	its	source	and	
+	as	the
+destination	for	the	sign-extended	result.	It	therefore	has	the	exact	same
+effect	as	the	instruction	
+,	but	it	has	a	more	compact
+encoding.
+Practice	Problem	
+3.2	
+(solution	page	
+325
+)
+For	each	of	the	following	lines	of	assembly	language,	determine
+the	appropriate	instruction	suffix	based	on	the	operands.	(For
+example,	
+	can	be	rewritten	as	
+)
+
+Aside	
+Comparing	byte	movement
+instructions
+The	following	example	illustrates	how	different	data	movement
+instructions	either	do	or	do	not	change	the	high-order	bytes	of	the
+destination.	Observe	that	the	three	byte-movement	instructions
+,	and	
+	differ	from	each	other	in	subtle	ways.
+Here	is	an	example:
+In	the	following	discussion,	we	use	hexadecimal	notation	for	all	of
+the	values.	The	first	two	lines	of	the	code	initialize	registers	
+and	
+	to	
+	and	AA,	respectively.	The	remaining
+
+instructions	all	copy	the	low-order	byte	of	
+	to	the	low-order
+byte	of	
+.	The	
+	instruction	(line	3)	does	not	change	the
+other	bytes.	The	
+	instruction	(line	4)	sets	the	other	7	bytes
+to	either	all	ones	or	all	zeros	depending	on	the	high-order	bit	of
+the	source	byte.	Since	hexadecimal	A	represents	binary	value
+,	sign	extension	causes	the	higher-order	bytes	to	each	be	set
+to	FF.	The	
+	instruction	(line	5)	always	sets	the	other	7	bytes
+to	zero.
+Practice	Problem	
+3.3	
+(solution	page	
+326
+)
+Each	of	the	following	lines	of	code	generates	an	error	message
+when	we	invoke	the	assembler.	Explain	what	is	wrong	with	each
+line.
+3.4.3	
+Data	Movement	Example
+
+As	an	example	of	code	that	uses	data	movement	instructions,	consider
+the	data	exchange	routine	shown	in	
+Figure	
+3.7
+,	both	as	C	code	and	as
+assembly	code	generated	by	
+GCC
+.
+As	
+Figure	
+3.7(b)
+	shows,	function	exchange	is	implemented	with	just
+three	instructions:	two	data	movements	(
+)	plus	an	instruction	to
+return	back	to	the	point	from	which	the	function	was	called	(
+).	We	will
+cover	the	details	of	function	call	and	return	in	
+Section	
+3.7
+.	Until	then,	it
+suffices	to	say	that	arguments	are	passed	to	functions	in	registers.	Our
+annotated	assembly	code	documents	these.	A	function	returns	a	value	by
+storing	it	in	register	
+,	or	in	one	of	the	low-order	portions	of	this
+register.
+a
+.	
+C	code
+b
+.	
+Assembly	code
+
+Figure	
+3.7	
+C	and	assembly	code	for	exchange	routine.
+Registers	
+	and	
+	hold	parameters	
+	and	
+,	respectively.
+When	the	procedure	begins	execution,	procedure	parameters	
+	and	
+are	stored	in	registers	
+	and	
+,	respectively.	Instruction	2	then
+reads	
+	from	memory	and	stores	the	value	in	register	
+,	a	direct
+implementation	of	the	operation	
+	in	the	C	program.	Later,	register
+	will	be	used	to	return	a	value	from	the	function,	and	so	the	return
+value	will	be	
+.	Instruction	3	writes	
+	to	the	memory	location	designated
+by	
+	in	register	
+,	a	direct	implementation	of	the	operation	
+.
+This	example	illustrates	how	the	
+MOV
+	
+instructions	can	be	used	to	read
+from	memory	to	a	register	(line	2),	and	to	write	from	a	register	to	memory
+(line	3).
+Two	features	about	this	assembly	code	are	worth	noting.	First,	we	see
+that	what	we	call	"pointers"	in	C	are	simply	addresses.	Dereferencing	a
+pointer	involves	copying	that	pointer	into	a	register,	and	then	using	this
+register	in	a	memory	reference.	Second,	local	variables	such	as	
+	are
+often	kept	in	registers	rather	than	stored	in	memory	locations.	Register
+access	is	much	faster	than	memory	access.
+Practice	Problem	
+3.4	
+(solution	page	
+326
+)
+Assume	variables	sp	and	dp	are	declared	with	types
+
+where	
+	and	
+	are	data	types	declared	with	
+.	We
+wish	to	use	the	appropriate	pair	of	data	movement	instructions	to
+implement	the	operation
+New	to	C?	
+Some	examples	of	pointers
+Function	exchange	(
+Figure	
+3.7(a)
+)	provides	a	good	illustration
+of	the	use	of	pointers	in	C.	Argument	
+	is	a	pointer	to	a	long
+integer,	while	
+	is	a	long	integer	itself.	The	statement
+indicates	that	we	should	read	the	value	stored	in	the	location
+designated	by	
+	and	store	it	as	a	local	variable	named	
+.	This
+read	operation	is	known	as	pointer	
+dereferencing
+.	The	C	operator
+`*'	performs	pointer	dereferencing.	The	statement
+
+does	the	reverse—it	writes	the	value	of	parameter	
+	at	the
+location	designated	by	
+.	This	is	also	a	form	of	pointer
+dereferencing	(and	hence	the	operator	*),	but	it	indicates	a	write
+operation	since	it	is	on	the	left-hand	side	of	the	assignment.
+The	following	is	an	example	of	exchange	in	action:
+This	code	will	print
+The	C	operator	`&'	(called	the	"address	of"	operator)	
+creates
+	a
+pointer,	in	this	case	to	the	location	holding	local	variable	a.
+Function	exchange	overwrites	the	value	stored	in	a	with	3	but
+returns	the	previous	value,	4,	as	the	function	value.	Observe	how
+by	passing	a	pointer	to	exchange,	it	could	modify	data	held	at
+some	remote	location.
+Assume	that	the	values	of	
+	and	
+	are	stored	in	registers	
+	and
+,	respectively.	For	each	entry	in	the	table,	show	the	two	instructions
+that	implement	the	specified	data	movement.	The	first	instruction	in	the
+
+sequence	should	read	from	memory,	do	the	appropriate	conversion,	and
+set	the	appropriate	portion	of	register	
+.	The	second	instruction
+should	then	write	the	appropriate	portion	of	
+	to	memory.	In	both
+cases,	the	portions	may	be	
+,	
+,	
+,	or	
+,	and	they	may	differ
+from	one	another.
+Recall	that	when	performing	a	cast	that	involves	both	a	size	change	and
+a	change	of	"signedness"	in	C,	the	operation	should	change	the	size	first
+(
+Section	
+2.2.6
+).
+Instruction
+__________
+__________
+__________
+__________
+__________
+__________
+__________
+__________
+__________
+__________
+__________
+__________
+
+Practice	Problem	
+3.5	
+(solution	page	
+327
+)
+You	are	given	the	following	information.	A	function	with	prototype
+is	compiled	into	assembly	code,	yielding	the	following:
+Parameters	
+,	and	
+	are	stored	in	registers	
+,	and
+,	respectively.
+Write	C	code	for	
+	that	will	have	an	effect	equivalent	to	the
+assembly	code	shown.
+3.4.4	
+Pushing	and	Popping	Stack
+
+Data
+The	final	two	data	movement	operations	are	used	to	push	data	onto	and
+pop	data	from	the	program	stack,	as	documented	in	
+Figure	
+3.8
+.	As	we
+will	see,	the	stack	plays	a	vital	role	in	the	handling	of	procedure	calls.	By
+way	of	background,	a	stack	is	a	data	structure	where	values	can	be
+added	or	deleted,	but	only	according	to	a	"last-in,	first-out"	discipline.	We
+add	data	to	a	stack	via	a	
+push
+	operation	and	remove	it	via	a	
+pop
+operation,	with	the	property	that	the	value	popped	will	always	be	the
+value	that	was	most	recently	pushed	and	is	still	on	the	stack.	A	stack	can
+be	implemented	as	an	array,	where	we	always	insert	and	remove
+elements	from	one
+Instruction
+Effect
+Description
+	
+S
+Push	quad	word
+	
+D
+D
+	←	
+Pop	quad	word
+Figure	
+3.8	
+Push	and	pop	instructions.
+
+Figure	
+3.9	
+Illustration	of	stack	operation.
+By	convention,	we	draw	stacks	upside	down,	so	that	the	"top"	of	the
+stack	is	shown	at	the	bottom.	With	x86-64,	stacks	grow	toward	lower
+addresses,	so	pushing	involves	decrementing	the	stack	pointer	(register
+)	and	storing	to	memory,	while	popping	involves	reading	from
+memory	and	incrementing	the	stack	pointer.
+end	of	the	array.	This	end	is	called	the	
+top
+	of	the	stack.	With	x86-64,	the
+program	stack	is	stored	in	some	region	of	memory.	As	illustrated	in
+Figure	
+3.9
+,	the	stack	grows	downward	such	that	the	top	element	of	the
+stack	has	the	lowest	address	of	all	stack	elements.	(By	convention,	we
+draw	stacks	upside	down,	with	the	stack	"top"	shown	at	the	bottom	of	the
+figure.)	The	stack	pointer	
+	holds	the	address	of	the	top	stack
+element.
+The	
+	instruction	provides	the	ability	to	push	data	onto	the	stack,
+while	the	
+	instruction	pops	it.	Each	of	these	instructions	takes	a
+
+single	operand—the	data	source	for	pushing	and	the	data	destination	for
+popping.
+Pushing	a	quad	word	value	onto	the	stack	involves	first	decrementing	the
+stack	pointer	by	8	and	then	writing	the	value	at	the	new	top-of-stack
+address.	
+Therefore,	the	behavior	of	the	instruction	
+	is
+equivalent	to	that	of	the	pair	of	instructions
+except	that	the	
+	instruction	is	encoded	in	the	machine	code	as	a
+single	byte,	whereas	the	pair	of	instructions	shown	above	requires	a	total
+of	8	bytes.	The	first	two	columns	in	
+Figure	
+3.9
+	illustrate	the	effect	of
+executing	the	instruction	
+	when	
+	is	
+	and	
+	is
+.	First	
+	is	decremented	by	8,	giving	
+,	and	then	
+	is
+stored	at	memory	address	
+.
+Popping	a	quad	word	involves	reading	from	the	top-of-stack	location	and
+then	incrementing	the	stack	pointer	by	8.	Therefore,	the	instruction	
+	is	equivalent	to	the	following	pair	of	instructions:
+
+The	third	column	of	
+Figure	
+3.9
+	illustrates	the	effect	of	executing	the
+instruction	
+	immediately	after	executing	the	
+.	Value	
+is	read	from	memory	and	written	to	register	
+.	Register	
+incremented	back	to	
+.	As	shown	in	the	figure,	the	value	
+remains	at	memory	location	
+	until	it	is	overwritten	(e.g.,	by	another
+push	operation).	However,	the	stack	top	is	always	considered	to	be	the
+address	indicated	by	
+.
+Since	the	stack	is	contained	in	the	same	memory	as	the	program	code
+and	other	forms	of	program	data,	programs	can	access	arbitrary
+positions	within	the	stack	using	the	standard	memory	addressing
+methods.	For	example,	assuming	the	topmost	element	of	the	stack	is	a
+quad	word,	the	instruction	
+	will	copy	the	second	quad
+word	from	the	stack	to	register	
+.
+
+3.5	
+Arithmetic	and	Logical
+Operations
+Figure	
+3.10
+	lists	some	of	the	x86-64	integer	and	logic	operations.
+Most	of	the	operations	are	given	as	instruction	classes,	as	they	can	have
+different	variants	with	different	operand	sizes.	(Only	
+	has	no	other
+size	variants.)	For	example,	the	instruction	class	
+ADD
+	
+consists	of	four
+addition	instructions:	
+,	and	
+,	adding	bytes,	words,
+double	words,	and	quad	words,	respectively.	Indeed,	each	of	the
+instruction	classes	shown	has	instructions	for	operating	on	these	four
+different	sizes	of	data.	The	operations	are	divided	into	four	groups:	load
+effective	address,	unary,	binary,	and	shifts.	
+Binary
+	operations	have	two
+operands,	while	
+unary
+	operations	have	one	operand.	These	operands
+are	specified	using	the	same	notation	as	described	in	
+Section	
+3.4
+.
+3.5.1	
+Load	Effective	Address
+The	
+load	effective	address
+	instruction	
+	is	actually	a	variant	of	the
+	instruction.	It	has	the	form	of	an	instruction	that	reads	from	memory
+to	a	register,
+Instruction
+Effect
+Description
+S
+,	
+D
+D
+	←	&
+S
+Load	effective	address
+
+INC
+D
+D
+	←	
+D
++1
+Increment
+DEC
+D
+D
+	←	
+D
+-1
+Decrement
+NEG
+D
+D
+	←	-
+D
+Negate
+NOT
+D
+D
+	←	~
+D
+Complement
+ADD
+S
+,	
+D
+D
+	←	
+D
++
+S
+Add
+SUB
+S
+,	
+D
+D
+	←	
+D
+-
+S
+Subtract
+IMUL
+S
+,	
+D
+D
+	←	
+D
+*
+S
+Multiply
+XOR
+S
+,	
+D
+D
+	←
+D
+	^	
+S
+Exclusive-or
+OR
+S
+,	
+D
+D
+	←	
+D
+	|	
+S
+Or
+AND
+S
+,	
+D
+D
+	←	
+D
+&
+S
+And
+SAL
+k
+,	
+D
+D
+	←	
+D	<<k
+Left	shift
+SHL
+k
+,	
+D
+D
+	←	
+D
+	<<	
+k
+Left	shift	(same	as	
+SAL
+)
+SAR
+k
+,	
+D
+D
+	←	
+D
+	>>
+	
+k
+Arithmetic	right	shift
+k
+,	
+D
+D
+	←	
+D
+	>>
+	
+k
+Logical	right	shift
+Figure	
+3.10	
+Integer	arithmetic	operations.
+The	load	effective	address	(leaq)	instruction	is	commonly	used	to	perform
+simple	arithmetic.	The	remaining	ones	are	more	standard	unary	or	binary
+operations.	We	use	the	notation	
+	and	
+	to	denote	arithmetic	and
+logical	right	shift,	respectively.	Note	the	nonintuitive	ordering	of	the
+operands	with	ATT-format	assembly	code.
+A
+L
+
+but	it	does	not	reference	memory	at	all.	Its	first	operand	appears	to	be	a
+memory	reference,	but	instead	of	reading	from	the	designated	location,
+the	instruction	copies	the	effective	address	to	the	destination.	We
+indicate	this	computation	in	
+Figure	
+3.10
+	using	the	C	address	operator
+&
+S
+.	This	instruction	can	be	used	to	generate	pointers	for	later	memory
+references.	In	addition,	it	can	be	used	to	compactly	describe	common
+arithmetic	operations.	For	example,	if	register	
+	contains	value	
+x
+,	then
+the	instruction	
+	will	set	register	
+	to	5
+x
+	+	7.
+Compilers	often	find	clever	uses	of	
+	that	have	nothing	to	do	with
+effective	address	computations.	The	destination	operand	must	be	a
+register.
+Practice	Problem	
+3.6	
+(solution	page	
+327
+)
+Suppose	register	
+	holds	value	
+x
+	and	
+	holds	value	
+y
+.	Fill	in
+the	table	below	with	formulas	indicating	the	value	that	will	be
+stored	in	register	
+	for	each	of	the	given	assembly-code
+instructions:
+Instruction
+Result
+__________
+__________
+__________
+__________
+__________
+__________
+
+As	an	illustration	of	the	use	of	
+	in	compiled	code,	consider	the
+following	C	program:
+When	compiled,	the	arithmetic	operations	of	the	function	are
+implemented	by	a	sequence	of	three	
+	functions,	as	is	documented
+by	the	comments	on	the	right-hand	side:
+The	ability	of	the	
+	instruction	to	perform	addition	and	limited	forms	of
+multiplication	proves	useful	when	compiling	simple	arithmetic
+expressions	such	as	this	example.
+
+Practice	Problem	
+3.7	
+(solution	page	
+328
+)
+Consider	the	following	code,	in	which	we	have	omitted	the
+expression	being	computed:
+Compiling	the	actual	function	with	
+GCC
+	
+yields	the	following
+assembly	code:
+Fill	in	the	missing	expression	in	the	C	code.
+3.5.2	
+Unary	and	Binary	Operations
+
+Operations	in	the	second	group	are	unary	operations,	with	the	single
+operand	serving	as	both	source	and	destination.	This	operand	can	be
+either	a	register	or	a	memory	location.	For	example,	the	instruction	
+	causes	the	8-byte	element	on	the	top	of	the	stack	to	be
+incremented.	This	syntax	is	reminiscent	of	the	C	increment	(++)	and
+decrement	(−−)	operators.
+The	third	group	consists	of	binary	operations,	where	the	second	operand
+is	used	as	both	a	source	and	a	destination.	This	syntax	is	reminiscent	of
+the	C	assignment	operators,	such	as	
+.	Observe,	however,	that	the
+source	operand	is	given	first	and	the	destination	second.	This	looks
+peculiar	for	noncommutative	operations.	For	example,	the	instruction
+	decrements	register	
+	by	the	value	in	
+.	(It	helps	to
+read	the	instruction	as	"Subtract	
+	from	
+.")	The	first	operand	can
+be	either	an	immediate	value,	a	register,	or	a	memory	location.	The
+second	can	be	either	a	register	or	a	memory	location.	As	with	the	
+MOV
+instructions,	the	two	operands	cannot	both	be	memory	locations.	Note
+that	when	the	second	operand	is	a	memory	location,	the	processor	must
+read	the	value	from	memory,	perform	the	operation,	and	then	write	the
+result	back	to	memory.
+Practice	Problem	
+3.8	
+(solution	page	
+328
+)
+Assume	the	following	values	are	stored	at	the	indicated	memory
+addresses	and	registers:
+Address
+Value
+Register
+Value
+
+Fill	in	the	following	table	showing	the	effects	of	the	following
+instructions,	in	terms	of	both	the	register	or	memory	location	that
+will	be	updated	and	the	resulting	value:
+Instruction
+Destination
+Value
+__________
+__________
+__________
+__________
+__________
+__________
+__________
+__________
+__________
+__________
+__________
+__________
+3.5.3	
+Shift	Operations
+The	final	group	consists	of	shift	operations,	where	the	shift	amount	is
+given	first	and	the	value	to	shift	is	given	second.	Both	arithmetic	and
+logical	right	shifts	are	
+possible.	The	different	shift	instructions	can	specify
+the	shift	amount	either	as	an	immediate	value	or	with	the	single-byte
+register	
+.	(These	instructions	are	unusual	in	only	allowing	this	specific
+register	as	the	operand.)	In	principle,	having	a	1-byte	shift	amount	would
+8
+
+make	it	possible	to	encode	shift	amounts	ranging	up	to	2
+	−	1	=	255.	With
+x86-64,	a	shift	instruction	operating	on	data	values	that	are	
+w
+	bits	long
+determines	the	shift	amount	from	the	low-order	
+m
+	bits	of	register	
+,
+where	2
+	=	
+w
+.	The	higher-order	bits	are	ignored.	So,	for	example,	when
+register	
+	has	hexadecimal	value	
+,	then	instruction	
+	would
+shift	by	7,	while	
+	would	shift	by	15,	
+	would	shift	by	31,	and	
+would	shift	by	63.
+As	
+Figure	
+3.10
+	indicates,	there	are	two	names	for	the	left	shift
+instruction:	
+SAL
+	
+and	
+SHL
+.	Both	have	the	same	effect,	filling	from	the	right
+with	zeros.	The	right	shift	instructions	differ	in	that	
+SAR
+	
+performs	an
+arithmetic	shift	(fill	with	copies	of	the	sign	bit),	whereas	
+SHR
+	
+performs	a
+logical	shift	(fill	with	zeros).	The	destination	operand	of	a	shift	operation
+can	be	either	a	register	or	a	memory	location.	We	denote	the	two
+different	right	shift	operations	in	
+Figure	
+3.10
+	as	
+	(arithmetic)	and
+	(logical).
+Practice	Problem	
+3.9	
+(solution	page	
+328
+)
+Suppose	we	want	to	generate	assembly	code	for	the	following	C
+function:
+≪
+≫
+8
+m
+
+The	code	that	follows	is	a	portion	of	the	assembly	code	that
+performs	the	actual	shifts	and	leaves	the	final	value	in	register
+	Two	key	instructions	have	been	omitted.	Parameters	x	and
+n	are	stored	in	registers	
+	and	
+,	respectively.
+≪
+≫
+Fill	in	the	missing	instructions,	following	the	annotations	on	the
+right.	The	right	shift	should	be	performed	arithmetically.
+a
+.	
+C	code
+
+b
+.	
+Assembly	code
+Figure	
+3.11	
+C	and	assembly	code	for	arithmetic	function.
+3.5.4	
+Discussion
+We	see	that	most	of	the	instructions	shown	in	
+Figure	
+3.10
+	can	be
+used	for	either	unsigned	or	two's-complement	arithmetic.	Only	right
+shifting	requires	instructions	that	differentiate	between	signed	versus
+unsigned	data.	This	is	one	of	the	features	that	makes	two's-complement
+arithmetic	the	preferred	way	to	implement	signed	integer	arithmetic.
+Figure	
+3.11
+	shows	an	example	of	a	function	that	performs	arithmetic
+operations	and	its	translation	into	assembly	code.	Arguments	
+,	and
+	are	initially	stored	in	registers	
+,	and	
+,	respectively.	The
+assembly-code	instructions	correspond	closely	with	the	lines	of	C	source
+
+code.	Line	2	computes	the	value	of	
+.	Lines	3	and	4	compute	the
+expression	
+	by	a	combination	of	
+	and	shift	instructions.	Line	5
+computes	the	
+AND
+	
+of	
+	and	
+.	The	final	subtraction	is
+computed	by	line	6.	Since	the	destination	of	the	subtraction	is	register
+,	this	will	be	the	value	returned	by	the	function.
+In	the	assembly	code	of	
+Figure	
+3.11
+,	the	sequence	of	values	in
+register	
+	corresponds	to	program	values	
+,	and	
+	(as	the
+return	value).	In	general,	compilers	generate	code	that	uses	individual
+registers	for	multiple	program	values	and	moves	program	values	among
+the	registers.
+Practice	Problem	
+3.10	
+(solution	page	
+329
+)
+In	the	following	variant	of	the	function	of	
+Figure	
+3.11(a)
+,	the
+expressions	have	been	replaced	by	blanks:
+
+The	portion	of	the	generated	assembly	code	implementing	these
+expressions	is	as	follows:
+Based	on	this	assembly	code,	fill	in	the	missing	portions	of	the	C
+code.
+Practice	Problem	
+3.11	
+(solution	page	
+329
+)
+It	is	common	to	find	assembly-code	lines	of	the	form
+in	code	that	was	generated	from	C	where	no	
+EXCLUSIVE
+-
+OR
+operations	were	present.
+A
+.	
+Explain	the	effect	of	this	particular	
+EXCLUSIVE
+-
+OR
+	
+instruction
+and	what	useful	operation	it	implements.
+
+B
+.	
+What	would	be	the	more	straightforward	way	to	express	this
+operation	in	assembly	code?
+C
+.	
+Compare	the	number	of	bytes	to	encode	these	two	different
+implementations	of	the	same	operation.
+3.5.5	
+Special	Arithmetic	Operations
+As	we	saw	in	
+Section	
+2.3
+,	multiplying	two	64-bit	signed	or	unsigned
+integers	can	yield	a	product	that	requires	128	bits	to	represent.	The	x86-
+64	instruction	set	provides	limited	support	for	operations	involving	128-bit
+(16-byte)	numbers.	Continuing	with	the	naming	convention	of	word	(2
+bytes),	double	word	(4	bytes),	and	quad	word	(8	bytes),	Intel	refers	to	a
+16-byte	quantity	as	an	
+oct	word
+.	
+Figure	
+3.12
+Instruction
+Effect
+Description
+	
+S
+R[
+]:R[
+]	←	
+S
+	×	R[
+]
+Signed	full	multiply
+	
+S
+R[
+]:R[
+]	←	
+S
+	×	R[
+]
+Unsigned	full	multiply
+R[
+]:R[
+]	←	SignExtend(R[
+])
+Convert	to	oct	word
+	
+S
+R[
+]	←	R[
+]:R[
+]	mod	
+S
+;
+R[
+]	←	R[
+]:R[
+]	÷	
+S
+Signed	divide
+	
+S
+R[
+]	←	R[
+]:R[
+]	mod	
+S
+;
+R[
+]	←	R[
+]:R[
+]	÷	
+S
+Unsigned	divide
+Figure	
+3.12	
+Special	arithmetic	operations.
+
+These	operations	provide	full	128-bit	multiplication	and	division,	for	both
+signed	and	unsigned	numbers.	The	pair	of	registers	
+	and	
+	are
+viewed	as	forming	a	single	128-bit	oct	word.
+describes	instructions	that	support	generating	the	full	128-bit	product	of
+two	64-bit	numbers,	as	well	as	integer	division.
+The	
+	instruction	has	two	different	forms	One	form,	shown	in	
+Figure
+3.10
+,	is	as	a	member	of	the	
+IMUL
+	
+instruction	class.	In	this	form,	it	serves
+as	a	"two-operand"	multiply	instruction,	generating	a	64-bit	product	from
+two	64-bit	operands.	It	implements	the	operations	
+	and	
+described	in	
+Sections	
+2.3.4
+	and	
+2.3.5
+.	(Recall	that	when	truncating
+the	product	to	64	bits,	both	unsigned	multiply	and	two's-complement
+multiply	have	the	same	bit-level	behavior.)
+Additionally,	the	x86-64	instruction	set	includes	two	different	"one-
+operand"	multiply	instructions	to	compute	the	full	128-bit	product	of	two
+64-bit	values—one	for	unsigned	(
+)	and	one	for	two's-complement
+(
+)	multiplication.	For	both	of	these	instructions,	one	argument	must
+be	in	register	
+,	and	the	other	is	given	as	the	instruction	source
+operand.	The	product	is	then	stored	in	registers	
+	(high-order	64	bits)
+and	
+	(low-order	64	bits).	Although	the	name	
+	is	used	for	two
+distinct	multiplication	operations,	the	assembler	can	tell	which	one	is
+intended	by	counting	the	number	of	operands.
+As	an	example,	the	following	C	code	demonstrates	the	generation	of	a
+128-bit	product	of	two	unsigned	64-bit	numbers	x	and	y:
+*
+64
+u
+*
+64
+t
+
+In	this	program,	we	explicitly	declare	
+	and	
+	to	be	64-bit	numbers,
+using	definitions	declared	in	the	file	
+,	as	part	of	an	extension	of
+the	C	standard.	Unfortunately,	this	standard	does	not	make	provisions	for
+128-bit	values.	Instead,	
+we	rely	on	support	provided	by	
+GCC
+	
+for	128-bit
+integers,	declared	using	the	name	
+.	Our	code	uses	a	
+declaration	to	define	data	type	
+,	following	the	naming	pattern
+for	other	data	types	found	in	
+	The	code	specifies	that	the
+resulting	product	should	be	stored	at	the	16	bytes	designated	by	pointer
+.
+The	assembly	code	generated	by	
+GCC
+	
+for	this	function	is	as	follows:
+
+Observe	that	storing	the	product	requires	two	
+	instructions:	one	for
+the	low-order	8	bytes	(line	4),	and	one	for	the	high-order	8	bytes	(line	5).
+Since	the	code	is	generated	for	a	little-endian	machine,	the	high-order
+bytes	are	stored	at	higher	addresses,	as	indicated	by	the	address
+specification	
+.
+Our	earlier	table	of	arithmetic	operations	(
+Figure	
+3.10
+)	does	not	list
+any	division	or	modulus	operations.	These	operations	are	provided	by	the
+single-operand	divide	instructions	similar	to	the	single-operand	multiply
+instructions.	The	signed	division	instruction	
+	takes	as	its	dividend
+the	128-bit	quantity	in	registers	
+	(high-order	64	bits)	and	
+	(low-
+order	64	bits).	The	divisor	is	given	as	the	instruction	operand.	The
+instruction	stores	the	quotient	in	register	
+	and	the	remainder	in
+register	
+.
+For	most	applications	of	64-bit	addition,	the	dividend	is	given	as	a	64-bit
+value.	This	value	should	be	stored	in	register	
+.	The	bits	of	
+should	then	be	set	to	either	all	zeros	(unsigned	arithmetic)	or	the	sign	bit
+of	
+	(signed	arithmetic).	The	latter	operation	can	be	performed	using
+the	instruction	
+.
+	This	instruction	takes	no	operands—it	implicitly
+reads	the	sign	bit	from	
+	and	copies	it	across	all	of	
+.
+2.	
+This	instruction	is	called	
+	in	the	Intel	documentation,	one	of	the	few	cases	where	the	ATT-
+format	name	for	an	instruction	does	not	match	the	Intel	name.
+2
+
+As	an	illustration	of	the	implementation	of	division	with	x86-64,	the
+following	C	function	computes	the	quotient	and	remainder	of	two	64-bit,
+signed	numbers:
+This	compiles	to	the	following	assembly	code:
+
+In	this	code,	argument	rp	must	first	be	saved	in	a	different	register	(line
+2),	since	argument	register	
+	is	required	for	the	division	operation.
+Lines	3-4	then	prepare	the	dividend	by	copying	and	sign-extending	
+.
+Following	the	division,	the	quotient	in	register	
+	gets	stored	at	
+	(line
+6),	while	the	remainder	in	register	
+	gets	stored	at	
+	(line	7).
+Unsigned	division	makes	use	of	the	divq	instruction.	Typically,	register
+	is	set	to	zero	beforehand.
+Practice	Problem	
+3.12	
+(solution	page	
+329
+)
+Consider	the	following	function	for	computing	the	quotient	and
+remainder	of	two	unsigned	64-bit	numbers:
+Modify	the	assembly	code	shown	for	signed	division	to	implement
+this	function.
+
+3.6	
+Control
+So	far,	we	have	only	considered	the	behavior	of	
+straight-line
+	code,	where
+instructions	follow	one	another	in	sequence.	Some	constructs	in	C,	such
+as	conditionals,	loops,	and	switches,	require	conditional	execution,	where
+the	sequence	of	operations	that	get	performed	depends	on	the	outcomes
+of	tests	applied	to	the	data.	Machine	code	provides	two	basic	low-level
+mechanisms	for	implementing	conditional	behavior:	it	tests	data	values
+and	then	alters	either	the	control	flow	or	the	data	flow	based	on	the
+results	of	these	tests.
+Data-dependent	control	flow	is	the	more	general	and	more	common
+approach	for	implementing	conditional	behavior,	and	so	we	will	examine
+this	first.	Normally,	
+both	statements	in	C	and	instructions	in	machine	code
+are	executed	
+sequentially
+,	in	the	order	they	appear	in	the	program.	The
+execution	order	of	a	set	of	machine-code	instructions	can	be	altered	with
+a	
+jump
+	instruction,	indicating	that	control	should	pass	to	some	other	part
+of	the	program,	possibly	contingent	on	the	result	of	some	test.	The
+compiler	must	generate	instruction	sequences	that	build	upon	this	low-
+level	mechanism	to	implement	the	control	constructs	of	C.
+In	our	presentation,	we	first	cover	the	two	ways	of	implementing
+conditional	operations.	We	then	describe	methods	for	presenting	loops
+and	switch	statements.
+3.6.1	
+Condition	Codes
+
+In	addition	to	the	integer	registers,	the	CPU	maintains	a	set	of	single-bit
+condition	code
+	registers	describing	attributes	of	the	most	recent
+arithmetic	or	logical	operation.	These	registers	can	then	be	tested	to
+perform	conditional	branches.	These	condition	codes	are	the	most	useful:
+CF
+:	Carry	flag.	The	most	recent	operation	generated	a	carry	out	of	the
+most	significant	bit.	Used	to	detect	overflow	for	unsigned	operations.
+ZF
+:	Zero	flag.	The	most	recent	operation	yielded	zero.
+SF
+:	Sign	flag.	The	most	recent	operation	yielded	a	negative	value.
+OF
+:	Overflow	flag.	The	most	recent	operation	caused	a	two's-
+complement	overflow—either	negative	or	positive.
+For	example,	suppose	we	used	one	of	the	
+ADD
+	
+instructions	to	perform	the
+equivalent	of	the	C	assignment	
+,	where	variables	
+,	and	
+	are
+integers.	Then	the	condition	codes	would	be	set	according	to	the
+following	C	expressions:
+The	
+	instruction	does	not	alter	any	condition	codes,	since	it	is
+intended	to	be	used	in	address	computations.	Otherwise,	all	of	the
+instructions	listed	in	
+Figure	
+3.10
+	cause	the	condition	codes	to	be	set.
+For	the	logical	operations,	such	as	
+XOR
+,	the	carry	and	overflow	flags	are
+
+set	to	zero.	For	the	shift	operations,	the	carry	flag	is	set	to	the	last	bit
+shifted	out,	while	the	overflow	flag	is	set	to	zero.	For	reasons	that	we	will
+not	delve	into,	the	
+INC
+	
+and	
+DEC
+	
+instructions	set	the	overflow	and	zero	flags,
+but	they	leave	the	carry	flag	unchanged.
+In	addition	to	the	setting	of	condition	codes	by	the	instructions	of	
+Figure
+3.10
+,	there	are	two	instruction	classes	(having	8-,	16-,	32-,	and	64-bit
+forms)	that	set	condition	codes	without	altering	any	other	registers;	these
+are	listed	in	
+Figure	
+3.13
+.	The	
+CMP
+	
+instructions	set	the	condition	codes
+according	to	the	differences	of	their	two	operands.	They	behave	in	the
+same	way	as	the	
+SUB
+	
+instructions,	except	that	they	set	the	condition
+codes	without	updating	their	destinations.	With	ATT	format,
+Instruction
+Based	on
+Description
+CMP
+S
+,	
+S
+S
+	–	
+S
+Compare
+ 
+Compare	byte
+ 
+Compare	word
+ 
+Compare	double	word
+ 
+Compare	quad	word
+TEST
+S
+,	
+S
+S
+	&	
+S
+Test
+ 
+Test	byte
+ 
+Test	word
+ 
+Test	double	word
+1
+2
+2
+1
+1
+2
+1
+2
+
+ 
+Test	quad	word
+Figure	
+3.13	
+Comparison	and	test	instructions.
+These	instructions	set	the	condition	codes	without	updating	any	other
+registers.
+the	operands	are	listed	in	reverse	order,	making	the	code	difficult	to	read.
+These	instructions	set	the	zero	flag	if	the	two	operands	are	equal.	The
+other	flags	can	be	used	to	determine	ordering	relations	between	the	two
+operands.	The	
+TEST
+	
+instructions	behave	in	the	same	manner	as	the	
+AND
+instructions,	except	that	they	set	the	condition	codes	without	altering	their
+destinations.	Typically,	the	same	operand	is	repeated	(e.g.,	
+	to	see	whether	
+	is	negative,	zero,	or	positive),	or	one	of
+the	operands	is	a	mask	indicating	which	bits	should	be	tested.
+3.6.2	
+Accessing	the	Condition
+Codes
+Rather	than	reading	the	condition	codes	directly,	there	are	three	common
+ways	of	using	the	condition	codes:	(1)	we	can	set	a	single	byte	to	0	or	1
+depending	on	some	combination	of	the	condition	codes,	(2)	we	can
+conditionally	jump	to	some	other	part	of	the	program,	or	(3)	we	can
+conditionally	transfer	data.	For	the	first	case,	the	instructions	described	in
+Figure	
+3.14
+	set	a	single	byte	to	0	or	to	1	depending	on	some
+combination	of	the	condition	codes.	We	refer	to	this	entire	class	of
+instructions	as	the	
+SET
+	
+instructions;	they	differ	from	one	another	based	on
+which	combinations	of	condition	codes	they	consider,	as	indicated	by	the
+
+different	suffixes	for	the	instruction	names.	It	is	important	to	recognize
+that	the	suffixes	for	these	instructions	denote	different	conditions	and	not
+different	operand	sizes.	For	example,	instructions	
+	and	
+	denote
+"set	less"	and	"set	below,"	not	"set	long	word"	or	"set	byte."
+A	
+SET
+	
+instruction	has	either	one	of	the	low-order	single-byte	register
+elements	(
+Figure	
+3.2
+)	or	a	single-byte	memory	location	as	its
+destination,	setting	this	byte	to	either	0	or	1.	To	generate	a	32-bit	or	64-bit
+result,	we	must	also	clear	the	high-order	bits.	A	typical	instruction
+sequence	to	compute	the	C	expression	
+,	where	
+	and	
+	are	both
+of	type	
+,	proceeds	as	follows:
+Instruction
+Synonym
+Effect
+Set	condition
+	
+D
+D
+	←	
+Equal	/	zero
+	
+D
+D
+	←	~	
+Not	equal	/	not	zero
+	
+D
+D
+	←	
+Negative
+	
+D
+D
+	←	←	
+Nonnegative
+	
+D
+D
+	←	
+Greater	(signed	>)
+	
+D
+D
+	←	
+Greater	or	equal	(signed	>=)
+	
+D
+D
+	←	
+Less	(signed	<)
+	
+D
+D
+	←	
+Less	or	equal	(signed	<=)
+	
+D
+D
+	←	
+Above	(unsigned	>)
+	
+D
+D
+	←	
+Above	or	equal	(unsigned	>=)
+
+	
+D
+D
+	←	
+Below	(unsigned	<)
+	
+D
+D
+	←	
+Below	or	equal	(unsigned	<=)
+Figure	
+3.14	
+The	
+SET
+	
+instructions.
+Each	instruction	sets	a	single	byte	to	0	or	1	based	on	some	combination
+of	the	condition	codes.	Some	instructions	have	"synonyms,"	that	is,
+alternate	names	for	the	same	machine	instruction.
+Note	the	comparison	order	of	the	
+	instruction	(line	2).	Although	the
+arguments	are	listed	in	the	order	
+	(b),	then	
+	(a),	the	comparison
+is	really	between	
+	and	
+.	Recall	also,	as	discussed	in	
+Section	
+3.4.2
+,
+that	the	
+	instruction	(line	4)	clears	not	just	the	high-order	3	bytes	of
+,	but	the	upper	4	bytes	of	the	entire	register,	
+,	as	well.
+For	some	of	the	underlying	machine	instructions,	there	are	multiple
+possible	names,	which	we	list	as	"synonyms."	For	example,	both	
+
+(for	"set	greater")	and	
+	(for	"set	not	less	or	equal")	refer	to	the
+same	machine	instruction.	Compilers	and	disassemblers	make	arbitrary
+choices	of	which	names	to	use.
+Although	all	arithmetic	and	logical	operations	set	the	condition	codes,	the
+descriptions	of	the	different	
+SET
+	
+instructions	apply	to	the	case	where	a
+comparison	instruction	has	been	executed,	setting	the	condition	codes
+according	to	the	computation	
+.	More	specifically,	let	
+a
+,	
+b
+,	and	
+t
+	be
+the	integers	represented	in	two's-complement	form	by	variables	
+,
+and	
+,	respectively,	and	so	
+,	where	
+w
+	depends	on	the	sizes
+associated	with	
+	and	
+.
+Consider	the	
+,	or	"set	when	equal,"	instruction.	When	
+a
+	=	
+b
+,	we	will
+have	
+t
+	=	0,	and	hence	the	zero	flag	indicates	equality.	Similarly,	consider
+testing	for	signed	comparison	with	the	
+,	or	"set	when	less,"
+instruction.	When	no	overflow	occurs	(indicated	by	having	OF	set	to	0),
+we	will	have	
+a
+	≥	
+b
+	when	
+,	indicated	by	having	SF	set	to	1,	and	
+a
+≥	
+b
+	when	
+,	indicated	by	having	SF	set	to	0.	On	the	other	hand,
+when	overflow	occurs,	we	will	have	
+a
+	<	
+b
+	when	
+(negative
+overflow)	and	
+a
+	>	
+b
+	when	
+(positive	overflow).	We	cannot	have
+overflow	when	
+a
+	=	
+b
+.	Thus,	when	OF	is	set	to	1,	we	will	have	
+a
+	<	
+b
+	if	and
+only	if	SF	is	set	to	0.	Combining	these	cases,	the	
+EXCLUSIVE
+-
+OR
+	
+of	the
+overflow	and	sign	bits	provides	a	test	for	whether	
+a
+	<	
+b
+.	The	other	signed
+comparison	tests	are	based	on	other	combinations	of	
+	and	
+.
+For	the	testing	of	unsigned	comparisons,	we	now	let	
+a
+	and	
+b
+	be	the
+integers	represented	in	unsigned	form	by	variables	
+	and	
+.	In
+performing	the	computation	
+,	the	carry	flag	will	be	set	by	the	
+CMP
+t
+=
+a
+−
+w
+t
+b
+a
+−
+w
+t
+b
+<
+0
+a
+−
+w
+t
+b
+≥
+0
+a
+−
+w
+t
+b
+>
+0
+	
+a
+−
+w
+t
+b
+<
+0
+	
+
+instruction	when	
+a
+	−	
+b
+	<	0,	and	so	the	unsigned	comparisons	use
+combinations	of	the	carry	and	zero	flags.
+It	is	important	to	note	how	machine	code	does	or	does	not	distinguish
+between	signed	and	unsigned	values.	Unlike	in	C,	it	does	not	associate	a
+data	type	with	each	program	value.	Instead,	it	mostly	uses	the	same
+instructions	for	the	two	cases,	because	many	arithmetic	operations	have
+the	same	bit-level	behavior	for	unsigned	and	two's-complement
+arithmetic.	Some	circumstances	require	different	instructions	to	handle
+signed	and	unsigned	operations,	such	as	using	different	versions	of	right
+shifts,	division	and	multiplication	instructions,	and	different	combinations
+of	condition	codes.
+Practice	Problem	
+3.13	
+(solution	page	
+330
+)
+The	C	code
+shows	a	general	comparison	between	arguments	
+	and	
+,	where
+,	the	data	type	of	the	arguments,	is	defined	(via	
+)	to
+be	one	of	the	integer	data	types	listed	in	
+Figure	
+3.1
+	and	either
+signed	or	unsigned.	The	comparison	COMP	is	defined	via
+.
+Suppose	a	is	in	some	portion	of	
+	while	
+	is	in	some	portion	of
+.	For	each	of	the	following	instruction	sequences,	determine
+
+which	data	types	
+	and	which	comparisons	COMP	could
+cause	the	compiler	to	generate	this	code.	(There	can	be	multiple
+correct	answers;	you	should	list	them	all.)
+A
+.	
+B
+.	
+C
+.	
+D
+.	
+Practice	Problem	
+3.14	
+(solution	page	
+330
+)
+The	C	code
+
+shows	a	general	comparison	between	argument	a	and	0,	where
+we	can	set	the	data	type	of	the	argument	by	declaring	
+	with
+a	
+,	and	the	nature	of	the	comparison	by	declaring	TEST
+with	a	
+	declaration.	The	following	instruction	sequences
+implement	the	comparison,	where	a	is	held	in	some	portion	of
+register	
+.	For	each	sequence,	determine	which	data	types
+	and	which	comparisons	TEST	could	cause	the	compiler	to
+generate	this	code.	(There	can	be	multiple	correct	answers;	list	all
+correct	ones.)
+A
+.	
+B
+.	
+C
+.	
+
+D
+.	
+3.6.3	
+Jump	Instructions
+Under	normal	execution,	instructions	follow	each	other	in	the	order	they
+are	listed.	A	
+jump
+	instruction	can	cause	the	execution	to	switch	to	a
+completely	new	position	in	the	program.	These	jump	destinations	are
+generally	indicated	in	assembly	code	by	a	
+label
+.	Consider	the	following
+(very	contrived)	assembly-code	sequence:
+Instruction
+Synonym
+Jump	condition
+Description
+Label
+1
+Direct	jump
+*
+Operand
+1
+Indirect	jump
+Label
+ZF
+Equal	/	zero
+
+Label
+~ZF
+Not	equal	/	not	zero
+Label
+SF
+Negative
+Label
+~SF
+Nonnegative
+Label
+~(SF	^	OF)	&	~ZF
+Greater	(signed	>)
+Label
+~(SF	^	OF)
+Greater	or	equal	(signed	>=)
+Label
+SF	^	OF
+Less	(signed	<)
+Label
+(SF	^	OF)	|	ZF
+Less	or	equal	(signed	<=)
+Label
+~CF	&	~ZF
+Above	(unsigned	>)
+Label
+~CF
+Above	or	equal	(unsigned	>=)
+Label
+CF
+Below	(unsigned	<)
+Label
+CF	|	ZF
+Below	or	equal	(unsigned	<=)
+Figure	
+3.15	
+The	jump	instructions.
+These	instructions	jump	to	a	labeled	destination	when	the	jump	condition
+holds.	Some	instructions	have	"synonyms,"	alternate	names	for	the	same
+machine	instruction.
+The	instruction	
+	will	cause	the	program	to	skip	over	the	
+instruction	and	instead	resume	execution	with	the	
+	instruction.	In
+generating	the	object-code	file,	the	assembler	determines	the	addresses
+of	all	labeled	instructions	and	encodes	the	
+jump	targets
+	(the	addresses	of
+the	destination	instructions)	as	part	of	the	jump	instructions.
+
+Figure	
+3.15
+	shows	the	different	jump	instructions.	The	
+	instruction
+jumps	unconditionally.	It	can	be	either	a	
+direct
+	jump,	where	the	jump
+target	is	encoded	as	part	of	the	instruction,	or	an	
+indirect
+	jump,	where	the
+jump	target	is	read	from	a	register	or	a	memory	location.	Direct	jumps	are
+written	in	assembly	code	by	giving	a	label	as	the	jump	target,	for
+example,	the	label	
+	in	the	code	shown.	Indirect	jumps	are	written
+using	`*'	followed	by	an	operand	specifier	using	one	of	the	memory
+operand	formats	described	in	
+Figure	
+3.3
+.	As	examples,	the	instruction
+uses	the	value	in	register	
+	as	the	jump	target,	and	the	instruction
+reads	the	jump	target	from	memory,	using	the	value	in	
+	as	the	read
+address.
+The	remaining	jump	instructions	in	the	table	are	
+conditional
+—they	either
+jump	or	continue	executing	at	the	next	instruction	in	the	code	sequence,
+depending	on	some	combination	of	the	condition	codes.	The	names	of
+these	instructions	
+and	the	conditions	under	which	they	jump	match	those
+of	the	
+SET
+	
+instructions	(see	
+Figure	
+3.14
+).	As	with	the	
+SET
+	
+instructions,
+some	of	the	underlying	machine	instructions	have	multiple	names.
+Conditional	jumps	can	only	be	direct.
+
+3.6.4	
+Jump	Instruction	Encodings
+For	the	most	part,	we	will	not	concern	ourselves	with	the	detailed	format
+of	machine	code.	On	the	other	hand,	understanding	how	the	targets	of
+jump	instructions	are	encoded	will	become	important	when	we	study
+linking	in	
+Chapter	
+7
+.	In	addition,	it	helps	when	interpreting	the	output
+of	a	disassembler.	In	assembly	code,	jump	targets	are	written	using
+symbolic	labels.	The	assembler,	and	later	the	linker,	generate	the	proper
+encodings	of	the	jump	targets.	There	are	several	different	encodings	for
+jumps,	but	some	of	the	most	commonly	used	ones	are	
+PC	relative
+.	That
+is,	they	encode	the	difference	between	the	address	of	the	target
+instruction	and	the	address	of	the	instruction	immediately	following	the
+jump.	These	offsets	can	be	encoded	using	1,	2,	or	4	bytes.	A	second
+encoding	method	is	to	give	an	"absolute"	address,	using	4	bytes	to
+directly	specify	the	target.	The	assembler	and	linker	select	the
+appropriate	encodings	of	the	jump	destinations.
+As	an	example	of	PC-relative	addressing,	the	following	assembly	code
+for	a	function	was	generated	by	compiling	a	file	branch.	
+	It	contains
+two	jumps:	the	
+	instruction	on	line	2	jumps	forward	to	a	higher
+address,	while	the	
+	instruction	on	line	7	jumps	back	to	a	lower	one.
+
+The	disassembled	version	of	the	
+	format	generated	by	the	assembler
+is	as	follows:
+In	the	annotations	on	the	right	generated	by	the	disassembler,	the	jump
+targets	are	indicated	as	
+	for	the	jump	instruction	on	line	2	and	
+	for
+the	jump	instruction	on	line	5	(the	disassembler	lists	all	numbers	in
+hexadecimal).	Looking	at	the	byte	encodings	of	the	instructions,	however,
+we	see	that	the	target	of	the	first	jump	instruction	is	encoded	(in	the
+second	byte)	as	
+.	Adding	this	to	
+,	the
+Aside	
+What	do	the	instructions	
+	and
+	do?
+
+Line	8	of	the	assembly	code	shown	on	page	207	contains	the
+instruction	combination	
+.	These	are	rendered	in	the
+disassembled	code	(line	6)	as	
+.	One	can	infer	that	
+is	a	synonym	for	
+,	just	as	
+	is	a	synonym	for	
+.	Looking
+at	the	Intel	and	AMD	documentation	for	the	
+	instruction,	we
+find	that	it	is	normally	used	to	implement	a	repeating	string
+operation	
+[3,
+	
+51]
+.	It	seems	completely	inappropriate	here.	The
+answer	to	this	puzzle	can	be	seen	in	AMD's	guidelines	to	compiler
+writers	
+[1]
+.	They	recommend	using	the	combination	of	
+followed	by	
+	to	avoid	making	the	
+	instruction	the
+destination	of	a	conditional	jump	instruction.	Without	the	
+instruction,	the	
+	instruction	(line	7	of	the	assembly	code)	would
+proceed	to	the	
+	instruction	when	the	branch	is	not	taken.
+According	toAMD,	their	processors	cannot	properly	predict	the
+destination	of	a	
+	instruction	when	it	is	reached	from	a	jump
+instruction.	The	
+	instruction	serves	as	a	form	of	no-operation
+here,	and	so	inserting	it	as	the	jump	destination	does	not	change
+behavior	of	the	code,	except	to	make	it	faster	on	AMD	processors.
+We	can	safely	ignore	any	
+	or	
+	instruction	we	see	in	the
+rest	of	the	code	presented	in	this	book.
+address	of	the	following	instruction,	we	get	jump	target	address	
+,	the
+address	of	the	instruction	on	line	4.
+Similarly,	the	target	of	the	second	jump	instruction	is	encoded	as	
+(decimal	−8)	using	a	single-byte	two's-complement	representation.
+Adding	this	to	
+	(decimal	13),	the	address	of	the	instruction	on	line	6,
+we	get	
+,	the	address	of	the	instruction	on	line	3.
+
+As	these	examples	illustrate,	the	value	of	the	program	counter	when
+performing	PC-relative	addressing	is	the	address	of	the	instruction
+following	the	jump,	not	that	of	the	jump	itself.	This	convention	dates	back
+to	early	implementations,	when	the	processor	would	update	the	program
+counter	as	its	first	step	in	executing	an	instruction.
+The	following	shows	the	disassembled	version	of	the	program	after
+linking:
+The	instructions	have	been	relocated	to	different	addresses,	but	the
+encodings	of	the	jump	targets	in	lines	2	and	5	remain	unchanged.	By
+using	a	PC-relative	encoding	of	the	jump	targets,	the	instructions	can	be
+compactly	encoded	(requiring	just	2	bytes),	and	the	object	code	can	be
+shifted	to	different	positions	in	memory	without	alteration.
+Practice	Problem	
+3.15	
+(solution	page	
+330
+)
+In	the	following	excerpts	from	a	disassembled	binary,	some	of	the
+information	has	been	replaced	by	X's.	Answer	the	following
+questions	about	these	instructions.
+
+A
+.	
+What	is	the	target	of	the	
+	instruction	below?	(You	do	not
+need	to	know	anything	about	the	
+	instruction	here.)
+B
+.	
+What	is	the	target	of	the	
+	instruction	below?
+C
+.	
+What	is	the	address	of	the	
+	and	pop	instructions?
+D
+.	
+In	the	code	that	follows,	the	jump	target	is	encoded	in	PC-
+relative	form	as	a	4-byte	two's-complement	number.	The
+bytes	are	listed	from	least	significant	to	most,	reflecting	the
+little-endian	byte	ordering	of	x86-64.	What	is	the	address	of
+the	jump	target?
+
+The	jump	instructions	provide	a	means	to	implement	conditional
+execution	(
+),	as	well	as	several	different	loop	constructs.
+3.6.5	
+Implementing	Conditional
+Branches	with	Conditional	Control
+The	most	general	way	to	translate	conditional	expressions	and
+statements	from	C	into	machine	code	is	to	use	combinations	of
+conditional	and	unconditional	jumps.	(As	an	alternative,	we	will	see	in
+Section	
+3.6.6
+	that	some	conditionals	can	be	implemented	by
+conditional	transfers	of	data	rather	than	control.)	For	example,	
+Figure
+3.16(a)
+	shows	the	C	code	for	a	function	that	computes	the	absolute
+value	of	the	difference	of	two	numbers.
+	The	function	also	has	a	side
+effect	of	incrementing	one	of	two	counters,	encoded	as	global	variables
+	Gcc	generates	the	assembly	code	shown	as	
+Figure
+3.16(c)
+.	Our	rendition	of	the	machine	code	into	C	is	shown	as	the
+function	
+	(
+Figure	
+3.16(b)
+).	It	uses	the	
+	statement	in	C,
+which	is	similar	to	the	unconditional	jump	of
+3.	
+Actually,	it	can	return	a	negative	value	if	one	of	the	subtractions	overflows.	Our	interest	here	is
+to	demonstrate	machine	code,	not	to	implement	robust	code.
+(a)	Original	C	code
+3
+
+(b)	Equivalent	goto	version
+
+(c)	Generated	assembly	code
+Figure	
+3.16	
+Compilation	of	conditional	statements.
+(a)	C	procedure	
+	contains	an	if-else	statement.	The	generated
+assembly	code	is	shown	(c),	along	with	(b)	a	C	procedure	
+that	mimics	the	control	flow	of	the	assembly	code.
+
+assembly	code.	Using	
+	statements	is	generally	considered	a	bad
+programming	style,	since	their	use	can	make	code	very	difficult	to	read
+and	debug.	We	use	them	in	our	presentation	as	a	way	to	construct	C
+programs	that	describe	the	control	flow	of	machine	code.	We	call	this
+style	of	programming	"goto	code."
+In	the	goto	code	(
+Figure	
+3.16(b)
+),	the	statement	
+	on	line	5
+causes	a	jump	to	the	label	
+	(since	it	occurs	when	
+x
+	≥	
+y
+)	on	line	9.
+Continuing	the
+Aside	
+Describing	machine	code	with	C
+code
+Figure	
+3.16
+	shows	an	example	of	how	we	will	demonstrate	the
+translation	of	C	language	control	constructs	into	machine	code.
+The	figure	contains	an	example	C	function	(a)	and	an	annotated
+version	of	the	assembly	code	generated	by	
+GCC
+	
+(c).	It	also
+contains	a	version	in	C	that	closely	matches	the	structure	of	the
+assembly	code	(b).	Although	these	versions	were	generated	in	the
+sequence	(a),	(c),	and	(b),	we	recommend	that	you	read	them	in
+the	order	(a),	(b),	and	then	(c).	That	is,	the	C	rendition	of	the
+machine	code	will	help	you	understand	the	key	points,	and	this
+can	guide	you	in	understanding	the	actual	assembly	code.
+execution	from	this	point,	it	completes	the	computations	specified	by	the
+	portion	of	function	
+	and	returns.	On	the	other	hand,	if	the
+test	
+	fails,	the	program	procedure	will	carry	out	the	steps	specified
+by	the	if	portion	of	
+	and	return.
+
+The	assembly-code	implementation	(
+Figure	
+3.16(c)
+)	first	compares
+the	two	operands	(line	2),	setting	the	condition	codes.	If	the	comparison
+result	indicates	that	
+x
+	is	greater	than	or	equal	to	
+y
+,	it	then	jumps	to	a
+block	of	code	starting	at	line	8	that	increments	global	variable	
+,
+computes	
+	as	the	return	value,	and	returns.	Otherwise,	it	continues
+with	the	execution	of	code	beginning	at	line	4	that	increments	global
+variable	
+,	computes	
+	as	the	return	value,	and	returns.	We	can
+see,	then,	that	the	control	flow	of	the	assembly	code	generated	for
+	closely	follows	the	goto	code	of	
+The	general	form	of	an	if-else	statement	in	C	is	given	by	the	template
+where	
+test-expr
+	is	an	integer	expression	that	evaluates	either	to	zero
+(interpreted	as	meaning	"false")	or	to	a	nonzero	value	(interpreted	as
+meaning	"true").	Only	one	of	the	two	branch	statements	(
+then-statement
+or	
+else-statement
+)	is	executed.
+For	this	general	form,	the	assembly	implementation	typically	adheres	to
+the	following	form,	where	we	use	C	syntax	to	describe	the	control	flow:
+
+That	is,	the	compiler	generates	separate	blocks	of	code	for	
+then-
+statement
+	and	
+else-statement
+.	It	inserts	conditional	and	unconditional
+branches	to	make	sure	the	correct	block	is	executed.
+Practice	Problem	
+3.16	
+(solution	page	
+331
+)
+When	given	the	C	code
+GCC
+	
+generates	the	following	assembly	code:
+
+A
+.	
+Write	a	goto	version	in	C	that	performs	the	same
+computation	and	mimics	the	control	flow	of	the	assembly
+code,	in	the	style	shown	in	
+Figure	
+3.16(b)
+.	You	might
+find	it	helpful	to	first	annotate	the	assembly	code	as	we
+have	done	in	our	examples.
+B
+.	
+Explain	why	the	assembly	code	contains	two	conditional
+branches,	even	though	the	C	code	has	only	one	if
+statement.
+Practice	Problem	
+3.17	
+(solution	page	
+331
+)
+An	alternate	rule	for	translating	
+	statements	into	goto	code	is	as
+follows:
+
+A
+.	
+Rewrite	the	goto	version	of	
+	based	on	this
+alternate	rule.
+B
+.	
+Can	you	think	of	any	reasons	for	choosing	one	rule	over	the
+other?
+Practice	Problem	
+3.18	
+(solution	page	
+332
+)
+Starting	with	C	code	of	the	form
+GCC
+	
+generates	the	following	assembly	code:
+
+Fill	in	the	missing	expressions	in	the	C	code.
+3.6.6	
+Implementing	Conditional
+
+Branches	with	Conditional	Moves
+The	conventional	way	to	implement	conditional	operations	is	through	a
+conditional	transfer	of	
+control
+,	where	the	program	follows	one	execution
+path	when	a	condition	holds	and	another	when	it	does	not.	This
+mechanism	is	simple	and	general,	but	it	can	be	very	inefficient	on
+modern	processors.
+An	alternate	strategy	is	through	a	conditional	transfer	of	
+data
+.	This
+approach	computes	both	outcomes	of	a	conditional	operation	and	then
+selects	one	based	on	whether	or	not	the	condition	holds.	This	strategy
+makes	sense	only	in	restricted	cases,	but	it	can	then	be	implemented	by
+a	simple	
+conditional	move
+	instruction	that	is	better	matched	to	the
+performance	characteristics	of	modern	processors.	Here,	we	examine
+this	strategy	and	its	implementation	with	x86-64.
+Figure	
+3.17(a)
+	shows	an	example	of	code	that	can	be	compiled	using
+a	conditional	move.	The	function	computes	the	absolute	value	of	its
+arguments	x	and	y,	as	did	our	earlier	example	(
+Figure	
+3.16
+).Whereas
+the	earlier	example	had	side	effects	in	the	branches,	modifying	the	value
+of	either	
+	or	
+,	this	version	simply	computes	the	value	to	be
+returned	by	the	function.
+(a)	Original	C	code
+
+(b)	Implementation	using	conditional	assignment
+(c)	Generated	assembly	code
+
+Figure	
+3.17	
+Compilation	of	conditional	statements	using	conditional
+assignment.
+(a)	C	function	
+	contains	a	conditional	expression.	The	generated
+assembly	code	is	shown	(c),	along	with	(b)	a	C	function	
+	that
+mimics	the	operation	of	the	assembly	code.
+For	this	function,	
+	generates	the	assembly	code	shown	in	
+Figure
+3.17(c)
+,	having	an	approximate	form	shown	by	the	C	function	
+shown	in	
+Figure	
+3.17(b)
+.	Studying	the	C	version,	we	can	see	that	it
+computes	both	
+	and	
+,	naming	these	
+	and	
+,	respectively.
+It	then	tests	whether	
+x
+	is	greater	than	or	equal	to	
+y
+,	and	if	so,	copies	
+to	
+	before	returning	
+.	The	assembly	code	in	
+Figure	
+3.17(c)
+follows	the	same	logic.	The	key	is	that	the	single	
+	instruction	(line
+7)	of	the	assembly	code	implements	the	conditional	assignment	(line	8)
+of	
+.	It	will	transfer	the	data	from	the	source	register	to	the
+destination,	only	if	the	
+	instruction	of	line	6	indicates	that	one	value	is
+greater	than	or	equal	to	the	other	(as	indicated	by	the	suffix	
+).
+
+To	understand	why	code	based	on	conditional	data	transfers	can
+outperform	code	based	on	conditional	control	transfers	(as	in	
+Figure
+3.16
+),	we	must	understand	something	about	how	modern	processors
+operate.	As	we	will	see	in	
+Chapters	
+4
+	and	
+5
+,	processors	achieve
+high	performance	through	
+pipelining
+,	where	an	instruction	is	processed
+via	a	sequence	of	stages,	each	performing	one	small	portion	of	the
+required	operations	(e.g.,	fetching	the	instruction	from	memory,
+determining	the	instruction	type,	reading	from	memory,	performing	an
+arithmetic	operation,	writing	to	memory,	and	updating	the	program
+counter).	This	approach	achieves	high	performance	by	overlapping	the
+steps	of	the	successive	instructions,	such	as	fetching	one	instruction
+while	performing	the	arithmetic	operations	for	a	previous	instruction.	To
+do	this	requires	being	able	to	determine	the	sequence	of	instructions	to
+be	executed	well	ahead	of	time	in	order	to	keep	the	pipeline	full	of
+instructions	to	be	executed.	When	the	machine	encounters	a	conditional
+jump	(referred	to	as	a	"branch"),	it	cannot	determine	which	way	the
+branch	will	go	until	it	has	evaluated	the	branch	condition.	Processors
+employ	sophisticated	
+branch	prediction	logic
+	to	try	to	guess	whether	or
+not	each	jump	instruction	will	be	followed.	As	long	as	it	can	guess	reliably
+(modern	microprocessor	designs	try	to	achieve	success	rates	on	the
+order	of	90%),	the	instruction	pipeline	will	be	kept	full	of	instructions.
+Mispredicting	a	jump,	on	the	other	hand,	requires	that	the	processor
+discard	much	of	the	work	it	has	already	done	on	future	instructions	and
+then	begin	filling	the	pipeline	with	instructions	starting	at	the	correct
+location.	As	we	will	see,	such	a	misprediction	can	incur	a	serious	penalty,
+say,	15–30	clock	cycles	of	wasted	effort,	causing	a	serious	degradation
+of	program	performance.
+
+As	an	example,	we	ran	timings	of	the	
+	function	on	an	Intel
+Haswell	processor	using	both	methods	of	implementing	the	conditional
+operation.	In	a	typical	application,	the	outcome	of	the	test	
+	is	highly
+unpredictable,	and	so	even	the	most	sophisticated	branch	prediction
+hardware	will	guess	correctly	only	around	50%	of	the	time.	In	addition,
+the	computations	performed	in	each	of	the	two	code	sequences	require
+only	a	single	clock	cycle.	As	a	consequence,	the	branch	misprediction
+penalty	dominates	the	performance	of	this	function.	For	x86-64	code	with
+conditional	jumps,	we	found	that	the	function	requires	around	8	clock
+cycles	per	call	when	the	branching	pattern	is	easily	predictable,	and
+around	17.50	clock	cycles	per	call	when	the	branching	pattern	is	random.
+From	this,	we	can	infer	that	the	branch	misprediction	penalty	is	around	19
+clock	cycles.	That	means	time	required	by	the	function	ranges	between
+around	8	and	27	cycles,	depending	on	whether	or	not	the	branch	is
+predicted	correctly.
+Aside	
+How	did	you	determine	this
+penalty?
+Assume	the	probability	of	misprediction	is	
+p
+,	the	time	to	execute
+the	code	without	misprediction	is	
+T
+,	and	the	misprediction
+penalty	is	
+.	We	are	given
+T
+	and	
+T
+,	the	average	time	when	
+p
+	=	0.5,	and	we	want	to
+determine	
+T
+.	Substituting	into	the	equation,	we	get
+.
+On	the	other	hand,	the	code	compiled	using	conditional	moves	requires
+around	8	clock	cycles	regardless	of	the	data	being	tested.	The	flow	of
+OK
+T
+avg
+(
+P
+)
+=
+(
+1
+−
+P
+)
+T
+OK
++
+T
+MP
+)
+=
+T
+OK
++
+P
+T
+MP
+OK
+ran
+MP
+T
+ran
+=
+T
+avg
+(
+0.5
+)
+=
+T
+OK
++
+0.5
+T
+MP
+,
+ 
+and
+ 
+therefore
+ 
+T
+MP
+=
+2
+(
+T
+ran
+−
+T
+OK
+)
+.
+ 
+S
+o
+,
+ 
+f
+o
+r
+ 
+T
+OK
+=
+8
+ 
+and
+ 
+T
+ran
+=
+17.5
+,
+ 
+we
+ 
+get
+ 
+T
+MP
+=
+19
+
+control	does	not	depend	on	data,	and	this	makes	it	easier	for	the
+processor	to	keep	its	pipeline	full.
+Practice	Problem	
+3.19	
+(solution	page	
+332
+)
+Running	on	an	older	processor	model,	our	code	required	around
+16	cycles	when	the	branching	pattern	was	highly	predictable,	and
+around	31	cycles	when	the	pattern	was	random.
+A
+.	
+What	is	the	approximate	miss	penalty?
+B
+.	
+How	many	cycles	would	the	function	require	when	the
+branch	is	mispredicted?
+Figure	
+3.18
+	illustrates	some	of	the	conditional	move	instructions
+available	with	x86-64.	Each	of	these	instructions	has	two	operands:	a
+source	register	or	memory	location	
+S
+,	and	a	destination	register	
+R
+.	As
+with	the	different	set	(
+Section	
+3.6.2
+)	and	jump	(
+Section	
+3.6.3
+)
+instructions,	the	outcome	of	these	instructions	depends	on	the	values	of
+the	condition	codes.	The	source	value	is	read	from	either	memory	or	the
+source	register,	but	it	is	copied	to	the	destination	only	if	the	specified
+condition	holds.
+The	source	and	destination	values	can	be	16,	32,	or	64	bits	long.	Single-
+byte	conditional	moves	are	not	supported.	Unlike	the	unconditional
+instructions,	where	the	operand	length	is	explicitly	encoded	in	the
+instruction	name	(e.g.,	
+	and	
+),	the	assembler	can	infer	the
+operand	length	of	a	conditional	move	instruction	from	the	name	of	the
+destination	register,	and	so	the	same	instruction	name	can	be	used	for	all
+operand	lengths.
+
+Unlike	conditional	jumps,	the	processor	can	execute	conditional	move
+instructions	without	having	to	predict	the	outcome	of	the	test.	The
+processor	simply	reads	the	source	value	(possibly	from	memory),	checks
+the	condition	code,	and	then	either	updates	the	destination	register	or
+keeps	it	the	same.	We	will	explore	the	implementation	of	conditional
+moves	in	
+Chapter	
+4
+.
+To	understand	how	conditional	operations	can	be	implemented	via
+conditional	data	transfers,	consider	the	following	general	form	of
+conditional	expression	and	assignment:
+Instruction
+Synonym
+Move	condition
+Description
+S
+,	
+R
+Equal	/	zero
+S
+,	
+R
+Not	equal	/	not	zero
+S
+,	
+R
+Negative
+S
+,	
+R
+Nonnegative
+S
+,	
+R
+Greater	(signed	>)
+S
+,	
+R
+Greater	or	equal	(signed	>=)
+S
+,	
+R
+Less	(signed	<)
+S
+,	
+R
+Less	or	equal	(signed	<=)
+S
+,	
+R
+Above	(unsigned	>)
+S
+,	
+R
+Above	or	equal	(Unsigned	>=)
+S
+,	
+R
+Below	(unsigned	<)
+
+S
+,	
+R
+Below	or	equal	(unsigned	<=)
+Figure	
+3.18	
+The	conditional	move	instructions.
+These	instructions	copy	the	source	value	
+S
+	to	its	destination	
+R
+	when	the
+move	condition	holds.	Some	instructions	have	"synonyms,"	alternate
+names	for	the	same	machine	instruction.
+The	standard	way	to	compile	this	expression	using	conditional	control
+transfer	would	have	the	following	form:
+This	code	contains	two	code	sequences—one	evaluating	
+then-expr
+	and
+one	evaluating	
+else-expr
+.	A	combination	of	conditional	and	unconditional
+jumps	is	used	to	ensure	that	just	one	of	the	sequences	is	evaluated.
+
+For	the	code	based	on	a	conditional	move,	both	the	
+then-expr
+	and	the
+else-expr
+	are	evaluated,	with	the	final	value	chosen	based	on	the
+evaluation	
+test-expr
+.	This	can	be	described	by	the	following	abstract
+code:
+The	final	statement	in	this	sequence	is	implemented	with	a	conditional
+move—value	
+	is	copied	to	
+	only	if	test	condition	
+	does	not	hold.
+Not	all	conditional	expressions	can	be	compiled	using	conditional	moves.
+Most	significantly,	the	abstract	code	we	have	shown	evaluates	both	
+then-
+expr
+	and	
+else-expr
+	regardless	of	the	test	outcome.	If	one	of	those	two
+expressions	could	possibly	generate	an	error	condition	or	a	side	effect,
+this	could	lead	to	invalid	behavior.	Such	is	the	case	for	our	earlier
+example	(
+Figure	
+3.16
+).	Indeed,	we	put	the	side	effects	into	this
+example	specifically	to	force	
+	to	implement	this	function	using
+conditional	transfers.
+As	a	second	illustration,	consider	the	following	C	function:
+
+At	first,	this	seems	like	a	good	candidate	to	compile	using	a	conditional
+move	to	set	the	result	to	zero	when	the	pointer	is	null,	as	shown	in	the
+following	assembly	code:
+This	implementation	is	invalid,	however,	since	the	dereferencing	of	
+	by
+the	
+	instruction	(line	2)	occurs	even	when	the	test	fails,	causing	a
+null	pointer	dereferencing	error.	Instead,	this	code	must	be	compiled
+using	branching	code.
+Using	conditional	moves	also	does	not	always	improve	code	efficiency.
+For	example,	if	either	the	
+then-expr
+	or	the	
+else-expr
+	evaluation	requires	a
+significant	computation,	then	this	effort	is	wasted	when	the	corresponding
+condition	does	not	hold.	Compilers	must	take	into	account	the	relative
+performance	of	wasted	computation	versus	the	potential	for	performance
+
+penalty	due	to	branch	misprediction.	In	truth,	they	do	not	really	have
+enough	information	to	make	this	decision	reliably;	for	example,	they	do
+not	know	how	well	the	branches	will	follow	predictable	patterns.	Our
+experiments	with	
+	indicate	that	it	only	uses	conditional	moves	when
+the	two	expressions	can	be	computed	very	easily,	for	example,	with
+single	add	instructions.	In	our	experience,	
+	uses	conditional	control
+transfers	even	in	many	cases	where	the	cost	of	branch	misprediction
+would	exceed	even	more	complex	computations.
+Overall,	then,	we	see	that	conditional	data	transfers	offer	an	alternative
+strategy	to	conditional	control	transfers	for	implementing	conditional
+operations.	They	can	only	be	used	in	restricted	cases,	but	these	cases
+are	fairly	common	and	provide	a	much	better	match	to	the	operation	of
+modern	processors.
+
+Practice	Problem	
+3.20	
+(solution	page	
+333
+)
+In	the	following	C	function,	we	have	left	the	definition	of	operation
+	incomplete:
+When	compiled,	
+	generates	the	following	assembly	code:
+A
+.	
+What	operation	is	
+?
+B
+.	
+Annotate	the	code	to	explain	how	it	works.
+Practice	Problem	
+3.21	
+(solution	page	
+333
+)
+
+Starting	with	C	code	of	the	form
+	generates	the	following	assembly	code:
+
+Fill	in	the	missing	expressions	in	the	C	code.
+3.6.7	
+Loops
+C	provides	several	looping	constructs—namely,	
+,	and
+.	No	corresponding	instructions	exist	in	machine	code.	Instead,
+combinations	of	conditional	tests	and	jumps	are	used	to	implement	the
+effect	of	loops.	
+	and	other	compilers	generate	loop	code	based	on	the
+two	basic	loop	patterns.	We	will	study	the	translation	of	loops	as	a
+progression,	starting	with	
+	and	then	working	toward	ones	with
+more	complex	implementations,	covering	both	patterns.
+Do-While	Loops
+The	general	form	of	a	
+	statement	is	as	follows:
+
+The	effect	of	the	loop	is	to	repeatedly	execute	
+body-statement
+,	evaluate
+test-expr
+,	and	continue	the	loop	if	the	evaluation	result	is	nonzero.
+Observe	that	
+body-statement
+	is	executed	at	least	once.
+This	general	form	can	be	translated	into	conditionals	and	
+statements	as	follows:
+That	is,	on	each	iteration	the	program	evaluates	the	body	statement	and
+then	the	test	expression.	If	the	test	succeeds,	the	program	goes	back	for
+another	iteration.
+(a)	C	code
+
+(b)	Equivalent	goto	version
+(c)	Corresponding	assembly-language	code
+
+Figure	
+3.19	
+Code	for	
+	version	of	factorial	program.
+A	conditional	jump	causes	the	program	to	loop.
+As	an	example,	
+Figure	
+3.19(a)
+	shows	an	implementation	of	a	routine
+to	compute	the	factorial	of	its	argument,	written	
+n
+!,	with	a	do-while	loop.
+This	function	only	computes	the	proper	value	for	
+n
+	>	0.
+Practice	Problem	
+3.22	
+(solution	page	
+333
+)
+A
+.	
+What	is	the	maximum	value	of	
+n
+	for	which	we	can	represent	
+n
+!
+with	a	32-bit	
+B
+.	
+What	about	for	a	64-bit	
+The	goto	code	shown	in	
+Figure	
+3.19(b)
+	shows	how	the	loop	gets
+turned	into	a	lower-level	combination	of	tests	and	conditional	jumps.
+Following	the	initialization	of	
+,	the	program	begins	looping.	First	it
+executes	the	body	of	the	loop,	consisting	here	of	updates	to	variables
+	and	
+n
+.	It	then	tests	whether	
+n
+	>	1,	and,	if	so,	it	jumps	back	to	the
+beginning	of	the	loop.	
+Figure	
+3.19(c)
+	shows
+
+Aside	
+Reverse	engineering	loops
+A	key	to	understanding	how	the	generated	assembly	code	relates
+to	the	original	source	code	is	to	find	a	mapping	between	program
+values	and	registers.	This	task	was	simple	enough	for	the	loop	of
+Figure	
+3.19
+,	but	it	can	be	much	more	challenging	for	more
+complex	programs.	The	C	compiler	will	often	rearrange	the
+computations,	so	that	some	variables	in	the	C	code	have	no
+counterpart	in	the	machine	code,	and	new	values	are	introduced
+into	the	machine	code	that	do	not	exist	in	the	source	code.
+Moreover,	it	will	often	try	to	minimize	register	usage	by	mapping
+multiple	program	values	onto	a	single	register.
+The	process	we	described	for	
+	works	as	a	general	strategy
+for	reverse	engineering	loops.	Look	at	how	registers	are	initialized
+before	the	loop,	updated	and	tested	within	the	loop,	and	used	after
+the	loop.	Each	of	these	provides	a	clue	that	can	be	combined	to
+solve	a	puzzle.	Be	prepared	for	surprising	transformations,	some
+of	which	are	clearly	cases	where	the	compiler	was	able	to
+optimize	the	code,	and	others	where	it	is	hard	to	explain	why	the
+compiler	chose	that	particular	strategy.
+the	assembly	code	from	which	the	goto	code	was	generated.	The
+conditional	jump	instruction	
+	(line	7)	is	the	key	instruction	in
+implementing	a	loop.	It	determines	whether	to	continue	iterating	or	to	exit
+the	loop.
+Reverse	engineering	assembly	code,	such	as	that	of	
+Figure	
+3.19(c)
+,
+requires	determining	which	registers	are	used	for	which	program	values.
+In	this	case,	the	mapping	is	fairly	simple	to	determine:	We	know	that	
+n
+will	be	passed	to	the	function	in	register	
+.	We	can	see	register	
+
+getting	initialized	to	1	(line	2).	(Recall	that,	although	the	instruction	has
+	as	its	destination,	it	will	also	set	the	upper	4	bytes	of	
+	to	0.)	We
+can	see	that	this	register	is	also	updated	by	multiplication	on	line	4.
+Furthermore,	since	
+	is	used	to	return	the	function	value,	it	is	often
+chosen	to	hold	program	values	that	are	returned.	We	therefore	conclude
+that	
+	corresponds	to	program	value	
+.
+Practice	Problem	
+3.23	
+(solution	page	
+334
+)
+For	the	C	code
+GCC
+	
+generates	the	following	assembly	code:
+
+A
+.	
+Which	registers	are	used	to	hold	program	values	x,	y,	and
+n?
+B
+.	
+How	has	the	compiler	eliminated	the	need	for	pointer
+variable	
+	and	the	pointer	dereferencing	implied	by	the
+expression	
+C
+.	
+Add	annotations	to	the	assembly	code	describing	the
+operation	of	the	program,	similar	to	those	shown	in	
+Figure
+3.19(c)
+.
+While	Loops
+The	general	form	of	a	
+	statement	is	as	follows:
+
+It	differs	from	
+	in	that	
+test-expr
+	is	evaluated	and	the	loop	is
+potentially	terminated	before	the	first	execution	of	
+body-statement
+.	There
+are	a	number	of	ways	to	translate	a	
+	into	machine	code,	two	of
+which	are	used	in	code	generated	by	
+.	Both	use	the	same	loop
+structure	as	we	saw	for	
+	but	differ	in	how	to	implement	the
+initial	test.
+The	first	translation	method,	which	we	refer	to	as	
+jump	to	middle
+,
+performs	the	initial	test	by	performing	an	unconditional	jump	to	the	test	at
+the	end	of	the	loop.	It	can	be	expressed	by	the	following	template	for
+translating	from	the	general	
+	form	to	goto	code:
+As	an	example,	
+Figure	
+3.20(a)
+	shows	an	implementation	of	the
+factorial	function	using	a	
+	loop.	This	function	correctly	computes	0!
+=	1.	The	adjacent
+(a)	C	code
+
+(b)	Equivalent	goto	version
+
+(c)	Corresponding	assembly-language	code
+Figure	
+3.20	
+C	and	assembly	code	for	
+	version	of	factorial	using
+jump-to-middle	translation.
+The	C	function	
+	illustrates	the	operation	of	the
+assembly-code	version.
+function	
+	(
+Figure	
+3.20(b)
+)	is	a	C	rendition	of	the
+assembly	code	generated	by	
+	when	optimization	is	specified	with	the
+command-line	option	
+.	Comparing	the	goto	code	generated	for
+	(
+Figure	
+3.20(b)
+)	to	that	for	
+	(
+Figure	
+3.19(b)
+),	we
+see	that	they	are	very	similar,	except	that	the	statement	
+	before
+the	loop	causes	the	program	to	first	perform	the	test	of	
+	before
+
+modifying	the	values	of	
+	or	
+.	The	bottom	portion	of	the	figure
+(
+Figure	
+3.20(c)
+)	shows	the	actual	assembly	code	generated.
+Practice	Problem	
+3.24	
+(solution	page	
+335
+)
+For	C	code	having	the	general	form
+GCC
+,	run	with	command-line	option	
+,	produces	the	following
+code:
+
+We	can	see	that	the	compiler	used	a	jump-to-middle	translation,
+using	the	
+	instruction	on	line	3	to	jump	to	the	test	starting	with
+label	
+	Fill	in	the	missing	parts	of	the	C	code.
+The	second	translation	method,	which	we	refer	to	as	
+guarded	do
+,	first
+transforms	the	code	into	a	
+	loop	by	using	a	conditional	branch	to
+skip	over	the	loop	if	the	initial	test	fails.	
+	follows	this	strategy	when
+compiling	with	higher	levels	of	optimization,	for	example,	with	command-
+line	option	
+.	This	method	can	be	expressed	by	the	following	template
+for	translating	from	the	general	while	loop	form	to	a	
+	loop:
+
+This,	in	turn,	can	be	transformed	into	goto	code	as
+Using	this	implementation	strategy,	the	compiler	can	often	optimize	the
+initial	test,	for	example,	determining	that	the	test	condition	will	always
+hold.
+As	an	example,	
+Figure	
+3.21
+	shows	the	same	C	code	for	a	factorial
+function	as	in	
+Figure	
+3.20
+,	but	demonstrates	the	compilation	that
+occurs	when	
+GCC
+	
+is	given	command-line	option	-01.	
+Figure	
+3.21(c)
+shows	the	actual	assembly	code	generated,	while	
+Figure	
+3.21(b)
+renders	this	assembly	code	in	a	more	readable	C	representation.
+Referring	to	this	goto	code,	we	see	that	the	loop	will	be	skipped	if	
+n
+	≤	1,
+for	the	initial	value	of	
+n
+.	The	loop	itself	has	the	same	general	structure	as
+that	generated	for	the	do-while	version	of	the	function	(
+Figure	
+3.19
+).
+One	interesting	feature,	however,	is	that	the	loop	test	(line	9	of	the
+assembly	code)	has	been	changed	from	
+n
+	>	1	in	the	original	C	code	to	
+n
+≠	1.	The	compiler	has	determined	that	the	loop	can	only	be	entered	when
+
+n
+	>	1,	and	that	decrementing	
+n
+	will	result	in	either	
+n
+	>	1	or	
+n
+	=	1.
+Therefore,	the	test	
+n
+	≠	1	will	be	equivalent	to	the	test	
+n
+	≤	1.
+Practice	Problem	
+3.25	
+(solution	page	
+335
+)
+For	C	code	having	the	general	form
+GCC
+,	run	with	command-line	option	-01,	produces	the	following
+code:
+
+(a)	C	code
+(b)	Equivalent	goto	version
+
+(c)	Corresponding	assembly-language	code
+Figure	
+3.21	
+C	and	assembly	code	for	
+	version	of	factorial
+using	guarded-do	translation.
+The	
+	function	illustrates	the	operation	of	the
+assembly-code	version.
+
+We	can	see	that	the	compiler	used	a	guarded-do	translation,	using
+the	
+	instruction	on	line	3	to	skip	over	the	loop	code	when	the
+initial	test	fails.	Fill	in	the	missing	parts	of	the	C	code.	Note	that	the
+control	structure	in	the	assembly	
+code	does	not	exactly	match
+what	would	be	obtained	by	a	direct	translation	of	the	C	code
+according	to	our	translation	rules.	In	particular,	it	has	two	different
+ret	instructions	(lines	10	and	13).	However,	you	can	fill	out	the
+missing	portions	of	the	C	code	in	a	way	that	it	will	have	equivalent
+behavior	to	the	assembly	code.
+Practice	Problem	
+3.26	
+(solution	page	
+336
+)
+A	function	
+	has	the	following	overall	structure:
+⋮
+
+The	
+GCC
+	
+C	compiler	generates	the	following	assembly	code:
+Reverse	engineer	the	operation	of	this	code	and	then	do	the
+following:
+A
+.	
+Determine	what	loop	translation	method	was	used.
+B
+.	
+Use	the	assembly-code	version	to	fill	in	the	missing	parts	of
+the	C	code.
+C
+.	
+Describe	in	English	what	this	function	computes.
+For	Loops
+
+The	general	form	of	a	
+	is	as	follows:
+The	C	language	standard	states	(with	one	exception,	highlighted	in
+Problem	
+3.29
+)	that	the	behavior	of	such	a	loop	is	identical	to	the
+following	code	using	a	while	loop:
+The	program	first	evaluates	the	initialization	expression	
+init-expr
+.	It	enters
+a	loop	where	it	first	evaluates	the	test	condition	
+test-expr
+,	exiting	if	the
+test	fails,	then	executes	the	body	of	the	loop	
+body-statement
+,	and	finally
+evaluates	the	update	expression	
+update-expr
+.
+The	code	generated	by	
+GCC
+	
+for	a	
+	then	follows	one	of	our	two
+translation	strategies	for	
+s,	depending	on	the	optimization
+level.	That	is,	the	jump-to-middle	strategy	yields	the	goto	code
+
+while	the	guarded-do	strategy	yields
+As	examples,	consider	a	factorial	function	written	with	a	
+:
+
+As	shown,	the	natural	way	of	writing	a	factorial	function	with	a	
+	is
+to	multiply	factors	from	2	up	to	
+n
+,	and	so	this	function	is	quite	different
+from	the	code	we	showed	using	either	a	
+	or	a	
+.
+We	can	identify	the	different	components	of	the	
+	in	this	code	as
+follows:
+Substituting	these	components	into	the	template	we	have	shown	to
+transform	a	
+	into	a	
+	yields	the	following:
+
+Applying	the	jump-to-middle	transformation	to	the	
+	then	yields
+the	following	version	in	goto	code:
+
+Indeed,	a	close	examination	of	the	assembly	code	produced	by	
+GCC
+	
+with
+command-line	option	
+	closely	follows	this	template:
+Practice	Problem	
+3.27	
+(solution	page	
+336
+)
+Write	goto	code	for	
+	based	on	first	transforming	it	to	a
+	and	then	applying	the	guarded-do	transformation.
+
+We	see	from	this	presentation	that	all	three	forms	of	loops	in	C—
+,	and	
+—can	be	translated	by	a	simple	strategy,
+generating	code	that	contains	one	or	more	conditional	branches.
+Conditional	transfer	of	control	provides	the	basic	mechanism	for
+translating	loops	into	machine	code.
+Practice	Problem	
+3.28	
+(solution	page	
+336
+)
+A	function	
+	has	the	following	overall	structure:
+⋮
+The	
+GCC
+	
+C	compiler	generates	the	following	assembly	code:
+
+Reverse	engineer	the	operation	of	this	code	and	then	do	the
+following:
+A
+.	
+Use	the	assembly-code	version	to	fill	in	the	missing	parts	of
+the	C	code.
+B
+.	
+Explain	why	there	is	neither	an	initial	test	before	the	loop
+nor	an	initial	jump	to	the	test	portion	of	the	loop.
+C
+.	
+Describe	in	English	what	this	function	computes.
+Practice	Problem	
+3.29	
+(solution	page	
+337
+)
+Executing	a	
+	statement	in	C	causes	the	program	to	jump
+to	the	end	of	the	current	loop	iteration.	The	stated	rule	for
+translating	a	
+	into	a	
+	needs	some	refinement
+when	dealing	with	
+	statements.	For	example,	consider	the
+following	code:
+
+A
+.	
+What	would	we	get	if	we	naively	applied	our	rule	for
+translating	the	
+	into	a	
+?	What	would	be
+wrong	with	this	code?
+B
+.	
+How	could	you	replace	the	
+	statement	with	a	
+statement	to	ensure	that	the	
+	correctly	duplicates
+the	behavior	of	the	
+?
+3.6.8	
+Switch	Statements
+A	
+	statement	provides	a	multiway	branching	capability	based	on
+the	value	of	an	integer	index.	They	are	particularly	useful	when	dealing
+with	tests	where	
+there	can	be	a	large	number	of	possible	outcomes.	Not
+only	do	they	make	the	C	code	more	readable,	but	they	also	allow	an
+efficient	implementation	using	a	data	structure	called	a
+jump	table
+.A	jump
+table	is	an	array	where	entry
+i
+	is	the	address	of	a	code	segment
+implementing	the	action	the	program	should	take	when	the	switch	index
+equals	
+i
+.	The	code	performs	an	array	reference	into	the	jump	table	using
+the	switch	index	to	determine	the	target	for	a	jump	instruction.	The
+advantage	of	using	a	jump	table	over	a	long	sequence	of	if-else
+statements	is	that	the	time	taken	to	perform	the	switch	is	independent	of
+
+the	number	of	switch	cases.	G
+CC
+	
+selects	the	method	of	translating	a
+	statement	based	on	the	number	of	cases	and	the	sparsity	of	the
+case	values.	Jump	tables	are	used	when	there	are	a	number	of	cases
+(e.g.,	four	or	more)	and	they	span	a	small	range	of	values.
+Figure	
+3.22(a)
+	shows	an	example	of	a	C	
+	statement.	This
+example	has	a	number	of	interesting	features,	including	case	labels	that
+do	not	span	a	contiguous	range	(there	are	no	labels	for	cases	101	and
+105),	cases	with	multiple	labels	(cases	104	and	106),	and	cases	that	
+fall
+through
+	to	other	cases	(case	102)	because	the	code	for	the	case	does
+not	end	with	a	
+	statement.
+Figure	
+3.23
+	shows	the	assembly	code	generated	when	compiling
+	The	behavior	of	this	code	is	shown	in	C	as	the	procedure
+	in	
+Figure	
+3.22(b)
+.	This	code	makes	use	of	support
+provided	by	
+GCC
+	
+for	jump	tables,	as	an	extension	to	the	C	language.	The
+array	
+	contains	seven	entries,	each	of	which	is	the	address	of	a	block
+of	code.	These	locations	are	defined	by	labels	in	the	code	and	indicated
+in	the	entries	in	
+	by	code	pointers,	consisting	of	the	labels	prefixed	by
+	(Recall	that	the	operator	
+	creates	a	pointer	for	a	data	value.	In
+making	this	extension,	the	authors	of	
+G
+CC
+	
+created	a	new	operator	
+	to
+create	a	pointer	for	a	code	location.)	We	recommend	that	you	study	the	C
+procedure	
+	and	how	it	relates	to	the	assembly-code
+version.
+Our	original	C	code	has	cases	for	values	100,	102–104,	and	106,	but	the
+switch	variable	
+	can	be	an	arbitrary	integer.	The	compiler	first	shifts	the
+range	to	between	0	and	6	by	subtracting	100	from	
+,	creating	a	new
+
+program	variable	that	we	call	index	in	our	C	version.	It	further	simplifies
+the	branching	possibilities	by	treating	
+	as	an	
+unsigned
+	value,
+making	use	of	the	fact	that	negative	numbers	in	a	two's-complement
+representation	map	to	large	positive	numbers	in	an	unsigned
+representation.	It	can	therefore	test	whether	
+	is	outside	of	the	range
+0–6	by	testing	whether	it	is	greater	than	6.	In	the	C	and	assembly	code,
+there	are	five	distinct	locations	to	jump	to,	based	on	the	value	of	
+.
+These	are	
+	(identified	in	the	assembly	code	as	
+,	and	
+,	where	the	latter	is	the
+destination	for	the	default	case.	Each	of	these	labels	identifies	a	block	of
+code	implementing	one	of	thecase	branches.	In	both	the	C	and	the
+assembly	code,	the	program	compares	index	to	6	and	jumps	to	the	code
+for	the	default	case	if	it	is	greater.
+The	key	step	in	executing	a	
+	statement	is	to	access	a	code
+location	through	the	jump	table.	This	occurs	in	line	16	in	the	C	code,	with
+a	
+	statement	that	references	the	jump	table	
+.	This	
+computed	goto
+is	supported	by	
+GCC
+	
+as	an	extension	to	the	C	language.	In	our	assembly-
+code	version,	a	similar	operation	occurs	on	line	5,	where	the	
+instruction's	operand	is	prefixed	with	`*',	indicating
+(a)	Switch	statement
+
+(b)	Translation	into	extended	C
+
+
+
+Figure	
+3.22	
+Example	
+	statement	and	its	translation	into
+extended	C.
+The	translation	shows	the	structure	of	
+	table	
+	and	how	it	is
+accessed.	Such	tables	are	supported	by	
+GCC
+	
+as	an	extension	to	the	C
+language.
+an	indirect	jump,	and	the	operand	specifies	a	memory	location	indexed
+by	register	
+,	which	holds	the	value	of	
+.	(We	will	see	in	
+Section
+3.8
+	how	array	references	are	translated	into	machine	code.)
+Our	C	code	declares	the	jump	table	as	an	array	of	seven	elements,	each
+of	which	is	a	pointer	to	a	code	location.	These	elements	span	values	0–6
+of
+
+Figure	
+3.23	
+Assembly	code	for	
+	statement	example	in	
+Figure
+3.22
+.
+,	corresponding	to	values	100–106	of	
+.	Observe	that	the	jump
+table	handles	duplicate	cases	by	simply	having	the	same	code	label
+	for	entries	4	and	6,	and	it	handles	missing	cases	by	using	the
+label	for	the	default	case	
+	as	entries	1	and	5.
+In	the	assembly	code,	the	jump	table	is	indicated	by	the	following
+declarations,	to	which	we	have	added	comments:
+
+These	declarations	state	that	within	the	segment	of	the	object-code	file
+called	
+	(for	"read-only	data"),	there	should	be	a	sequence	of
+seven	"quad"	(8-byte)	words,	where	the	value	of	each	word	is	given	by
+the	instruction	address	associated	with	the	indicated	assembly-code
+labels	(e.g.,	
+).	Label	
+	marks	the	start	of	this	allocation.	The
+address	associated	with	this	label	serves	as	the	base	for	the	indirect
+jump	(line	5).
+The	different	code	blocks	(C	labels	
+	through	
+	and	
+)
+implement	the	different	branches	of	the	
+	statement.	Most	of	them
+simply	compute	a	value	for	
+	and	then	go	to	the	end	of	the	function.
+Similarly,	the	assembly-code	blocks	compute	a	value	for	register	
+and	jump	to	the	position	indicated	by	label	
+	at	the	end	of	the	function.
+Only	the	code	for	case	label	102	does	not	follow	this	pattern,	to	account
+for	the	way	the	code	for	this	case	falls	through	to	the	block	with	label	103
+in	the	original	C	code.	This	is	handled	in	the	assembly-code	block
+
+starting	with	label	
+,	by	omitting	the	
+	instruction	at	the	end	of	the
+block,	so	that	the	code	continues	execution	of	the	next	block.	Similarly,
+the	C	version	
+	has	no	
+	statement	at	the	end	of	the
+block	starting	with	label	
+Examining	all	of	this	code	requires	careful	study,	but	the	key	point	is	to
+see	that	the	use	of	a	jump	table	allows	a	very	efficient	way	to	implement
+a	multiway	branch.	In	our	case,	the	program	could	branch	to	five	distinct
+locations	with	a	single	jump	table	reference.	Even	if	we	had	a	
+statement	with	hundreds	of	cases,	they	could	be	handled	by	a	single
+jump	table	access.
+Practice	Problem	
+3.30	
+(solution	page	
+338
+)
+In	the	C	function	that	follows,	we	have	omitted	the	body	of	the
+	statement.	In	the	C	code,	the	case	labels	did	not	span	a
+contiguous	range,	and	some	cases	had	multiple	labels.
+⋮
+
+In	compiling	the	function,	
+GCC
+	
+generates	the	assembly	code	that
+follows	for	the	initial	part	of	the	procedure,	with	variable	
+	in	
+It	generates	the	following	code	for	the	jump	table:
+Based	on	this	information,	answer	the	following	questions:
+A
+.	
+What	were	the	values	of	the	case	labels	in	the	
+statement?
+
+B
+.	
+What	cases	had	multiple	labels	in	the	C	code?
+Practice	Problem	
+3.31	
+(solution	page	
+338
+)
+For	a	C	function	
+	with	the	general	structure
+
+GCC
+	
+generates	the	assembly	code	and	jump	table	shown	in	
+Figure
+3.24
+.
+Fill	in	the	missing	parts	of	the	C	code.	Except	for	the	ordering	of
+case	labels	
+	and	
+,	there	is	only	one	way	to	fit	the	different
+cases	into	the	template.
+(a)	Code
+
+(b)	Jump	table
+Figure	
+3.24	
+Assembly	code	and	jump	table	for	
+Problem	
+3.31
+.
+
+3.7	
+Procedures
+Procedures	are	a	key	abstraction	in	software.	They	provide	a	way	to
+package	code	that	implements	some	functionality	with	a	designated	set
+of	arguments	and	an	optional	return	value.	This	function	can	then	be
+invoked	from	different	points	in	a	program.	Well-designed	software	uses
+procedures	as	an	abstraction	mechanism,	hiding	the	detailed
+implementation	of	some	action	while	providing	a	clear	and	concise
+interface	definition	of	what	values	will	be	computed	and	what	effects	the
+procedure	will	have	on	the	program	state.	Procedures	come	in	many
+guises	
+in	different	programming	languages—functions,	methods,
+subroutines,	handlers,	and	so	on—but	they	all	share	a	general	set	of
+features.
+There	are	many	different	attributes	that	must	be	handled	when	providing
+machine-level	support	for	procedures.	For	discussion	purposes,	suppose
+procedure	
+	calls	procedure	
+,	and	
+	then	executes	and	returns	back	to
+.	These	actions	involve	one	or	more	of	the	following	mechanisms:
+Passing	control.	
+The	program	counter	must	be	set	to	the	starting
+address	of	the	code	for	
+	upon	entry	and	then	set	to	the	instruction	in
+	following	the	call	to	
+	upon	return.
+Passing	data.	
+	must	be	able	to	provide	one	or	more	parameters	to
+,	and	
+	must	be	able	to	return	a	value	back	to	
+.
+
+Allocating	and	deallocating	memory.	
+	may	need	to	allocate	space
+for	local	variables	when	it	begins	and	then	free	that	storage	before	it
+returns.
+The	x86-64	implementation	of	procedures	involves	a	combination	of
+special	instructions	and	a	set	of	conventions	on	how	to	use	the	machine
+resources,	such	as	the	registers	and	the	program	memory.	Great	effort
+has	been	made	to	minimize	the	overhead	involved	in	invoking	a
+procedure.	As	a	consequence,	it	follows	what	can	be	seen	as	a
+minimalist	strategy,	implementing	only	as	much	of	the	above	set	of
+mechanisms	as	is	required	for	each	particular	procedure.	In	our
+presentation,	we	build	up	the	different	mechanisms	step	by	step,	first
+describing	control,	then	data	passing,	and,	finally,	memory	management.
+3.7.1	
+The	Run-Time	Stack
+A	key	feature	of	the	procedure-calling	mechanism	of	C,	and	of	most	other
+languages,	is	that	it	can	make	use	of	the	last-in,	first-out	memory
+management	discipline	provided	by	a	stack	data	structure.	Using	our
+example	of	procedure	
+	calling	procedure	
+,	we	can	see	that	while	
+	is
+executing,	
+,	along	with	any	of	the	procedures	in	the	chain	of	calls	up	to
+P,	is	temporarily	suspended.	While	
+	is	running,	only	it	will	need	the
+ability	to	allocate	new	storage	for	its	local	variables	or	to	set	up	a	call	to
+another	procedure.	On	the	other	hand,	when	
+	returns,	any	local	storage
+it	has	allocated	can	be	freed.	Therefore,	a	program	can	manage	the
+storage	required	by	its	procedures	using	a	stack,	where	the	stack	and	the
+program	registers	store	the	information	required	for	passing	control	and
+
+data,	and	for	allocating	memory.	As	
+	calls	
+,	control	and	data
+information	are	added	to	the	end	of	the	stack.	This	information	gets
+deallocated	when	
+	returns.
+As	described	in	
+Section	
+3.4.4
+,	the	x86-64	stack	grows	toward	lower
+addresses	and	the	stack	pointer	
+	points	to	the	top	element	of	the
+stack.	Data	can	be	stored	on	and	retrieved	from	the	stack	using	the
+	and	
+	instructions.	Space	for	data	with	no	specified	initial	value
+can	be	allocated	on	the	stack	by	simply	decrementing	the	stack	pointer
+by	an	appropriate	amount.	Similarly,	space	can	be	deallocated	by
+incrementing	the	stack	pointer.
+When	an	x86-64	procedure	requires	storage	beyond	what	it	can	hold	in
+registers,	it	allocates	space	on	the	stack.	This	region	is	referred	to	as	the
+procedure's
+
+Figure	
+3.25	
+General	stack	frame	structure.
+The	stack	can	be	used	for	passing	arguments,	for	storing	return
+information,	for	saving	registers,	and	for	local	storage.	Portions	may	be
+omitted	when	not	needed.
+stack	frame
+.	
+Figure	
+3.25
+	shows	the	overall	structure	of	the	run-time
+stack,	including	its	partitioning	into	stack	frames,	in	its	most	general	form.
+The	frame	for	the	currently	executing	procedure	is	always	at	the	top	of
+
+the	stack.	When	procedure	
+	calls	procedure	
+,	it	will	push	the	
+return
+address
+	onto	the	stack,	indicating	where	within	
+	the	program	should
+resume	execution	once	
+	returns.	We	consider	the	return	address	to	be
+part	of	
+'s	stack	frame,	since	it	holds	state	relevant	to	
+.	The	code	for	
+allocates	the	space	required	for	its	stack	frame	by	extending	the	current
+stack	boundary.	Within	that	space,	it	can	save	the	values	of	registers,
+allocate	
+space	for	local	variables,	and	set	up	arguments	for	the
+procedures	it	calls.	The	stack	frames	for	most	procedures	are	of	fixed
+size,	allocated	at	the	beginning	of	the	procedure.	Some	procedures,
+however,	require	variable-size	frames.	This	issue	is	discussed	in	
+Section
+3.10.5
+.	Procedure	
+	can	pass	up	to	six	integral	values	(i.e.,	pointers
+and	integers)	on	the	stack,	but	if	
+	requires	more	arguments,	these	can
+be	stored	by	
+	within	its	stack	frame	prior	to	the	call.
+In	the	interest	of	space	and	time	efficiency,	x86-64	procedures	allocate
+only	the	portions	of	stack	frames	they	require.	For	example,	many
+procedures	have	six	or	fewer	arguments,	and	so	all	of	their	parameters
+can	be	passed	in	registers.	Thus,	parts	of	the	stack	frame	diagrammed	in
+Figure	
+3.25
+	may	be	omitted.	Indeed,	many	functions	do	not	even
+require	as	tack	frame.	This	occurs	when	all	of	the	local	variables	can	be
+held	in	registers	and	the	function	does	not	call	any	other	functions
+(sometimes	referred	to	as	a	
+leaf	procedure
+,	in	reference	to	the	tree
+structure	of	procedure	calls).	For	example,	none	of	the	functions	we	have
+examined	thus	far	required	stack	frames.
+3.7.2	
+Control	Transfer
+
+Passing	control	from	function	
+	to	function	
+	involves	simply	setting	the
+program	counter	(PC)	to	the	starting	address	of	the	code	for	
+.	However,
+when	it	later	comes	time	for	
+	to	return,	the	processor	must	have	some
+record	of	the	code	location	where	it	should	resume	the	execution	of	
+.
+This	information	is	recorded	in	x86-64	machines	by	invoking	procedure	
+with	the	instruction	call	
+.	This	instruction	pushes	an	address	
+A
+	onto	the
+stack	and	sets	the	PC	to	the	beginning	of	
+.	The	pushed	address	
+A
+	is
+referred	to	as	the	
+return	address
+	and	is	computed	as	the	address	of	the
+instruction	immediately	following	the	
+	instruction.	The	counterpart
+instruction	
+	pops	an	address	
+A
+	off	the	stack	and	sets	the	PC	to	
+A
+.
+The	general	forms	of	the	
+	and	
+	instructions	are	described	as
+follows:
+Instruction
+Description
+	
+Label
+Procedure	call
+	*
+Operand
+Procedure	call
+Return	from	call
+(These	instructions	are	referred	to	as	
+	and	
+	in	the	disassembly
+outputs	generated	by	the	program	
+.	The	added	suffix	`
+'	simply
+emphasizes	that	these	are	x86-64	versions	of	call	and	return	instructions,
+not	IA32.	In	x86-64	assembly	code,	both	versions	can	be	used
+interchangeably.)
+The	
+	instruction	has	a	target	indicating	the	address	of	the	instruction
+where	the	called	procedure	starts.	Like	jumps,	a	call	can	be	either	direct
+
+or	indirect.	In	assembly	code,	the	target	of	a	direct	call	is	given	as	a	label,
+while	the	target	of	an	indirect	call	is	given	by	`*'	followed	by	an	operand
+specifier	using	one	of	the	formats	described	in	
+Figure	
+3.3
+.
+Figure	
+3.26	
+Illustration	of	
+	and	
+	functions.
+The	
+	transfers	control	to	the	start	of	a	function,	while	the
+	instruction	returns	back	to	the	instruction	following	the	call.
+Figure	
+3.26
+	illustrates	the	execution	of	the	
+	and	
+	instructions
+for	the	
+	and	
+	functions	introduced	in	
+Section	
+3.2.2
+.	The
+following	are	excerpts	of	the	disassembled	code	for	the	two	functions:
+
+In	this	code,	we	can	see	that	the	
+	instruction	with	address	
+in	
+	calls	function	
+.	This	status	is	shown	in	
+Figure
+3.26(a)
+,	with	the	indicated	values	for	the	stack	pointer	
+	and	the
+program	counter	
+.	The	effect	of	the	
+	is	to	push	the	return
+address	
+	onto	the	stack	and	to	jump	to	the	first	instruction	in
+function	
+,	at	address	
+	(3.26(b)).	The	execution	of
+	multstore	continues	until	it	hits	the	
+	instruction	at	address
+.	This	instruction	pops	the	value	
+	from	the	stack	and
+jumps	to	this	address,	resuming	the	execution	of	
+	just	after	the	
+instruction	(3.26(c)).
+As	a	more	detailed	example	of	passing	control	to	and	from	procedures,
+Figure	
+3.27(a)
+	shows	the	disassembled	code	for	two	functions,	
+and	
+,	as	well	as	the	portion	of	code	in	function	
+	where	
+	gets
+called.	Each	instruction	is	identified	by	labels	
+	(in	
+),	
+	(in
+top),	and	
+	in	main.	Part	(b)	of	the	figure	shows	a	detailed	trace	of
+the	code	execution,	in	which	
+	calls	
+,	causing	top	to	call
+.	Function	
+	returns	97	to	
+,	which
+(a)	Disassembled	code	for	demonstrating	procedure	calls	and	returns
+
+(b)	Execution	trace	of	example	code
+Instruction
+State	values	(at	beginning)
+Label
+PC
+Instruction
+M1
+100
+—
+—
+T1
+100
+—
+
+T2
+95
+—
+L1
+95
+—
+L2
+—
+97
+T3
+—
+97
+T4
+—
+194
+M2
+—
+194
+—
+Figure	
+3.27	
+Detailed	execution	of	program	involving	procedure	calls
+and	returns.
+Using	the	stack	to	store	return	addresses	makes	it	possible	to	return	to
+the	right	point	in	the	procedures.
+then	returns	194	to	
+.	The	first	three	columns	describe	the	instruction
+being	executed,	including	the	instruction	label,	the	address,	and	the
+instruction	type.	The	next	four	columns	show	the	state	of	the	program
+before
+	the	instruction	is	executed,	including	the	contents	of	registers
+,	and	
+,	as	well	as	the	value	at	the	top	of	the	stack.	The
+contents	of	this	table	should	be	studied	carefully,	as	they	
+demonstrate	the
+important	role	of	the	run-time	stack	in	managing	the	storage	needed	to
+support	procedure	calls	and	returns.
+
+Instruction	
+	of	leaf	sets	
+	to	97,	the	value	to	be	returned.	Instruction
+	then	returns.	It	pops	
+	from	the	stack.	In	setting	the	PC	to	this
+popped	value,	control	transfers	back	to	instruction	
+	of	
+.	The
+program	has	successfully	completed	the	call	to	
+	and	returned	to	
+.
+Instruction	
+	sets	
+	to	194,	the	value	to	be	returned	from	
+.
+Instruction	
+	then	returns.	It	pops	
+	from	the	stack,	thereby
+setting	the	PC	to	instruction	
+	of	
+.	The	program	has	successfully
+completed	the	call	to	
+	and	returned	to	
+.	We	see	that	the	stack
+pointer	has	also	been	restored	to	
+,	the	value	it	had	before
+the	call	to	
+.
+We	can	see	that	this	simple	mechanism	of	pushing	the	return	address
+onto	the	stack	makes	it	possible	for	the	function	to	later	return	to	the
+proper	point	in	the	program.	The	standard	call/return	mechanism	of	C
+(and	of	most	programming	languages)	conveniently	matches	the	last-in,
+first-out	memory	management	discipline	provided	by	a	stack.
+Practice	Problem	
+3.32	
+(solution	page	
+339
+)
+The	disassembled	code	for	two	functions	
+	and	
+	is	shown
+below,	along	with	the	code	for	a	call	of	
+	by	function	
+:
+
+⋮
+Each	of	these	instructions	is	given	a	label,	similar	to	those	in
+Figure	
+3.27(a)
+.	Starting	with	the	calling	of	
+	by	
+,	fill
+in	the	following	table	to	trace	instruction	execution	through	to	the
+point	where	the	program	returns	back	to	
+.
+Instruction
+State	values	(at	beginning)
+Label
+PC
+Instruction
+
+M1
+10
+—
+—
+F1
+__________
+__________
+__________
+__________
+__________
+F2
+__________
+__________
+__________
+__________
+__________
+F3
+__________
+__________
+__________
+__________
+__________
+L1
+__________
+__________
+__________
+__________
+__________
+L2
+__________
+__________
+__________
+__________
+__________
+L3
+__________
+__________
+__________
+__________
+__________
+F4
+__________
+__________
+__________
+__________
+__________
+M2
+__________
+__________
+__________
+__________
+__________
+3.7.3	
+Data	Transfer
+In	addition	to	passing	control	to	a	procedure	when	called,	and	then	back
+again	when	the	procedure	returns,	procedure	calls	may	involve	passing
+data	as	arguments,	and	returning	from	a	procedure	may	also	involve
+returning	a	value.	With	x86-64,	most	of	these	data	passing	to	and	from
+procedures	take	place	via	registers.	For	example,	we	have	already	seen
+numerous	examples	of	functions	where	arguments	are	passed	in
+registers	
+,	and	others,	and	where	values	are	returned	in
+register	
+.	When	procedure	
+	calls	procedure	
+,	the	code	for	
+	must
+first	copy	the	arguments	into	the	proper	registers.	Similarly,	when	
+
+returns	back	to	
+,	the	code	for	
+	can	access	the	returned	value	in
+register	
+.	In	this	section,	we	explore	these	conventions	in	greater
+detail.
+With	x86-64,	up	to	six	integral	(i.e.,	integer	and	pointer)	arguments	can
+be	passed	via	registers.	The	registers	are	used	in	a	specified	order,	with
+the	name	used	for	a	register	depending	on	the	size	of	the	data	type	being
+passed.	These	are	shown	in	
+Figure	
+3.28
+.	Arguments	are	allocated	to
+these	registers	according	to	their
+Operand	size	(bits)
+Argument	number
+1
+2
+3
+4
+5
+6
+64
+32
+16
+8
+Figure	
+3.28	
+Registers	for	passing	function	arguments.
+The	registers	are	used	in	a	specified	order	and	named	according	to	the
+argument	sizes.
+ordering	in	the	argument	list.	Arguments	smaller	than	64	bits	can	be
+accessed	using	the	appropriate	subsection	of	the	64-bit	register.	For
+example,	if	the	first	argument	is	32	bits,	it	can	be	accessed	as	
+.
+
+When	a	function	has	more	than	six	integral	arguments,	the	other	ones
+are	passed	on	the	stack.	Assume	that	procedure	
+	calls	procedure	
+with	
+n
+	integral	arguments,	such	that	
+n
+	>	6.	Then	the	code	for	
+	must
+allocate	a	stack	frame	with	enough	storage	for	arguments	7	through	
+n
+,	as
+illustrated	in	
+Figure	
+3.25
+.	It	copies	arguments	1–6	into	the	appropriate
+registers,	and	it	puts	arguments	7	through	
+n
+	onto	the	stack,	with
+argument	7	at	the	top	of	the	stack.	When	passing	parameters	on	the
+stack,	all	data	sizes	are	rounded	up	to	be	multiples	of	eight.	With	the
+arguments	in	place,	the	program	can	then	execute	a	
+	instruction	to
+transfer	control	to	procedure	
+.	Procedure	
+	can	access	its	arguments
+via	registers	and	possibly	from	the	stack.	If	
+,	in	turn,	calls	some	function
+that	has	more	than	six	arguments,	it	can	allocate	space	within	its	stack
+frame	for	these,	as	is	illustrated	by	the	area	labeled	"Argument	build
+area"	in	
+Figure	
+3.25
+.
+As	an	example	of	argument	passing,	consider	the	C	function	
+	shown
+in	
+Figure	
+3.29(a)
+.	This	function	has	eight	arguments,	including
+integers	with	different	numbers	of	bytes	(8,	4,	2,	and	1),	as	well	as
+different	types	of	pointers,	each	of	which	is	8	bytes.
+The	assembly	code	generated	for	
+	is	shown	in	
+Figure	
+3.29(b)
+.
+The	first	six	arguments	are	passed	in	registers.	The	last	two	are	passed
+on	the	stack,	as	documented	by	the	diagram	of	
+Figure	
+3.30
+.	This
+diagram	shows	the	state	of	the	stack	during	the	execution	of	
+.	We
+can	see	that	the	return	address	was	pushed	onto	the	stack	as	part	of	the
+procedure	call.	The	two	arguments,	therefore,	are	at	positions	8	and	16
+relative	to	the	stack	pointer.	Within	the	code,	we	can	see	that	different
+versions	of	the	
+ADD
+	
+instruction	are	used	according	to	the	sizes	of	the
+operands:	
+	for	
+	for	
+	for	
+,
+
+and	
+	for	
+	(char).	Observe	that	the	
+	instruction	of	line	6	reads	4
+bytes	from	memory;	the	following	
+	instruction	only	makes	use	of	the
+low-order	byte.
+Practice	Problem	
+3.33	
+(solution	page	
+339
+)
+A	C	function	
+	has	four	arguments	
+,	and	
+.	Each
+is	either	a	signed	number	or	a	pointer	to	a	signed	number,	where
+the	numbers	have	different	sizes.	The	function	has	the	following
+body:
+It	compiles	to	the	following	x86-64	code:
+(a)	C	code
+
+(b)	Generated	assembly	code
+
+Figure	
+3.29	
+Example	of	function	with	multiple	arguments	of
+different	types.
+Arguments	1–6	are	passed	in	registers,	while	arguments	7–8	are
+passed	on	the	stack.
+Figure	
+3.30	
+Stack	frame	structure	for	function	
+.
+Arguments	
+4	and	
+	are	passed	on	the	stack.
+Determine	a	valid	ordering	and	types	of	the	four	parameters.
+There	are	two	correct	answers.
+3.7.4	
+Local	Storage	on	the	Stack
+Most	of	the	procedure	examples	we	have	seen	so	far	did	not	require	any
+local	storage	beyond	what	could	be	held	in	registers.	At	times,	however,
+
+local	data	must	be	stored	in	memory.	Common	cases	of	this	include
+these:
+There	are	not	enough	registers	to	hold	all	of	the	local	data.
+The	address	operator	`
+'	is	applied	to	a	local	variable,	and	hence	we
+must	be	able	to	generate	an	address	for	it.
+Some	of	the	local	variables	are	arrays	or	structures	and	hence	must
+be	accessed	by	array	or	structure	references.	We	will	discuss	this
+possibility	when	we	describe	how	arrays	and	structures	are	allocated.
+Typically,	a	procedure	allocates	space	on	the	stack	frame	by
+decrementing	the	stack	pointer.	This	results	in	the	portion	of	the	stack
+frame	labeled	"Local	variables"	in	
+Figure	
+3.25
+.
+As	an	example	of	the	handling	of	the	address	operator,	consider	the	two
+functions	shown	in	
+Figure	
+3.31(a)
+.	The	function	
+	swaps	the
+two	values	designated	by	pointers	
+	and	
+	and	also	returns	the	sum	of
+the	two	values.	The	function	
+	creates	pointers	to	local	variables
+	and	
+	and	passes	these	to	
+.	
+Figure	
+3.31(b)
+	shows
+how	
+	uses	a	stack	frame	to	implement	these	local	variables.	The
+code	for	
+	starts	by	decrementing	the	stack	pointer	by	16;	this
+effectively	allocates	16	bytes	on	the	stack.	Letting	
+S
+	denote	the	value	of
+the	stack	pointer,	we	can	see	that	the	code	computes	
+	as	
+S
+	+	8
+(line	5),	
+	as	
+S
+	(line	6).	We	can	therefore	infer	that	local	variables
+	and	
+	are	stored	within	the	stack	frame	at	offsets	0	and	8
+relative	to	the	stack	pointer.	When	the	call	to	
+	completes,	the
+code	for	
+	then	retrieves	the	two	values	from	the	stack	(lines	8–9),
+computes	their	difference,	and	multiplies	this	by	the	value	returned	by
+
+	in	register	
+	(line	10).	Finally,	the	function	deallocates	its
+stack	frame	by	incrementing	the	stack	pointer	by	16	(line	11.)	We	can	see
+with	this	example	that	the	run-time	stack	provides	a	simple	mechanism
+for	allocating	local	storage	when	it	is	required	and	deallocating	it	when
+the	function	completes.
+As	a	more	complex	example,	the	function	
+,	shown	in	
+Figure
+3.32
+,	illustrates	many	aspects	of	the	x86-64	stack	discipline.	Despite
+the	length	of	this	example,	it	is	worth	studying	carefully.	It	shows	a
+function	that	must	allocate	storage	on	the	stack	for	local	variables,	as
+well	as	to	pass	values	to	the	8-argument	function	
+	(
+Figure	
+3.29
+).
+The	function	creates	a	stack	frame,	diagrammed	in	
+Figure	
+3.33
+.
+Looking	at	the	assembly	code	for	
+	(
+Figure	
+3.32(b)
+),	we	can
+see	that	a	large	portion	of	the	code	(lines	2–15)	involves	preparing	to	call
+function
+(a)	Code	for	swap_add	and	calling	function
+
+(b)	Generated	assembly	code	for	calling	function
+Figure	
+3.31	
+Example	of	procedure	definition	and	call.
+
+The	calling	code	must	allocate	a	stack	frame	due	to	the	presence	of
+address	operators.
+.	This	includes	setting	up	the	stack	frame	for	the	local	variables	and
+function	parameters,	and	for	loading	function	arguments	into	registers.	As
+Figure	
+3.33
+	shows,	local	variables	
+	are	allocated	on	the	stack
+and	have	different	sizes.	Expressing	their	locations	as	offsets	relative	to
+the	stack	pointer,	they	occupy	bytes	24–31	(
+),	20–23	(
+),	18–19	(
+),
+and	17	(
+).	Pointers	to	these	locations	are	generated	by	
+instructions	(lines	7,	10,	12,	and	14).	Arguments	7	(with	value	4)	and	8	(a
+pointer	to	the	location	of	
+)	are	stored	on	the	stack	at	offsets	0	and	8
+relative	to	the	stack	pointer.
+(a)	C	code	for	calling	function
+(b)	Generated	assembly	code
+
+
+
+Figure	
+3.32	
+Example	of	code	to	call	function	
+,	defined	in	
+Figure
+3.29
+.
+This	code	creates	a	stack	frame.
+Figure	
+3.33	
+Stack	frame	for	function	
+.
+The	stack	frame	contains	local	variables,	as	well	as	two	of	the	arguments
+to	pass	to	function	
+.
+When	procedure	
+	is	called,	the	program	will	begin	executing	the
+code	shown	in	
+Figure	
+3.29(b)
+.	As	shown	in	
+Figure	
+3.30
+,	arguments
+7	and	8	are	now	at	offsets	8	and	16	relative	to	the	stack	pointer,	because
+the	return	address	was	pushed	onto	the	stack.
+When	the	program	returns	to	
+,	the	code	retrieves	the	values	of
+the	four	local	variables	(lines	17–20)	and	performs	the	final	computations.
+It	finishes	by	incrementing	the	stack	pointer	by	32	to	deallocate	the	stack
+frame.
+3.7.5	
+Local	Storage	in	Registers
+The	set	of	program	registers	acts	as	a	single	resource	shared	by	all	of
+the	procedures.	Although	only	one	procedure	can	be	active	at	a	given
+
+time,	we	must	make	sure	that	when	one	procedure	(the	
+caller
+)	calls
+another	(the	
+callee
+),	the	callee	does	not	overwrite	some	register	value
+that	the	caller	planned	to	use	later.	For	this	reason,	x86-64	adopts	a
+uniform	set	of	conventions	for	register	usage	that	must	be	respected	by
+all	procedures,	including	those	in	program	libraries.
+By	convention,	registers	
+,	and	
+	are	classified	as
+callee-saved
+	registers.	When	procedure	
+	calls	procedure	
+,	
+	must
+preserve
+	the	values	of	these	registers,	ensuring	that	they	have	the	same
+values	when	
+	returns	to	
+	as	they	did	when	
+	was	called.	Procedure	
+can	preserve	a	register	value	by	either	not	changing	it	at	all	or	by	pushing
+the	original	value	on	the	stack,	altering	it,	and	then	popping	the	old	value
+from	the	stack	before	returning.	The	pushing	of	register	values	has	the
+effect	of	creating	the	portion	of	the	stack	frame	labeled	"Saved	registers"
+in	
+Figure	
+3.25
+.	With	this	convention,	the	code	for	
+	can	safely	store	a
+value	in	a	callee-saved	register	(after	saving	the	previous	value	on	the
+stack,	of	course),	call	
+,	and	then	use	the	value	in	the	register	without
+risk	of	it	having	been	corrupted.
+All	other	registers,	except	for	the	stack	pointer	
+,	are	classified	as
+caller-saved
+	registers.	This	means	that	they	can	be	modified	by	any
+function.	The	name	"caller	saved"	can	be	understood	in	the	context	of	a
+procedure	
+	having	some	local	data	in	such	a	register	and	calling
+procedure	
+.	Since	
+	is	free	to	alter	this	register,	it	is	incumbent	upon	
+(the	caller)	to	first	save	the	data	before	it	makes	the	call.
+As	an	example,	consider	the	function	
+	shown	in	
+Figure	
+3.34(a)
+.	It
+calls	
+	twice.	During	the	first	call,	it	must	retain	the	value	of	
+	for	use
+
+later.	Similarly,	during	the	second	call,	it	must	retain	the	value	computed
+for	
+(
+).	In	
+Figure	
+3.34(b)
+,
+(a)	Calling	function
+(b)	Generated	assembly	code	for	the	calling	function
+
+Figure	
+3.34	
+Code	demonstrating	use	of	callee-saved	registers.
+Value	
+	must	be	preserved	during	the	first	call,	and	value	
+(
+)	must	be
+preserved	during	the	second.
+we	can	see	that	the	code	generated	by	
+GCC
+	
+uses	two	callee-saved
+registers:	
+	to	hold	
+,	and	
+	to	hold	the	computed	value	of	
+(
+).
+At	the	beginning	of	the	function,	it	saves	the	values	of	these	two	registers
+on	the	stack	(lines	2–3).	It	copies	argument	
+	to	
+	before	the	first	call
+to	
+	(line	5).	It	copies	the	result	of	this	call	to	
+	before	the	second	call
+to	
+	(line	8).	At	the	end	of	the	function	(lines	13–14),	it	restores	the
+values	of	the	two	callee-saved	registers	by	popping	them	off	the	stack.
+Note	how	they	are	popped	in	the	reverse	order	from	how	they	were
+pushed,	to	account	for	the	last-in,	first-out	discipline	of	a	stack.
+Practice	Problem	
+3.34	
+(solution	page	
+340
+)
+Consider	a	function	P,	which	generates	local	values,	named	
+.
+It	then	calls	function	
+	using	these	generated	values	as
+arguments.	G
+CC
+	
+produces	the	following	code	for	the	first	part	of	
+:
+
+A
+.	
+Identify	which	local	values	get	stored	in	callee-saved
+registers.
+B
+.	
+Identify	which	local	values	get	stored	on	the	stack.
+C
+.	
+Explain	why	the	program	could	not	store	all	of	the	local
+values	in	callee-saved	registers.
+
+3.7.6	
+Recursive	Procedures
+The	conventions	we	have	described	for	using	the	registers	and	the	stack
+allow	x86-64	procedures	to	call	themselves	recursively.	Each	procedure
+call	has	its	own	private	space	on	the	stack,	and	so	the	local	variables	of
+the	multiple	outstanding	calls	do	not	interfere	with	one	another.
+Furthermore,	the	stack	discipline	naturally	provides	the	proper	policy	for
+allocating	local	storage	when	the	procedure	is	called	and	deallocating	it
+before	returning.
+Figure	
+3.35
+	shows	both	the	C	code	and	the	generated	assembly	code
+for	a	recursive	factorial	function.	We	can	see	that	the	assembly	code
+uses	register	
+	to	hold	the	parameter	
+,	after	first	saving	the	existing
+value	on	the	stack	(line	2)	and	later	restoring	the	value	before	returning
+(line	11).	Due	to	the	stack	discipline,	and	the	register-saving	conventions,
+we	can	be	assured	that	when	the	recursive	call	to	
+	returns
+(line	9)	that	(1)	the	result	of	the	call	will	be	held	in	register
+(a)	C	code
+
+(b)	Generated	assembly	code
+Figure	
+3.35	
+Code	for	recursive	factorial	program.
+The	standard	procedure	handling	mechanisms	suffice	for	implementing
+recursive	functions.
+,	and	(2)	the	value	of	argument	
+	will	held	in	register	
+.
+Multiplying	these	two	values	then	computes	the	desired	result.
+
+We	can	see	from	this	example	that	calling	a	function	recursively
+proceeds	just	like	any	other	function	call.	Our	stack	discipline	provides	a
+mechanism	where	each	invocation	of	a	function	has	its	own	private
+storage	for	state	information	(saved	values	of	the	return	location	and
+callee-saved	registers).	If	need	be,	it	can	also	provide	storage	for	local
+variables.	The	stack	discipline	of	allocation	and	deallocation	naturally
+matches	the	call-return	ordering	of	functions.	This	method	of
+implementing	function	calls	and	returns	even	works	for	more	complex
+patterns,	including	mutual	recursion	(e.g.,	when	procedure	
+	calls	
+,
+which	in	turn	calls	
+).
+Practice	Problem	
+3.35	
+(solution	page	
+340
+)
+For	a	C	function	having	the	general	structure
+GCC
+	
+generates	the	following	assembly	code:
+
+A
+.	
+What	value	does	
+	store	in	the	callee-saved	register
+?
+B
+.	
+Fill	in	the	missing	expressions	in	the	C	code	shown	above.
+
+3.8	
+Array	Allocation	and	Access
+Arrays	in	C	are	one	means	of	aggregating	scalar	data	into	larger	data
+types.	C	uses	a	particularly	simple	implementation	of	arrays,	and	hence
+the	translation	into	machine	code	is	fairly	straightforward.	One	unusual
+feature	of	C	is	that	we	can	generate	pointers	to	elements	within	arrays
+and	perform	arithmetic	with	these	pointers.	These	are	translated	into
+address	computations	in	machine	code.
+Optimizing	compilers	are	particularly	good	at	simplifying	the	address
+computations	used	by	array	indexing.	This	can	make	the	correspondence
+between	the	C	code	and	its	translation	into	machine	code	somewhat
+difficult	to	decipher.
+3.8.1	
+Basic	Principles
+For	data	type	
+T
+	and	integer	constant	
+N
+,	consider	a	declaration	of	the	form
+Let	us	denote	the	starting	location	as	
+x
+.	The	declaration	has	two	effects.
+First,	it	allocates	a	contiguous	region	of	
+L
+	·	
+N
+	bytes	in	memory,	where	
+L
+	is
+the	size	(in	bytes)	of	data	type	
+T
+.	Second,	it	introduces	an	identifier	
+
+that	can	be	used	as	a	pointer	to	the	beginning	of	the	array.	The	value	of
+this	pointer	will	be	
+x
+.	The	array	elements	can	be	accessed	using	an
+integer	index	ranging	between	0	and	
+N
+–1.	Array	element	
+i
+	will	be	stored
+at	address	
+x
+	+	
+L
+	·	
+i
+.
+As	examples,	consider	the	following	declarations:
+These	declarations	will	generate	arrays	with	the	following	parameters:
+Array
+Element	size
+Total	size
+Start	address
+Element	
+i
+1
+12
+x
+x
+	+	
+i
+8
+64
+x
+x
+	+	8
+i
+4
+24
+x
+x
+	+	4
+i
+8
+40
+x
+x
+	+	8
+i
+Array	
+	consists	of	12	single-byte	(char)	elements.	Array	
+	consists	of	6
+integers,	each	requiring	4	bytes.	
+	and	
+	are	both	arrays	of	pointers,	and
+hence	the	array	elements	are	8	bytes	each.
+
+The	memory	referencing	instructions	of	x86-64	are	designed	to	simplify
+array	access.	For	example,	suppose	
+	is	an	array	of	values	of	type	int
+and	we	wish	to	evaluate	
+,	where	the	address	of	
+	is	stored	in
+register	
+	and	
+i
+	is	stored	in	register	
+.	Then	the	instruction
+will	perform	the	address	computation	
+x
+	+	4
+i
+,	read	that	memory	location,
+and	copy	the	result	to	register	
+.	The	allowed	scaling	factors	of	1,	2,
+4,	and	8	cover	the	sizes	of	the	common	primitive	data	types.
+Practice	Problem	
+3.36	
+(solution	page	
+341
+)
+Consider	the	following	declarations:
+Fill	in	the	following	table	describing	the	element	size,	the	total	size,
+and	the	address	of	element	
+i
+	for	each	of	these	arrays.
+Array
+Element	size
+Total	size
+Start	address
+Element	
+i
+
+__________
+__________
+x
+__________
+__________
+__________
+x
+__________
+__________
+__________
+x
+__________
+__________
+__________
+x
+__________
+__________
+__________
+x
+__________
+3.8.2	
+Pointer	Arithmetic
+C	allows	arithmetic	on	pointers,	where	the	computed	value	is	scaled
+according	to	the	size	of	the	data	type	referenced	by	the	pointer.	That	is,	if
+	is	a	pointer	to	data	of	type	
+T
+,	and	the	value	of	
+	is	
+x
+,	then	the
+expression	
+	has	value	
+x
+	+	
+L
+	·	
+i
+,	where	
+L
+	is	the	size	of	data	type	
+T
+.
+The	unary	operators	`
+'	and	`*'	allow	the	generation	and	dereferencing	of
+pointers.	That	is,	for	an	expression	
+	denoting	some	object,	
+	is	a
+pointer	giving	the	address	of	the	object.	For	an	expression	
+denoting	an	address,	
+	gives	the	value	at	that	address.	The
+expressions	
+	and	
+	are	therefore	equivalent.	The	array
+subscripting	operation	can	be	applied	to	both	arrays	and	pointers.	The
+array	reference	
+	is	identical	to	the	expression	
+.	It	computes
+the	address	of	the	
+i
+th	array	element	and	then	accesses	this	memory
+location.
+
+Expanding	on	our	earlier	example,	suppose	the	starting	address	of
+integer	array	
+	and	integer	index	
+i
+	are	stored	in	registers	
+	and	
+,
+respectively.	The	following	are	some	expressions	involving	
+.	We	also
+show	an	assembly-code	implementation	of	each	expression,	with	the
+result	being	stored	in	either	register	
+	(for	data)	or	register	
+	(for
+pointers).
+Expression
+Type
+Value
+Assembly	code
+In	these	examples,	we	see	that	operations	that	return	array	values	have
+type	
+,	and	hence	involve	4-byte	operations	(e.g.,	
+)	and	registers
+(e.g.,	
+).	Those	that	return	pointers	have	type	
+,	and	hence
+involve	8-byte	operations	(e.g.,	
+)	and	registers	(e.g.,	
+).	The	final
+example	shows	that	one	can	compute	the	difference	of	two	pointers
+within	the	same	data	structure,	with	the	result	being	data	having	type
+	and	value	equal	to	the	difference	of	the	two	addresses	divided	by
+the	size	of	the	data	type.
+
+Practice	Problem	
+3.37	
+(solution	page	
+341
+)
+Suppose	
+x
+,	the	address	of	short	integer	array	
+,	and	long	integer
+index	
+i
+	are	stored	in	registers	
+	and	
+,	respectively.	For
+each	of	the	following	expressions,	give	its	type,	a	formula	for	its
+value,	and	an	assembly-code	implementation.	The	result	should
+be	stored	in	register	
+	if	it	is	a	pointer	and	register	element	
+if	it	has	data	type	short.
+Expression
+Type
+Value
+Assembly	code
+__________
+__________
+__________
+__________
+__________
+__________
+__________
+__________
+__________
+__________
+__________
+__________
+__________
+__________
+__________
+3.8.3	
+Nested	Arrays
+The	general	principles	of	array	allocation	and	referencing	hold	even	when
+we	create	arrays	of	arrays.	For	example,	the	declaration
+
+is	equivalent	to	the	declaration
+Data	type	
+	is	defined	to	be	an	array	of	three	integers.	Array	
+contains	five	such	elements,	each	requiring	12	bytes	to	store	the	three
+integers.	The	total	array	size	is	then	4	·	5	·	3	=	60	bytes.
+Array	
+	can	also	be	viewed	as	a	two-dimensional	array	with	five	rows
+and	three	columns,	referenced	as	
+	through	
+.	The	array
+elements	are	ordered	in	memory	in	
+row-major
+	order,	meaning	all
+elements	of	row	0,	which	can	be	written	
+,	followed	by	all	elements	of
+row	1	
+,	and	so	on.	This	is	illustrated	in	
+Figure	
+3.36
+.
+This	ordering	is	a	consequence	of	our	nested	declaration.	Viewing	
+	as
+an	array	of	five	elements,	each	of	which	is	an	array	of	three	
+'s,	we
+first	have	
+,	followed	by	
+,	and	so	on.
+Toaccess	elements	of	multidimensional	arrays,	the	compiler	generates
+code	to	compute	the	off	set	of	the	desired	element	and	then	uses	one	of
+the	
+MOV
+	
+instructions	with	the	start	of	the	array	as	the	base	address	and
+the	(possibly	scaled)	offset	as	an	index.	In	general,	for	an	array	declared
+as
+
+array	element	
+	is	at	memory	address
+Figure	
+3.36	
+Elements	of	array	in	row-major	order.
+where	
+L
+	is	the	size	of	data	type	
+T
+	in	bytes.	As	an	example,	consider	the
+5×3	integer	array	
+	defined	earlier.	Suppose	
+x
+,	
+,	and	
+	are	in
+registers	
+,	and	
+,	respectively.	Then	array	element	
+can	be	copied	to	register	
+	by	the	following	code:
+&
+D
+[
+	
+i
+	
+]
+[
+	
+j
+	
+]
+=
+x
+D
++
+L
+(
+C
+⋅
+i
++
+j
+)
+(3.1)
+
+As	can	be	seen,	this	code	computes	the	element's	address	as	
+x
+	+	12
+i
+	+
+4
+j
+	=	
+x
+	+	4(3
+i
+	+	
+j
+)	using	the	scaling	and	addition	capabilities	of	x86-64
+address	arithmetic.
+Practice	Problem	
+3.38	
+(solution	page	
+341
+)
+Consider	the	following	source	code,	where	
+M
+	and	
+N
+	are	constants
+declared	with	
+:
+In	compiling	this	program,	
+GCC
+	
+generates	the	following	assembly
+code:
+
+Use	your	reverse	engineering	skills	to	determine	the	values	of	
+M
+and	
+N
+	based	on	this	assembly	code.
+3.8.4	
+Fixed-Size	Arrays
+The	C	compiler	is	able	to	make	many	optimizations	for	code	operating	on
+multidimensional	arrays	of	fixed	size.	Here	we	demonstrate	some	of	the
+optimizations	made	by	
+GCC
+	
+when	the	optimization	level	is	set	with	the	flag
+.	Suppose	we	declare	data	type	
+	to	be	16	×	16	arrays	of
+integers	as	follows:
+(This	example	illustrates	a	good	coding	practice.	Whenever	a	program
+uses	some	constant	as	an	array	dimension	or	buffer	size,	it	is	best	to
+associate	a	name	with	it	via	a	
+	declaration,	and	then	use	this
+name	consistently,	rather	than	the	numeric	value.	That	way,	if	an
+occasion	ever	arises	to	change	the	value,	it	can	be	done	by	simply
+
+modifying	the	
+	declaration.)	The	code	in	
+Figure	
+3.37(a)
+computes	element	
+i,	k
+	of	the	product	of	arrays	
+	and	
+—that	is,	the	inner
+product	of	row	
+i
+	from	
+	and	column	
+k
+	from	
+.	This	product	is	given	by	the
+formula	
+.	G
+CC
+	
+generates	code	that	we	then	recoded	into	C,
+shown	as	function	
+	in	
+Figure	
+3.37(b)
+.	This	code
+contains	a	number	of	clever	optimizations.	It	removes	the	integer	index	
+and	converts	all	array	references	to	pointer	dereferences.	This	involves
+(1)	generating	a	pointer,	which	we	have	named	
+,	that	points	to
+successive	elements	in	row	
+i
+	of	
+,	(2)	generating	a	pointer,	which	we
+have	named	
+,	that	points	to	successive	elements	in	column	
+k
+	of	
+,
+and	(3)	generating	a	pointer,	which	we	have	named	Bend,	that	equals	the
+value	
+	will	have	when	it	is	time	to	terminate	the	loop.	The	initial	value
+for	
+	is	the	address	of	the	first	element	of	row	
+i
+	of	
+,	given	by	the	C
+expression	
+.	The	initial	value	for	
+	is	the	address	of	the	first
+element	of	column	
+k
+	of	
+,	given	by	the	C	expression	
+.	The	value
+for	
+	is	the	index	of	what	would	be	the	(
+n
+	+	1)st	element	in	column	
+j
+	of
+,	given	by	the	C	expression	
+.
+(a)	Original	C	code
+∑
+0
+≤
+j
+<
+N
+a
+i
+,
+j
+⋅
+b
+j
+,
+k
+
+(b)	Optimized	C	code
+
+Figure	
+3.37	
+Original	and	optimized	code	to	compute	element	
+i,	k
+	of
+matrix	product	for	fixed-length	arrays.
+The	compiler	performs	these	optimizations	automatically.
+The	following	is	the	actual	assembly	code	generated	by	
+GCC
+	
+for	function
+.	We	see	that	four	registers	are	used	as	follows:	
+	holds
+result,	
+	holds	
+	holds	
+,	and	
+	holds	
+.
+
+Practice	Problem	
+3.39	
+(solution	page	
+342
+)
+Use	
+Equation	
+3.1
+	to	explain	how	the	computations	of	the	initial
+values	for	
+,	
+,	and	Bend	in	the	C	code	of	
+Figure	
+3.37(b)
+(lines	3–5)	correctly	describe	their	computations	in	the	assembly
+code	generated	for	
+	(lines	3–5).
+Practice	Problem	
+3.40	
+(solution	page	
+342
+)
+The	following	C	code	sets	the	diagonal	elements	of	one	of	our
+fixed-size	arrays	to	
+:
+When	compiled	with	optimization	level	
+	generates	the
+following	assembly	code:
+
+Create	a	C	code	program	
+	that	uses
+optimizations	similar	to	those	in	the	assembly	code,	in	the	same
+style	as	the	code	in	
+Figure	
+3.37(b)
+.	Use	expressions	involving
+the	parameter	
+N
+	rather	than	integer	constants,	so	that	your	code
+will	work	correctly	if	
+N
+	is	redefined.
+3.8.5	
+Variable-Size	Arrays
+Historically,	C	only	supported	multidimensional	arrays	where	the	sizes
+(with	the	possible	exception	of	the	first	dimension)	could	be	determined
+at	compile	time.	
+Programmers	requiring	variable-size	arrays	had	to
+allocate	storage	for	these	arrays	using	functions	such	as	
+	or
+,	and	they	had	to	explicitly	encode	the	mapping	of
+multidimensional	arrays	into	single-dimension	ones	via	row-major
+
+indexing,	as	expressed	in	
+Equation	
+3.1
+.	ISO	C99	introduced	the
+capability	of	having	array	dimension	expressions	that	are	computed	as
+the	array	is	being	allocated.
+In	the	C	version	of	variable-size	arrays,	we	can	declare	an	array
+either	as	a	local	variable	or	as	an	argument	to	a	function,	and	then	the
+dimensions	of	the	array	are	determined	by	evaluating	the	expressions
+expr1
+	and	
+expr2
+	at	the	time	the	declaration	is	encountered.	So,	for
+example,	we	can	write	a	function	to	access	element	
+i,	j
+	of	an	
+n
+	×	
+n
+	array
+as	follows:
+The	parameter	
+	must	precede	the	parameter	
+,	so	that	the
+function	can	compute	the	array	dimensions	as	the	parameter	is
+encountered.
+G
+CC
+	
+generates	code	for	this	referencing	function	as
+
+As	the	annotations	show,	this	code	computes	the	address	of	element	
+i,	j
+as	
+x
+	+	4(
+n
+	·	
+i
+)	+	4
+j
+	=	
+x
+	+	4(
+n
+	·	
+i
+	+	
+j
+).	The	address	computation	is	similar
+to	that	of	the	fixed-size	array	(
+Section	
+3.8.3
+),	except	that	(1)	the
+register	usage	changes	due	to	added	parameter	
+,	and	(2)	a	multiply
+instruction	is	used	(line	2)	to	compute	
+n
+	·	
+i
+,	rather	than	an	
+	instruction
+to	compute	3
+i
+.	We	see	therefore	that	referencing	variable-size	arrays
+requires	only	a	slight	generalization	over	fixed-size	ones.	The	dynamic
+version	must	use	a	multiplication	instruction	to	scale	
+i
+	by	
+n
+,	rather	than	a
+series	of	shifts	and	adds.	In	some	processors,	this	multiplication	can
+incur	a	significant	performance	penalty,	but	it	is	unavoidable	in	this	case.
+When	variable-size	arrays	are	referenced	within	a	loop,	the	compiler	can
+often	optimize	the	index	computations	by	exploiting	the	regularity	of	the
+access	patterns.	For	example,	
+Figure	
+3.38(a)
+	shows	C	code	to
+compute	element	
+i
+,	
+k
+	of	the	product	of	two	
+n
+	×	
+n
+	arrays	
+	and	
+.	G
+CC
+generates	assembly	code,	which	we	have	recast	into	C	(
+Figure
+
+3.38(b)
+).	This	code	follows	a	different	style	from	the	optimized	code	for
+the	fixed-size	array	(
+Figure	
+3.37
+),	but	that	is	more	an	artifact	of	the
+choices	made	by	the	compiler,	rather	than	a	fundamental	requirement	for
+the	two	different	functions.	The	code	of	
+Figure	
+3.38(b)
+	retains	loop
+variable	
+,	both	to	detect	when
+(a)	Original	C	code
+(b)	Optimized	C	code
+
+Figure	
+3.38	
+Original	and	optimized	code	to	compute	element	
+i,	k
+	of
+matrix	product	for	variable-size	arrays.
+The	compiler	performs	these	optimizations	automatically.
+the	loop	has	terminated	and	to	index	into	an	array	consisting	of	the
+elements	of	row	
+i
+	of	
+.
+The	following	is	the	assembly	code	for	the	loop	of	
+:
+
+We	see	that	the	program	makes	use	of	both	a	scaled	value	4
+n
+	(register
+)	for	incrementing	
+	as	well	as	the	value	of	
+n
+	(register	
+)	to
+check	the	loop	
+bounds.	The	need	for	two	values	does	not	show	upin	the
+C	code,	due	to	the	scaling	of	pointer	arithmetic.
+We	have	seen	that,	with	optimizations	enabled,	
+GCC
+	
+is	able	to	recognize
+patterns	that	arise	when	a	program	steps	through	the	elements	of	a
+multidimensional	array.	It	can	then	generate	code	that	avoids	the
+multiplication	that	would	result	from	a	direct	application	of	
+Equation
+3.1
+.	Whether	it	generates	the	pointer-based	code	of	
+Figure	
+3.37(b)
+or	the	array-based	code	of	
+Figure	
+3.38(b)
+,	these	optimizations	will
+significantly	improve	program	performance.
+
+3.9	
+Heterogeneous	Data	Structures
+C	provides	two	mechanisms	for	creating	data	types	by	combining	objects
+of	different	types:	
+structures
+,	declared	using	the	keyword	
+,
+aggregate	multiple	objects	into	a	single	unit;	
+unions
+,	declared	using	the
+keyword	
+,	allow	an	object	to	be	referenced	using	several	different
+types.
+3.9.1	
+Structures
+The	C	
+	declaration	creates	a	data	type	that	groups	objects	of
+possibly	different	types	into	a	single	object.	The	different	components	of
+a	structure	are	referenced	by	names.	The	implementation	of	structures	is
+similar	to	that	of	arrays	in	that	all	of	the	components	of	a	structure	are
+stored	in	a	contiguous	region	of	memory	and	a	pointer	to	a	structure	is
+the	address	of	its	first	byte.	The	compiler	maintains	information	about
+each	structure	type	indicating	the	byte	offset	of	each	field.	It	generates
+references	to	structure	elements	using	these	offsets	as	displacements	in
+memory	referencing	instructions.
+As	an	example,	consider	the	following	structure	declaration:
+
+This	structure	contains	four	fields:	two	4-byte	values	of	type	
+,	a	two-
+element	array	of	type	
+,	and	an	8-byte	integer	pointer,	giving	a	total	of
+24	bytes:
+Observe	that	array	a	is	embedded	within	the	structure.	The	numbers
+along	the	top	of	the	diagram	give	the	byte	offsets	of	the	fields	from	the
+beginning	of	the	structure.
+To	access	the	fields	of	a	structure,	the	compiler	generates	code	that	adds
+the	appropriate	offset	to	the	address	of	the	structure.	For	example,
+suppose	variable	
+New	to	C?	
+Representing	an	object	as	a
+The	
+	data	type	constructor	is	the	closest	thing	C	provides	to
+the	objects	of	C++	and	Java.	It	allows	the	programmer	to	keep
+information	about	some	entity	in	a	single	data	structure	and	to
+reference	that	information	with	names.
+
+For	example,	a	graphics	program	might	represent	a	rectangle	as	a
+structure:
+We	can	declare	a	variable	
+	of	type	
+	and	set	its	field
+values	as	follows:
+where	the	expression	
+	selects	field	
+	of	structure	
+.
+
+Alternatively,	we	can	both	declare	the	variable	and	initialize	its
+fields	with	a	single	statement:
+It	is	common	to	pass	pointers	to	structures	from	one	place	to
+another	rather	than	copying	them.	For	example,	the	following
+function	computes	the	area	of	a	rectangle,	where	a	pointer	to	the
+rectangle	
+	is	passed	to	the	function:
+The	expression	
+.width	dereferences	the	pointer	and	selects
+the	width	field	of	the	resulting	structure.	Parentheses	are	required,
+because	the	compiler	would	interpret	the	expression	
+	as
+,	which	is	not	valid.	This	combination	of	dereferencing
+and	field	selection	is	so	common	that	C	provides	an	alternative
+notation	using	->.	That	is,	
+	is	equivalent	to	the
+expression	
+	For	example,	we	can	write	a	function	that
+rotates	a	rectangle	counterclockwise	by	90	degrees	as
+
+The	objects	of	C++	and	Java	are	more	elaborate	than	structures
+in	C,	in	that	they	also	associate	a	set	of	
+methods
+	with	an	object
+that	can	be	invoked	to	perform	computation.	In	C,	we	would
+simply	write	these	as	ordinary	functions,	such	as	the	functions
+	and	
+	shown	previously.
+of	type	
+	is	in	register	
+.	Then	the	following	code	copies
+element	
+	to	element	
+:
+Since	the	offset	of	field	
+	is	0,	the	address	of	this	field	is	simply	the	value
+of	
+.	To	store	into	field	
+,	the	code	adds	offset	4	to	the	address	of	
+.
+To	generate	a	pointer	to	an	object	within	a	structure,	we	can	simply	add
+the	field's	offset	to	the	structure	address.	For	example,	we	can	generate
+the	pointer	
+	by	adding	offset	8	+	4	·	1	=	12.	For	pointer	
+	in
+
+register	
+	and	long	integer	variable	
+	in	register	
+,	we	can
+generate	the	pointer	value	
+	with	the	single	instruction
+As	a	final	example,	the	following	code	implements	the	statement
+starting	with	
+	in	register	
+As	these	examples	show,	the	selection	of	the	different	fields	of	a
+structure	is	handled	completely	at	compile	time.	The	machine	code
+
+contains	no	information	about	the	field	declarations	or	the	names	of	the
+fields.
+Practice	Problem	
+3.41	
+(solution	page	
+343
+)
+Consider	the	following	structure	declaration:
+This	declaration	illustrates	that	one	structure	can	be	embedded
+within	another,	just	as	arrays	can	be	embedded	within	structures
+and	arrays	can	be	embedded	within	arrays.
+The	following	procedure	(with	some	expressions	omitted)	operates
+on	this	structure:
+
+A
+.	
+What	are	the	offsets	(in	bytes)	of	the	following	fields?
+B
+.	
+How	many	total	bytes	does	the	structure	require?
+C
+.	
+The	compiler	generates	the	following	assembly	code	for
+On	the	basis	of	this	information,	fill	in	the	missing
+expressions	in	the	code	for	
+Practice	Problem	
+3.42	
+(solution	page	
+343
+)
+
+The	following	code	shows	the	declaration	of	a	structure	of	type
+	and	the	prototype	for	a	function	
+:
+When	the	code	for	
+	is	compiled,	
+GCC
+	
+generates	the	following
+assembly	code:
+A
+.	
+Use	your	reverse	engineering	skills	to	write	C	code	for	
+.
+
+B
+.	
+Describe	the	data	structure	that	this	structure	implements
+and	the	operation	performed	by	
+.
+3.9.2	
+Unions
+Unions	provide	a	way	to	circumvent	the	type	system	of	C,	allowing	a
+single	object	to	be	referenced	according	to	multiple	types.	The	syntax	of
+a	union	declaration	is	identical	to	that	for	structures,	but	its	semantics	are
+very	different.	Rather	than	having	the	different	fields	reference	different
+blocks	of	memory,	they	all	reference	the	same	block.
+Consider	the	following	declarations:
+
+When	compiled	on	an	x86-64	Linux	machine,	the	offsets	of	the	fields,	as
+well	as	the	total	size	of	data	types	
+	and	
+,	are	as	shown	in	the
+following	table:
+Type
+Size
+0
+4
+16
+24
+0
+0
+0
+8
+(We	will	see	shortly	why	
+	has	offset	4	in	
+	rather	than	1,	and	why	
+has	offset	16,	rather	than	9	or	12.)	For	pointer	
+	of	type	union	
+	*,
+references	
+,	and	
+	would	all	reference	the	beginning	of
+the	data	structure.	Observe	also	that	the	overall	size	of	a	union	equals
+the	maximum	size	of	any	of	its	fields.
+Unions	can	be	useful	in	several	contexts.	However,	they	can	also	lead	to
+nasty	bugs,	since	they	bypass	the	safety	provided	by	the	C	type	system.
+One	application	is	when	we	know	in	advance	that	the	use	of	two	different
+fields	in	a	data	structure	will	be	mutually	exclusive.	Then,	declaring	these
+two	fields	as	part	of	a	union	rather	than	a	structure	will	reduce	the	total
+space	allocated.
+For	example,	suppose	we	want	to	implement	a	binary	tree	data	structure
+where	each	leaf	node	has	two	
+	data	values	and	each	internal	node
+has	pointers	to	two	children	but	no	data.	If	we	declare	this	as
+
+then	every	node	requires	32	bytes,	with	half	the	bytes	wasted	for	each
+type	of	node.	On	the	other	hand,	if	we	declare	a	node	as
+then	every	node	will	require	just	16	bytes.	If	
+	is	a	pointer	to	a	node	of
+type	union	
+,	we	would	reference	the	data	of	a	leaf	node	as	
+	and	
+,	and	the	children	of	an	internal	node	as	
+	and	
+With	this	encoding,	however,	there	is	no	way	to	determine	whether	a
+given	node	is	a	leaf	or	an	internal	node.	A	common	method	is	to
+introduce	an	enumerated	type	defining	the	different	possible	choices	for
+the	union,	and	then	create	a	structure	containing	a	tag	field	and	the
+union:
+
+This	structure	requires	a	total	of	24	bytes:	4	for	
+,	and	either	8	each
+for	
+	and	
+	or	16	for	
+	As
+we	will	discuss	shortly,	an	additional	4	bytes	of	padding	is	required
+between	the	field	for	type	and	the	union	elements,	bringing	the	total
+structure	size	to	4	+	4	+	16	=	24.	In	this	case,	the	savings	gain	of	using	a
+union	is	small	relative	to	the	awkwardness	of	the	resulting	code.	For	data
+structures	with	more	fields,	the	savings	can	be	more	compelling.
+Unions	can	also	be	used	to	access	the	bit	patterns	of	different	data	types.
+For	example,	suppose	we	use	a	simple	cast	to	convert	a	value	d	of	type
+	to	a	value	
+	of	type	unsigned	
+:
+
+Value	
+	will	be	an	integer	representation	of	
+.	Except	for	the	case	where
+	is	0.0,	the	bit	representation	of	
+	will	be	very	different	from	that	of	
+.
+Now	consider	the	following	code	to	generate	a	value	of	type	
+long	from	a	
+:
+In	this	code,	we	store	the	argument	in	the	union	using	one	data	type	and
+access	it	using	another.	The	result	will	be	that	
+	will	have	the	same	bit
+representation	as	
+,	including	fields	for	the	sign	bit,	the	exponent,	and
+the	significand,	as	described	in	
+Section	
+3.11
+.	The	numeric	value	of	
+will	bear	no	relation	to	that	of	
+,	except	for	the	case	when	
+	is	0.0.
+When	using	unions	to	combine	data	types	of	different	sizes,	byte-
+ordering	issues	can	become	important.	For	example,	suppose	we	write	a
+procedure	that	will	create	an	8-byte	
+	using	the	bit	patterns	given	by
+two	4-byte	
+	values:
+
+On	a	little-endian	machine,	such	as	an	x86-64	processor,	argument
+	will	become	the	low-order	4	bytes	of	
+,	while	
+	will	become
+the	high-order	4	bytes.	On	a	big-endian	machine,	the	role	of	the	two
+arguments	will	be	reversed.
+Practice	Problem	
+3.43	
+(solution	page	
+344
+)
+Suppose	you	are	given	the	job	of	checking	that	a	C	compiler
+generates	the	proper	code	for	structure	and	union	access.	You
+write	the	following	structure	declaration:
+
+You	write	a	series	of	functions	of	the	form
+with	different	access	expressions	
+expr
+	and	with	destination	data
+type	
+type
+	set	according	to	type	associated	with	
+expr
+.	You	then
+examine	the	code	generated	when	compiling	the	functions	to	see
+if	they	match	your	expectations.
+Suppose	in	these	functions	that	
+	and	
+	are	loaded	into
+registers	
+	and	
+,	respectively.	Fill	in	the	following	table
+with	data	type	
+type
+	and	sequences	of	one	to	three	instructions	to
+compute	the	expression	and	store	the	result	at	
+.
+expr
+type
+Code
+__________
+____________________
+
+____________________
+____________________
+__________
+____________________
+____________________
+____________________
+__________
+____________________
+____________________
+____________________
+__________
+____________________
+____________________
+____________________
+__________
+____________________
+____________________
+____________________
+3.9.3	
+Data	Alignment
+Many	computer	systems	place	restrictions	on	the	allowable	addresses	for
+the	primitive	data	types,	requiring	that	the	address	for	some	objects	must
+be	a	multiple	of	some	value	
+K
+	(typically	2,	4,	or	8).	Such	
+alignment
+restrictions
+	simplify	the	design	of	the	hardware	forming	the	interface
+between	the	processor	and	the	memory	system.	For	example,	suppose	a
+processor	always	fetches	8	bytes	from	memory	with	an	address	that
+must	be	a	multiple	of	8.	If	we	can	guarantee	that	any	double	will	be
+aligned	to	have	its	address	be	a	multiple	of	8,	then	the	value	can	be	read
+or	written	with	a	single	memory	operation.	Otherwise,	we	may	need	to
+
+perform	two	memory	accesses,	since	the	object	might	be	split	across	two
+8-byte	memory	blocks.
+The	x86-64	hardware	will	work	correctly	regardless	of	the	alignment	of
+data.	However,	Intel	recommends	that	data	be	aligned	to	improve
+memory	system	performance.	Their	alignment	rule	is	based	on	the
+principle	that	any	primitive	object	of	
+K
+	bytes	must	have	an	address	that	is
+a	multiple	of	
+K
+.	We	can	see	that	this	rule	leads	to	the	following
+alignments:
+K
+Types
+1
+char
+2
+short
+4
+int,	float
+8
+long,	double,	char	*
+Alignment	is	enforced	by	making	sure	that	every	data	type	is	organized
+and	allocated	in	such	a	way	that	every	object	within	the	type	satisfies	its
+alignment	restrictions.	The	compiler	places	directives	in	the	assembly
+code	indicating	the	desired	alignment	for	global	data.	For	example,	the
+assembly-code	declaration	of	the	jump	table	on	page	235	contains	the
+following	directive	on	line	2:
+
+This	ensures	that	the	data	following	it	(in	this	case	the	start	of	the	jump
+table)	will	start	with	an	address	that	is	a	multiple	of	8.	Since	each	table
+entry	is	8	bytes	long,	the	successive	elements	will	obey	the	8-byte
+alignment	restriction.
+For	code	involving	structures,	the	compiler	may	need	to	insert	gaps	in	the
+field	allocation	to	ensure	that	each	structure	element	satisfies	its
+alignment	requirement.	The	structure	will	then	have	some	required
+alignment	for	its	starting	address.
+For	example,	consider	the	structure	declaration
+Suppose	the	compiler	used	the	minimal	9-byte	allocation,	diagrammed	as
+follows:
+Then	it	would	be	impossible	to	satisfy	the	4-byte	alignment	requirement
+for	both	fields	
+	(offset	0)	and	
+	(offset	5).	Instead,	the	compiler	inserts	a
+3-byte	gap	(shown	here	as	shaded	in	blue)	between	fields	
+	and	
+:
+
+As	a	result,	
+	has	offset	8,	and	the	overall	structure	size	is	12	bytes.
+Furthermore,	the	compiler	must	ensure	that	any	pointer	
+	of	type	
+	satisfies	a	4-byte	alignment.	Using	our	earlier	notation,	let	pointer	
+have	value	
+x
+.	Then	
+x
+	must	be	a	multiple	of	4.	This	guarantees	that
+both	
+	(address	
+x
+)	and	
+	(address	
+x
+	+	8)	will	satisfy	their	4-byte
+alignment	requirements.
+In	addition,	the	compiler	may	need	to	add	padding	to	the	end	of	the
+structure	so	that	each	element	in	an	array	of	structures	will	satisfy	its
+alignment	requirement.	For	example,	consider	the	following	structure
+declaration:
+If	we	pack	this	structure	into	9	bytes,	we	can	still	satisfy	the	alignment
+requirements	for	fields	
+	and	
+	by	making	sure	that	the	starting	address
+of	the	structure	satisfies	a	4-byte	alignment	requirement.	Consider,
+however,	the	following	declaration:
+
+With	the	9-byte	allocation,	it	is	not	possible	to	satisfy	the	alignment
+requirement	for	each	element	of	
+,	because	these	elements	will	have
+addresses	
+x
+,	
+x
+	+	9,	
+x
+	+	18,	and	
+x
+	+	27.	Instead,	the	compiler
+allocates	12	bytes	for	structure	
+,	with	the	final	3	bytes	being	wasted
+space:
+That	way,	the	elements	of	
+	will	have	addresses	
+x
+,	
+x
+	+	12,	
+x
+	+	24,
+and	
+x
+	+	36.	As	long	as	
+x
+	is	a	multiple	of	4,	all	of	the	alignment
+restrictions	will	be	satisfied.
+Practice	Problem	
+3.44	
+(solution	page	
+345
+)
+For	each	of	the	following	structure	declarations,	determine	the
+offset	of	each	field,	the	total	size	of	the	structure,	and	its	alignment
+requirement	for	x86-64:
+A
+.	
+B
+.	
+C
+.	
+D
+.	
+E
+.	
+Practice	Problem	
+3.45	
+(solution	page	
+345
+)
+Answer	the	following	for	the	structure	declaration
+
+Aside	
+A	case	of	mandatory
+alignment
+For	most	x86-64	instructions,	keeping	data	aligned
+improves	efficiency,	but	it	does	not	affect	program	behavior.
+On	the	other	hand,	some	models	of	Intel	and	AMD
+processors	will	not	work	correctly	with	unaligned	data	for
+some	of	the	SSE	instructions	implementing	multimedia
+operations.	These	instructions	operate	on	16-byte	blocks	of
+data,	and	the	instructions	that	transfer	data	between	the
+SSE	unit	and	memory	require	the	memory	addresses	to	be
+multiples	of	16.	Any	attempt	to	access	memory	with	an
+address	that	does	not	satisfy	this	alignment	will	lead	to	an
+exception
+	(see	
+Section	
+8.1
+),	with	the	default	behavior	for
+the	program	to	terminate.
+As	a	result,	any	compiler	and	run-time	system	for	an	x86-
+64	processor	must	ensure	that	any	memory	allocated	to
+hold	a	data	structure	that	may	be	read	from	or	stored	into
+an	SSE	register	must	satisfy	a	16-byte	alignment.	This
+requirement	has	the	following	two	consequences:
+
+The	starting	address	for	any	block	generated	by	a
+memory	allocation	function	(
+,	or
+)	must	be	a	multiple	of	16.
+The	stack	frame	for	most	functions	must	be	aligned	on	a
+16-byte	boundary.	(This	requirement	has	a	number	of
+exceptions.)
+More	recent	versions	of	x86-64	processors	implement	the
+AVX	multimedia	instructions.	In	addition	to	providing	a
+superset	of	the	SSE	instructions,	processors	supporting
+AVX	also	do	not	have	a	mandatory	alignment	requirement.
+A
+.	
+What	are	the	byte	offsets	of	all	the	fields	in	the	structure?
+B
+.	
+What	is	the	total	size	of	the	structure?
+C
+.	
+Rearrange	the	fields	of	the	structure	to	minimize	wasted
+space,	and	then	show	the	byte	offsets	and	total	size	for	the
+rearranged	structure.
+
+3.10	
+Combining	Control	and	Data	in
+Machine-Level	Programs
+So	far,	we	have	looked	separately	at	how	machine-level	code	implements
+the	control	aspects	of	a	program	and	how	it	implements	different	data
+structures.	In	this	section,	we	look	at	ways	in	which	data	and	control
+interact	with	each	other.	We	start	by	taking	a	deep	look	into	pointers,	one
+of	the	most	important	concepts	in	the	C	programming	language,	but	one
+for	which	many	programmers	only	have	a	shallow	understanding.	We
+review	the	use	of	the	symbolic	debugger	
+GDB
+	for	examining	the	detailed
+operation	of	machine-level	programs.	Next,	we	see	how	understanding
+machine-level	programs	enables	us	to	study	buffer	overflow,	an	important
+security	vulnerability	in	many	real-world	systems.	Finally,	we	examine
+how	machine-level	programs	implement	cases	where	the	amount	of
+stack	storage	required	by	a	function	can	vary	from	one	execution	to
+another.
+3.10.1	
+Understanding	Pointers
+Pointers	are	a	central	feature	of	the	C	programming	language.	They
+serve	as	a	uniform	way	to	generate	references	to	elements	within
+different	data	structures.	Pointers	are	a	source	of	confusion	for	novice
+programmers,	but	the	underlying	concepts	are	fairly	simple.	Here	we
+
+highlight	some	key	principles	of	pointers	and	their	mapping	into	machine
+code.
+Every	pointer	has	an	associated	type.	
+This	type	indicates	what	kind
+of	object	the	pointer	points	to.	Using	the	following	pointer	declarations
+as	illustrations
+variable	
+	is	a	pointer	to	an	object	of	type	
+,	while	
+	is	a	pointer
+to	an	object	that	itself	is	a	pointer	to	an	object	of	type	
+.	In	general,
+if	the	object	has	type	
+T
+,	then	the	pointer	has	type	*
+T
+.	The	special	
+*	type	represents	a	generic	pointer.	For	example,	the	
+	function
+returns	a	generic	pointer,	which	is	converted	to	a	typed	pointer	via
+either	an	explicit	cast	or	by	the	implicit	casting	of	the	assignment
+operation.	Pointer	types	are	not	part	of	machine	code;	they	are	an
+abstraction	provided	by	C	to	help	programmers	avoid	addressing
+errors.
+Every	pointer	has	a	value.	
+This	value	is	an	address	of	some	object
+of	the	designated	type.	The	special	
+	value	indicates	that	the
+pointer	does	not	point	anywhere.
+Pointers	are	created	with	the	`&'	operator.	
+This	operator	can	be
+applied	to	any	C	expression	that	is	categorized	as	an	
+lvalue
+,	meaning
+an	expression	that	can	appear	on	the	left	side	of	an	assignment.
+Examples	include	variables	and	the	elements	of	structures,	unions,
+and	arrays.	We	have	seen	that	the	machine-code	realization	of	the	`&'
+operator	often	uses	the	
+	instruction	to	compute	the	expression
+
+value,	since	this	instruction	is	designed	to	compute	the	address	of	a
+memory	reference.
+Pointers	are	dereferenced	with	the	`*'	operator.	
+The	result	is	a
+value	having	the	type	associated	with	the	pointer.	Dereferencing	is
+implemented	by	a	memory	reference,	either	storing	to	or	retrieving
+from	the	specified	address.
+Arrays	and	pointers	are	closely	related.	
+The	name	of	an	array
+canbe	referenced	(but	not	updated)	as	if	it	were	a	pointer	variable.
+Array	referencing	(e.g.,	
+)	has	the	exact	same	effect	as	pointer
+arithmetic	and	dereferencing	(e.g.,	
+).	Both	array	referencing
+and	pointer	arithmetic	require	scaling	the	offsets	by	the	object	size.
+When	we	write	an	expression	
+	for	pointer	
+	with	value	
+,	the
+resulting	address	is	computed	as	
+	+	
+L
+	·	
+i
+,	where	
+L
+	is	the	size	of	the
+data	type	associated	with	
+.
+Casting	from	one	type	of	pointer	to	another	changes	its	type	but
+not	its	value.	
+One	effect	of	casting	is	to	change	any	scaling	of	pointer
+arithmetic.	So,	for	example,	if	
+	is	a	pointer	of	type	
+	*	having
+value	
+,	then	the	expression	(
+	computes	
+	+	28,	while
+	computes	
+.	(Recall	that	casting	has	higher
+precedence	than	addition.)
+Pointers	can	also	point	to	functions.	
+This	provides	a	powerful
+capability	for	storing	and	passing	references	to	code,	which	can	be
+invoked	in	some	other	part	of	the	program.	For	example,	if	we	have	a
+function	defined	by	the	prototype
+
+then	we	can	declare	and	assign	a	pointer	
+	to	this	function	by	the
+following	code	sequence:
+We	can	then	invoke	the	function	using	this	pointer:
+The	value	of	a	function	pointer	is	the	address	of	the	first	instruction	in
+the	machine-code	representation	of	the	function.
+New	to	C?	
+Function	pointers
+The	syntax	for	declaring	function	pointers	is	especially	difficult	for
+novice	programmers	to	understand.	For	a	declaration	such	as
+it	helps	to	read	it	starting	from	the	inside	(starting	with	`
+')	and
+working	outward.	Thus,	we	see	that	
+	is	a	pointer,	as	indicated	by
+(
+).	It	is	a	pointer	to	a	function	that	has	a	single	
+	*	as	an
+argument,	as	indicated	by	
+.	Finally,	we	see	that	it	is	a
+
+pointer	to	a	function	that	takes	an	
+	*	as	an	argument	and
+returns	
+.
+The	parentheses	around	*
+	are	required,	because	otherwise	the
+declaration
+would	be	read	as
+That	is,	it	would	be	interpreted	as	a	function	prototype,	declaring	a
+function	
+	that	has	an	
+	*	as	its	argument	and	returns	an	
+	*.
+Kernighan	and	Ritchie	
+[61,
+	Sect.	5.12]	present	a	helpful	tutorial	on
+reading	C	declarations.
+3.10.2	
+Life	in	the	Real	World:	Using
+the	
+GDB
+	
+Debugger
+The	GNU	debugger	
+GDB
+	
+provides	a	number	of	useful	features	to	support
+the	run-time	evaluation	and	analysis	of	machine-level	programs.	With	the
+examples	and	exercises	in	this	book,	we	attempt	to	infer	the	behavior	of
+
+a	program	by	just	looking	at	the	code.	Using	
+GDB
+,	it	becomes	possible	to
+study	the	behavior	by	watching	the	program	in	action	while	having
+considerable	control	over	its	execution.
+Figure	
+3.39
+	shows	examples	of	some	
+GDB
+	
+commands	that	help	when
+working	with	machine-level	x86-64	programs.	It	is	very	helpful	to	first	run
+OBJDUMP
+	
+to	get	a	disassembled	version	of	the	program.	Our	examples	are
+based	on	running	
+GDB
+	
+on	the	file	
+,	described	and	disassembled	on
+page	175.	We	start	
+GDB
+	
+with	the	following	command	line:
+The	general	scheme	is	to	set	breakpoints	near	points	of	interest	in	the
+program.	These	can	be	set	to	just	after	the	entry	of	a	function	or	at	a
+program	address.	When	one	of	the	breakpoints	is	hit	during	program
+execution,	the	program	will	halt	and	return	control	to	the	user.	From	a
+breakpoint,	we	can	examine	different	registers	and	memory	locations	in
+various	formats.	We	can	also	single-step	the	program,	running	just	a	few
+instructions	at	a	time,	or	we	can	proceed	to	the	next	breakpoint.
+As	our	examples	suggest,	
+GDB
+	
+has	an	obscure	command	syntax,	but	the
+online	help	information	(invoked	within	
+GDB
+	
+with	the	
+	command)
+overcomes	this	shortcoming.	Rather	than	using	the	command-line
+interface	to	
+GDB
+,	many	programmers	prefer	using	
+DDD
+,	an	extension	to	
+GDB
+that	provides	a	graphical	user	interface.
+
+3.10.3	
+Out-of-Bounds	Memory
+References	and	Buffer	Overflow
+We	have	seen	that	C	does	not	perform	any	bounds	checking	for	array
+references,	and	that	local	variables	are	stored	on	the	stack	along	with
+state	information	such	as	saved	register	values	and	return	addresses.
+This	combination	can	lead	to	serious	program	errors,	where	the	state
+stored	on	the	stack	gets	corrupted	by	a	write	to	an	out-of-bounds	array
+element.	When	the	program	then	tries	to	reload	the	register	or	execute	a
+	instruction	with	this	corrupted	state,	things	can	go	seriously	wrong.
+A	particularly	common	source	of	state	corruption	is	known	as	
+buffer
+overflow
+.	Typically,	some	character	array	is	allocated	on	the	stack	to	hold
+a	string,	but	the	size	of	the	string	exceeds	the	space	allocated	for	the
+array.	This	is	demonstrated	by	the	following	program	example:
+Command
+Effect
+Starting	and	stopping
+
+Exit	
+GDB
+Run	your	program	(give	command-line	arguments	here)
+Stop	your	program
+Breakpoints
+Set	breakpoint	at	entry	to	function	multstore
+Set	breakpoint	at	address	
+Delete	breakpoint	1
+Delete	all	breakpoints
+Execution
+Execute	one	instruction
+Execute	four	instructions
+Like	
+,	but	proceed	through	function	calls
+Resume	execution
+Run	until	current	function	returns
+Examining	code
+Disassemble	current	function
+Disassemble	function	
+Disassemble	function	around	address	
+Disassemble	code	within	specified	address	range
+
+Print	program	counter	in	hex
+Examining	data
+Print	contents	of	
+	in	decimal
+Print	contents	of	
+	in	hex
+Print	contents	of	
+	in	binary
+Print	decimal	representation	of	
+Print	hex	representation	of	555
+Print	contents	of	
+	plus	8	in	hex
+Print	long	integer	at	address	
+Print	long	integer	at	address	
+	+	8
+Examine	two	(8-byte)	words	starting	at	address
+Examine	first	20	bytes	of	function	
+Useful	information
+Information	about	current	stack	frame
+Values	of	all	the	registers
+Get	information	about	
+GDB
+Figure	
+3.39	
+Example	
+GDB
+	
+commands.
+
+These	examples	illustrate	some	of	the	ways	
+GDB
+	
+supports	debugging	of
+machine-level	programs.
+Figure	
+3.40	
+Stack	organization	for	
+	function.
+Character	array	
+	is	just	part	of	the	saved	state.	An	out-of-bounds	write
+to	
+	can	corrupt	the	program	state.
+
+The	preceding	code	shows	an	implementation	of	the	library	function	gets
+to	demonstrate	a	serious	problem	with	this	function.	It	reads	a	line	from
+the	standard	input,	stopping	when	either	a	terminating	newline	character
+or	some	error	condition	is	encountered.	It	copies	this	string	to	the	location
+designated	by	argument	
+	and	terminates	the	string	with	a	null	character.
+We	show	the	use	of	gets	in	the	function	
+,	which	simply	reads	a	line
+from	standard	input	and	echos	it	back	to	standard	output.
+The	problem	with	gets	is	that	it	has	no	way	to	determine	whether
+sufficient	space	has	been	allocated	to	hold	the	entire	string.	In	our	
+example,	we	have	purposely	made	the	buffer	very	small—just	eight
+characters	long.	Any	string	longer	than	seven	characters	will	cause	an
+out-of-bounds	write.
+By	examining	the	assembly	code	generated	by	
+GCC
+	
+for	
+,	we	can	infer
+how	the	stack	is	organized:
+
+Figure	
+3.40
+	illustrates	the	stack	organization	during	the	execution	of
+.	The	program	allocates	24	bytes	on	the	stack	by	subtracting	24	from
+the	stack	pointer	(line	2).	Character	
+	is	positioned	at	the	top	of	the
+stack,	as	can	be	seen	by	the	fact	that	
+	is	copied	to	
+	to	be	used
+as	the	argument	to	the	calls	to	both	gets	and	
+.	The	16	bytes	between
+	and	the	stored	return	pointer	are	not	used.	As	long	as	the	user	types
+at	most	seven	characters,	the	string	returned	by	gets	(including	the
+terminating	null)	will	fit	within	the	space	allocated	for	
+.	A	longer	string,
+however,	will	cause	gets	to	overwrite	some	of	the	information	stored	on
+the	stack.	As	the	string	gets	longer,	the	following	information	will	get
+corrupted:
+Characters	typed
+Additional	corrupted	state
+0–7
+None
+9–23
+Unused	stack	space
+24–31
+Return	address
+32+
+Saved	state	in	caller
+No	serious	consequence	occurs	for	strings	of	up	to	23	characters,	but
+beyond	that,	the	value	of	the	return	pointer,	and	possibly	additional	saved
+state,	will	be	corrupted.	If	the	stored	value	of	the	return	address	is
+corrupted,	then	the	
+	instruction	(line	8)	will	cause	the	program	to	jump
+to	a	totally	unexpected	location.	None	of	these	behaviors	would	seem
+possible	based	on	the	C	code.	The	impact	of	out-of-bounds	writing	to
+memory	by	functions	such	as	
+	can	only	be	understood	by	studying
+the	program	at	the	machine-code	level.
+
+Our	code	for	
+	is	simple	but	sloppy.	A	better	version	involves	using
+the	function	
+,	which	includes	as	an	argument	a	count	on	the
+maximum	number	of	bytes	to	read.	
+Problem	
+3.71
+	asks	you	to	write	an
+echo	function	that	can	handle	an	input	string	of	arbitrary	length.	In
+general,	using	
+	or	any	function	that	can	overflow	storage	is
+considered	a	bad	programming	practice.	Unfortunately,	a	number	of
+commonly	used	library	functions,	including	
+,	and	
+,
+have	the	property	that	they	can	generate	a	byte	sequence	without	being
+given	any	indication	of	the	size	of	the	destination	buffer	
+[97]
+.	Such
+conditions	can	lead	to	vulnerabilities	to	buffer	overflow.
+Practice	Problem	
+3.46	
+(solution	page	
+346
+)
+Figure	
+3.41
+	shows	a	(low-quality)	implementation	of	a	function
+that	reads	a	line	from	standard	input,	copies	the	string	to	newly
+allocated	storage,	and	returns	a	pointer	to	the	result.
+Consider	the	following	scenario.	Procedure	
+	is	called	with
+the	return	address	equal	to	
+	and	register	
+	equal	to
+.	You	type	in	the	string
+(a)	C	code
+
+(b)	Disassembly	up	through	call	to	gets
+Figure	
+3.41	
+C	and	disassembled	code	for	Practice	
+Problem
+3.46
+.
+The	program	terminates	with	a	segmentation	fault.	You	run	
+GDB
+and	determine	that	the	error	occurs	during	the	execution	of	the
+	instruction	of	
+
+A
+.	
+Fill	in	the	diagram	that	follows,	indicating	as	much	as	you
+can	about	the	stack	just	after	executing	the	instruction	at
+line	3	in	the	disassembly.	Label	the	quantities	stored	on	the
+stack	(e.g.,	"Return	address")	on	the	right,	and	their
+hexadecimal	values	(if	known)	within	the	box.	Each	box
+represents	8	bytes.	Indicate	the	position	of	
+.	Recall	that
+the	ASCII	codes	for	characters	0–9	are	
+B
+.	
+Modify	your	diagram	to	show	the	effect	of	the	call	to	
+(line	5).
+C
+.	
+To	what	address	does	the	program	attempt	to	return?
+D
+.	
+What	register(s)	have	corrupted	value(s)	when	
+returns?
+E
+.	
+Besides	the	potential	for	buffer	overflow,	what	two	other
+things	are	wrong	with	the	code	for	
+A	more	pernicious	use	of	buffer	overflow	is	to	get	a	program	to	perform	a
+function	that	it	would	otherwise	be	unwilling	to	do.	This	is	one	of	the	most
+common	methods	to	attack	the	security	of	a	system	over	a	computer
+network.	Typically,	the	program	is	fed	with	a	string	that	contains	the	byte
+encoding	of	some	executable	code,	called	the	
+exploit	code
+,	plus	some
+extra	bytes	that	overwrite	the	return	address	with	a	pointer	to	the	exploit
+code.	The	effect	of	executing	the	
+	instruction	is	then	to	jump	to	the
+exploit	code.
+
+In	one	form	of	attack,	the	exploit	code	then	uses	a	system	call	to	start	up
+a	shell	program,	providing	the	attacker	with	a	range	of	operating	system
+functions.	In	another	form,	the	exploit	code	performs	some	otherwise
+unauthorized	task,	repairs	the	damage	to	the	stack,	and	then	executes
+	a	second	time,	causing	an	(apparently)	normal	return	to	the	caller.
+As	an	example,	the	famous	Internet	worm	of	November	1988	used	four
+different	ways	to	gain	access	to	many	of	the	computers	across	the
+Internet.	One	was	a	buffer	overflow	attack	on	the	finger	daemon	
+,
+which	serves	requests	by	the	
+FINGER
+	
+command.	By	invoking	
+FINGER
+	
+with	an
+appropriate	string,	the	worm	could	make	the	daemon	at	a	remote	site
+have	a	buffer	overflow	and	execute	code	that	gave	the	worm	access	to
+the	remote	system.	Once	the	worm	gained	access	to	a	system,	it	would
+replicate	itself	and	consume	virtually	all	of	the	machine's	computing
+resources.	As	a	consequence,	hundreds	of	machines	were	effectively
+paralyzed	until	security	experts	could	determine	how	to	eliminate	the
+worm.	The	author	of	the	worm	was	caught	and	prosecuted.	He	was
+sentenced	to	3	years	probation,	400	hours	of	community	service,	and	a
+$10,500	fine.	Even	to	this	day,	however,	people	continue	to	find	security
+leaks	in	systems	that	leave	them	vulnerable	to	buffer	overflow	attacks.
+This	highlights	the	need	for	careful	programming.	Any	interface	to	the
+external	environment	should	be	made	"bulletproof"	so	that	no	behavior	by
+an	external	agent	can	cause	the	system	to	misbehave.
+3.10.4	
+Thwarting	Buffer	Overflow
+Attacks
+
+Buffer	overflow	attacks	have	become	so	pervasive	and	have	caused	so
+many	problems	with	computer	systems	that	modern	compilers	and
+operating	systems	have	implemented	mechanisms	to	make	it	more
+difficult	to	mount	these	attacks	and	to	limit	the	ways	by	which	an	intruder
+can	seize	control	of	a	system	via	a	buffer	overflow	attack.	In	this	section,
+we	will	present	mechanisms	that	are	provided	by	recent	versions	of	
+GCC
+for	Linux.
+Stack	Randomization
+In	order	to	insert	exploit	code	into	a	system,	the	attacker	needs	to	inject
+both	the	code	as	well	as	a	pointer	to	this	code	as	part	of	the	attack	string.
+Generating
+Aside	
+Worms	and	viruses
+Both	worms	and	viruses	are	pieces	of	code	that	attempt	to	spread
+themselves	among	computers.	As	described	by	Spafford	
+[105],
+	a
+worm
+	is	a	program	that	can	run	by	itself	and	can	propagate	a	fully
+working	version	of	itself	to	other	machines.	A	
+virus
+	is	a	piece	of
+code	that	adds	itself	to	other	programs,	including	operating
+systems.	It	cannot	run	independently.	In	the	popular	press,	the
+term	"virus"	is	used	to	refer	to	a	variety	of	different	strategies	for
+spreading	attacking	code	among	systems,	and	so	you	will	hear
+people	saying	"virus"	for	what	more	properly	should	be	called	a
+"worm."
+this	pointer	requires	knowing	the	stack	address	where	the	string	will	be
+located.	Historically,	the	stack	addresses	for	a	program	were	highly
+predictable.	For	all	systems	running	the	same	combination	of	program
+
+and	operating	system	version,	the	stack	locations	were	fairly	stable
+across	many	machines.	So,	for	example,	if	an	attacker	could	determine
+the	stack	addresses	used	by	a	common	Web	server,	it	could	devise	an
+attack	that	would	work	on	many	machines.	Using	infectious	disease	as
+an	analogy,	many	systems	were	vulnerable	to	the	exact	same	strain	of	a
+virus,	a	phenomenon	often	referred	to	as	a	
+security	monoculture
+	
+[96]
+.
+The	idea	of	
+stack	randomization
+	is	to	make	the	position	of	the	stack	vary
+from	one	run	of	a	program	to	another.	Thus,	even	if	many	machines	are
+running	identical	code,	they	would	all	be	using	different	stack	addresses.
+This	is	implemented	by	allocating	a	random	amount	of	space	between	0
+and	
+n
+	bytes	on	the	stack	at	the	start	of	a	program,	for	example,	by	using
+the	allocation	function	
+,	which	allocates	space	for	a	specified
+number	of	bytes	on	the	stack.	This	allocated	space	is	not	used	by	the
+program,	but	it	causes	all	subsequent	stack	locations	to	vary	from	one
+execution	of	a	program	to	another.	The	allocation	range	
+n
+	needs	to	be
+large	enough	to	get	sufficient	variations	in	the	stack	addresses,	yet	small
+enough	that	it	does	not	waste	too	much	space	in	the	program.
+The	following	code	shows	a	simple	way	to	determine	a	"typical"	stack
+address:
+
+This	code	simply	prints	the	address	of	a	local	variable	in	the	main
+function.	Running	the	code	10,000	times	on	a	Linux	machine	in	32-bit
+mode,	the	addresses	ranged	from	
+	to	
+,	a	range	of
+around	2
+.	Running	in	64-bit	mode	on	the	newer	machine,	the	addresses
+ranged	from	
+	to	
+,	a	range	of	nearly	2
+.
+Stack	randomization	has	become	standard	practice	in	Linux	systems.	It	is
+one	of	a	larger	class	of	techniques	known	as	
+address-space	layout
+randomization
+,	or	ASLR	
+[99]
+.	With	ASLR,	different	parts	of	the	program,
+including	program	code,	library	code,	stack,	global	variables,	and	heap
+data,	are	loaded	into	different	
+regions	of	memory	each	time	a	program	is
+run.	That	means	that	a	program	running	on	one	machine	will	have	very
+different	address	mappings	than	the	same	program	running	on	other
+machines.	This	can	thwart	some	forms	of	attack.
+Overall,	however,	a	persistent	attacker	can	overcome	randomization	by
+brute	force,	repeatedly	attempting	attacks	with	different	addresses.	A
+common	trick	is	to	include	a	long	sequence	of	
+	(pronounced	"no	op,"
+short	for	"no	operation")	instructions	before	the	actual	exploit	code.
+Executing	this	instruction	has	no	effect,	other	than	incrementing	the
+program	counter	to	the	next	instruction.	As	long	as	the	attacker	can
+guess	an	address	somewhere	within	this	sequence,	the	program	will	run
+through	the	sequence	and	then	hit	the	exploit	code.	The	common	term
+for	this	sequence	is	a	"nop	sled"	
+[97]
+,	expressing	the	idea	that	the
+program	"slides"	through	the	sequence.	If	we	set	up	a	256-byte	nop	sled,
+then	the	randomization	over	
+n
+	=	2
+	can	be	cracked	by	enumerating	2
+	=
+32,768	starting	addresses,	which	is	entirely	feasible	for	a	determined
+attacker.	For	the	64-bit	case,	trying	to	enumerate	2
+	=	16,777,216	is	a	bit
+more	daunting.	We	can	see	that	stack	randomization	and	other	aspects
+23
+32
+23
+15
+24
+
+of	ASLR	can	increase	the	effort	required	to	successfully	attack	a	system,
+and	therefore	greatly	reduce	the	rate	at	which	a	virus	or	worm	can
+spread,	but	it	cannot	provide	a	complete	safeguard.
+Practice	Problem	
+3.47	
+(solution	page	
+347
+)
+Running	our	stack-checking	code	10,000	times	on	a	system
+running	Linux	version	2.6.16,	we	obtained	addresses	ranging	from
+a	minimum	of	
+	to	a	maximum	of	
+.
+A
+.	
+What	is	the	approximate	range	of	addresses?
+B
+.	
+If	we	attempted	a	buffer	overrun	with	a	128-byte	nop	sled,
+about	how	many	attempts	would	it	take	to	test	all	starting
+addresses?
+Stack	Corruption	Detection
+A	second	line	of	defense	is	to	be	able	to	detect	when	a	stack	has	been
+corrupted.	We	saw	in	the	example	of	the	echo	function	(
+Figure	
+3.40
+)
+that	the	corruption	typically	occurs	when	the	program	overruns	the
+bounds	of	a	local	buffer.	In	C,	there	is	no	reliable	way	to	prevent	writing
+beyond	the	bounds	of	an	array.	Instead,	the	program	can	attempt	to
+detect	when	such	a	write	has	occurred	before	it	can	have	any	harmful
+effects.
+Recent	versions	of	
+GCC
+	
+incorporate	a	mechanism	known	as	a	
+stack
+protector
+	into	the	generated	code	to	detect	buffer	overruns.	The	idea	is	to
+store	a	special	
+canary
+	value
+	in	the	stack	frame	between	any	local	buffer
+and	the	rest	of	the	stack	state,	as	illustrated	in	
+Figure	
+3.42
+	
+[26,
+	
+97]
+.
+4
+
+This	canary	value,	also	referred	to	as	a	
+guard	value
+,	is	generated
+randomly	each	time	the	program	runs,	and	so	there	is	no
+4.	
+The	term	"canary"	refers	to	the	historic	use	of	these	birds	to	detect	the	presence	of	dangerous
+gases	in	coal	mines.
+Figure	
+3.42	
+Stack	organization	for	
+	function	with	stack	protector
+enabled.
+A	special	"canary"	value	is	positioned	between	array	
+	and	the	saved
+state.	The	code	checks	the	canary	value	to	determine	whether	or	not	the
+stack	state	has	been	corrupted.
+easy	way	for	an	attacker	to	determine	what	it	is.	Before	restoring	the
+register	state	and	returning	from	the	function,	the	program	checks	if	the
+canary	has	been	altered	by	some	operation	of	this	function	or	one	that	it
+has	called.	If	so,	the	program	aborts	with	an	error.
+Recent	versions	of	
+GCC
+	
+try	to	determine	whether	a	function	is	vulnerable
+to	a	stack	overflow	and	insert	this	type	of	overflow	detection
+automatically.	In	fact,	for	our	earlier	demonstration	of	stack	overflow,	we
+had	to	give	the	command-line	option	
+	to	prevent	
+GCC
+from	inserting	this	code.	Compiling	the	function	
+	without	this	option,
+and	hence	with	the	stack	protector	enabled,	gives	the	following	assembly
+code:
+
+We	see	that	this	version	of	the	function	retrieves	a	value	from	memory
+(line	3)	and	stores	it	on	the	stack	at	offset	8	from	
+,	just	beyond	the
+region	allocated	for	
+.	The	instruction	argument	
+	is	an	indication
+that	the	canary	value	is	read	from	memory	using	
+segmented	addressing
+,
+an	addressing	mechanism	that	dates	
+back	to	the	80286	and	is	seldom
+found	in	programs	running	on	modern	systems.	By	storing	the	canary	in	a
+special	segment,	it	can	be	marked	as	"read	only,"	so	that	an	attacker
+cannot	overwrite	the	stored	canary	value.	Before	restoring	the	register
+state	and	returning,	the	function	compares	the	value	stored	at	the	stack
+
+location	with	the	canary	value	(via	the	
+	instruction	on	line	11).	If	the
+two	are	identical,	the	
+	instruction	will	yield	zero,	and	the	function	will
+complete	in	the	normal	fashion.	A	nonzero	value	indicates	that	the	canary
+on	the	stack	has	been	modified,	and	so	the	code	will	call	an	error	routine.
+Stack	protection	does	a	good	job	of	preventing	a	buffer	overflow	attack
+from	corrupting	state	stored	on	the	program	stack.	It	incurs	only	a	small
+performance	penalty,	especially	because	
+GCC
+	
+only	inserts	it	when	there	is
+a	local	buffer	of	type	
+	in	the	function.	Of	course,	there	are	other	ways
+to	corrupt	the	state	of	an	executing	program,	but	reducing	the
+vulnerability	of	the	stack	thwarts	many	common	attack	strategies.
+Practice	Problem	
+3.48	
+(solution	page	
+347
+)
+The	functions	
+,	and	
+	provide	a	very	convoluted
+way	to	compute	the	number	of	decimal	digits	required	to	represent
+an	integer.	We	will	use	this	as	a	way	to	study	some	aspects	of	the
+GCC
+	
+stack	protector	facility.
+
+The	following	show	portions	of	the	code	for	
+,	compiled	both
+with	and	without	stack	protector:
+(a)	Without	protector
+(b)	With	protector
+
+A
+.	
+For	both	versions:	What	are	the	positions	in	the	stack	frame
+for	
+,	and	(when	present)	the	canary	value?
+B
+.	
+How	does	the	rearranged	ordering	of	the	local	variables	in
+the	protected	code	provide	greater	security	against	a	buffer
+overrun	attack?
+Limiting	Executable	Code	Regions
+A	final	step	is	to	eliminate	the	ability	of	an	attacker	to	insert	executable
+code	into	a	system.	One	method	is	to	limit	which	memory	regions	hold
+executable	code.	In	typical	programs,	only	the	portion	of	memory	holding
+the	code	generated	by	the	compiler	need	be	executable.	The	other
+portions	can	be	restricted	to	allow	just	reading	and	writing.	As	we	will	see
+in	
+Chapter	
+9
+,	the	virtual	memory	space	is	logically	divided	into	
+pages
+,
+typically	with	2,048	or	4,096	bytes	per	page.	The	hardware	supports
+different	forms	of	
+memory	protection
+,	indicating	the	forms	of	access
+allowed	by	both	user	programs	and	the	operating	system	kernel.	Many
+systems	allow	control	over	three	forms	of	access:	read	(reading	data
+from	memory),	write	(storing	data	into	memory),	and	execute	(treating	the
+memory	contents	as	machine-level	code).	Historically,	the	x86
+architecture	merged	the	read	and	execute	access	controls	into	a	single	1-
+bit	flag,	so	that	any	page	marked	as	readable	was	also	executable.	The
+stack	had	to	be	kept	both	readable	and	writable,	and	therefore	the	bytes
+
+on	the	stack	were	also	executable.	Various	schemes	were	implemented
+to	be	able	to	limit	some	pages	to	being	readable	but	not	executable,	but
+these	generally	introduced	significant	inefficiencies.
+More	recently,	AMD	introduced	an	NX	(for	"no-execute")	bit	into	the
+memory	protection	for	its	64-bit	processors,	separating	the	read	and
+execute	access	modes,	and	Intel	followed	suit.	With	this	feature,	the
+stack	can	be	marked	as	being	readable	and	writable,	but	not	executable,
+and	the	checking	of	whether	a	page	is	executable	is	performed	in
+hardware,	with	no	penalty	in	efficiency.
+Some	types	of	programs	require	the	ability	to	dynamically	generate	and
+execute	code.	For	example,	"just-in-time"	compilation	techniques
+dynamically	generate	code	for	programs	written	in	interpreted	languages,
+such	as	Java,	to	improve	execution	performance.	Whether	or	not	the	run-
+time	system	can	restrict	the	executable	code	to	just	that	part	generated
+by	the	compiler	in	creating	the	original	program	depends	on	the	language
+and	the	operating	system.
+The	techniques	we	have	outlined—randomization,	stack	protection,	and
+limiting	which	portions	of	memory	can	hold	executable	code—are	three	of
+the	most	common	mechanisms	used	to	minimize	the	vulnerability	of
+programs	to	buffer	overflow	attacks.	They	all	have	the	properties	that
+they	require	no	special	effort	on	the	part	of	the	programmer	and	incur
+very	little	or	no	performance	penalty.	Each	separately	reduces	the	level	of
+vulnerability,	and	in	combination	they	become	even	more	effective.
+Unfortunately,	there	are	still	ways	to	attack	computers	
+[85,
+	
+97]
+,	and	so
+worms	and	viruses	continue	to	compromise	the	integrity	of	many
+machines.
+
+3.10.5	
+Supporting	Variable-Size
+Stack	Frames
+We	have	examined	the	machine-level	code	for	a	variety	of	functions	so
+far,	but	they	all	have	the	property	that	the	compiler	can	determine	in
+advance	the	amount	of	space	that	must	be	allocated	for	their	stack
+frames.	Some	functions,	however,	require	a	variable	amount	of	local
+storage.	This	can	occur,	for	example,	when	the	function	calls	
+,	a
+standard	library	function	that	can	allocate	an	arbitrary	number	of	bytes	of
+storage	on	the	stack.	It	can	also	occur	when	the	code	declares	a	local
+array	of	variable	size.
+Although	the	information	presented	in	this	section	should	rightfully	be
+considered	an	aspect	of	how	procedures	are	implemented,	we	have
+deferred	the	presentation	to	this	point,	since	it	requires	an	understanding
+of	arrays	and	alignment.
+The	code	of	
+Figure	
+3.43(a)
+	gives	an	example	of	a	function	containing
+a	variable-size	array.	The	function	declares	local	array	
+	of	
+n
+	pointers,
+where	
+n
+	is	given	by	the	first	argument.	This	requires	allocating	8
+n
+	bytes
+on	the	stack,	where	the	value	of	
+n
+	may	vary	from	one	call	of	the	function
+to	another.	The	compiler	therefore	cannot	determine	how	much	space	it
+must	allocate	for	the	function's	stack	frame.	In	addition,	the	program
+generates	a	reference	to	the	address	of	local	variable	
+,	and	so	this
+variable	must	also	be	stored	on	the	stack.	During	execution,	the	program
+must	be	able	to	access	both	local	variable	
+	and	the	elements	of	array
+
+.	On	returning,	the	function	must	deallocate	the	stack	frame	and	set	the
+stack	pointer	to	the	position	of	the	stored	return	address.
+To	manage	a	variable-size	stack	frame,	x86-64	code	uses	register	
+to	serve	as	a	
+frame	pointer
+	(sometimes	referred	to	as	a	
+base	pointer
+,	and
+hence	the	letters	
+	in	
+).	When	using	a	frame	pointer,	the	stack
+frame	is	organized	as	shown	for	the	case	of	function	
+	in	
+Figure
+3.44
+.	We	see	that	the	code	must	save	the	previous	version	of	
+	on
+the	stack,	since	it	is	a	callee-saved	register.	It	then	keeps	
+	pointing	to
+this	position	throughout	the	execution	of	the	function,	and	it	references
+fixed-length	local	variables,	such	as	
+,	at	offsets	relative	to	
+(a)	C	code
+(b)	Portions	of	generated	assembly	code
+
+
+
+Figure	
+3.43	
+Function	requiring	the	use	of	a	frame	pointer.
+The	variable-size	array	implies	that	the	size	of	the	stack	frame	cannot	be
+determined	at	compile	time.
+Figure	
+3.44	
+Stack	frame	structure	for	function	
+.
+The	function	uses	register	
+	as	a	frame	pointer.	The	annotations
+along	the	right-hand	side	are	in	reference	to	Practice	
+Problem	
+3.49
+.
+Figure	
+3.43(b)
+	shows	portions	of	the	code	
+GCC
+	
+generates	for	function
+.	At	the	beginning	of	the	function,	we	see	code	that	sets	up	the
+stack	frame	and	allocates	space	for	array	
+.	The	code	starts	by	pushing
+the	current	value	of	
+	onto	the	stack	and	setting	
+	to	point	to	this
+stack	position	(lines	2–3).	Next,	it	allocates	16	bytes	on	the	stack,	the	first
+8	of	which	are	used	to	store	local	variable	
+,	and	the	second	8	of	which
+are	unused.	Then	it	allocates	space	for	array	
+	(lines	5–11).	The	details
+of	how	much	space	it	allocates	and	where	it	positions	
+	within	this	space
+
+are	explored	in	Practice	
+Problem	
+3.49
+.	Suffice	it	to	say	that	by	the
+time	the	program	reaches	line	11,	it	has	(1)	allocated	at	least	8
+n
+	bytes	on
+the	stack	and	(2)	positioned	array	
+	within	the	allocated	region	such	that
+at	least	8
+n
+	bytes	are	available	for	its	use.
+The	code	for	the	initialization	loop	shows	examples	of	how	local	variables
+	and	
+	are	referenced.	Line	13	shows	array	element	
+	being	set	to
+.	This	instruction	uses	the	value	in	register	
+	as	the	address	for	the
+start	of	
+.	We	can	see	instances	where	local	variable	
+	is	updated	(line
+15)	and	read	(line	17).	The	address	of	
+	is	given	by	reference	
+—
+that	is,	at	offset	-8	relative	to	the	frame	pointer.
+At	the	end	of	the	function,	the	frame	pointer	is	restored	to	its	previous
+value	using	the	
+	instruction	(line	20).	This	instruction	takes	no
+arguments.	It	is	equivalent	to	executing	the	following	two	instructions:
+That	is,	the	stack	pointer	is	first	set	to	the	position	of	the	saved	value	of
+,	and	then	this	value	is	popped	from	the	stack	into	
+.	This
+instruction	combination	has	the	effect	of	deallocating	the	entire	stack
+frame.
+In	earlier	versions	of	x86	code,	the	frame	pointer	was	used	with	every
+function	call.	With	x86-64	code,	it	is	used	only	in	cases	where	the	stack
+
+frame	may	be	of	variable	size,	as	is	the	case	for	function	
+.
+Historically,	most	compilers	used	frame	pointers	when	generating	IA32
+code.	Recent	versions	of	
+GCC
+	
+have	dropped	this	convention.	Observe	that
+it	is	acceptable	to	mix	code	that	uses	frame	pointers	with	code	that	does
+not,	as	long	as	all	functions	treat	
+	as	a	callee-saved	register.
+Practice	Problem	
+3.49	
+(solution	page	
+347
+)
+In	this	problem,	we	will	explore	the	logic	behind	the	code	in	lines
+5–11	of	
+Figure	
+3.43(b)
+,	where	space	is	allocated	for	variable-
+size	array	p.	As	the	annotations	of	the	code	indicate,	let	us	let	
+s
+denote	the	address	of	the	stack	pointer	after	executing	the	
+instruction	of	line	4.	This	instruction	allocates	the	space	for	local
+variable	i.	Let	
+s
+	denote	the	value	of	the	stack	pointer	after
+executing	the	
+	instruction	of	line	7.	This	instruction	allocates
+the	storage	for	local	array	
+.	Finally,	let	
+p
+	denote	the	value
+assigned	to	registers	
+	and	
+	in	the	instructions	of	lines	10–
+11.	Both	of	these	registers	are	used	to	reference	array	
+.
+The	right-hand	side	of	
+Figure	
+3.44
+	diagrams	the	positions	of	the
+locations	indicated	by	
+s
+,	
+s
+,	and	
+p
+.	It	also	shows	that	there	may	be
+an	offset	of	
+e
+	bytes	between	the	values	of	
+s
+	and	
+p
+.	This	space
+will	not	be	used.	There	may	also	be	an	offset	of	
+e
+	bytes	between
+the	end	of	array	
+	and	the	position	indicated	by	
+s
+.
+A
+.	
+Explain,	in	mathematical	terms,	the	logic	in	the	computation
+of	
+s
