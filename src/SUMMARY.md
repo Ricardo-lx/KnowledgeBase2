@@ -19,4 +19,5 @@
     - [Part9](./csapp/part9.md)
     - [Part10](./csapp/part10.md)
 
-- [midjourney](./combined_html_page.md)
+- [midjourney](./midjourney/combined_html_page.md)
+    - [MjPrompt](./midjourney/mjprompt.md)
